@@ -1,0 +1,11 @@
+node_modules
+**/node_modules
+**/*.md
+**/lib
+.venv/
+**/dist/
+**/.local/
+**/package.json
+!/package.json
+**/vs/
+!/docs/

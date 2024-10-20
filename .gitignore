@@ -1,0 +1,25 @@
+logs
+*.log
+node_modules/
+.venv/
+dist/
+out/
+coverage/
+site/
+dist-ssr
+.local/
+public/vs/
+public/monaco_latest_version
+.idea
+.DS_Store
+# glob patterns
+**/.local
+**/*.tgz
+**/node_modules/
+**/dist/
+**/public/vs/
+**/*.tsbuildinfo
+**/.stylelintcache
+**/.eslintcache
+**/*db
+**/coverage/

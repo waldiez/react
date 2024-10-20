@@ -1,0 +1,70 @@
+.flow-wrapper .agent-edge-view {
+  font-size: small;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 4px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-wrapper.light .agent-edge-view {
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.flow-wrapper.dark .agent-edge-view {
+  border: 1px solid #333;
+  background-color: #222;
+}
+
+.flow-wrapper .agent-edge-view .edge-data {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.flow-wrapper .agent-edge-view .edge-data .edge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.flow-wrapper .agent-edge-view .edge-data .edge-data-label,
+.flow-wrapper .agent-edge-view .edge-data .edge-label {
+  width: auto;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.flow-wrapper .agent-edge-view .group {
+  color: var(--group-manager-color);
+}
+
+.flow-wrapper .agent-edge-view .spacer {
+  flex: 1;
+}
+
+.flow-wrapper .agent-edge-view .edge-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flow-wrapper .agent-edge-view .edge-actions div {
+  z-index: 10000;
+  padding: 2px;
+}
+
+.flow-wrapper .clear-history-checkbox {
+  margin-top: 10px;
+}
+
+.flow-wrapper .edge-modal .modal-actions {
+  margin-top: 10px;
+}

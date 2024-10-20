@@ -1,0 +1,984 @@
+{
+  "$id": "https://github.com/waldiez/react/tree/v0.0.1/schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "storageId": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "const": "flow"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "viewport": {
+          "type": "object"
+        },
+        "agents": {
+          "type": "object",
+          "properties": {
+            "users": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieUserProxy"
+              }
+            },
+            "assistants": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieAssistant"
+              }
+            },
+            "managers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieGroupManager"
+              }
+            }
+          },
+          "required": ["users", "assistants", "managers"],
+          "additionalProperties": false
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WaldieModel"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WaldieSkill"
+          }
+        },
+        "chats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WaldieChat"
+          }
+        }
+      },
+      "required": ["nodes", "edges", "agents", "models", "skills", "chats"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["type", "name", "description", "tags", "requirements", "data"],
+  "additionalProperties": false,
+  "description": "Waldie Flow.",
+  "definitions": {
+    "WaldieUserProxy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "agent"
+        },
+        "agentType": {
+          "type": "string",
+          "const": "user"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "systemMessage": {
+              "type": ["string", "null"]
+            },
+            "humanInputMode": {
+              "$ref": "#/definitions/WaldieAgentHumanInputMode"
+            },
+            "maxTokens": {
+              "type": ["number", "null"]
+            },
+            "codeExecutionConfig": {
+              "$ref": "#/definitions/WaldieAgentCodeExecutionConfig"
+            },
+            "agentDefaultAutoReply": {
+              "type": ["string", "null"]
+            },
+            "maxConsecutiveAutoReply": {
+              "type": ["number", "null"]
+            },
+            "termination": {
+              "$ref": "#/definitions/WaldieAgentTerminationMessageCheck"
+            },
+            "teachability": {
+              "$ref": "#/definitions/WaldieAgentTeachability"
+            },
+            "modelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "skills": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieAgentLinkedSkill"
+              }
+            },
+            "nestedChats": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieAgentNestedChat"
+              }
+            }
+          },
+          "required": [
+            "systemMessage",
+            "humanInputMode",
+            "maxTokens",
+            "codeExecutionConfig",
+            "agentDefaultAutoReply",
+            "maxConsecutiveAutoReply",
+            "termination",
+            "teachability",
+            "modelIds",
+            "skills",
+            "nestedChats"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "agentType",
+        "name",
+        "description",
+        "tags",
+        "requirements",
+        "createdAt",
+        "updatedAt",
+        "data"
+      ],
+      "additionalProperties": false,
+      "description": "Waldie User Proxy Agent."
+    },
+    "WaldieAgentHumanInputMode": {
+      "type": "string",
+      "enum": ["ALWAYS", "NEVER", "TERMINATE"]
+    },
+    "WaldieAgentCodeExecutionConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/WaldieAgentCodeExecutionConfigDict"
+        },
+        {
+          "type": "boolean",
+          "const": false
+        }
+      ]
+    },
+    "WaldieAgentCodeExecutionConfigDict": {
+      "type": "object",
+      "properties": {
+        "workDir": {
+          "type": "string"
+        },
+        "useDocker": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "timeout": {
+          "type": "number"
+        },
+        "lastNMessages": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": "auto"
+            }
+          ]
+        },
+        "functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "WaldieAgentTerminationMessageCheck": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/WaldieAgentTypeTerminationTypeOption"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "criterion": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/WaldieAgentTerminationCriterionOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "methodContent": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["type", "keywords", "criterion", "methodContent"],
+      "additionalProperties": false
+    },
+    "WaldieAgentTypeTerminationTypeOption": {
+      "type": "string",
+      "enum": ["none", "keyword", "method"]
+    },
+    "WaldieAgentTerminationCriterionOption": {
+      "type": "string",
+      "enum": ["found", "ending", "exact"]
+    },
+    "WaldieAgentTeachability": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "verbosity": {
+          "type": "number",
+          "enum": [0, 1, 2, 3]
+        },
+        "resetDb": {
+          "type": "boolean"
+        },
+        "recallThreshold": {
+          "type": "number"
+        },
+        "maxMumRetrievals": {
+          "type": "number"
+        }
+      },
+      "required": ["enabled", "verbosity", "resetDb", "recallThreshold", "maxMumRetrievals"],
+      "additionalProperties": false
+    },
+    "WaldieAgentLinkedSkill": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "executorId": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "executorId"],
+      "additionalProperties": false
+    },
+    "WaldieAgentNestedChat": {
+      "type": "object",
+      "properties": {
+        "triggeredBy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "isReply": {
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "isReply"],
+            "additionalProperties": false
+          }
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "isReply": {
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "isReply"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["triggeredBy", "messages"],
+      "additionalProperties": false
+    },
+    "WaldieAssistant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "agent"
+        },
+        "agentType": {
+          "type": "string",
+          "const": "assistant"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "systemMessage": {
+              "type": ["string", "null"]
+            },
+            "humanInputMode": {
+              "$ref": "#/definitions/WaldieAgentHumanInputMode"
+            },
+            "maxTokens": {
+              "type": ["number", "null"]
+            },
+            "codeExecutionConfig": {
+              "$ref": "#/definitions/WaldieAgentCodeExecutionConfig"
+            },
+            "agentDefaultAutoReply": {
+              "type": ["string", "null"]
+            },
+            "maxConsecutiveAutoReply": {
+              "type": ["number", "null"]
+            },
+            "termination": {
+              "$ref": "#/definitions/WaldieAgentTerminationMessageCheck"
+            },
+            "teachability": {
+              "$ref": "#/definitions/WaldieAgentTeachability"
+            },
+            "modelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "skills": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieAgentLinkedSkill"
+              }
+            },
+            "nestedChats": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieAgentNestedChat"
+              }
+            }
+          },
+          "required": [
+            "systemMessage",
+            "humanInputMode",
+            "maxTokens",
+            "codeExecutionConfig",
+            "agentDefaultAutoReply",
+            "maxConsecutiveAutoReply",
+            "termination",
+            "teachability",
+            "modelIds",
+            "skills",
+            "nestedChats"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "agentType",
+        "name",
+        "description",
+        "tags",
+        "requirements",
+        "createdAt",
+        "updatedAt",
+        "data"
+      ],
+      "additionalProperties": false,
+      "description": "Waldie Assistant Agent."
+    },
+    "WaldieGroupManager": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "agent"
+        },
+        "agentType": {
+          "type": "string",
+          "const": "manager"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "systemMessage": {
+              "type": ["string", "null"]
+            },
+            "humanInputMode": {
+              "$ref": "#/definitions/WaldieAgentHumanInputMode"
+            },
+            "maxTokens": {
+              "type": ["number", "null"]
+            },
+            "codeExecutionConfig": {
+              "$ref": "#/definitions/WaldieAgentCodeExecutionConfig"
+            },
+            "agentDefaultAutoReply": {
+              "type": ["string", "null"]
+            },
+            "maxConsecutiveAutoReply": {
+              "type": ["number", "null"]
+            },
+            "termination": {
+              "$ref": "#/definitions/WaldieAgentTerminationMessageCheck"
+            },
+            "teachability": {
+              "$ref": "#/definitions/WaldieAgentTeachability"
+            },
+            "modelIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "skills": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WaldieAgentLinkedSkill"
+              }
+            },
+            "maxRound": {
+              "type": ["number", "null"]
+            },
+            "adminName": {
+              "type": ["string", "null"]
+            },
+            "speakers": {
+              "$ref": "#/definitions/WaldieWaldieGroupManagerSpeakers"
+            },
+            "enableClearHistory": {
+              "type": "boolean"
+            },
+            "sendIntroductions": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "systemMessage",
+            "humanInputMode",
+            "maxTokens",
+            "codeExecutionConfig",
+            "agentDefaultAutoReply",
+            "maxConsecutiveAutoReply",
+            "termination",
+            "teachability",
+            "modelIds",
+            "skills",
+            "maxRound",
+            "adminName",
+            "speakers"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "agentType",
+        "name",
+        "description",
+        "tags",
+        "requirements",
+        "createdAt",
+        "updatedAt",
+        "data"
+      ],
+      "additionalProperties": false,
+      "description": "Waldie Group Chat Manager Agent."
+    },
+    "WaldieWaldieGroupManagerSpeakers": {
+      "type": "object",
+      "properties": {
+        "selectionMethod": {
+          "$ref": "#/definitions/WaldieGroupManagerSpeakerSelectionMethodOption"
+        },
+        "selectionCustomMethod": {
+          "type": "string"
+        },
+        "maxRetriesForSelecting": {
+          "type": ["number", "null"]
+        },
+        "selectionMode": {
+          "$ref": "#/definitions/SpeakerSelectionMode"
+        },
+        "allowRepeat": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "allowedOrDisallowedTransitions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "transitionsType": {
+          "$ref": "#/definitions/SpeakerTransitionsType"
+        }
+      },
+      "required": [
+        "selectionMethod",
+        "selectionCustomMethod",
+        "maxRetriesForSelecting",
+        "selectionMode",
+        "allowRepeat",
+        "allowedOrDisallowedTransitions",
+        "transitionsType"
+      ],
+      "additionalProperties": false
+    },
+    "WaldieGroupManagerSpeakerSelectionMethodOption": {
+      "type": "string",
+      "enum": ["auto", "manual", "random", "round_robin", "custom"]
+    },
+    "SpeakerSelectionMode": {
+      "type": "string",
+      "enum": ["repeat", "transition"]
+    },
+    "SpeakerTransitionsType": {
+      "type": "string",
+      "enum": ["allowed", "disallowed"]
+    },
+    "WaldieModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "model"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "baseUrl": {
+              "type": ["string", "null"]
+            },
+            "apiKey": {
+              "type": ["string", "null"]
+            },
+            "apiType": {
+              "$ref": "#/definitions/WaldieModelAPIType"
+            },
+            "apiVersion": {
+              "type": ["string", "null"]
+            },
+            "temperature": {
+              "type": ["number", "null"]
+            },
+            "topP": {
+              "type": ["number", "null"]
+            },
+            "maxTokens": {
+              "type": ["number", "null"]
+            },
+            "defaultHeaders": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "price": {
+              "$ref": "#/definitions/WaldieModelPrice"
+            }
+          },
+          "required": [
+            "baseUrl",
+            "apiKey",
+            "apiType",
+            "apiVersion",
+            "temperature",
+            "topP",
+            "maxTokens",
+            "defaultHeaders",
+            "price"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": ["type", "name", "description", "tags", "requirements", "createdAt", "updatedAt", "data"],
+      "additionalProperties": false,
+      "description": "Waldie Model."
+    },
+    "WaldieModelAPIType": {
+      "type": "string",
+      "enum": ["openai", "azure", "google", "anthropic", "mistral", "groq", "together", "nim", "other"]
+    },
+    "WaldieModelPrice": {
+      "type": "object",
+      "properties": {
+        "promptPricePer1k": {
+          "type": ["number", "null"]
+        },
+        "completionTokenPricePer1k": {
+          "type": ["number", "null"]
+        }
+      },
+      "required": ["promptPricePer1k", "completionTokenPricePer1k"],
+      "additionalProperties": false
+    },
+    "WaldieSkill": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "skill"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string"
+            },
+            "secrets": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["content", "secrets"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["type", "name", "description", "tags", "requirements", "createdAt", "updatedAt", "data"],
+      "additionalProperties": false,
+      "description": "Waldie Skill."
+    },
+    "WaldieChat": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "position": {
+              "type": "number"
+            },
+            "order": {
+              "type": "number"
+            },
+            "clearHistory": {
+              "type": "boolean"
+            },
+            "message": {
+              "$ref": "#/definitions/IWaldieMessage"
+            },
+            "nestedChat": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/IWaldieMessage"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "reply": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/IWaldieMessage"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": ["message", "reply"],
+              "additionalProperties": false
+            },
+            "summary": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "$ref": "#/definitions/WaldieEdgeLlmSummaryMethod"
+                },
+                "prompt": {
+                  "type": "string"
+                },
+                "args": {
+                  "type": "object"
+                }
+              },
+              "required": ["method", "prompt", "args"],
+              "additionalProperties": false
+            },
+            "maxTurns": {
+              "type": ["number", "null"]
+            }
+          },
+          "required": [
+            "clearHistory",
+            "description",
+            "maxTurns",
+            "message",
+            "name",
+            "nestedChat",
+            "order",
+            "position",
+            "source",
+            "summary",
+            "target"
+          ]
+        }
+      },
+      "required": ["data"],
+      "additionalProperties": false,
+      "description": "Waldie Chat."
+    },
+    "IWaldieMessage": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/WaldieMessageType"
+        },
+        "use_carryover": {
+          "type": "boolean"
+        },
+        "content": {
+          "type": ["string", "null"]
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["type", "use_carryover", "content", "context"],
+      "additionalProperties": false,
+      "description": "Waldie Message.\n\nA generic message with a type and content.\n\nIf the type is not 'none', the content is a string. If the type is 'method', the content is the code of a method."
+    },
+    "WaldieMessageType": {
+      "type": "string",
+      "enum": ["string", "method", "rag_message_generator", "none"]
+    },
+    "WaldieEdgeLlmSummaryMethod": {
+      "type": ["string", "null"],
+      "enum": ["reflection_with_llm", "last_msg", null],
+      "description": "Waldie Edge Llm Summary Method."
+    }
+  }
+}

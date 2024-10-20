@@ -1,0 +1,51 @@
+.flow-wrapper .react-flow__panel {
+  margin-top: 10px !important;
+}
+
+.flow-wrapper .agent-node .react-flow__handle {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.flow-wrapper .agent-node .group-member-handle {
+  margin-left: 8px;
+  position: relative !important;
+  transform: unset !important;
+}
+
+.flow-wrapper .react-flow__panel button {
+  cursor: pointer;
+  border: none;
+}
+
+.flow-wrapper .agent-node.assistant .react-flow__handle {
+  background-color: var(--assistant-agent-color);
+}
+
+.flow-wrapper .agent-node.user .react-flow__handle {
+  background-color: var(--user-agent-color);
+}
+
+.flow-wrapper .agent-node.manager .react-flow__handle {
+  background-color: var(--group-manager-color);
+}
+
+.flow-wrapper .agent-node.rag_user .react-flow__handle {
+  background-color: var(--rag-user-color);
+}
+
+.flow-wrapper .agent-node.manager .react-flow__handle-right {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.flow-wrapper .rc-slider {
+  width: calc(100% - 20px);
+  margin: 0 10px;
+}
+
+.flow-wrapper.dark .rc-slider-rail {
+  background-color: #666;
+}

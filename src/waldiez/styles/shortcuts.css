@@ -1,0 +1,81 @@
+.flow-wrapper .currentColor {
+  color: currentcolor;
+}
+
+.flow-wrapper .hidden {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.flow-wrapper .full-width {
+  width: 100%;
+}
+
+.flow-wrapper .fill-available {
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+}
+
+.flow-wrapper .bold {
+  font-weight: bold;
+}
+
+.flow-wrapper .italic {
+  font-style: italic;
+}
+
+.flow-wrapper .flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-wrapper .flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flow-wrapper .flex-1 {
+  flex: 1;
+}
+
+.flow-wrapper .margin-10 {
+  margin: 10px;
+}
+
+.flow-wrapper .padding-10 {
+  padding: 10px;
+}
+
+.flow-wrapper .padding-left-10 {
+  padding-left: 10px;
+}
+
+.flow-wrapper .margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.flow-wrapper .margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.flow-wrapper .margin-left-10 {
+  margin-left: 10px;
+}
+
+.flow-wrapper .margin-right-10 {
+  margin-right: 10px;
+}
+
+.flow-wrapper .margin-top-10 {
+  margin-top: 10px;
+}
+
+.flow-wrapper .no-margin {
+  margin: 0;
+}
+
+.flow-wrapper .no-padding {
+  padding: 0;
+}

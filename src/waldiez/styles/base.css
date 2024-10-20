@@ -1,0 +1,61 @@
+:root {
+  --user-agent-color: #d86ecc;
+  --assistant-agent-color: #60af43;
+  --group-manager-color: #e97132;
+  --rag-user-color: #e34561;
+  --app-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+  --app-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+}
+
+.flow-wrapper {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  color-scheme: light dark;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.flow-wrapper *:focus {
+  outline: none;
+}
+
+.flow-wrapper input[type='file'] {
+  display: none;
+}
+
+.flow-wrapper .clickable {
+  cursor: pointer;
+}
+
+.flow-wrapper *[role='button'] {
+  cursor: pointer;
+}
+
+.flow-wrapper input,
+textarea {
+  border-radius: 5px;
+  font-size: unset;
+}
+
+.flow-wrapper .number-max-width {
+  max-width: 100px;
+}
+
+.flow-wrapper textarea {
+  font-family: unset;
+  min-height: 2rem;
+}
+
+.flow-wrapper input:disabled {
+  cursor: unset;
+  pointer-events: none;
+}
+
+.flow-wrapper button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.flow-wrapper .select {
+  margin-bottom: 10px;
+}
