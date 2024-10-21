@@ -26,13 +26,20 @@ const main = async () => {
   videoFiles.forEach(async file => {
     await fs.promises.unlink(path.resolve(videosDir, file));
   });
+  const srcFile = 'demo.webm';
+  const dotLocal = path.resolve(__dirname, '..', '.local');
+  await fs.promises.mkdir(dotLocal, { recursive: true });
+  const dstFile = path.resolve(dotLocal, 'demo.webm');
+  await fs.promises.copyFile(path.resolve(videosDir, srcFile), dstFile);
+  console.info('Video file copied to doc/demo.webm');
+  await fs.promises.rmdir(videosDir, { recursive: true });
   if (ffmpeg) {
     const src = 'demo.webm';
     const dst = 'demo.mp4';
     const cmd = `${ffmpeg} -y -hide_banner -loglevel error -i ${src} ${dst}`;
     console.info('Converting video to mp4...');
     console.info(`Running: ${cmd}`);
-    exec(cmd, { cwd: videosDir }, (error, stdout, stderr) => {
+    exec(cmd, { cwd: dotLocal }, (error, stdout, stderr) => {
       if (error) {
         console.error('Error converting video to mp4');
         console.error(error);
