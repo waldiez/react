@@ -1,5 +1,4 @@
 import assistantSvg from '@waldiez/assets/assistant.svg';
-import assistantHeadSvg from '@waldiez/assets/assistant_head.svg';
 import azure from '@waldiez/assets/logos/azure.svg';
 import anthropic from '@waldiez/assets/logos/claude.svg';
 import google from '@waldiez/assets/logos/gemini.svg';
@@ -9,9 +8,7 @@ import nim from '@waldiez/assets/logos/nim.svg';
 import openai from '@waldiez/assets/logos/openai.svg';
 import together from '@waldiez/assets/logos/together.svg';
 import managerSvg from '@waldiez/assets/manager.svg';
-import managerHeadSvg from '@waldiez/assets/manager_head.svg';
 import userSvg from '@waldiez/assets/user.svg';
-import userHeadSvg from '@waldiez/assets/user_head.svg';
 
 const __THEME_STORAGE_KEY = 'waldiez_theme';
 
@@ -38,12 +35,6 @@ export const AGENT_ICONS = {
   user: userSvg,
   assistant: assistantSvg,
   manager: managerSvg
-};
-
-export const AGENT_HEAD_ICONS = {
-  user: userHeadSvg,
-  assistant: assistantHeadSvg,
-  manager: managerHeadSvg
 };
 
 /**
