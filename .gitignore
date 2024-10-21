@@ -4,6 +4,7 @@ node_modules/
 .venv/
 dist/
 out/
+tests/browser/vieos/
 coverage/
 site/
 dist-ssr

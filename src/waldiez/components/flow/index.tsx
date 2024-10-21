@@ -23,7 +23,8 @@ export const WaldieFlow = (props: WaldieFlowProps) => {
   const { flowId, storageId, onRun, onChange, inputPrompt, onUserInput } = props;
   const store = useWaldieContext(selector);
   const { screenToFlowPosition, getIntersectingNodes } = useReactFlow();
-  const [isDark, setIsDark] = useState<boolean>(isDarkMode(flowId, storageId));
+  const darkTheme = isDarkMode(flowId, storageId);
+  const [isDark, setIsDark] = useState<boolean>(darkTheme);
   const [isModalOpen, setModalOpen] = useState(false);
   useEffect(() => {
     store.showNodes('agent');

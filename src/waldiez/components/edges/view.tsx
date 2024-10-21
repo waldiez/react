@@ -3,6 +3,7 @@ import { BaseEdge, EdgeLabelRenderer, getBezierPath } from '@xyflow/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaGear, FaPeopleGroup } from 'react-icons/fa6';
 import { GiNestEggs } from 'react-icons/gi';
+import { GoAlert } from 'react-icons/go';
 import { MdMessage } from 'react-icons/md';
 
 import { WaldieEdgeViewProps } from '@waldiez/components/edges/types';
@@ -99,7 +100,13 @@ export const WaldieEdgeView = (props: WaldieEdgeViewProps) => {
           <div className="agent-edge-view">
             <div className="edge-data">
               <div className="edge-header">
-                <div className="edge-position">{edgeNumber}</div>
+                <div className="edge-position">
+                  {edgeNumber === '0' ? (
+                    <GoAlert size={16} className="edge-position-warning-icon" />
+                  ) : (
+                    edgeNumber
+                  )}
+                </div>
                 <div className="edge-icon">{edgeIcon}</div>
               </div>
               <div className="edge-label" data-testid={`edge-${id}-label`}>
