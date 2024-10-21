@@ -28,9 +28,15 @@ export const WaldieNodeAgentManagerBodyView = (props: WaldieNodeAgentManagerBody
           {groupMembers.map(member => (
             <div key={member.id} className="group-member-entry" data-testid={`group-member-${member.id}`}>
               <div className="group-member-name">{member.data.label}</div>
-              <FaGear role="button" onClick={onOpenMemberModal.bind(null, member)} title="Edit member" />
+              <FaGear
+                role="button"
+                className="clickable"
+                onClick={onOpenMemberModal.bind(null, member)}
+                title="Edit member"
+              />
               <FaMinusCircle
                 role="button"
+                className="clickable"
                 onClick={onRemoveMember.bind(null, member)}
                 data-testid={`group-member-${member.id}-remove`}
                 title="Remove member"

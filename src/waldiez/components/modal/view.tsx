@@ -33,7 +33,7 @@ export const ModalView = (props: ModalViewProps) => {
           <div className="modal-header-actions">
             {hasMaximizeBtn && (
               <div
-                className="modal-fullscreen-btn"
+                className="modal-fullscreen-btn clickable"
                 role="button"
                 title={isFullScreen ? 'Minimize' : 'Maximize'}
                 onClick={onToggleFullScreen}
@@ -43,7 +43,7 @@ export const ModalView = (props: ModalViewProps) => {
             )}
             {hasCloseBtn && (
               <div
-                className="modal-close-btn"
+                className="modal-close-btn clickable"
                 role="button"
                 title="Close"
                 data-testid="modal-close-btn"

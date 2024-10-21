@@ -31,7 +31,7 @@ const main = async () => {
   await fs.promises.mkdir(dotLocal, { recursive: true });
   const dstFile = path.resolve(dotLocal, 'demo.webm');
   await fs.promises.copyFile(path.resolve(videosDir, srcFile), dstFile);
-  console.info('Video file copied to doc/demo.webm');
+  console.info('Video file copied to .local/demo.webm');
   await fs.promises.rmdir(videosDir, { recursive: true });
   if (ffmpeg) {
     const src = 'demo.webm';

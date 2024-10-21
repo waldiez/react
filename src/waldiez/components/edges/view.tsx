@@ -116,7 +116,7 @@ export const WaldieEdgeView = (props: WaldieEdgeViewProps) => {
               <div className="edge-actions">
                 <div
                   role="button"
-                  className="open-edge-modal"
+                  className="open-edge-modal clickable"
                   data-testid={`open-edge-modal-${id}`}
                   onClick={onOpenModal}
                 >
@@ -125,7 +125,7 @@ export const WaldieEdgeView = (props: WaldieEdgeViewProps) => {
                 <div
                   role="button"
                   onClick={onDelete}
-                  className="delete-edge"
+                  className="delete-edge clickable"
                   data-testid={`delete-edge-${id}`}
                 >
                   <FaTrashAlt />

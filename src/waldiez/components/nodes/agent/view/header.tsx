@@ -16,7 +16,7 @@ export const WaldieNodeAgentHeaderView = (props: WaldieNodeAgentHeaderViewProps)
   return (
     <div className="agent-header">
       <div className="agent-header-left">
-        <FaGear role="button" onClick={onOpenNodeModal} />
+        <FaGear role="button" className="clickable" onClick={onOpenNodeModal} />
         {data.agentType === 'rag_user' && <FaDatabase color={AGENT_COLORS.rag_user} />}
         <div className="agent-label" data-testid={`agent-header-label-${id}`}>
           {data.label}

@@ -33,6 +33,7 @@ export const WaldieNodeModelView = (props: WaldieNodeModelViewProps) => {
       <div className="model-header">
         <div
           role="button"
+          className="clickable"
           id={`open-node-modal-${modelId}`}
           data-testid={`open-node-modal-${modelId}`}
           onClick={onOpen}
@@ -53,6 +54,7 @@ export const WaldieNodeModelView = (props: WaldieNodeModelViewProps) => {
       <div className="model-footer" data-testid={`model-footer-${modelId}`}>
         <div
           role="button"
+          className="clickable"
           id={`delete-node-${modelId}`}
           data-testid={`delete-node-${modelId}`}
           onClick={onDelete}
@@ -61,6 +63,7 @@ export const WaldieNodeModelView = (props: WaldieNodeModelViewProps) => {
         </div>
         <div
           role="button"
+          className="clickable"
           id={`clone-node-${modelId}`}
           data-testid={`clone-node-${modelId}`}
           onClick={onClone}

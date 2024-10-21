@@ -44,7 +44,7 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <ul>
                 <li
-                  class="editor-nav-action"
+                  class="editor-nav-action clickable"
                   data-testid="edit-flow"
                   role="button"
                   title="Edit flow"
@@ -65,6 +65,7 @@ exports[`All > should render Waldiez components 1`] = `
                    Edit flow
                 </li>
                 <li
+                  class="clickable"
                   data-node-type="agent"
                   data-testid="show-agents"
                   role="button"
@@ -85,6 +86,7 @@ exports[`All > should render Waldiez components 1`] = `
                   Agents
                 </li>
                 <li
+                  class="clickable"
                   data-node-type="model"
                   data-testid="show-models"
                   role="button"
@@ -107,6 +109,7 @@ exports[`All > should render Waldiez components 1`] = `
                   Models
                 </li>
                 <li
+                  class="clickable"
                   data-node-type="skill"
                   data-testid="show-skills"
                   role="button"
@@ -202,6 +205,7 @@ exports[`All > should render Waldiez components 1`] = `
                   </label>
                 </li>
                 <li
+                  class="clickable"
                   data-testid="export-flow-test-flow"
                   role="button"
                   title="Export flow"
@@ -222,6 +226,7 @@ exports[`All > should render Waldiez components 1`] = `
                    Export
                 </li>
                 <li
+                  class="clickable"
                   data-testid="theme-toggle"
                   role="button"
                   title="Toggle theme"
@@ -529,7 +534,7 @@ exports[`All > should render Waldiez components 1`] = `
           >
             <ul>
               <li
-                class="editor-nav-action"
+                class="editor-nav-action clickable"
                 data-testid="edit-flow"
                 role="button"
                 title="Edit flow"
@@ -550,6 +555,7 @@ exports[`All > should render Waldiez components 1`] = `
                  Edit flow
               </li>
               <li
+                class="clickable"
                 data-node-type="agent"
                 data-testid="show-agents"
                 role="button"
@@ -570,6 +576,7 @@ exports[`All > should render Waldiez components 1`] = `
                 Agents
               </li>
               <li
+                class="clickable"
                 data-node-type="model"
                 data-testid="show-models"
                 role="button"
@@ -592,6 +599,7 @@ exports[`All > should render Waldiez components 1`] = `
                 Models
               </li>
               <li
+                class="clickable"
                 data-node-type="skill"
                 data-testid="show-skills"
                 role="button"
@@ -687,6 +695,7 @@ exports[`All > should render Waldiez components 1`] = `
                 </label>
               </li>
               <li
+                class="clickable"
                 data-testid="export-flow-test-flow"
                 role="button"
                 title="Export flow"
@@ -707,6 +716,7 @@ exports[`All > should render Waldiez components 1`] = `
                  Export
               </li>
               <li
+                class="clickable"
                 data-testid="theme-toggle"
                 role="button"
                 title="Toggle theme"
