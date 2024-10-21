@@ -68,3 +68,11 @@
 .flow-wrapper .edge-modal .modal-actions {
   margin-top: 10px;
 }
+
+.flow-wrapper.dark .edge-position-warning-icon {
+  fill: yellow;
+}
+
+.flow-wrapper.light .edge-position-warning-icon {
+  fill: red;
+}
