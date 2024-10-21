@@ -41,22 +41,40 @@ export const SideBarView = (props: SideBarViewProps) => {
         <ul>
           <li
             role="button"
-            className="editor-nav-action"
+            className="editor-nav-action clickable"
             data-testid="edit-flow"
             onClick={onEdit}
             title="Edit flow"
           >
             <FaEdit /> Edit flow
           </li>
-          <li role="button" data-node-type="agent" data-testid="show-agents" onClick={onShowAgents}>
+          <li
+            role="button"
+            className="clickable"
+            data-node-type="agent"
+            data-testid="show-agents"
+            onClick={onShowAgents}
+          >
             <FaRobot />
             Agents
           </li>
-          <li role="button" data-node-type="model" data-testid="show-models" onClick={onShowModels}>
+          <li
+            role="button"
+            className="clickable"
+            data-node-type="model"
+            data-testid="show-models"
+            onClick={onShowModels}
+          >
             <AiFillOpenAI />
             Models
           </li>
-          <li role="button" data-node-type="skill" data-testid="show-skills" onClick={onShowSkills}>
+          <li
+            role="button"
+            className="clickable"
+            data-node-type="skill"
+            data-testid="show-skills"
+            onClick={onShowSkills}
+          >
             <AiFillCode />
             Skills
           </li>
@@ -98,10 +116,22 @@ export const SideBarView = (props: SideBarViewProps) => {
               Import
             </label>
           </li>
-          <li role="button" onClick={onExport} title="Export flow" data-testid={`export-flow-${flowId}`}>
+          <li
+            role="button"
+            className="clickable"
+            onClick={onExport}
+            title="Export flow"
+            data-testid={`export-flow-${flowId}`}
+          >
             <FaFileExport /> Export
           </li>
-          <li role="button" data-testid="theme-toggle" onClick={onThemeToggle} title="Toggle theme">
+          <li
+            role="button"
+            className="clickable"
+            data-testid="theme-toggle"
+            onClick={onThemeToggle}
+            title="Toggle theme"
+          >
             {darkMode ? <FaSun /> : <FaMoon />}
             <div className="clickable">{darkMode ? 'Light' : 'Dark'} mode</div>
           </li>

@@ -27,10 +27,6 @@
   cursor: pointer;
 }
 
-.flow-wrapper *[role='button'] {
-  cursor: pointer;
-}
-
 .flow-wrapper input,
 textarea {
   border-radius: 5px;

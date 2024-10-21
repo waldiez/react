@@ -15,14 +15,14 @@ export const WaldieNodeAgentFooterView = (props: WaldieNodeAgentFooterViewProps)
           role="button"
           onClick={onDelete}
           title="Delete Agent"
-          className={'delete-agent no-margin no-padding'}
+          className={'delete-agent no-margin no-padding clickable'}
         />
         <div className="date-info">{renderDate(data.updatedAt)}</div>
         <FaCopy
           role="button"
           onClick={onClone}
           title="Clone Agent"
-          className={'clone-agent no-margin no-padding'}
+          className={'clone-agent no-margin no-padding clickable'}
         />
       </div>
     </div>

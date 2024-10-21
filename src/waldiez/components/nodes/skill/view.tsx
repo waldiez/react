@@ -31,6 +31,7 @@ export const WaldieNodeSkillView = (props: WaldieNodeSkillViewProps) => {
       <div className="skill-header">
         <div
           role="button"
+          className="clickable"
           id={`open-node-modal-${skillId}`}
           data-testid={`open-node-modal-${skillId}`}
           onClick={onOpen}
@@ -50,6 +51,7 @@ export const WaldieNodeSkillView = (props: WaldieNodeSkillViewProps) => {
       <div className="skill-footer" data-testid={`skill-footer-${skillId}`}>
         <div
           role="button"
+          className="clickable"
           id={`delete-node-${skillId}`}
           data-testid={`delete-node-${skillId}`}
           onClick={onDelete}
@@ -58,6 +60,7 @@ export const WaldieNodeSkillView = (props: WaldieNodeSkillViewProps) => {
         </div>
         <div
           role="button"
+          className="clickable"
           id={`clone-node-${skillId}`}
           data-testid={`clone-node-${skillId}`}
           onClick={onClone}
