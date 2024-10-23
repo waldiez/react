@@ -28,7 +28,7 @@
 ## Usage
 
 ```tsx
-import { Waldie } from '@waldiez';
+import { Waldiez } from '@waldiez';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -36,7 +36,7 @@ import ReactDOM from 'react-dom/client';
 const isProd = import.meta.env.PROD;
 
 // the actions should be handled by other components
-// that use `Waldie` as a child component
+// that use `Waldiez` as a child component
 
 /**
  *OnChange
@@ -145,7 +145,7 @@ const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
 const startApp = () => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <Waldie
+      <Waldiez
         monacoVsPath={vsPath}
         onUserInput={onUserInput}
         flowId="flow-0"
