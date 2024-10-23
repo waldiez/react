@@ -61,6 +61,7 @@
         "posttest:browser": "bun scripts/video.ts",
         "posttest:snapshots": "bun scripts/video.ts",
         "test:all": "bun run test:browser && bun run test:coverage",
+        "changelog": "bun scripts/changelog.ts",
         "all": "bun clean && bun forlint && bun schema && bun format && bun run test:all && bun run build && bun archive && bun docs"
     },
     "pre-commit": [
