@@ -1,4 +1,4 @@
-import { WaldieSourceEdge, WaldieSourceEdgeData } from '@waldiez/models';
+import { WaldiezSourceEdge, WaldiezSourceEdgeData } from '@waldiez/models';
 
 export const edgeDataJson = {
   source: 'sourceId',
@@ -108,7 +108,7 @@ export const summaryLastMsgJson = {
     optionKey: 'optionValue'
   }
 };
-export const waldieEdgeData: WaldieSourceEdgeData = {
+export const waldieEdgeData: WaldiezSourceEdgeData = {
   source: 'sourceId',
   target: 'targetId',
   name: 'edgeName',
@@ -151,7 +151,7 @@ export const waldieEdgeData: WaldieSourceEdgeData = {
   }
 };
 
-export const waldieEdgeSource = new WaldieSourceEdge({
+export const waldieEdgeSource = new WaldiezSourceEdge({
   id: 'edgeId',
   source: 'sourceId',
   target: 'targetId',

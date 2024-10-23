@@ -1,13 +1,13 @@
 import { XYPosition } from '@xyflow/react';
 
-import { WaldieSourceUserProxyOrAssistant } from '@waldiez/models/agents/common/userProxyOrAssistant';
-import { IWaldieSourceAssistant, WaldieNodeAssistant } from '@waldiez/models/types';
+import { WaldiezSourceUserProxyOrAssistant } from '@waldiez/models/agents/common/userProxyOrAssistant';
+import { IWaldiezSourceAssistant, WaldiezNodeAssistant } from '@waldiez/models/types';
 
-export class WaldieSourceAssistant
-  extends WaldieSourceUserProxyOrAssistant
-  implements IWaldieSourceAssistant
+export class WaldiezSourceAssistant
+  extends WaldiezSourceUserProxyOrAssistant
+  implements IWaldiezSourceAssistant
 {
-  asNode: (position?: XYPosition) => WaldieNodeAssistant = position => {
+  asNode: (position?: XYPosition) => WaldiezNodeAssistant = position => {
     const rootNode = super.asNode(position);
     return {
       ...rootNode,
@@ -16,6 +16,6 @@ export class WaldieSourceAssistant
         ...rootNode.data,
         agentType: 'assistant' as const
       }
-    } as WaldieNodeAssistant;
+    } as WaldiezNodeAssistant;
   };
 }

@@ -1,31 +1,31 @@
 import { SingleValue } from '@waldiez/components/inputs';
 import {
-  WaldieAgentLinkedSkill,
-  WaldieAgentNode,
-  WaldieAgentNodeData,
-  WaldieSkillNode
+  WaldiezAgentLinkedSkill,
+  WaldiezAgentNode,
+  WaldiezAgentNodeData,
+  WaldiezSkillNode
 } from '@waldiez/models';
 
 export type SkillsAgentConfigTabProps = {
   id: string;
-  data: WaldieAgentNodeData;
-  skills: WaldieSkillNode[];
-  agents: WaldieAgentNode[];
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezAgentNodeData;
+  skills: WaldiezSkillNode[];
+  agents: WaldiezAgentNode[];
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
 
 export type SkillsAgentConfigTabViewProps = {
   id: string;
-  skills: WaldieSkillNode[];
-  linkedSkills: WaldieAgentLinkedSkill[];
-  getSkillName: (linkedSkill: WaldieAgentLinkedSkill) => string;
-  getAgentName: (linkedSkill: WaldieAgentLinkedSkill) => string;
-  skillOptions: { label: string; value: WaldieSkillNode }[];
-  agentOptions: { label: string; value: WaldieAgentNode }[];
-  selectedSkill: { label: string; value: WaldieSkillNode } | null;
-  onSelectedSkillChange: (option: SingleValue<{ label: string; value: WaldieSkillNode }>) => void;
-  selectedExecutor: { label: string; value: WaldieAgentNode } | null;
-  onSelectedExecutorChange: (option: SingleValue<{ label: string; value: WaldieAgentNode }>) => void;
+  skills: WaldiezSkillNode[];
+  linkedSkills: WaldiezAgentLinkedSkill[];
+  getSkillName: (linkedSkill: WaldiezAgentLinkedSkill) => string;
+  getAgentName: (linkedSkill: WaldiezAgentLinkedSkill) => string;
+  skillOptions: { label: string; value: WaldiezSkillNode }[];
+  agentOptions: { label: string; value: WaldiezAgentNode }[];
+  selectedSkill: { label: string; value: WaldiezSkillNode } | null;
+  onSelectedSkillChange: (option: SingleValue<{ label: string; value: WaldiezSkillNode }>) => void;
+  selectedExecutor: { label: string; value: WaldiezAgentNode } | null;
+  onSelectedExecutorChange: (option: SingleValue<{ label: string; value: WaldiezAgentNode }>) => void;
   onAddSkill: () => void;
   onRemoveSkill: (index: number) => void;
 };

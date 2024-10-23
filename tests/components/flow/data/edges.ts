@@ -2,7 +2,7 @@ import { createdAt, edgesCount, updatedAt } from './common';
 
 import { Edge } from '@xyflow/react';
 
-import { WaldieEdgeLlmSummaryMethod, WaldieMessageType } from '@waldiez/models';
+import { WaldiezEdgeLlmSummaryMethod, WaldiezMessageType } from '@waldiez/models';
 
 const edges: Edge[] = [];
 for (let i = 0; i < edgesCount; i++) {
@@ -23,7 +23,7 @@ for (let i = 0; i < edgesCount; i++) {
       order: i,
       clearHistory: false,
       summary: {
-        method: 'last_msg' as WaldieEdgeLlmSummaryMethod,
+        method: 'last_msg' as WaldiezEdgeLlmSummaryMethod,
         prompt: 'Summarize the conversation',
         args: {
           'summary-arg-key': 'summary-arg-value'
@@ -31,7 +31,7 @@ for (let i = 0; i < edgesCount; i++) {
       },
       maxTurns: 2,
       message: {
-        type: 'string' as WaldieMessageType,
+        type: 'string' as WaldiezMessageType,
         content: 'Chat Message',
         context: {
           'context-key': 'context-value'
@@ -40,14 +40,14 @@ for (let i = 0; i < edgesCount; i++) {
       },
       nestedChat: {
         message: {
-          type: 'string' as WaldieMessageType,
+          type: 'string' as WaldiezMessageType,
           content: 'Nested Chat Message',
           context: {
             'nested-message-context-key': 'nested-message-context-value'
           }
         },
         reply: {
-          type: 'method' as WaldieMessageType,
+          type: 'method' as WaldiezMessageType,
           content: 'def custom_method(context):\n    return "Nested Chat Reply"',
           context: {
             'nested-reply-context-key': 'nested-reply-context-value'

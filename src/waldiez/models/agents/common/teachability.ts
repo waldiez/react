@@ -1,7 +1,7 @@
-import { WaldieAgentTeachability } from '@waldiez/models/types/agents';
+import { WaldiezAgentTeachability } from '@waldiez/models/types/agents';
 
 export class TeachabilityData {
-  data: WaldieAgentTeachability;
+  data: WaldiezAgentTeachability;
   constructor(
     enabled: boolean = false,
     verbosity: 0 | 1 | 2 | 3 = 0,

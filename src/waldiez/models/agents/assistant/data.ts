@@ -1,37 +1,37 @@
-import { WaldieSourceUserProxyOrAssistantData } from '@waldiez/models/agents/common/userProxyOrAssistant';
+import { WaldiezSourceUserProxyOrAssistantData } from '@waldiez/models/agents/common/userProxyOrAssistant';
 import {
-  IWaldieSourceAssistantData,
-  WaldieAgentCodeExecutionConfig,
-  WaldieAgentHumanInputMode,
-  WaldieAgentLinkedSkill,
-  WaldieAgentNestedChat,
-  WaldieAgentNodeType,
-  WaldieAgentTeachability,
-  WaldieAgentTerminationMessageCheck
+  IWaldiezSourceAssistantData,
+  WaldiezAgentCodeExecutionConfig,
+  WaldiezAgentHumanInputMode,
+  WaldiezAgentLinkedSkill,
+  WaldiezAgentNestedChat,
+  WaldiezAgentNodeType,
+  WaldiezAgentTeachability,
+  WaldiezAgentTerminationMessageCheck
 } from '@waldiez/models/types';
 
-export class WaldieSourceAssistantData
-  extends WaldieSourceUserProxyOrAssistantData
-  implements IWaldieSourceAssistantData
+export class WaldiezSourceAssistantData
+  extends WaldiezSourceUserProxyOrAssistantData
+  implements IWaldiezSourceAssistantData
 {
   agentType: 'user' | 'assistant';
 
   constructor(
     name: string = 'Assistant',
     systemMessage: string | null = null,
-    humanInputMode: WaldieAgentHumanInputMode = 'NEVER',
+    humanInputMode: WaldiezAgentHumanInputMode = 'NEVER',
     description: string = 'An assistant agent',
     maxTokens: number | null = null,
-    codeExecutionConfig: WaldieAgentCodeExecutionConfig = false,
+    codeExecutionConfig: WaldiezAgentCodeExecutionConfig = false,
     agentDefaultAutoReply: string | null = null,
     maxConsecutiveAutoReply: number | null = null,
-    termination: WaldieAgentTerminationMessageCheck = {
+    termination: WaldiezAgentTerminationMessageCheck = {
       type: 'none',
       keywords: [],
       criterion: null,
       methodContent: null
     },
-    teachability: WaldieAgentTeachability = {
+    teachability: WaldiezAgentTeachability = {
       enabled: false,
       verbosity: 0,
       resetDb: false,
@@ -39,12 +39,12 @@ export class WaldieSourceAssistantData
       maxMumRetrievals: 0
     },
     modelIds: string[] = [],
-    skills: WaldieAgentLinkedSkill[] = [],
+    skills: WaldiezAgentLinkedSkill[] = [],
     tags: string[] = [],
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
-    nestedChats: WaldieAgentNestedChat[] = []
+    nestedChats: WaldiezAgentNestedChat[] = []
   ) {
     super(
       name,
@@ -71,11 +71,11 @@ export class WaldieSourceAssistantData
 
   static fromJSON = (
     json: unknown,
-    _agentType: WaldieAgentNodeType,
+    _agentType: WaldiezAgentNodeType,
     name: string | null = null
-  ): WaldieSourceAssistantData => {
-    const data = WaldieSourceUserProxyOrAssistantData.fromJSON(json, 'assistant', name);
-    return new WaldieSourceAssistantData(
+  ): WaldiezSourceAssistantData => {
+    const data = WaldiezSourceUserProxyOrAssistantData.fromJSON(json, 'assistant', name);
+    return new WaldiezSourceAssistantData(
       data.name,
       data.systemMessage,
       data.humanInputMode,

@@ -1,14 +1,14 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieAgentNodeData, WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
 export type RagUserAgentConfigTabTextSplitProps = {
   id: string;
-  data: WaldieNodeRagUserData;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezNodeRagUserData;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
 export type RagUserAgentConfigTabTextSplitViewProps = {
   id: string;
-  data: WaldieNodeRagUserData;
+  data: WaldiezNodeRagUserData;
   onChunkTokenSizeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onContextMaxTokensChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChunkModeChange: (

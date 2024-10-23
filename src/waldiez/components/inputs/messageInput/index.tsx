@@ -1,6 +1,6 @@
 import { MessageInputProps } from '@waldiez/components/inputs/messageInput/types';
 import { MessageInputView } from '@waldiez/components/inputs/messageInput/view';
-import { WaldieMessage, WaldieMessageType } from '@waldiez/models';
+import { WaldiezMessage, WaldiezMessageType } from '@waldiez/models';
 
 export const MessageInput = (props: MessageInputProps) => {
   const {
@@ -19,7 +19,7 @@ export const MessageInput = (props: MessageInputProps) => {
     onRemoveContextEntry,
     onUpdateContextEntries
   } = props;
-  const handleEdgeMessageChange = (message: WaldieMessage) => {
+  const handleEdgeMessageChange = (message: WaldiezMessage) => {
     onMessageChange(message);
   };
   const handleAddContextEntry = (key: string, value: string) => {
@@ -104,7 +104,7 @@ export const MessageInput = (props: MessageInputProps) => {
 
 const messageTypeOptions: {
   label: string;
-  value: WaldieMessageType;
+  value: WaldiezMessageType;
 }[] = [
   { label: 'None', value: 'none' },
   { label: 'Text', value: 'string' },

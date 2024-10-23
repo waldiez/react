@@ -1,6 +1,6 @@
 import { Edge, Node } from '@xyflow/react';
 
-import { WaldieAgentNodeType, WaldieSourceEdgeData } from '@waldiez/models';
+import { WaldiezAgentNodeType, WaldiezSourceEdgeData } from '@waldiez/models';
 import { edgeCommonStyle } from '@waldiez/store/edges/utils';
 import { AGENT_COLORS } from '@waldiez/theme';
 
@@ -32,8 +32,8 @@ export const getFlowChats = (edges: Edge[], nodes: Node[], data: { [key: string]
 const _getEdgeType = (
   element: any,
   edge: Edge,
-  edgeData: WaldieSourceEdgeData,
-  sourceAgentType: WaldieAgentNodeType
+  edgeData: WaldiezSourceEdgeData,
+  sourceAgentType: WaldiezAgentNodeType
 ) => {
   let edgeType = 'chat';
   if ('type' in element && typeof element.type === 'string' && VALID_CHAT_TYPES.includes(element.type)) {
@@ -53,8 +53,8 @@ const _getEdgeType = (
 };
 
 const _updateFlowEdge = (element: any, index: number, sourceNode: Node, edge: Edge) => {
-  const edgeData = WaldieSourceEdgeData.fromJSON(element.data, index);
-  const sourceAgentType = sourceNode.data.agentType as WaldieAgentNodeType;
+  const edgeData = WaldiezSourceEdgeData.fromJSON(element.data, index);
+  const sourceAgentType = sourceNode.data.agentType as WaldiezAgentNodeType;
   const chatType = _getEdgeType(element, edge, edgeData, sourceAgentType);
   const color = AGENT_COLORS[sourceAgentType];
   edge.type = chatType;

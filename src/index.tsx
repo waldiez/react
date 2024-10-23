@@ -1,5 +1,5 @@
 import './index.css';
-import { Waldie } from '@waldiez';
+import { Waldiez } from '@waldiez';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -116,7 +116,7 @@ const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
 export const startApp = () => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <Waldie
+      <Waldiez
         monacoVsPath={vsPath}
         onUserInput={onUserInput}
         flowId="flow-0"

@@ -1,6 +1,6 @@
-import { WaldieModelAPIType } from '@waldiez/models';
+import { WaldiezModelAPIType } from '@waldiez/models';
 
-export const apiTypeOptions: { label: string; value: WaldieModelAPIType }[] = [
+export const apiTypeOptions: { label: string; value: WaldiezModelAPIType }[] = [
   { label: 'OpenAI', value: 'openai' },
   { label: 'Azure', value: 'azure' },
   { label: 'Gemini', value: 'google' },
@@ -23,7 +23,7 @@ export const apiKeyEnvs = {
   nim: 'NIM_API_KEY',
   other: 'OPENAI_API_KEY'
 };
-export const baseUrlsMapping: Record<WaldieModelAPIType, string> = {
+export const baseUrlsMapping: Record<WaldiezModelAPIType, string> = {
   openai: 'https://api.openai.com/v1',
   google: 'https://generativelanguage.googleapis.com/v1beta',
   anthropic: 'https://api.anthropic.com/v1',

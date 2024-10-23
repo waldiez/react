@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 
 import { SkillsAgentConfigTabProps } from '@waldiez/components/nodes/agent/modal/tabs/skills/types';
 import { SkillsAgentConfigTabView } from '@waldiez/components/nodes/agent/modal/tabs/skills/view';
-import { WaldieAgentLinkedSkill, WaldieAgentNode, WaldieSkillNode } from '@waldiez/models';
+import { WaldiezAgentLinkedSkill, WaldiezAgentNode, WaldiezSkillNode } from '@waldiez/models';
 
 export const SkillsAgentConfigTab = (props: SkillsAgentConfigTabProps) => {
   const { id, data, skills, agents, onDataChange } = props;
   const [selectedSkill, setSelectedSkill] = useState<{
     label: string;
-    value: WaldieSkillNode;
+    value: WaldiezSkillNode;
   } | null>(null);
   const [selectedExecutor, setSelectedExecutor] = useState<{
     label: string;
-    value: WaldieAgentNode;
+    value: WaldiezAgentNode;
   } | null>(null);
   const currentSkills = data.skills;
   useEffect(() => {
@@ -23,26 +23,26 @@ export const SkillsAgentConfigTab = (props: SkillsAgentConfigTabProps) => {
       onDataChange({ skills: newSkills }, true);
     }
   }, [data.skills]);
-  const skillOptions: { label: string; value: WaldieSkillNode }[] = skills.map(skill => {
+  const skillOptions: { label: string; value: WaldiezSkillNode }[] = skills.map(skill => {
     return {
       label: (skill.data.label as string) ?? 'Unknown skill',
       value: skill
     };
   });
-  const agentOptions: { label: string; value: WaldieAgentNode }[] = agents.map(agent => {
+  const agentOptions: { label: string; value: WaldiezAgentNode }[] = agents.map(agent => {
     return {
       label: (agent.data.label as string) ?? 'Unknown Agent',
       value: agent
     };
   });
-  const getSkillName = (linkedSkill: WaldieAgentLinkedSkill) => {
+  const getSkillName = (linkedSkill: WaldiezAgentLinkedSkill) => {
     const skillFound = skills.find(skill => skill.id === linkedSkill.id);
     if (!skillFound) {
       return 'Unknown skill';
     }
     return skillFound.data.label as string;
   };
-  const getAgentName = (linkedSkill: WaldieAgentLinkedSkill) => {
+  const getAgentName = (linkedSkill: WaldiezAgentLinkedSkill) => {
     const agentFound = agents.find(agent => agent.id === linkedSkill.executorId);
     if (!agentFound) {
       return 'Unknown Agent';

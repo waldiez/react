@@ -1,10 +1,10 @@
 import { Edge } from '@xyflow/react';
 
-import { WaldieAgentNestedChat } from '@waldiez/models';
+import { WaldiezAgentNestedChat } from '@waldiez/models';
 
-export const getAgentNestedChats = (elementData: any, flowEdges: Edge[]): WaldieAgentNestedChat[] => {
-  const nestedChats: WaldieAgentNestedChat[] = elementData.nestedChats;
-  const newNestedChats: WaldieAgentNestedChat[] = [];
+export const getAgentNestedChats = (elementData: any, flowEdges: Edge[]): WaldiezAgentNestedChat[] => {
+  const nestedChats: WaldiezAgentNestedChat[] = elementData.nestedChats;
+  const newNestedChats: WaldiezAgentNestedChat[] = [];
   nestedChats.forEach(nestedChat => {
     let chatTriggers = [...nestedChat.triggeredBy];
     let chatMessages = [...nestedChat.messages];

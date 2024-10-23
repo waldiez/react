@@ -1,7 +1,7 @@
-import { WaldieFlowModalBasicTabViewProps } from '@waldiez/components/flow/modal/tabs/basic/types';
+import { WaldiezFlowModalBasicTabViewProps } from '@waldiez/components/flow/modal/tabs/basic/types';
 import { Select } from '@waldiez/components/inputs';
 
-export const WaldieFlowModalBasicTabView = (props: WaldieFlowModalBasicTabViewProps) => {
+export const WaldiezFlowModalBasicTabView = (props: WaldiezFlowModalBasicTabViewProps) => {
   const {
     flowId,
     name,

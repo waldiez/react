@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { EditFlowModalProps, FlowModalData } from '@waldiez/components/flow/modal/types';
 import { EditFlowModalView } from '@waldiez/components/flow/modal/view';
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieEdge } from '@waldiez/models';
-import { useWaldieContext } from '@waldiez/store';
+import { WaldiezEdge } from '@waldiez/models';
+import { useWaldiezContext } from '@waldiez/store';
 
 export const FlowModal = (props: EditFlowModalProps) => {
   const { flowId, data, isOpen, onSubmit, onDiscard } = props;
@@ -15,12 +15,12 @@ export const FlowModal = (props: EditFlowModalProps) => {
     requirements,
     tags
   });
-  const [selectedNewEdge, setSelectedNewEdge] = useState<WaldieEdge | null>(null);
-  const getFlowEdges = useWaldieContext(selector => selector.getFlowEdges);
+  const [selectedNewEdge, setSelectedNewEdge] = useState<WaldiezEdge | null>(null);
+  const getFlowEdges = useWaldiezContext(selector => selector.getFlowEdges);
   const [sortedEdges, remainingEdges] = getFlowEdges();
   // tmp state (to save onSubmit, discard onCancel)
-  const [sortedEdgesState, setSortedEdgesState] = useState<WaldieEdge[]>(sortedEdges);
-  const [remainingEdgesState, setRemainingEdgeState] = useState<WaldieEdge[]>(remainingEdges);
+  const [sortedEdgesState, setSortedEdgesState] = useState<WaldiezEdge[]>(sortedEdges);
+  const [remainingEdgesState, setRemainingEdgeState] = useState<WaldiezEdge[]>(remainingEdges);
   useEffect(() => {
     setFlowData({ name, description, requirements, tags });
   }, [name, description, requirements, tags, isOpen]);
@@ -60,7 +60,7 @@ export const FlowModal = (props: EditFlowModalProps) => {
   const onDataChange = (partialData: Partial<FlowModalData>) => {
     setFlowData({ ...flowData, ...partialData });
   };
-  const onSelectedNewEdgeChange = (option: SingleValue<{ label: string; value: WaldieEdge }>) => {
+  const onSelectedNewEdgeChange = (option: SingleValue<{ label: string; value: WaldiezEdge }>) => {
     if (option) {
       setSelectedNewEdge(option.value);
     }
@@ -95,7 +95,7 @@ export const FlowModal = (props: EditFlowModalProps) => {
     setRemainingEdgeState(remainingEdgesState.filter(e => e.id !== selectedNewEdge.id));
     setSelectedNewEdge(null);
   };
-  const onRemoveEdge = (edge: WaldieEdge) => {
+  const onRemoveEdge = (edge: WaldiezEdge) => {
     // avoid having zero edges/chats in the flow
     if (sortedEdgesState.length === 1) {
       return;
@@ -123,11 +123,11 @@ export const FlowModal = (props: EditFlowModalProps) => {
     newSortedEdges[index - 1] = {
       ...currentEdge,
       data: { ...currentEdge.data, order: previousOrder }
-    } as WaldieEdge;
+    } as WaldiezEdge;
     newSortedEdges[index] = {
       ...previousEdge,
       data: { ...previousEdge.data, order: currentOrder }
-    } as WaldieEdge;
+    } as WaldiezEdge;
     setSortedEdgesState(newSortedEdges);
   };
   const onMoveEdgeDown = (index: number) => {
@@ -144,11 +144,11 @@ export const FlowModal = (props: EditFlowModalProps) => {
     newSortedEdges[index + 1] = {
       ...currentEdge,
       data: { ...currentEdge.data, order: nextOrder }
-    } as WaldieEdge;
+    } as WaldiezEdge;
     newSortedEdges[index] = {
       ...nextEdge,
       data: { ...nextEdge.data, order: currentOrder }
-    } as WaldieEdge;
+    } as WaldiezEdge;
     setSortedEdgesState(newSortedEdges);
   };
   return (

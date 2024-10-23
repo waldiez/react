@@ -1,5 +1,5 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieEdge } from '@waldiez/models';
+import { WaldiezEdge } from '@waldiez/models';
 
 export * from '@waldiez/components/flow/modal/tabs/types';
 export type FlowModalData = {
@@ -31,12 +31,12 @@ export type EditFlowModalViewProps = {
   onClose: () => void;
   onDataChange: (data: Partial<FlowModalData>) => void;
   // order
-  remainingEdges: WaldieEdge[];
-  sortedEdges: WaldieEdge[];
-  selectedNewEdge: WaldieEdge | null;
-  onSelectedNewEdgeChange: (option: SingleValue<{ label: string; value: WaldieEdge }>) => void;
+  remainingEdges: WaldiezEdge[];
+  sortedEdges: WaldiezEdge[];
+  selectedNewEdge: WaldiezEdge | null;
+  onSelectedNewEdgeChange: (option: SingleValue<{ label: string; value: WaldiezEdge }>) => void;
   onAddEdge: () => void;
-  onRemoveEdge: (edge: WaldieEdge) => void;
+  onRemoveEdge: (edge: WaldiezEdge) => void;
   onMoveEdgeUp: (index: number) => void;
   onMoveEdgeDown: (index: number) => void;
   onSubmit: () => void;

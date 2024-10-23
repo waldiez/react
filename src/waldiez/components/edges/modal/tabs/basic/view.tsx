@@ -1,8 +1,8 @@
-import { WaldieEdgeBasicTabViewProps } from '@waldiez/components/edges/modal/tabs/basic/types';
+import { WaldiezEdgeBasicTabViewProps } from '@waldiez/components/edges/modal/tabs/basic/types';
 import { InfoLabel, NumberInput, Select } from '@waldiez/components/inputs';
-import { WaldieEdgeLlmSummaryMethod, WaldieEdgeType } from '@waldiez/models';
+import { WaldiezEdgeLlmSummaryMethod, WaldiezEdgeType } from '@waldiez/models';
 
-export const WaldieEdgeBasicTabView = (props: WaldieEdgeBasicTabViewProps) => {
+export const WaldiezEdgeBasicTabView = (props: WaldiezEdgeBasicTabViewProps) => {
   const {
     data,
     edgeId,
@@ -30,7 +30,7 @@ export const WaldieEdgeBasicTabView = (props: WaldieEdgeBasicTabViewProps) => {
   const chatTypeLabel = edgeTypeOptions.find(option => option.value === edgeType)?.label as string;
   const currentSelectedChatType = {
     label: chatTypeLabel,
-    value: edgeType as WaldieEdgeType
+    value: edgeType as WaldiezEdgeType
   };
   return (
     <div className="flex-column">
@@ -134,7 +134,7 @@ const summaryRoleOptions = [
 ];
 const summaryOptions: {
   label: string;
-  value: WaldieEdgeLlmSummaryMethod;
+  value: WaldiezEdgeLlmSummaryMethod;
 }[] = [
   { label: 'None', value: null },
   { label: 'Reflection with LLM', value: 'reflection_with_llm' },
@@ -142,7 +142,7 @@ const summaryOptions: {
 ];
 const edgeTypeOptions: {
   label: string;
-  value: WaldieEdgeType;
+  value: WaldiezEdgeType;
 }[] = [
   { label: 'Chat', value: 'chat' },
   { label: 'Nested Chat', value: 'nested' }

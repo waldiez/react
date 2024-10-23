@@ -1,51 +1,51 @@
 import { Connection } from '@xyflow/react';
 
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeData,
-  WaldieAgentNodeType,
-  WaldieEdge,
-  WaldieModelNode,
-  WaldieSkillNode
+  WaldiezAgentNode,
+  WaldiezAgentNodeData,
+  WaldiezAgentNodeType,
+  WaldiezEdge,
+  WaldiezModelNode,
+  WaldiezSkillNode
 } from '@waldiez/types';
 
-export type WaldieNodeAgentFooterViewProps = {
+export type WaldiezNodeAgentFooterViewProps = {
   id: string;
   data: { updatedAt: string };
   onDelete: () => void;
   onClone: () => void;
 };
-export type WaldieNodeAgentHeaderViewProps = {
+export type WaldiezNodeAgentHeaderViewProps = {
   id: string;
-  data: WaldieAgentNodeData;
+  data: WaldiezAgentNodeData;
   onOpenNodeModal: () => void;
 };
-export type WaldieNodeAgentViewProps = {
+export type WaldiezNodeAgentViewProps = {
   id: string;
   flowId: string;
-  data: WaldieAgentNodeData;
+  data: WaldiezAgentNodeData;
   parentId: string | undefined;
-  edge: WaldieEdge | null;
+  edge: WaldiezEdge | null;
   isNodeModalOpen: boolean;
   isEdgeModalOpen: boolean;
   isDarkMode: boolean;
-  models: WaldieModelNode[];
-  skills: WaldieSkillNode[];
-  agents: WaldieAgentNode[];
-  currentGroupManager: WaldieAgentNode | null;
+  models: WaldiezModelNode[];
+  skills: WaldiezSkillNode[];
+  agents: WaldiezAgentNode[];
+  currentGroupManager: WaldiezAgentNode | null;
   agentConnections: {
     source: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
     target: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
   };
   uploadsEnabled: boolean;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
-  setCurrentGroupManager: (manager: WaldieAgentNode | null) => void;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
+  setCurrentGroupManager: (manager: WaldiezAgentNode | null) => void;
   onOpenNodeModal: () => void;
   onOpenEdgeModal: (event: React.MouseEvent) => void;
   onCloseNodeModal: () => void;
@@ -55,5 +55,5 @@ export type WaldieNodeAgentViewProps = {
   onEdgeConnection: (connection: Connection) => void;
   onCancel: () => void;
   onSubmit: (filesToUpload: File[]) => void;
-  onAgentTypeChange: (agentType: WaldieAgentNodeType) => void;
+  onAgentTypeChange: (agentType: WaldiezAgentNodeType) => void;
 };

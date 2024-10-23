@@ -1,6 +1,6 @@
-import { WaldieSkillNode } from '@waldiez/models';
+import { WaldiezSkillNode } from '@waldiez/models';
 
-export const exportSkill = (skill: WaldieSkillNode, replaceSecrets: boolean = true) => {
+export const exportSkill = (skill: WaldiezSkillNode, replaceSecrets: boolean = true) => {
   const secrets = { ...skill.data.secrets };
   if (replaceSecrets) {
     for (const key in secrets) {

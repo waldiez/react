@@ -2,53 +2,53 @@ import { Connection, NodeProps } from '@xyflow/react';
 
 import { useEffect, useState } from 'react';
 
-import { WaldieNodeAgentView } from '@waldiez/components/nodes/agent/view';
+import { WaldiezNodeAgentView } from '@waldiez/components/nodes/agent/view';
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeData,
-  WaldieAgentNodeType,
-  WaldieEdge,
-  WaldieModelNode,
-  WaldieNodeRagUserData,
-  WaldieNodeUserOrAssistantData,
-  WaldieSkillNode,
+  WaldiezAgentNode,
+  WaldiezAgentNodeData,
+  WaldiezAgentNodeType,
+  WaldiezEdge,
+  WaldiezModelNode,
+  WaldiezNodeRagUserData,
+  WaldiezNodeUserOrAssistantData,
+  WaldiezSkillNode,
   defaultRetrieveConfig
 } from '@waldiez/models';
-import { useWaldieContext } from '@waldiez/store';
+import { useWaldiezContext } from '@waldiez/store';
 import { isDarkMode } from '@waldiez/theme';
 
-export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNode>) => {
-  const updateAgentData = useWaldieContext(s => s.updateAgentData);
-  const addEdge = useWaldieContext(s => s.addEdge);
-  const cloneAgent = useWaldieContext(s => s.cloneAgent);
-  const getAgentById = useWaldieContext(s => s.getAgentById);
-  const getEdgeById = useWaldieContext(s => s.getEdgeById);
-  const uploadHandler = useWaldieContext(s => s.onUpload);
-  const deleteAgent = useWaldieContext(s => s.deleteAgent);
-  const getAgentConnections = useWaldieContext(s => s.getAgentConnections);
-  const removeGroupMember = useWaldieContext(s => s.removeGroupMember);
-  const addGroupMember = useWaldieContext(s => s.addGroupMember);
-  const changeGroup = useWaldieContext(s => s.changeGroup);
-  const updateEdgePath = useWaldieContext(s => s.updateEdgePath);
-  const reselectNode = useWaldieContext(s => s.reselectNode);
-  const getSkills = useWaldieContext(s => s.getSkills);
-  const getModels = useWaldieContext(s => s.getModels);
-  const getAgents = useWaldieContext(s => s.getAgents);
-  const flowId = useWaldieContext(s => s.flowId);
-  const storageId = useWaldieContext(s => s.storageId);
+export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentNode>) => {
+  const updateAgentData = useWaldiezContext(s => s.updateAgentData);
+  const addEdge = useWaldiezContext(s => s.addEdge);
+  const cloneAgent = useWaldiezContext(s => s.cloneAgent);
+  const getAgentById = useWaldiezContext(s => s.getAgentById);
+  const getEdgeById = useWaldiezContext(s => s.getEdgeById);
+  const uploadHandler = useWaldiezContext(s => s.onUpload);
+  const deleteAgent = useWaldiezContext(s => s.deleteAgent);
+  const getAgentConnections = useWaldiezContext(s => s.getAgentConnections);
+  const removeGroupMember = useWaldiezContext(s => s.removeGroupMember);
+  const addGroupMember = useWaldiezContext(s => s.addGroupMember);
+  const changeGroup = useWaldiezContext(s => s.changeGroup);
+  const updateEdgePath = useWaldiezContext(s => s.updateEdgePath);
+  const reselectNode = useWaldiezContext(s => s.reselectNode);
+  const getSkills = useWaldiezContext(s => s.getSkills);
+  const getModels = useWaldiezContext(s => s.getModels);
+  const getAgents = useWaldiezContext(s => s.getAgents);
+  const flowId = useWaldiezContext(s => s.flowId);
+  const storageId = useWaldiezContext(s => s.storageId);
   // tmp state, persist on submit, discard on cancel
-  const [agentData, setAgentData] = useState<WaldieAgentNodeData>({
+  const [agentData, setAgentData] = useState<WaldiezAgentNodeData>({
     ...data
   });
   const [isNodeModalOpen, setNodeModalOpen] = useState(false);
   const [isEdgeModalOpen, setEdgeModalOpen] = useState(false);
-  const [edge, setEdge] = useState<WaldieEdge | null>(null);
+  const [edge, setEdge] = useState<WaldiezEdge | null>(null);
   const currentStoredGroupManager = parentId ? getAgentById(parentId) : null;
-  const [currentGroupManager, setCurrentGroupManager] = useState<WaldieAgentNode | null>(
-    currentStoredGroupManager as WaldieAgentNode
+  const [currentGroupManager, setCurrentGroupManager] = useState<WaldiezAgentNode | null>(
+    currentStoredGroupManager as WaldiezAgentNode
   );
   useEffect(() => {
-    setCurrentGroupManager(parentId ? (getAgentById(parentId) as WaldieAgentNode) : null);
+    setCurrentGroupManager(parentId ? (getAgentById(parentId) as WaldiezAgentNode) : null);
   }, [parentId]);
   useEffect(() => {
     setAgentData({ ...data });
@@ -64,7 +64,7 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
       if (dataEdgeId) {
         const existingEdge = getEdgeById(dataEdgeId);
         if (existingEdge) {
-          setEdge(existingEdge as WaldieEdge);
+          setEdge(existingEdge as WaldiezEdge);
           setEdgeModalOpen(true);
         }
       }
@@ -77,23 +77,23 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
   const onEdgeConnection = (connection: Connection) => {
     if (!isNodeModalOpen) {
       const newEdge = addEdge(connection.source, connection.target, false);
-      setEdge(newEdge as WaldieEdge);
+      setEdge(newEdge as WaldiezEdge);
       // setEdgeModalOpen(true);
     }
   };
-  const setManagerState = (partialData: Partial<WaldieAgentNodeData>) => {
+  const setManagerState = (partialData: Partial<WaldiezAgentNodeData>) => {
     setAgentData({ ...agentData, ...partialData, nestedChats: [] });
   };
-  const setNoManagerState = (partialData: Partial<WaldieAgentNodeData>) => {
-    const newData = partialData as WaldieNodeUserOrAssistantData;
-    let nestedChats = (agentData as WaldieNodeUserOrAssistantData).nestedChats;
+  const setNoManagerState = (partialData: Partial<WaldiezAgentNodeData>) => {
+    const newData = partialData as WaldiezNodeUserOrAssistantData;
+    let nestedChats = (agentData as WaldiezNodeUserOrAssistantData).nestedChats;
     if (newData.nestedChats) {
       nestedChats = newData.nestedChats;
     }
     setAgentData({ ...agentData, ...newData, nestedChats });
   };
 
-  const setAgentState = (partialData: Partial<WaldieAgentNodeData>, persist: boolean = false) => {
+  const setAgentState = (partialData: Partial<WaldiezAgentNodeData>, persist: boolean = false) => {
     const isManager = agentData.agentType === 'manager';
     if (isManager) {
       setManagerState(partialData);
@@ -105,7 +105,7 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
     }
   };
   const toRagUser = () => {
-    // make sure data.retrieveConfig (WaldieRageUserRetrieveConfig) is set
+    // make sure data.retrieveConfig (WaldiezRageUserRetrieveConfig) is set
     const ragData = agentData as { [key: string]: any };
     ragData.agentType = 'rag_user';
     if (!ragData.retrieveConfig) {
@@ -129,7 +129,7 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
     });
   };
 
-  const onAgentTypeChange = (agentType: WaldieAgentNodeType) => {
+  const onAgentTypeChange = (agentType: WaldiezAgentNodeType) => {
     // rag_user | user only
     if (agentType === 'rag_user') {
       toRagUser();
@@ -146,7 +146,7 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
   const onCloseNodeModal = () => {
     setNodeModalOpen(false);
   };
-  const updateAgentConnections = (newAgentType: WaldieAgentNodeType) => {
+  const updateAgentConnections = (newAgentType: WaldiezAgentNodeType) => {
     const agentConnections = getAgentConnections(id, {
       sourcesOnly: true
     });
@@ -154,15 +154,15 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
       updateEdgePath(edge.id, newAgentType);
     });
   };
-  const onChangeToRagUser = (currentAgentData: WaldieAgentNodeData) => {
-    // make sure data.retrieveConfig (WaldieRageUserRetrieveConfig) is set
+  const onChangeToRagUser = (currentAgentData: WaldiezAgentNodeData) => {
+    // make sure data.retrieveConfig (WaldiezRageUserRetrieveConfig) is set
     const ragData = currentAgentData as { [key: string]: any };
     ragData.agentType = 'rag_user';
     if (!ragData.retrieveConfig) {
       ragData.retrieveConfig = defaultRetrieveConfig;
     }
   };
-  const onChangeToNoRagUser = (currentAgentData: WaldieAgentNodeData) => {
+  const onChangeToNoRagUser = (currentAgentData: WaldiezAgentNodeData) => {
     // remove retrieveConfig if it exists
     const noRagData = currentAgentData as { [key: string]: any };
     noRagData.agentType = 'user';
@@ -170,13 +170,13 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
       delete noRagData.retrieveConfig;
     }
   };
-  const handleAgentTypeChange = (newAgentType: WaldieAgentNodeType) => {
+  const handleAgentTypeChange = (newAgentType: WaldiezAgentNodeType) => {
     const agent = getAgentById(id);
     if (!agent) {
       return;
     }
     updateAgentConnections(newAgentType);
-    const currentAgentData = agent.data as WaldieAgentNodeData;
+    const currentAgentData = agent.data as WaldiezAgentNodeData;
     if (newAgentType === 'rag_user') {
       onChangeToRagUser(currentAgentData);
     } else {
@@ -189,7 +189,7 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
       return;
     }
     if (storedAgent.data) {
-      setAgentData({ ...(storedAgent.data as WaldieAgentNodeData) });
+      setAgentData({ ...(storedAgent.data as WaldiezAgentNodeData) });
     }
     setNodeModalOpen(false);
   };
@@ -206,7 +206,7 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
     }
     // update the group state
     if (!parentId && currentGroupManager) {
-      setCurrentGroupManager(getAgentById(currentGroupManager.id) as WaldieAgentNode);
+      setCurrentGroupManager(getAgentById(currentGroupManager.id) as WaldiezAgentNode);
     } else if (!currentGroupManager) {
       setCurrentGroupManager(null);
     }
@@ -228,7 +228,7 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
     const dataToSubmit = { ...agentData } as { [key: string]: any };
     if (agentData.agentType === 'rag_user' && filesToUpload.length > 0 && uploadHandler) {
       uploadHandler(filesToUpload).then(filePaths => {
-        const ragData = agentData as WaldieNodeRagUserData;
+        const ragData = agentData as WaldiezNodeRagUserData;
         const docsPath = ragData.retrieveConfig.docsPath;
         const newDocsPath = [...docsPath];
         for (let i = 0; i < filesToUpload.length; i++) {
@@ -250,19 +250,19 @@ export const WaldieNodeAgent = ({ id, data, parentId }: NodeProps<WaldieAgentNod
       return;
     }
     if (storedAgent.data) {
-      setAgentData({ ...(storedAgent.data as WaldieAgentNodeData) });
+      setAgentData({ ...(storedAgent.data as WaldiezAgentNodeData) });
     }
-    setCurrentGroupManager(parentId ? (getAgentById(parentId) as WaldieAgentNode) : null);
+    setCurrentGroupManager(parentId ? (getAgentById(parentId) as WaldiezAgentNode) : null);
     setNodeModalOpen(false);
   };
-  const skills = getSkills() as WaldieSkillNode[];
-  const models = getModels() as WaldieModelNode[];
-  const agents = getAgents() as WaldieAgentNode[];
+  const skills = getSkills() as WaldiezSkillNode[];
+  const models = getModels() as WaldiezModelNode[];
+  const agents = getAgents() as WaldiezAgentNode[];
   const agentConnections = getAgentConnections(id);
   const isDark = isDarkMode(flowId, storageId ?? flowId);
   const uploadsEnabled = uploadHandler !== null;
   return (
-    <WaldieNodeAgentView
+    <WaldiezNodeAgentView
       id={id}
       flowId={flowId}
       data={agentData}

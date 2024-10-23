@@ -1,13 +1,13 @@
 import { createdAt, ragUserJson, updatedAt } from './data';
 import { expectTypeOf } from 'vitest';
 
-import { WaldieSourceRagUser } from '@waldiez/models/agents/ragUser';
-import { WaldieSourceRagUserData } from '@waldiez/models/agents/ragUser/data';
+import { WaldiezSourceRagUser } from '@waldiez/models/agents/ragUser';
+import { WaldiezSourceRagUserData } from '@waldiez/models/agents/ragUser/data';
 import { defaultRetrieveConfig } from '@waldiez/models/agents/ragUser/retrieveConfig';
-import { WaldieNodeRagUser, WaldieNodeRagUserData } from '@waldiez/models/types/agents/waldieRagUserAgent';
+import { WaldiezNodeRagUser, WaldiezNodeRagUserData } from '@waldiez/models/types/agents/ragUser';
 
-describe('WaldieSourceRagUser', () => {
-  const waldieSourceRagUserData: WaldieSourceRagUserData = {
+describe('WaldiezSourceRagUser', () => {
+  const waldieSourceRagUserData: WaldiezSourceRagUserData = {
     name: 'Rag User',
     agentType: 'rag_user',
     systemMessage: null,
@@ -40,23 +40,23 @@ describe('WaldieSourceRagUser', () => {
     updatedAt
   };
 
-  const ragUser = new WaldieSourceRagUser('rag-user-id', waldieSourceRagUserData);
+  const ragUser = new WaldiezSourceRagUser('rag-user-id', waldieSourceRagUserData);
   const ragUserNode = ragUser.asNode();
 
   it('should create a new Rag User', () => {
-    expectTypeOf(ragUser).toEqualTypeOf<WaldieSourceRagUser>();
+    expectTypeOf(ragUser).toEqualTypeOf<WaldiezSourceRagUser>();
   });
 
   it('should have the correct agentType', () => {
     expect(ragUser.data.agentType).toBe('rag_user');
   });
 
-  it('should have node data of type WaldieSourceRagUserData', () => {
-    expectTypeOf(ragUserNode.data).toEqualTypeOf<WaldieNodeRagUserData>();
+  it('should have node data of type WaldiezSourceRagUserData', () => {
+    expectTypeOf(ragUserNode.data).toEqualTypeOf<WaldiezNodeRagUserData>();
   });
 
   it('should create a new Rag User node', () => {
-    expectTypeOf(ragUserNode).toEqualTypeOf<WaldieNodeRagUser>();
+    expectTypeOf(ragUserNode).toEqualTypeOf<WaldiezNodeRagUser>();
   });
 
   it('should have the correct node id', () => {
@@ -64,7 +64,7 @@ describe('WaldieSourceRagUser', () => {
   });
 
   it('should import a rag user from json', () => {
-    const ragUserFromJSON = WaldieSourceRagUser.fromJSON(ragUserJson);
+    const ragUserFromJSON = WaldiezSourceRagUser.fromJSON(ragUserJson);
     expect(ragUserFromJSON.data).toEqual(ragUserJson);
   });
 
@@ -73,13 +73,13 @@ describe('WaldieSourceRagUser', () => {
       ...ragUserJson,
       retrieveConfig: { invalid: 'config' }
     } as any;
-    let ragUserFromJSON = WaldieSourceRagUser.fromJSON(jsonWithRetrieveConfig);
+    let ragUserFromJSON = WaldiezSourceRagUser.fromJSON(jsonWithRetrieveConfig);
     expect(ragUserFromJSON.data.retrieveConfig).toEqual(defaultRetrieveConfig);
     jsonWithRetrieveConfig = {
       ...ragUserJson,
       retrieveConfig: undefined
     } as any;
-    ragUserFromJSON = WaldieSourceRagUser.fromJSON(jsonWithRetrieveConfig);
+    ragUserFromJSON = WaldiezSourceRagUser.fromJSON(jsonWithRetrieveConfig);
     expect(ragUserFromJSON.data.retrieveConfig).toEqual(defaultRetrieveConfig);
   });
   it('should import a rag user from json with partial retrieveConfig', () => {
@@ -95,7 +95,7 @@ describe('WaldieSourceRagUser', () => {
         }
       }
     } as any;
-    let ragUserFromJSON = WaldieSourceRagUser.fromJSON(jsonWithRetrieveConfig);
+    let ragUserFromJSON = WaldiezSourceRagUser.fromJSON(jsonWithRetrieveConfig);
     jsonWithRetrieveConfig = {
       ...ragUserJson,
       retrieveConfig: {
@@ -116,7 +116,7 @@ describe('WaldieSourceRagUser', () => {
         }
       }
     } as any;
-    ragUserFromJSON = WaldieSourceRagUser.fromJSON(jsonWithRetrieveConfig);
+    ragUserFromJSON = WaldiezSourceRagUser.fromJSON(jsonWithRetrieveConfig);
     expect(ragUserFromJSON.data.retrieveConfig).toEqual({
       ...defaultRetrieveConfig,
       n_results: 4,
@@ -138,23 +138,23 @@ describe('WaldieSourceRagUser', () => {
     });
   });
   it('should create new rag user data', () => {
-    const ragUserData = new WaldieSourceRagUserData();
-    expect(ragUserData).toBeInstanceOf(WaldieSourceRagUserData);
+    const ragUserData = new WaldiezSourceRagUserData();
+    expect(ragUserData).toBeInstanceOf(WaldiezSourceRagUserData);
   });
 
   it('should import rag user data from json', () => {
-    const ragUserData = WaldieSourceRagUserData.fromJSON(ragUserJson);
+    const ragUserData = WaldiezSourceRagUserData.fromJSON(ragUserJson);
     expect(ragUserData).toEqual(waldieSourceRagUserData);
   });
 
   it('should create a rag user with default values', () => {
-    const importedAgent = WaldieSourceRagUser.fromJSON(null);
-    expect(importedAgent).toBeInstanceOf(WaldieSourceRagUser);
+    const importedAgent = WaldiezSourceRagUser.fromJSON(null);
+    expect(importedAgent).toBeInstanceOf(WaldiezSourceRagUser);
   });
 
   it('should create rag user data with default values', () => {
-    const ragUserData = WaldieSourceRagUserData.fromJSON(null);
-    expect(ragUserData).toBeInstanceOf(WaldieSourceRagUserData);
+    const ragUserData = WaldiezSourceRagUserData.fromJSON(null);
+    expect(ragUserData).toBeInstanceOf(WaldiezSourceRagUserData);
   });
 
   it('should create a rag user with id in json', () => {
@@ -162,7 +162,7 @@ describe('WaldieSourceRagUser', () => {
       ...ragUserJson,
       id: 'rag-user-id'
     };
-    const ragUserFromJSON = WaldieSourceRagUser.fromJSON(jsonWithId);
+    const ragUserFromJSON = WaldiezSourceRagUser.fromJSON(jsonWithId);
     expect(ragUserFromJSON.id).toBe('rag-user-id');
   });
 
@@ -172,7 +172,7 @@ describe('WaldieSourceRagUser', () => {
   });
 
   it('should create a rag user node with position in json', () => {
-    const ragUserWithPosition = new WaldieSourceRagUser('rag-user-id', waldieSourceRagUserData, {
+    const ragUserWithPosition = new WaldiezSourceRagUser('rag-user-id', waldieSourceRagUserData, {
       position: { x: 10, y: 10 }
     }).asNode();
     expect(ragUserWithPosition.position).toEqual({ x: 10, y: 10 });

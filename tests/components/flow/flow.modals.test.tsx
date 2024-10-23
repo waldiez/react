@@ -5,8 +5,8 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { ReactFlowProvider } from '@xyflow/react';
 
-import { WaldieFlow } from '@waldiez/components/flow';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezFlow } from '@waldiez/components/flow';
+import { WaldiezProvider } from '@waldiez/store';
 import * as theme from '@waldiez/theme';
 
 const onRun = vi.fn();
@@ -22,7 +22,7 @@ const renderComponent = (
   const edgesToUse = singleAgent ? [] : edges;
   render(
     <ReactFlowProvider>
-      <WaldieProvider
+      <WaldiezProvider
         flowId={flowId}
         storageId={flowId}
         name="Test Flow"
@@ -35,7 +35,7 @@ const renderComponent = (
         createdAt={createdAt}
         updatedAt={updatedAt}
       >
-        <WaldieFlow
+        <WaldiezFlow
           flowId={flowId}
           storageId={flowId}
           onChange={onChange}
@@ -43,7 +43,7 @@ const renderComponent = (
           onUserInput={onUserInput}
           inputPrompt={includeUserInput ? userInput : null}
         />
-      </WaldieProvider>
+      </WaldiezProvider>
     </ReactFlowProvider>
   );
 };
@@ -70,7 +70,7 @@ afterEach(() => {
   vi.resetAllMocks();
 });
 
-describe('WaldieFlow Modals', () => {
+describe('WaldiezFlow Modals', () => {
   it('should open the flow modal', () => {
     renderComponent();
     expect(screen.queryByTestId('edit-flow-modal')).toBeNull();

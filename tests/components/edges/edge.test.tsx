@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 const edgeLabelTestId = 'edge-label-we-1';
 
-describe('WaldieEdgeHidden', () => {
+describe('WaldiezEdgeHidden', () => {
   it('should render', () => {
     renderEdge('hidden', { order: 0 });
   });
@@ -15,7 +15,7 @@ describe('WaldieEdgeHidden', () => {
   });
 });
 
-describe('WaldieEdgeChat', () => {
+describe('WaldiezEdgeChat', () => {
   it('should render', () => {
     renderEdge('chat', { order: 'invalid' });
   });
@@ -45,7 +45,7 @@ describe('WaldieEdgeChat', () => {
   });
 });
 
-describe('WaldieEdgeNested', () => {
+describe('WaldiezEdgeNested', () => {
   it('should render', () => {
     renderEdge('nested', { order: 'invalid' });
   });
@@ -83,7 +83,7 @@ describe('WaldieEdgeNested', () => {
   });
 });
 
-describe('WaldieEdgeGroup', () => {
+describe('WaldiezEdgeGroup', () => {
   it('should render', () => {
     renderEdge('group', { order: 'invalid' });
   });

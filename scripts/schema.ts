@@ -11,7 +11,7 @@ const repositoryUrl = packageJson.repository.url.replace('.git', '');
 const schemaId = `${repositoryUrl}/tree/v${packageJson.version}/schema.json`;
 const config = {
   tsconfig: 'tsconfig.app.json',
-  type: 'WaldieFlow',
+  type: 'WaldiezFlow',
   expose: 'export' as 'all' | 'none' | 'export',
   jsDoc: 'extended' as 'none' | 'extended' | 'basic',
   schemaId,

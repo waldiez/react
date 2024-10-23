@@ -14,13 +14,13 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Edge, Node, ReactFlowProvider } from '@xyflow/react';
 
-import { WaldieNodeAgent } from '@waldiez/components';
-import { WaldieAgentNodeType } from '@waldiez/models';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezNodeAgent } from '@waldiez/components';
+import { WaldiezAgentNodeType } from '@waldiez/models';
+import { WaldiezProvider } from '@waldiez/store';
 
 /* eslint-disable max-statements */
 export const renderAgent = (
-  type: WaldieAgentNodeType,
+  type: WaldiezAgentNodeType,
   options: {
     openModal?: boolean;
     nodeOverrides?: Partial<Node>;
@@ -81,7 +81,7 @@ export const renderAgent = (
   }
   render(
     <ReactFlowProvider>
-      <WaldieProvider
+      <WaldiezProvider
         flowId={flowId}
         storageId="test-storage"
         name="flow name"
@@ -94,7 +94,7 @@ export const renderAgent = (
         updatedAt={updatedAt}
         onUpload={uploadsHandler}
       >
-        <WaldieNodeAgent
+        <WaldiezNodeAgent
           id={agentId}
           type={'agent' as any}
           data={{
@@ -109,7 +109,7 @@ export const renderAgent = (
           positionAbsoluteY={0}
           {...nodeOverrides}
         />
-      </WaldieProvider>
+      </WaldiezProvider>
     </ReactFlowProvider>
   );
   const agentElement = screen.getByTestId(`agent-node-${agentId}-view`);

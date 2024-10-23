@@ -2,26 +2,26 @@ import { XYPosition } from '@xyflow/react';
 
 import { nanoid } from 'nanoid';
 
-import { WaldieSourceSkillData } from '@waldiez/models/skill/data';
+import { WaldiezSourceSkillData } from '@waldiez/models/skill/data';
 import {
-  IWaldieSourceSkill,
-  IWaldieSourceSkillData,
-  WaldieSkillNode,
-  WaldieSkillNodeData
+  IWaldiezSourceSkill,
+  IWaldiezSourceSkillData,
+  WaldiezSkillNode,
+  WaldiezSkillNodeData
 } from '@waldiez/models/types';
 
-export class WaldieSourceSkill implements IWaldieSourceSkill {
+export class WaldiezSourceSkill implements IWaldiezSourceSkill {
   id: string;
-  data: IWaldieSourceSkillData;
+  data: IWaldiezSourceSkillData;
   rest: { [key: string]: unknown } = {};
 
-  constructor(id: string, data: IWaldieSourceSkillData, rest: { [key: string]: unknown } = {}) {
+  constructor(id: string, data: IWaldiezSourceSkillData, rest: { [key: string]: unknown } = {}) {
     this.id = id;
     this.data = data;
     this.rest = rest;
   }
 
-  asNode = (position?: XYPosition): WaldieSkillNode => {
+  asNode = (position?: XYPosition): WaldiezSkillNode => {
     // if position is provided, use it
     // otherwise check if self.rest has position
     let nodePosition = { x: 20, y: 20 };
@@ -36,7 +36,7 @@ export class WaldieSourceSkill implements IWaldieSourceSkill {
       ...this.data
     } as { [key: string]: unknown };
     nodeData.label = this.data.name;
-    const data = nodeData as WaldieSkillNodeData;
+    const data = nodeData as WaldiezSkillNodeData;
     if ('position' in this.rest) {
       delete this.rest.position;
     }
@@ -49,21 +49,21 @@ export class WaldieSourceSkill implements IWaldieSourceSkill {
     };
   };
 
-  static fromJSON(json: unknown): WaldieSourceSkill {
+  static fromJSON(json: unknown): WaldiezSourceSkill {
     if (!json || typeof json !== 'object') {
-      return new WaldieSourceSkill('ws-' + nanoid(), new WaldieSourceSkillData());
+      return new WaldiezSourceSkill('ws-' + nanoid(), new WaldiezSourceSkillData());
     }
     const jsonObject = json as Record<string, unknown>;
-    const id = WaldieSourceSkill.getId(jsonObject);
+    const id = WaldiezSourceSkill.getId(jsonObject);
     const data = jsonObject.data as Record<string, unknown>;
-    const name = WaldieSourceSkill.getName(jsonObject);
-    const description = WaldieSourceSkill.getDescription(jsonObject);
-    const tags = WaldieSourceSkill.getTags(jsonObject);
-    const requirements = WaldieSourceSkill.getRequirements(jsonObject);
-    const createdAt = WaldieSourceSkill.getCreatedAt(jsonObject);
-    const updatedAt = WaldieSourceSkill.getUpdatedAt(jsonObject);
-    const rest = WaldieSourceSkill.getRest(jsonObject);
-    const skillData = WaldieSourceSkillData.fromJSON(
+    const name = WaldiezSourceSkill.getName(jsonObject);
+    const description = WaldiezSourceSkill.getDescription(jsonObject);
+    const tags = WaldiezSourceSkill.getTags(jsonObject);
+    const requirements = WaldiezSourceSkill.getRequirements(jsonObject);
+    const createdAt = WaldiezSourceSkill.getCreatedAt(jsonObject);
+    const updatedAt = WaldiezSourceSkill.getUpdatedAt(jsonObject);
+    const rest = WaldiezSourceSkill.getRest(jsonObject);
+    const skillData = WaldiezSourceSkillData.fromJSON(
       data,
       name,
       description,
@@ -72,7 +72,7 @@ export class WaldieSourceSkill implements IWaldieSourceSkill {
       createdAt,
       updatedAt
     );
-    return new WaldieSourceSkill(id, skillData, rest);
+    return new WaldiezSourceSkill(id, skillData, rest);
   }
   static getId(json: Record<string, unknown>): string {
     let id = `ws-${nanoid()}`;

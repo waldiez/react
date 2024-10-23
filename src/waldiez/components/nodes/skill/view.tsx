@@ -1,14 +1,14 @@
 import { FaCopy, FaGear, FaTrashCan } from 'react-icons/fa6';
 
-import { WaldieSkillNodeModal } from '@waldiez/components/nodes/skill/modal';
-import { WaldieNodeSkillViewProps } from '@waldiez/components/nodes/skill/types';
+import { WaldiezSkillNodeModal } from '@waldiez/components/nodes/skill/modal';
+import { WaldiezNodeSkillViewProps } from '@waldiez/components/nodes/skill/types';
 
 const renderDate = (date: string) => {
   const d = new Date(date);
   return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
 };
 
-export const WaldieNodeSkillView = (props: WaldieNodeSkillViewProps) => {
+export const WaldiezNodeSkillView = (props: WaldiezNodeSkillViewProps) => {
   const {
     skillId,
     flowId,
@@ -68,7 +68,7 @@ export const WaldieNodeSkillView = (props: WaldieNodeSkillViewProps) => {
           <FaCopy />
         </div>
       </div>
-      <WaldieSkillNodeModal
+      <WaldiezSkillNodeModal
         skillId={skillId}
         flowId={flowId}
         data={data}

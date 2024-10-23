@@ -1,7 +1,7 @@
 import { InfoLabel } from '@waldiez/components/inputs';
-import { WaldieNodeModelModalPriceTabViewProps } from '@waldiez/components/nodes/model/modal/tabs/price/types';
+import { WaldiezNodeModelModalPriceTabViewProps } from '@waldiez/components/nodes/model/modal/tabs/price/types';
 
-export const WaldieNodeModelModalPriceTabView = (props: WaldieNodeModelModalPriceTabViewProps) => {
+export const WaldiezNodeModelModalPriceTabView = (props: WaldiezNodeModelModalPriceTabViewProps) => {
   const { modelId, data, onPricePromptChange, onPriceCompletionChange } = props;
   const { price } = data;
   return (

@@ -4,17 +4,17 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-import { WaldieNodeModel, apiTypeOptions } from '@waldiez/components';
-import { WaldieModelAPIType } from '@waldiez/models';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezNodeModel, apiTypeOptions } from '@waldiez/components';
+import { WaldiezModelAPIType } from '@waldiez/models';
+import { WaldiezProvider } from '@waldiez/store';
 
 const renderModel = (
-  apiType: WaldieModelAPIType = 'other',
+  apiType: WaldiezModelAPIType = 'other',
   apiKey: string | null = modelData.apiKey,
   baseUrl: string | null = modelData.baseUrl
 ) => {
   render(
-    <WaldieProvider
+    <WaldiezProvider
       flowId={flowId}
       storageId="test-storage"
       name="flow name"
@@ -26,7 +26,7 @@ const renderModel = (
       createdAt={createdAt}
       updatedAt={updatedAt}
     >
-      <WaldieNodeModel
+      <WaldiezNodeModel
         id={modelId}
         data={{
           ...modelData,
@@ -42,11 +42,11 @@ const renderModel = (
         positionAbsoluteX={0}
         positionAbsoluteY={0}
       />
-    </WaldieProvider>
+    </WaldiezProvider>
   );
 };
 
-describe('WaldieNodeModel Modal Base Tab', () => {
+describe('WaldiezNodeModel Modal Base Tab', () => {
   it('should render basic tab', () => {
     renderModel();
     const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);

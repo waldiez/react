@@ -1,13 +1,13 @@
-import { WaldieAgentNodeData, WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
 export type RagUserAgentConfigTabAdvancedProps = {
   id: string;
-  data: WaldieNodeRagUserData;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezNodeRagUserData;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
 export type RagUserAgentConfigTabAdvancedViewProps = {
   id: string;
-  data: WaldieNodeRagUserData;
+  data: WaldiezNodeRagUserData;
   onCustomizedPromptChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onCustomizedAnswerPrefixChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onUpdateContextChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

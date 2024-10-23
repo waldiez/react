@@ -1,20 +1,20 @@
 import { nanoid } from 'nanoid';
 
-import { WaldieSourceAgentCommonData } from '@waldiez/models/agents/common';
-import { WaldieSourceRagUserData } from '@waldiez/models/agents/ragUser/data';
+import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
+import { WaldiezSourceRagUserData } from '@waldiez/models/agents/ragUser/data';
 import {
-  IWaldieSourceRagUser,
-  IWaldieSourceRagUserData,
-  WaldieNodeRagUser,
-  WaldieNodeRagUserData
+  IWaldiezSourceRagUser,
+  IWaldiezSourceRagUserData,
+  WaldiezNodeRagUser,
+  WaldiezNodeRagUserData
 } from '@waldiez/models/types/';
 
-export class WaldieSourceRagUser extends WaldieSourceAgentCommonData implements IWaldieSourceRagUser {
+export class WaldiezSourceRagUser extends WaldiezSourceAgentCommonData implements IWaldiezSourceRagUser {
   id: string;
-  data: IWaldieSourceRagUserData;
+  data: IWaldiezSourceRagUserData;
   rest: { [key: string]: unknown };
 
-  constructor(id: string, data: IWaldieSourceRagUserData, rest: { [key: string]: unknown } = {}) {
+  constructor(id: string, data: IWaldiezSourceRagUserData, rest: { [key: string]: unknown } = {}) {
     super(
       data.name,
       'rag_user',
@@ -40,7 +40,7 @@ export class WaldieSourceRagUser extends WaldieSourceAgentCommonData implements 
     this.agentType = 'rag_user';
   }
 
-  asNode: (position?: { x: number; y: number }) => WaldieNodeRagUser = position => {
+  asNode: (position?: { x: number; y: number }) => WaldiezNodeRagUser = position => {
     // if position is provided, use it
     // otherwise check if self.rest has position
     let pos = { x: 20, y: 20 };
@@ -60,12 +60,12 @@ export class WaldieSourceRagUser extends WaldieSourceAgentCommonData implements 
       id: this.id,
       type: 'agent',
       agentType: 'rag_user',
-      data: nodeData as WaldieNodeRagUserData,
+      data: nodeData as WaldiezNodeRagUserData,
       position: pos,
       ...this.rest
-    } as WaldieNodeRagUser;
+    } as WaldiezNodeRagUser;
   };
-  static fromJSON = (json: unknown, name: string | null = null): WaldieSourceRagUser => {
+  static fromJSON = (json: unknown, name: string | null = null): WaldiezSourceRagUser => {
     let jsonObject = json as Record<string, unknown>;
     if (!json || typeof json !== 'object') {
       jsonObject = {};
@@ -74,7 +74,7 @@ export class WaldieSourceRagUser extends WaldieSourceAgentCommonData implements 
     if ('id' in jsonObject && typeof jsonObject.id === 'string') {
       id = jsonObject.id;
     }
-    const data = WaldieSourceRagUserData.fromJSON(jsonObject.data ?? jsonObject, name);
-    return new WaldieSourceRagUser(id, data);
+    const data = WaldiezSourceRagUserData.fromJSON(jsonObject.data ?? jsonObject, name);
+    return new WaldiezSourceRagUser(id, data);
   };
 }

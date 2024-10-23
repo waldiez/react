@@ -5,7 +5,7 @@ import { afterEach, beforeAll, describe, it } from 'vitest';
 import { ReactFlow, ReactFlowProvider } from '@xyflow/react';
 
 import { FlowModal, SideBar, edgeTypes, nodeTypes } from '@waldiez/components';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezProvider } from '@waldiez/store';
 
 const edges: any[] = [];
 for (let i = 0; i < edgesCount; i++) {
@@ -84,7 +84,7 @@ const renderFlowModal = (edgePositions: number[], goOnExtras: boolean = false) =
     };
   });
   render(
-    <WaldieProvider
+    <WaldiezProvider
       flowId={flowId}
       storageId={flowId}
       name={name}
@@ -136,7 +136,7 @@ const renderFlowModal = (edgePositions: number[], goOnExtras: boolean = false) =
           </div>
         </div>
       </ReactFlowProvider>
-    </WaldieProvider>
+    </WaldiezProvider>
   );
   if (goOnExtras) {
     const extrasTab = screen.getByTestId(`tab-id-rf-${flowId}-edit-flow-modal-extras`);

@@ -1,17 +1,17 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieModelAPIType, WaldieModelNodeData } from '@waldiez/models';
+import { WaldiezModelAPIType, WaldiezModelNodeData } from '@waldiez/models';
 
-export type WaldieNodeModelModalBasicTabProps = {
-  data: WaldieModelNodeData;
+export type WaldiezNodeModelModalBasicTabProps = {
+  data: WaldiezModelNodeData;
   onLogoChange: (newLogo: string) => void;
-  onDataChange: (data: Partial<WaldieModelNodeData>) => void;
+  onDataChange: (data: Partial<WaldiezModelNodeData>) => void;
 };
 
-export type WaldieNodeModelModalBasicTabViewProps = {
-  data: WaldieModelNodeData;
+export type WaldiezNodeModelModalBasicTabViewProps = {
+  data: WaldiezModelNodeData;
   onLabelChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onApiTypeChange: (newValue: SingleValue<{ label: string; value: WaldieModelAPIType }>) => void;
+  onApiTypeChange: (newValue: SingleValue<{ label: string; value: WaldiezModelAPIType }>) => void;
   onApiKeyChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBaseUrlChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

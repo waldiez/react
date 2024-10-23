@@ -1,6 +1,6 @@
 import { Edge, Node, Viewport } from '@xyflow/react';
 
-import { WaldieAgentNode, WaldieModelNode, WaldieSkillNode } from '@waldiez/models/types';
+import { WaldiezAgentNode, WaldiezModelNode, WaldiezSkillNode } from '@waldiez/models/types';
 import { exportAgent } from '@waldiez/store/exporting/agent';
 import { exportChat } from '@waldiez/store/exporting/chat';
 import { exportModel } from '@waldiez/store/exporting/model';
@@ -27,7 +27,7 @@ export const exportFlow = (
   const { nodes, edges, viewport } = flow;
   const rfInstanceObject = { nodes, edges, viewport };
   const agentNodes = rfInstanceObject.nodes.filter(node => node.type === 'agent');
-  const agents = exportAgents(agentNodes as WaldieAgentNode[]);
+  const agents = exportAgents(agentNodes as WaldiezAgentNode[]);
   const models = exportModels(rfInstanceObject.nodes, hideSecrets);
   const skills = exportSkills(rfInstanceObject.nodes, hideSecrets);
   const chats = exportChats(rfInstanceObject.edges);
@@ -60,7 +60,7 @@ export const exportFlow = (
   };
 };
 
-const exportAgents = (agentNodes: WaldieAgentNode[]) => {
+const exportAgents = (agentNodes: WaldiezAgentNode[]) => {
   const userNodes = agentNodes.filter(node => node.data.agentType === 'user');
   const assistantNodes = agentNodes.filter(node => node.data.agentType === 'assistant');
   const managerNodes = agentNodes.filter(node => node.data.agentType === 'manager');
@@ -79,12 +79,12 @@ const exportAgents = (agentNodes: WaldieAgentNode[]) => {
 
 const exportModels = (nodes: Node[], hideSecrets: boolean) => {
   const modelNodes = nodes.filter(node => node.type === 'model');
-  return modelNodes.map(model => exportModel(model as WaldieModelNode, hideSecrets));
+  return modelNodes.map(model => exportModel(model as WaldiezModelNode, hideSecrets));
 };
 
 const exportSkills = (nodes: Node[], hideSecrets: boolean) => {
   const skillNodes = nodes.filter(node => node.type === 'skill');
-  return skillNodes.map(skill => exportSkill(skill as WaldieSkillNode, hideSecrets));
+  return skillNodes.map(skill => exportSkill(skill as WaldiezSkillNode, hideSecrets));
 };
 
 const exportChats = (edges: Edge[]) => {

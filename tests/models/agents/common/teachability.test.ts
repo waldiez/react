@@ -1,8 +1,8 @@
 import { commonDataJson } from './data';
 
-import { WaldieSourceAgentCommonData } from '@waldiez/models/agents/common';
+import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 
-describe('WaldieSourceAgentCommonDataTeachability', () => {
+describe('WaldiezSourceAgentCommonDataTeachability', () => {
   it('should import agent data from json with teachability', () => {
     const commonDataJsonWithTeachability = {
       ...commonDataJson,
@@ -14,7 +14,7 @@ describe('WaldieSourceAgentCommonDataTeachability', () => {
         maxMumRetrievals: 5
       }
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithTeachability, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithTeachability, 'user');
     expect(importedAgent.teachability).toEqual({
       enabled: true,
       verbosity: 1,

@@ -1,7 +1,7 @@
-import { WaldieMessage, WaldieMessageType } from '@waldiez/models';
+import { WaldiezMessage, WaldiezMessageType } from '@waldiez/models';
 
 export type MessageInputProps = {
-  current: WaldieMessage;
+  current: WaldiezMessage;
   defaultContent: string;
   darkMode: boolean;
   selectLabel: string;
@@ -11,8 +11,8 @@ export type MessageInputProps = {
   selectTestId: string;
   notNoneLabel?: string;
   notNoneLabelInfo?: string;
-  onTypeChange: (type: WaldieMessageType) => void;
-  onMessageChange: (message: WaldieMessage) => void;
+  onTypeChange: (type: WaldiezMessageType) => void;
+  onMessageChange: (message: WaldiezMessage) => void;
   onAddContextEntry?: (key: string, value: string) => void;
   onRemoveContextEntry?: (key: string) => void;
   onUpdateContextEntries?: (entries: Record<string, string>) => void;

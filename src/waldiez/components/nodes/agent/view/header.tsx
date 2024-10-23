@@ -1,10 +1,10 @@
 import { FaDatabase } from 'react-icons/fa';
 import { FaGear } from 'react-icons/fa6';
 
-import { WaldieNodeAgentHeaderViewProps } from '@waldiez/components/nodes/agent/view/types';
+import { WaldiezNodeAgentHeaderViewProps } from '@waldiez/components/nodes/agent/view/types';
 import { AGENT_COLORS, AGENT_ICONS } from '@waldiez/theme';
 
-export const WaldieNodeAgentHeaderView = (props: WaldieNodeAgentHeaderViewProps) => {
+export const WaldiezNodeAgentHeaderView = (props: WaldiezNodeAgentHeaderViewProps) => {
   const { id, data, onOpenNodeModal } = props;
   const agentType = data.agentType;
   const agentSvg =

@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { SingleValue } from '@waldiez/components/inputs';
 import { GroupAgentConfigTabProps } from '@waldiez/components/nodes/agent/modal/tabs/group/types';
 import { GroupAgentConfigTabView } from '@waldiez/components/nodes/agent/modal/tabs/group/view';
-import { WaldieAgentNode } from '@waldiez/models';
+import { WaldiezAgentNode } from '@waldiez/models';
 
 export const GroupAgentConfigTab = (props: GroupAgentConfigTabProps) => {
   const { id, agents, currentGroupManager, setCurrentGroupManager } = props;
-  const [selectedGroup, setSelectedGroup] = useState<WaldieAgentNode | null>(null);
-  const onSelectGroupChange = (option: SingleValue<{ label: string; value: WaldieAgentNode }>) => {
+  const [selectedGroup, setSelectedGroup] = useState<WaldiezAgentNode | null>(null);
+  const onSelectGroupChange = (option: SingleValue<{ label: string; value: WaldiezAgentNode }>) => {
     if (option) {
       setSelectedGroup(option.value);
     }

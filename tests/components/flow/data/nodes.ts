@@ -4,10 +4,10 @@ import { edges } from './edges';
 import { Node } from '@xyflow/react';
 
 import {
-  WaldieAgentCodeExecutionConfig,
-  WaldieAgentLinkedSkill,
-  WaldieAgentNestedChat,
-  WaldieAgentTerminationMessageCheck,
+  WaldiezAgentCodeExecutionConfig,
+  WaldiezAgentLinkedSkill,
+  WaldiezAgentNestedChat,
+  WaldiezAgentTerminationMessageCheck,
   defaultRetrieveConfig
 } from '@waldiez/models';
 
@@ -29,7 +29,7 @@ const agentNodes: Node[] = edges.map((_, index) => {
   if (agentType === 'user' || agentType === 'assistant') {
     includeNested = index % 2 === 0;
   }
-  const nestedChats = [] as WaldieAgentNestedChat[];
+  const nestedChats = [] as WaldiezAgentNestedChat[];
   if (includeNested && !addedNestedChat) {
     nestedChats.push({
       triggeredBy: [{ id: 'edge-1', isReply: false }],
@@ -42,7 +42,7 @@ const agentNodes: Node[] = edges.map((_, index) => {
     });
     addedNestedChat = true;
   }
-  let codeExecutionConfig = false as WaldieAgentCodeExecutionConfig;
+  let codeExecutionConfig = false as WaldiezAgentCodeExecutionConfig;
   if (index === edgesCount - 1) {
     codeExecutionConfig = {
       functions: ['skill-0']
@@ -68,9 +68,9 @@ const agentNodes: Node[] = edges.map((_, index) => {
         keywords: ['keyword1', 'keyword2'],
         criterion: 'exact',
         methodContent: null
-      } as WaldieAgentTerminationMessageCheck,
+      } as WaldiezAgentTerminationMessageCheck,
       nestedChats,
-      skills: [{ id: 'skill-0', executorId: 'agent-2' }] as WaldieAgentLinkedSkill[],
+      skills: [{ id: 'skill-0', executorId: 'agent-2' }] as WaldiezAgentLinkedSkill[],
       modelIds: [] as string[],
       createdAt,
       updatedAt
@@ -91,16 +91,16 @@ agentNodes.push({
   data: {
     label: 'Agent Node',
     agentType: 'manager',
-    nestedChats: [] as WaldieAgentNestedChat[],
-    skills: [] as WaldieAgentLinkedSkill[],
+    nestedChats: [] as WaldiezAgentNestedChat[],
+    skills: [] as WaldiezAgentLinkedSkill[],
     modelIds: [] as string[],
-    codeExecutionConfig: false as WaldieAgentCodeExecutionConfig,
+    codeExecutionConfig: false as WaldiezAgentCodeExecutionConfig,
     termination: {
       type: 'none',
       keywords: [],
       criterion: 'found',
       methodContent: null
-    } as WaldieAgentTerminationMessageCheck,
+    } as WaldiezAgentTerminationMessageCheck,
     createdAt,
     updatedAt,
     maxRound: 1,
@@ -129,16 +129,16 @@ agentNodes.push({
   data: {
     label: 'Agent Node',
     agentType: 'assistant',
-    nestedChats: [] as WaldieAgentNestedChat[],
-    skills: [] as WaldieAgentLinkedSkill[],
+    nestedChats: [] as WaldiezAgentNestedChat[],
+    skills: [] as WaldiezAgentLinkedSkill[],
     modelIds: [] as string[],
-    codeExecutionConfig: false as WaldieAgentCodeExecutionConfig,
+    codeExecutionConfig: false as WaldiezAgentCodeExecutionConfig,
     termination: {
       type: 'none',
       keywords: [],
       criterion: 'found',
       methodContent: null
-    } as WaldieAgentTerminationMessageCheck,
+    } as WaldiezAgentTerminationMessageCheck,
     createdAt,
     updatedAt
   }

@@ -9,18 +9,18 @@ import {
 } from '@xyflow/react';
 
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeData,
-  WaldieAgentNodeType,
-  WaldieEdge,
-  WaldieModelNode,
-  WaldieModelNodeData,
-  WaldieNodeType,
-  WaldieSkillNode,
-  WaldieSkillNodeData
+  WaldiezAgentNode,
+  WaldiezAgentNodeData,
+  WaldiezAgentNodeType,
+  WaldiezEdge,
+  WaldiezModelNode,
+  WaldiezModelNodeData,
+  WaldiezNodeType,
+  WaldiezSkillNode,
+  WaldiezSkillNodeData
 } from '@waldiez/models';
 
-export type WaldieStoreProps = {
+export type WaldiezStoreProps = {
   viewport?: Viewport;
   flowId: string;
   name: string;
@@ -38,20 +38,20 @@ export type WaldieStoreProps = {
 export type typeOfSet = {
   (
     partial:
-      | WaldieState
-      | Partial<WaldieState>
-      | ((state: WaldieState) => WaldieState | Partial<WaldieState>),
+      | WaldiezState
+      | Partial<WaldiezState>
+      | ((state: WaldiezState) => WaldiezState | Partial<WaldiezState>),
     replace?: false
   ): void;
 };
 
-export type typeOfGet = () => WaldieState & {
+export type typeOfGet = () => WaldiezState & {
   rfInstance: ReactFlowInstance | null;
 };
 
-export type WaldieState = WaldieStoreProps & {
+export type WaldiezState = WaldiezStoreProps & {
   rfInstance: ReactFlowInstance | null;
-  get: () => WaldieStoreProps & {
+  get: () => WaldiezStoreProps & {
     rfInstance: ReactFlowInstance | null;
   };
   setRfInstance: (instance: ReactFlowInstance) => void;
@@ -62,51 +62,51 @@ export type WaldieState = WaldieStoreProps & {
   deleteEdge: (id: string) => void;
   getEdgeById: (id: string) => Edge | null;
   updateEdgeType: (id: string, edgeType: 'chat' | 'nested' | 'group' | 'hidden') => void;
-  updateEdgePath: (id: string, agentType: WaldieAgentNodeType) => void;
+  updateEdgePath: (id: string, agentType: WaldiezAgentNodeType) => void;
   updateEdgeData: (id: string, data: Edge['data']) => void;
-  getEdgeSourceAgent: (edge: Edge) => WaldieAgentNode | null;
+  getEdgeSourceAgent: (edge: Edge) => WaldiezAgentNode | null;
   // nodes
   onNodesChange: OnNodesChange;
   onNodeDoubleClick: (event: any, node: Node) => void;
-  showNodes(nodeType: WaldieNodeType): void;
+  showNodes(nodeType: WaldiezNodeType): void;
   reselectNode: (nodeId: string) => void;
   // models
-  getModels: () => WaldieModelNode[];
-  getModelById: (id: string) => WaldieModelNode | null;
-  addModel: () => WaldieModelNode;
-  cloneModel: (id: string) => WaldieModelNode;
-  updateModelData: (id: string, data: WaldieModelNodeData) => void;
+  getModels: () => WaldiezModelNode[];
+  getModelById: (id: string) => WaldiezModelNode | null;
+  addModel: () => WaldiezModelNode;
+  cloneModel: (id: string) => WaldiezModelNode;
+  updateModelData: (id: string, data: WaldiezModelNodeData) => void;
   deleteModel(id: string): void;
   importModel: (
     model: { [key: string]: unknown },
     modelId: string,
     position: XYPosition | undefined
-  ) => WaldieModelNode;
+  ) => WaldiezModelNode;
   exportModel: (modelId: string) => { [key: string]: unknown } | null;
   // skills
-  getSkills: () => WaldieSkillNode[];
-  getSkillById: (id: string) => WaldieSkillNode | null;
-  addSkill: () => WaldieSkillNode;
-  cloneSkill: (id: string) => WaldieSkillNode;
-  updateSkillData: (id: string, data: WaldieSkillNodeData) => void;
+  getSkills: () => WaldiezSkillNode[];
+  getSkillById: (id: string) => WaldiezSkillNode | null;
+  addSkill: () => WaldiezSkillNode;
+  cloneSkill: (id: string) => WaldiezSkillNode;
+  updateSkillData: (id: string, data: WaldiezSkillNodeData) => void;
   deleteSkill(id: string): void;
   exportSkill: (skillId: string) => { [key: string]: unknown } | null;
   importSkill: (
     skillData: { [key: string]: unknown },
     skillId: string,
     position: XYPosition | undefined
-  ) => WaldieSkillNode;
+  ) => WaldiezSkillNode;
   // agents
-  getAgents: () => WaldieAgentNode[];
+  getAgents: () => WaldiezAgentNode[];
   addAgent: (
-    agentType: WaldieAgentNodeType,
+    agentType: WaldiezAgentNodeType,
     position: { x: number; y: number },
     parentId?: string
-  ) => WaldieAgentNode;
-  getAgentById: (id: string) => WaldieAgentNode | null;
+  ) => WaldiezAgentNode;
+  getAgentById: (id: string) => WaldiezAgentNode | null;
   setAgentGroup: (agentId: string, groupId: string | undefined) => void;
-  cloneAgent: (id: string) => WaldieAgentNode;
-  updateAgentData: (id: string, data: Partial<WaldieAgentNodeData>) => void;
+  cloneAgent: (id: string) => WaldiezAgentNode;
+  updateAgentData: (id: string, data: Partial<WaldiezAgentNodeData>) => void;
   deleteAgent(id: string): void;
   getAgentConnections: (
     nodeId: string,
@@ -116,15 +116,15 @@ export type WaldieState = WaldieStoreProps & {
     }
   ) => {
     source: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
     target: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
   };
-  getGroupMembers: (groupId: string) => WaldieAgentNode[];
+  getGroupMembers: (groupId: string) => WaldiezAgentNode[];
   addGroupMember: (groupId: string, memberId: string) => void;
   removeGroupMember: (groupId: string, memberId: string) => void;
   changeGroup: (agentId: string, newGroupId: string) => void;
@@ -133,15 +133,15 @@ export type WaldieState = WaldieStoreProps & {
     agentId: string,
     skipLinks: boolean,
     position: XYPosition | undefined
-  ) => WaldieAgentNode;
+  ) => WaldiezAgentNode;
   exportAgent: (agentId: string, skipLinks: boolean) => { [key: string]: unknown } | null;
   // flow
   updateFlow: (data: { name: string; description: string; tags: string[]; requirements: string[] }) => void;
   updateFlowOrder: (data: { id: string; order: number }[]) => void;
-  getFlowEdges: () => [WaldieEdge[], WaldieEdge[]];
-  importFlow: (flow: { [key: string]: unknown }, typeShown: WaldieNodeType) => void;
+  getFlowEdges: () => [WaldiezEdge[], WaldiezEdge[]];
+  importFlow: (flow: { [key: string]: unknown }, typeShown: WaldiezNodeType) => void;
   exportFlow: (hideSecrets: boolean) => { [key: string]: unknown } | null;
-  onViewportChange: (viewport: Viewport, nodeType: WaldieNodeType) => void;
+  onViewportChange: (viewport: Viewport, nodeType: WaldiezNodeType) => void;
   //
   onUpload: ((files: File[]) => Promise<string[]>) | null;
 };

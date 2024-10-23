@@ -1,15 +1,15 @@
 import { MultiValue } from '@waldiez/components/inputs';
-import { WaldieAgentNodeData, WaldieModelNode } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezModelNode } from '@waldiez/models';
 
 export type ModelsAgentConfigTabProps = {
   id: string;
-  data: WaldieAgentNodeData;
-  models: WaldieModelNode[];
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezAgentNodeData;
+  models: WaldiezModelNode[];
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
 export type ModelsAgentConfigTabViewProps = {
   id: string;
-  models: WaldieModelNode[];
-  data: WaldieAgentNodeData;
+  models: WaldiezModelNode[];
+  data: WaldiezAgentNodeData;
   onModelsChange: (options: MultiValue<{ label: string; value: string }>) => void;
 };

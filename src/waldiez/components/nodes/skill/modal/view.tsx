@@ -1,9 +1,9 @@
 import { Dict, Editor, InfoLabel } from '@waldiez/components/inputs';
 import { Modal } from '@waldiez/components/modal';
 import { getImportExportView } from '@waldiez/components/nodes/common';
-import { WaldieSkillNodeModalViewProps } from '@waldiez/components/nodes/skill/modal/types';
+import { WaldiezSkillNodeModalViewProps } from '@waldiez/components/nodes/skill/modal/types';
 
-export const WaldieSkillNodeModalView = (props: WaldieSkillNodeModalViewProps) => {
+export const WaldiezSkillNodeModalView = (props: WaldiezSkillNodeModalViewProps) => {
   const {
     skillId,
     flowId,

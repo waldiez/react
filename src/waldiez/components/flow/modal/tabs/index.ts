@@ -1,2 +1,2 @@
-export { WaldieFlowModalBasicTab } from '@waldiez/components/flow/modal/tabs/basic';
-export { WaldieFlowModalOtherTab } from '@waldiez/components/flow/modal/tabs/other';
+export { WaldiezFlowModalBasicTab } from '@waldiez/components/flow/modal/tabs/basic';
+export { WaldiezFlowModalOtherTab } from '@waldiez/components/flow/modal/tabs/other';

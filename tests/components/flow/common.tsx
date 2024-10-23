@@ -3,8 +3,8 @@ import { render } from '@testing-library/react';
 
 import { ReactFlowProvider } from '@xyflow/react';
 
-import { WaldieFlow } from '@waldiez/components/flow';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezFlow } from '@waldiez/components/flow';
+import { WaldiezProvider } from '@waldiez/store';
 
 export const onRun = vi.fn();
 export const onChange = vi.fn();
@@ -100,7 +100,7 @@ export const renderFlow = (
   }
   render(
     <ReactFlowProvider>
-      <WaldieProvider
+      <WaldiezProvider
         flowId={flowId}
         storageId={flowId}
         name="Test Flow"
@@ -113,7 +113,7 @@ export const renderFlow = (
         createdAt={createdAt}
         updatedAt={updatedAt}
       >
-        <WaldieFlow
+        <WaldiezFlow
           flowId={flowId}
           storageId={flowId}
           onChange={onChange}
@@ -121,7 +121,7 @@ export const renderFlow = (
           onUserInput={onUserInput}
           inputPrompt={null}
         />
-      </WaldieProvider>
+      </WaldiezProvider>
     </ReactFlowProvider>
   );
 };

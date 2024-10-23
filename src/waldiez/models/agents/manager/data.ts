@@ -1,34 +1,34 @@
-import { WaldieSourceAgentCommonData } from '@waldiez/models/agents/common';
-import { WaldieWaldieGroupManagerSpeakersData } from '@waldiez/models/agents/manager/speakers';
+import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
+import { WaldiezGroupManagerSpeakersData } from '@waldiez/models/agents/manager/speakers';
 import {
-  IWaldieSourceAgentCommonData,
-  IWaldieSourceGroupManagerData,
-  WaldieAgentCodeExecutionConfig,
-  WaldieAgentHumanInputMode,
-  WaldieAgentLinkedSkill,
-  WaldieAgentNodeType,
-  WaldieAgentTeachability,
-  WaldieAgentTerminationMessageCheck,
-  WaldieWaldieGroupManagerSpeakers
+  IWaldiezSourceAgentCommonData,
+  IWaldiezSourceGroupManagerData,
+  WaldiezAgentCodeExecutionConfig,
+  WaldiezAgentHumanInputMode,
+  WaldiezAgentLinkedSkill,
+  WaldiezAgentNodeType,
+  WaldiezAgentTeachability,
+  WaldiezAgentTerminationMessageCheck,
+  WaldiezGroupManagerSpeakers
 } from '@waldiez/models/types/';
 
-export class WaldieSourceGroupManagerData
-  extends WaldieSourceAgentCommonData
-  implements IWaldieSourceGroupManagerData
+export class WaldiezSourceGroupManagerData
+  extends WaldiezSourceAgentCommonData
+  implements IWaldiezSourceGroupManagerData
 {
-  agentType: WaldieAgentNodeType;
+  agentType: WaldiezAgentNodeType;
   name: string;
   systemMessage: string | null;
-  humanInputMode: WaldieAgentHumanInputMode;
+  humanInputMode: WaldiezAgentHumanInputMode;
   description: string;
   maxTokens: number | null;
-  codeExecutionConfig: WaldieAgentCodeExecutionConfig;
+  codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
   agentDefaultAutoReply: string | null;
   maxConsecutiveAutoReply: number | null;
-  termination: WaldieAgentTerminationMessageCheck;
-  teachability: WaldieAgentTeachability;
+  termination: WaldiezAgentTerminationMessageCheck;
+  teachability: WaldiezAgentTeachability;
   modelIds: string[];
-  skills: WaldieAgentLinkedSkill[];
+  skills: WaldiezAgentLinkedSkill[];
   tags: string[];
   requirements: string[];
   createdAt: string;
@@ -36,7 +36,7 @@ export class WaldieSourceGroupManagerData
   // manager specific fields
   maxRound: number | null;
   adminName: string | null;
-  speakers: WaldieWaldieGroupManagerSpeakers;
+  speakers: WaldiezGroupManagerSpeakers;
   enableClearHistory?: boolean;
   sendIntroductions?: boolean;
 
@@ -44,19 +44,19 @@ export class WaldieSourceGroupManagerData
   constructor(
     name: string = 'Manager',
     systemMessage: string | null = null,
-    humanInputMode: WaldieAgentHumanInputMode = 'NEVER',
+    humanInputMode: WaldiezAgentHumanInputMode = 'NEVER',
     description: string = 'A group manager agent',
     maxTokens: number | null = null,
-    codeExecutionConfig: WaldieAgentCodeExecutionConfig = false,
+    codeExecutionConfig: WaldiezAgentCodeExecutionConfig = false,
     agentDefaultAutoReply: string | null = null,
     maxConsecutiveAutoReply: number | null = null,
-    termination: WaldieAgentTerminationMessageCheck = {
+    termination: WaldiezAgentTerminationMessageCheck = {
       type: 'none',
       keywords: [],
       criterion: null,
       methodContent: null
     },
-    teachability: WaldieAgentTeachability = {
+    teachability: WaldiezAgentTeachability = {
       enabled: false,
       verbosity: 0,
       resetDb: false,
@@ -64,14 +64,14 @@ export class WaldieSourceGroupManagerData
       maxMumRetrievals: 0
     },
     modelIds: string[] = [],
-    skills: WaldieAgentLinkedSkill[] = [],
+    skills: WaldiezAgentLinkedSkill[] = [],
     tags: string[] = [],
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
     maxRound: number | null = null,
     adminName: string | null = null,
-    speakers: WaldieWaldieGroupManagerSpeakers = {
+    speakers: WaldiezGroupManagerSpeakers = {
       selectionMethod: 'auto',
       selectionCustomMethod: '',
       maxRetriesForSelecting: null,
@@ -125,8 +125,8 @@ export class WaldieSourceGroupManagerData
     this.sendIntroductions = sendIntroductions;
     this.agentType = 'manager';
   }
-  static getSpeakers = (json: any): WaldieWaldieGroupManagerSpeakers => {
-    const speakersData = WaldieWaldieGroupManagerSpeakersData.fromJSON(json);
+  static getSpeakers = (json: any): WaldiezGroupManagerSpeakers => {
+    const speakersData = WaldiezGroupManagerSpeakersData.fromJSON(json);
     return speakersData.data;
   };
   static getMaxRound = (json: any): number | null => {
@@ -156,7 +156,7 @@ export class WaldieSourceGroupManagerData
   static getAgentNameFromJSON = (
     json: any,
     name: string | null,
-    inherited: IWaldieSourceAgentCommonData
+    inherited: IWaldiezSourceAgentCommonData
   ): string => {
     let agentName: string = name ?? inherited.name;
     if ('name' in json && typeof json.name === 'string') {
@@ -166,18 +166,18 @@ export class WaldieSourceGroupManagerData
     }
     return agentName;
   };
-  static fromJSON = (json: unknown, name: string | null = null): IWaldieSourceGroupManagerData => {
+  static fromJSON = (json: unknown, name: string | null = null): IWaldiezSourceGroupManagerData => {
     if (!json || typeof json !== 'object') {
-      return new WaldieSourceGroupManagerData();
+      return new WaldiezSourceGroupManagerData();
     }
-    const inherited = WaldieSourceAgentCommonData.fromJSON(json, 'manager', name ?? 'Manager');
-    const speakers = WaldieSourceGroupManagerData.getSpeakers(json);
-    const maxRound = WaldieSourceGroupManagerData.getMaxRound(json);
-    const adminName = WaldieSourceGroupManagerData.getAdminName(json);
-    const enableClearHistory = WaldieSourceGroupManagerData.getEnableClearHistory(json);
-    const sendIntroductions = WaldieSourceGroupManagerData.getSendIntroductions(json);
-    const agentName = WaldieSourceGroupManagerData.getAgentNameFromJSON(json, name, inherited);
-    return new WaldieSourceGroupManagerData(
+    const inherited = WaldiezSourceAgentCommonData.fromJSON(json, 'manager', name ?? 'Manager');
+    const speakers = WaldiezSourceGroupManagerData.getSpeakers(json);
+    const maxRound = WaldiezSourceGroupManagerData.getMaxRound(json);
+    const adminName = WaldiezSourceGroupManagerData.getAdminName(json);
+    const enableClearHistory = WaldiezSourceGroupManagerData.getEnableClearHistory(json);
+    const sendIntroductions = WaldiezSourceGroupManagerData.getSendIntroductions(json);
+    const agentName = WaldiezSourceGroupManagerData.getAgentNameFromJSON(json, name, inherited);
+    return new WaldiezSourceGroupManagerData(
       agentName,
       inherited.systemMessage,
       inherited.humanInputMode,

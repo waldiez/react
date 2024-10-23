@@ -1,14 +1,14 @@
 import { agentJson, createdAt, updatedAt } from './data';
 import { expectTypeOf } from 'vitest';
 
-import { WaldieNodeUserProxyOrAssistant } from '@waldiez/models';
+import { WaldiezNodeUserProxyOrAssistant } from '@waldiez/models';
 import {
-  WaldieSourceUserProxyOrAssistant,
-  WaldieSourceUserProxyOrAssistantData
+  WaldiezSourceUserProxyOrAssistant,
+  WaldiezSourceUserProxyOrAssistantData
 } from '@waldiez/models/agents/common/userProxyOrAssistant';
 
-describe('WaldieSourceUserProxyOrAssistant', () => {
-  const agentData: WaldieSourceUserProxyOrAssistantData = {
+describe('WaldiezSourceUserProxyOrAssistant', () => {
+  const agentData: WaldiezSourceUserProxyOrAssistantData = {
     name: 'Agent',
     agentType: 'assistant',
     systemMessage: null,
@@ -40,18 +40,18 @@ describe('WaldieSourceUserProxyOrAssistant', () => {
     updatedAt
   };
 
-  const agent = new WaldieSourceUserProxyOrAssistant('agent-id', agentData);
+  const agent = new WaldiezSourceUserProxyOrAssistant('agent-id', agentData);
 
   const agentNode = agent.asNode();
 
-  it('should create an instance of WaldieSourceUserProxyOrAssistant', () => {
-    expect(agent).toBeInstanceOf(WaldieSourceUserProxyOrAssistant);
+  it('should create an instance of WaldiezSourceUserProxyOrAssistant', () => {
+    expect(agent).toBeInstanceOf(WaldiezSourceUserProxyOrAssistant);
   });
 
   it('should create an instance of Node', () => {
     expect(agentNode).toHaveProperty('id');
     expect(agentNode).toHaveProperty('data');
-    expectTypeOf(agentNode).toEqualTypeOf<WaldieNodeUserProxyOrAssistant>();
+    expectTypeOf(agentNode).toEqualTypeOf<WaldiezNodeUserProxyOrAssistant>();
   });
 
   it('should have the correct agentType', () => {
@@ -70,7 +70,7 @@ describe('WaldieSourceUserProxyOrAssistant', () => {
       ...agentJson,
       position: { x: 2, y: 3 }
     };
-    const agent = WaldieSourceUserProxyOrAssistant.fromJSON(jsonWithPosition, 'assistant');
+    const agent = WaldiezSourceUserProxyOrAssistant.fromJSON(jsonWithPosition, 'assistant');
     const agentNode = agent.asNode();
     expect(agentNode).toHaveProperty('position');
     expect(agentNode.position).toEqual({ x: 2, y: 3 });
@@ -81,8 +81,8 @@ describe('WaldieSourceUserProxyOrAssistant', () => {
   });
 
   it('should import an agent from JSON', () => {
-    const agent = WaldieSourceUserProxyOrAssistant.fromJSON(agentJson, 'assistant');
-    expect(agent).toBeInstanceOf(WaldieSourceUserProxyOrAssistant);
+    const agent = WaldiezSourceUserProxyOrAssistant.fromJSON(agentJson, 'assistant');
+    expect(agent).toBeInstanceOf(WaldiezSourceUserProxyOrAssistant);
     expect(agent.data.name).toBe('Agent');
     expect(agent.data.agentType).toBe('assistant');
     expect(agent.data.createdAt).toBe(createdAt);
@@ -90,12 +90,12 @@ describe('WaldieSourceUserProxyOrAssistant', () => {
   });
 
   it('should import an agent wih not a json', () => {
-    const agent = WaldieSourceUserProxyOrAssistant.fromJSON(null, 'assistant');
-    expectTypeOf(agent).toEqualTypeOf<WaldieSourceUserProxyOrAssistant>();
+    const agent = WaldiezSourceUserProxyOrAssistant.fromJSON(null, 'assistant');
+    expectTypeOf(agent).toEqualTypeOf<WaldiezSourceUserProxyOrAssistant>();
   });
 
   it('should import an agent from JSON with a defined name', () => {
-    const agent = WaldieSourceUserProxyOrAssistant.fromJSON(agentJson, 'assistant', "Agent's name");
+    const agent = WaldiezSourceUserProxyOrAssistant.fromJSON(agentJson, 'assistant', "Agent's name");
     expect(agent.data.name).toBe("Agent's name");
   });
 
@@ -105,28 +105,28 @@ describe('WaldieSourceUserProxyOrAssistant', () => {
       label: 'Agent label'
     } as any;
     delete jsonWithLabel.name;
-    const agent = WaldieSourceUserProxyOrAssistant.fromJSON(jsonWithLabel, 'assistant');
+    const agent = WaldiezSourceUserProxyOrAssistant.fromJSON(jsonWithLabel, 'assistant');
     expect(agent.data.name).toBe('Agent label');
   });
 
   it('should import an agent from JSON with data', () => {
-    const agent = WaldieSourceUserProxyOrAssistant.fromJSON({ data: agentJson }, 'assistant');
+    const agent = WaldiezSourceUserProxyOrAssistant.fromJSON({ data: agentJson }, 'assistant');
     expect(agent.data).toEqual(agentJson);
   });
 
   it('should import an agent from JSON with data key in json', () => {
-    const agent = WaldieSourceUserProxyOrAssistant.fromJSON({ data: agentJson }, 'assistant');
-    expectTypeOf(agent).toEqualTypeOf<WaldieSourceUserProxyOrAssistant>();
+    const agent = WaldiezSourceUserProxyOrAssistant.fromJSON({ data: agentJson }, 'assistant');
+    expectTypeOf(agent).toEqualTypeOf<WaldiezSourceUserProxyOrAssistant>();
   });
 
   it('should import agent data from JSON', () => {
-    const agentData = WaldieSourceUserProxyOrAssistantData.fromJSON(agentJson, 'assistant');
+    const agentData = WaldiezSourceUserProxyOrAssistantData.fromJSON(agentJson, 'assistant');
     expect(agentData).toEqual(agentJson);
   });
 
   it('should import agent data with not a json', () => {
-    const agentData = WaldieSourceUserProxyOrAssistantData.fromJSON(null, 'assistant');
-    expectTypeOf(agentData).toEqualTypeOf<WaldieSourceUserProxyOrAssistantData>();
+    const agentData = WaldiezSourceUserProxyOrAssistantData.fromJSON(null, 'assistant');
+    expectTypeOf(agentData).toEqualTypeOf<WaldiezSourceUserProxyOrAssistantData>();
   });
 
   it('should import agent data from JSON with nested chats', () => {
@@ -139,7 +139,7 @@ describe('WaldieSourceUserProxyOrAssistant', () => {
         }
       ]
     };
-    const agentData = WaldieSourceUserProxyOrAssistantData.fromJSON(agentJsonWithNestedChats, 'assistant');
+    const agentData = WaldiezSourceUserProxyOrAssistantData.fromJSON(agentJsonWithNestedChats, 'assistant');
     expect(agentData).toEqual(agentJsonWithNestedChats);
   });
 });

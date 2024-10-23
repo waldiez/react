@@ -1,28 +1,28 @@
-import { WaldieSkillNodeData } from '@waldiez/models/types';
+import { WaldiezSkillNodeData } from '@waldiez/models/types';
 import {
-  WaldieModelNodeData,
-  WaldieNodeAssistantData,
-  WaldieNodeGroupManagerData,
-  WaldieNodeRagUserData,
-  WaldieNodeUserProxyData
+  WaldiezModelNodeData,
+  WaldiezNodeAssistantData,
+  WaldiezNodeGroupManagerData,
+  WaldiezNodeRagUserData,
+  WaldiezNodeUserProxyData
 } from '@waldiez/models/types';
-import { WaldieAgentNode } from '@waldiez/models/types/agents';
-import { WaldieModelNode } from '@waldiez/models/types/waldieModel';
-import { WaldieSkillNode } from '@waldiez/models/types/waldieSkill';
+import { WaldiezAgentNode } from '@waldiez/models/types/agents';
+import { WaldiezModelNode } from '@waldiez/models/types/waldiezModel';
+import { WaldiezSkillNode } from '@waldiez/models/types/waldiezSkill';
 
 export * from '@waldiez/models/types/agents';
-export * from '@waldiez/models/types/waldieEdge';
-export * from '@waldiez/models/types/waldieMessage';
-export * from '@waldiez/models/types/waldieModel';
-export * from '@waldiez/models/types/waldieSkill';
-export { WaldieMessage } from '@waldiez/models/edge/message';
-export type WaldieNodeUserOrAssistantData = WaldieNodeAssistantData | WaldieNodeUserProxyData;
-export type WaldieAgentNodeData =
-  | WaldieNodeAssistantData
-  | WaldieNodeUserProxyData
-  | WaldieNodeRagUserData
-  | WaldieNodeGroupManagerData;
-export type WaldieNodeData = WaldieSkillNodeData | WaldieModelNodeData | WaldieAgentNodeData;
+export * from '@waldiez/models/types/waldiezEdge';
+export * from '@waldiez/models/types/waldiezMessage';
+export * from '@waldiez/models/types/waldiezModel';
+export * from '@waldiez/models/types/waldiezSkill';
+export { WaldiezMessage } from '@waldiez/models/edge/message';
+export type WaldiezNodeUserOrAssistantData = WaldiezNodeAssistantData | WaldiezNodeUserProxyData;
+export type WaldiezAgentNodeData =
+  | WaldiezNodeAssistantData
+  | WaldiezNodeUserProxyData
+  | WaldiezNodeRagUserData
+  | WaldiezNodeGroupManagerData;
+export type WaldiezNodeData = WaldiezSkillNodeData | WaldiezModelNodeData | WaldiezAgentNodeData;
 
-export type WaldieNode = WaldieModelNode | WaldieSkillNode | WaldieAgentNode;
-export type WaldieNodeType = 'agent' | 'model' | 'skill';
+export type WaldiezNode = WaldiezModelNode | WaldiezSkillNode | WaldiezAgentNode;
+export type WaldiezNodeType = 'agent' | 'model' | 'skill';

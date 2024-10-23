@@ -2,26 +2,26 @@ import { XYPosition } from '@xyflow/react';
 
 import { nanoid } from 'nanoid';
 
-import { WaldieSourceGroupManagerData } from '@waldiez/models/agents/manager/data';
+import { WaldiezSourceGroupManagerData } from '@waldiez/models/agents/manager/data';
 import {
-  IWaldieSourceGroupManager,
-  IWaldieSourceGroupManagerData,
-  WaldieNodeGroupManager,
-  WaldieNodeGroupManagerData
+  IWaldiezSourceGroupManager,
+  IWaldiezSourceGroupManagerData,
+  WaldiezNodeGroupManager,
+  WaldiezNodeGroupManagerData
 } from '@waldiez/models/types/';
 
-export class WaldieSourceGroupManager implements IWaldieSourceGroupManager {
+export class WaldiezSourceGroupManager implements IWaldiezSourceGroupManager {
   id: string;
-  data: IWaldieSourceGroupManagerData;
+  data: IWaldiezSourceGroupManagerData;
   rest: { [key: string]: unknown };
 
-  constructor(id: string, data: IWaldieSourceGroupManagerData, rest: { [key: string]: unknown } = {}) {
+  constructor(id: string, data: IWaldiezSourceGroupManagerData, rest: { [key: string]: unknown } = {}) {
     this.id = id;
     this.data = data;
     this.rest = rest;
   }
 
-  asNode: (position?: XYPosition) => WaldieNodeGroupManager = position => {
+  asNode: (position?: XYPosition) => WaldiezNodeGroupManager = position => {
     // if position is provided, use it
     // otherwise check if self.rest has position
     let pos = { x: 20, y: 20 };
@@ -40,12 +40,12 @@ export class WaldieSourceGroupManager implements IWaldieSourceGroupManager {
     return {
       id: this.id,
       type: 'agent',
-      data: nodeData as WaldieNodeGroupManagerData,
+      data: nodeData as WaldiezNodeGroupManagerData,
       position: pos,
       ...this.rest
     };
   };
-  static fromJSON = (json: unknown): WaldieSourceGroupManager => {
+  static fromJSON = (json: unknown): WaldiezSourceGroupManager => {
     let jsonObject = json as Record<string, unknown>;
     if (!json || typeof json !== 'object') {
       jsonObject = {};
@@ -55,7 +55,7 @@ export class WaldieSourceGroupManager implements IWaldieSourceGroupManager {
     if ('id' in jsonObject && typeof jsonObject.id === 'string') {
       id = jsonObject.id;
     }
-    const data = WaldieSourceGroupManagerData.fromJSON(jsonObject.data ?? jsonObject, 'manager');
-    return new WaldieSourceGroupManager(id, data);
+    const data = WaldiezSourceGroupManagerData.fromJSON(jsonObject.data ?? jsonObject, 'manager');
+    return new WaldiezSourceGroupManager(id, data);
   };
 }

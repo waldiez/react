@@ -4,10 +4,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Edge, EdgeChange, ReactFlow, ReactFlowProvider, applyEdgeChanges } from '@xyflow/react';
 
 import { edgeTypes, nodeTypes } from '@waldiez/components';
-import { WaldieEdgeType } from '@waldiez/models';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezEdgeType } from '@waldiez/models';
+import { WaldiezProvider } from '@waldiez/store';
 
-export const renderEdge = (edgeType: WaldieEdgeType, dataOverrides: { [key: string]: any } = {}) => {
+export const renderEdge = (edgeType: WaldiezEdgeType, dataOverrides: { [key: string]: any } = {}) => {
   const edges = [
     {
       id: edgeId,
@@ -32,7 +32,7 @@ export const renderEdge = (edgeType: WaldieEdgeType, dataOverrides: { [key: stri
     applyEdgeChanges(changes, edges);
   };
   render(
-    <WaldieProvider
+    <WaldiezProvider
       flowId={flowId}
       storageId="test-storage"
       name="flow name"
@@ -57,7 +57,7 @@ export const renderEdge = (edgeType: WaldieEdgeType, dataOverrides: { [key: stri
           />
         </div>
       </ReactFlowProvider>
-    </WaldieProvider>
+    </WaldiezProvider>
   );
   if (edgeType !== 'hidden') {
     fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));

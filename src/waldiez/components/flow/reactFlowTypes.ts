@@ -1,20 +1,20 @@
 import {
-  WaldieEdgeChat,
-  WaldieEdgeGroup,
-  WaldieEdgeHidden,
-  WaldieEdgeNested
+  WaldiezEdgeChat,
+  WaldiezEdgeGroup,
+  WaldiezEdgeHidden,
+  WaldiezEdgeNested
 } from '@waldiez/components/edges';
-import { WaldieNodeAgent, WaldieNodeModel, WaldieNodeSkill } from '@waldiez/components/nodes';
+import { WaldiezNodeAgent, WaldiezNodeModel, WaldiezNodeSkill } from '@waldiez/components/nodes';
 
 export const edgeTypes = {
-  chat: WaldieEdgeChat,
-  group: WaldieEdgeGroup,
-  hidden: WaldieEdgeHidden,
-  nested: WaldieEdgeNested
+  chat: WaldiezEdgeChat,
+  group: WaldiezEdgeGroup,
+  hidden: WaldiezEdgeHidden,
+  nested: WaldiezEdgeNested
 };
 
 export const nodeTypes = {
-  agent: WaldieNodeAgent,
-  model: WaldieNodeModel,
-  skill: WaldieNodeSkill
+  agent: WaldiezNodeAgent,
+  model: WaldiezNodeModel,
+  skill: WaldiezNodeSkill
 };

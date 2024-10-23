@@ -1,6 +1,6 @@
-import { WaldieModelNode } from '@waldiez/models';
+import { WaldiezModelNode } from '@waldiez/models';
 
-export const exportModel = (model: WaldieModelNode, replaceSecrets: boolean = true) => {
+export const exportModel = (model: WaldiezModelNode, replaceSecrets: boolean = true) => {
   const defaultHeaders = { ...model.data.defaultHeaders };
   if (replaceSecrets) {
     for (const key in defaultHeaders) {

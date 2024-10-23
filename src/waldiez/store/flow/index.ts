@@ -1,7 +1,7 @@
 // import { ModelsStore, SkillsStore } from '../nodes';
 import { nanoid } from 'nanoid';
 
-import { WaldieEdge, WaldieNodeType } from '@waldiez/models';
+import { WaldiezEdge, WaldiezNodeType } from '@waldiez/models';
 import { EdgesStore } from '@waldiez/store/edges';
 import { exportFlow } from '@waldiez/store/exporting';
 import { importFlow } from '@waldiez/store/importing';
@@ -43,10 +43,10 @@ export class FlowStore {
       updatedAt
     });
   };
-  static getFlowEdges: (get: typeOfGet) => [WaldieEdge[], WaldieEdge[]] = get => {
-    const allEdges = get().edges.filter(edge => edge.type === 'chat') as WaldieEdge[];
-    const usedEdges = [] as WaldieEdge[];
-    const remainingEdges = [] as WaldieEdge[];
+  static getFlowEdges: (get: typeOfGet) => [WaldiezEdge[], WaldiezEdge[]] = get => {
+    const allEdges = get().edges.filter(edge => edge.type === 'chat') as WaldiezEdge[];
+    const usedEdges = [] as WaldiezEdge[];
+    const remainingEdges = [] as WaldiezEdge[];
     allEdges.forEach(edge => {
       let edgeOrder: number;
       if (typeof edge.data?.order === 'number') {
@@ -67,7 +67,7 @@ export class FlowStore {
     flow: unknown,
     createdAt: string,
     updatedAt: string,
-    typeShown: WaldieNodeType,
+    typeShown: WaldiezNodeType,
     get: typeOfGet,
     set: typeOfSet
   ) => void = (flow, createdAt, updatedAt, typeShown, get, set) => {
@@ -131,7 +131,7 @@ export class FlowStore {
   };
   static onViewportChange(
     viewport: { x: number; y: number; zoom: number },
-    nodeType: WaldieNodeType,
+    nodeType: WaldiezNodeType,
     get: typeOfGet,
     set: typeOfSet
   ) {

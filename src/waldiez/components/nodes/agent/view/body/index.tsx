@@ -1,31 +1,31 @@
 import { Node } from '@xyflow/react';
 
-import { WaldieNodeAgentManagerBodyView } from '@waldiez/components/nodes/agent/view/body/manager';
-import { WaldieNodeAgentNoManagerView } from '@waldiez/components/nodes/agent/view/body/no_manager';
-import { WaldieNodeAgentBodyViewProps } from '@waldiez/components/nodes/agent/view/body/types';
-import { useWaldieContext } from '@waldiez/store';
+import { WaldiezNodeAgentManagerBodyView } from '@waldiez/components/nodes/agent/view/body/manager';
+import { WaldiezNodeAgentNoManagerView } from '@waldiez/components/nodes/agent/view/body/no_manager';
+import { WaldiezNodeAgentBodyViewProps } from '@waldiez/components/nodes/agent/view/body/types';
+import { useWaldiezContext } from '@waldiez/store';
 import { LOGOS } from '@waldiez/theme';
-import { WaldieAgentNode, WaldieAgentNodeData, WaldieModelNode, WaldieSkillNode } from '@waldiez/types';
+import { WaldiezAgentNode, WaldiezAgentNodeData, WaldiezModelNode, WaldiezSkillNode } from '@waldiez/types';
 
-export const WaldieNodeAgentBodyView = (props: WaldieNodeAgentBodyViewProps) => {
+export const WaldiezNodeAgentBodyView = (props: WaldiezNodeAgentBodyViewProps) => {
   const { id, parentId, data, isNodeModalOpen, isEdgeModalOpen, onDataChange } = props;
-  const getSkills = useWaldieContext(s => s.getSkills);
-  const getModels = useWaldieContext(s => s.getModels);
-  const getGroupMembers = useWaldieContext(s => s.getGroupMembers);
-  const removeGroupMember = useWaldieContext(s => s.removeGroupMember);
-  const onNodeDoubleClick = useWaldieContext(s => s.onNodeDoubleClick);
-  const getAgentById = useWaldieContext(s => s.getAgentById);
-  const reselectNode = useWaldieContext(s => s.reselectNode);
-  const models = getModels() as WaldieModelNode[];
-  const skills = getSkills() as WaldieSkillNode[];
+  const getSkills = useWaldiezContext(s => s.getSkills);
+  const getModels = useWaldiezContext(s => s.getModels);
+  const getGroupMembers = useWaldiezContext(s => s.getGroupMembers);
+  const removeGroupMember = useWaldiezContext(s => s.removeGroupMember);
+  const onNodeDoubleClick = useWaldiezContext(s => s.onNodeDoubleClick);
+  const getAgentById = useWaldiezContext(s => s.getAgentById);
+  const reselectNode = useWaldiezContext(s => s.reselectNode);
+  const models = getModels() as WaldiezModelNode[];
+  const skills = getSkills() as WaldiezSkillNode[];
   const agentType = data.agentType;
   const agentModelNames = data.modelIds
     .map(modelId => models.find(model => model.id === modelId)?.data.label ?? '')
     .filter(entry => entry !== '');
-  const agentWaldieModelAPITypes = data.modelIds
+  const agentWaldiezModelAPITypes = data.modelIds
     .map(modelId => models.find(model => model.id === modelId)?.data.apiType ?? '')
     .filter(entry => entry !== '');
-  const agentModelLogos = agentWaldieModelAPITypes
+  const agentModelLogos = agentWaldiezModelAPITypes
     .map(apiType => LOGOS[apiType] ?? '')
     .filter(entry => entry !== '');
   const onOpenMemberModal = (member: Node) => {
@@ -41,35 +41,35 @@ export const WaldieNodeAgentBodyView = (props: WaldieNodeAgentBodyViewProps) => 
         return;
       }
       if (storedAgent.data) {
-        onDataChange({ ...(storedAgent.data as WaldieAgentNodeData) });
+        onDataChange({ ...(storedAgent.data as WaldiezAgentNodeData) });
       }
       setTimeout(() => {
         reselectNode(member.id);
       }, 200);
     }
   };
-  const groupMembers = getGroupMembers(id) as WaldieAgentNode[];
+  const groupMembers = getGroupMembers(id) as WaldiezAgentNode[];
   return agentType === 'manager' ? (
-    <WaldieNodeAgentManagerBodyView
+    <WaldiezNodeAgentManagerBodyView
       id={id}
       data={data}
       skills={skills}
       agentModelNames={agentModelNames}
-      agentWaldieModelAPITypes={agentWaldieModelAPITypes}
+      agentWaldiezModelAPITypes={agentWaldiezModelAPITypes}
       groupMembers={groupMembers}
       agentModelLogos={agentModelLogos}
       onOpenMemberModal={onOpenMemberModal}
       onRemoveMember={onRemoveMember}
     />
   ) : (
-    <WaldieNodeAgentNoManagerView
+    <WaldiezNodeAgentNoManagerView
       id={id}
       data={data}
       onDataChange={onDataChange}
       skills={skills}
       agentModelNames={agentModelNames}
       agentModelLogos={agentModelLogos}
-      agentWaldieModelAPITypes={agentWaldieModelAPITypes}
+      agentWaldiezModelAPITypes={agentWaldiezModelAPITypes}
     />
   );
 };

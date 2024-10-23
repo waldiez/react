@@ -1,13 +1,13 @@
-import { IWaldieMessage, WaldieMessageType } from '@waldiez/models/types';
+import { IWaldiezMessage, WaldiezMessageType } from '@waldiez/models/types';
 
-export class WaldieMessage implements IWaldieMessage {
-  type: WaldieMessageType;
+export class WaldiezMessage implements IWaldiezMessage {
+  type: WaldiezMessageType;
   content: string | null;
   use_carryover: boolean;
   context: { [key: string]: string };
 
   constructor(
-    data: IWaldieMessage = {
+    data: IWaldiezMessage = {
       type: 'none',
       use_carryover: false,
       content: null,
@@ -20,9 +20,9 @@ export class WaldieMessage implements IWaldieMessage {
     this.context = data.context;
   }
 
-  static fromJSON(data: unknown): WaldieMessage {
+  static fromJSON(data: unknown): WaldiezMessage {
     if (typeof data !== 'object' || !data) {
-      return new WaldieMessage({
+      return new WaldiezMessage({
         type: 'none',
         use_carryover: false,
         content: null,
@@ -30,11 +30,11 @@ export class WaldieMessage implements IWaldieMessage {
       });
     }
     const json = data as Record<string, unknown>;
-    const messageType = WaldieMessage.getMessageType(json);
-    const messageContent = WaldieMessage.getMessageContent(json);
-    const messageContext = WaldieMessage.getMessageContext(json);
-    const useCarryover = WaldieMessage.getUseCarryover(json);
-    return new WaldieMessage({
+    const messageType = WaldiezMessage.getMessageType(json);
+    const messageContent = WaldiezMessage.getMessageContent(json);
+    const messageContext = WaldiezMessage.getMessageContext(json);
+    const useCarryover = WaldiezMessage.getUseCarryover(json);
+    return new WaldiezMessage({
       type: messageType,
       use_carryover: useCarryover,
       content: messageContent,
@@ -42,14 +42,14 @@ export class WaldieMessage implements IWaldieMessage {
     });
   }
 
-  private static getMessageType(json: Record<string, unknown>): WaldieMessageType {
-    let messageType: WaldieMessageType = 'none';
+  private static getMessageType(json: Record<string, unknown>): WaldiezMessageType {
+    let messageType: WaldiezMessageType = 'none';
     if (
       'type' in json &&
       typeof json.type === 'string' &&
       ['string', 'method', 'none', 'rag_message_generator'].includes(json.type)
     ) {
-      messageType = json.type as WaldieMessageType;
+      messageType = json.type as WaldiezMessageType;
     }
     return messageType;
   }

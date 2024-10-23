@@ -1,4 +1,4 @@
-import { WaldieFlowModalBasicTab, WaldieFlowModalOtherTab } from '@waldiez/components/flow/modal/tabs';
+import { WaldiezFlowModalBasicTab, WaldiezFlowModalOtherTab } from '@waldiez/components/flow/modal/tabs';
 import { EditFlowModalViewProps } from '@waldiez/components/flow/modal/types';
 import { Modal } from '@waldiez/components/modal';
 import { TabItem, TabItems } from '@waldiez/components/tabs';
@@ -33,7 +33,7 @@ export const EditFlowModalView = (props: EditFlowModalViewProps) => {
     >
       <TabItems activeTabIndex={0}>
         <TabItem label="Edit Flow" id={`rf-${flowId}-edit-flow-modal`}>
-          <WaldieFlowModalBasicTab
+          <WaldiezFlowModalBasicTab
             flowId={flowId}
             data={data}
             remainingEdges={remainingEdges}
@@ -48,7 +48,7 @@ export const EditFlowModalView = (props: EditFlowModalViewProps) => {
           />
         </TabItem>
         <TabItem label="Other" id={`rf-${flowId}-edit-flow-modal-extras`}>
-          <WaldieFlowModalOtherTab data={data} onDataChange={onDataChange} />
+          <WaldiezFlowModalOtherTab data={data} onDataChange={onDataChange} />
         </TabItem>
       </TabItems>
       <div className="modal-actions">

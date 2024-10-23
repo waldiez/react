@@ -2,8 +2,8 @@ import { createdAt, flowId, modelData, modelId, updatedAt } from './data';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { WaldieNodeModel } from '@waldiez/components';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezNodeModel } from '@waldiez/components';
+import { WaldiezProvider } from '@waldiez/store';
 
 const renderModel = (overrides: Partial<typeof modelData> = {}) => {
   const modelDataToUse = { ...modelData, ...overrides };
@@ -16,7 +16,7 @@ const renderModel = (overrides: Partial<typeof modelData> = {}) => {
     }
   ];
   render(
-    <WaldieProvider
+    <WaldiezProvider
       flowId={flowId}
       storageId="test-storage"
       name="flow name"
@@ -28,7 +28,7 @@ const renderModel = (overrides: Partial<typeof modelData> = {}) => {
       createdAt={createdAt}
       updatedAt={updatedAt}
     >
-      <WaldieNodeModel
+      <WaldiezNodeModel
         id={modelId}
         data={{ ...modelDataToUse, label: modelDataToUse.name }}
         type="model"
@@ -38,7 +38,7 @@ const renderModel = (overrides: Partial<typeof modelData> = {}) => {
         positionAbsoluteX={0}
         positionAbsoluteY={0}
       />
-    </WaldieProvider>
+    </WaldiezProvider>
   );
 };
 
@@ -52,7 +52,7 @@ const renderAdvancedTab = (overrides: Partial<typeof modelData> = {}) => {
   expect(advancedTab).toBeInTheDocument();
 };
 
-describe('WaldieNodeModel Modal Advanced Tab', () => {
+describe('WaldiezNodeModel Modal Advanced Tab', () => {
   it('it should display the advanced tab', () => {
     renderAdvancedTab();
   });

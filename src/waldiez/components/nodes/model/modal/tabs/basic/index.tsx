@@ -1,10 +1,10 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieNodeModelModalBasicTabProps } from '@waldiez/components/nodes/model/modal/tabs/basic/types';
-import { WaldieNodeModelModalBasicTabView } from '@waldiez/components/nodes/model/modal/tabs/basic/view';
-import { WaldieModelAPIType } from '@waldiez/models';
+import { WaldiezNodeModelModalBasicTabProps } from '@waldiez/components/nodes/model/modal/tabs/basic/types';
+import { WaldiezNodeModelModalBasicTabView } from '@waldiez/components/nodes/model/modal/tabs/basic/view';
+import { WaldiezModelAPIType } from '@waldiez/models';
 import { LOGOS } from '@waldiez/theme';
 
-export const WaldieNodeModelModalBasicTab = (props: WaldieNodeModelModalBasicTabProps) => {
+export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps) => {
   const { data, onDataChange, onLogoChange } = props;
   const onLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onDataChange({ label: e.target.value });
@@ -12,7 +12,7 @@ export const WaldieNodeModelModalBasicTab = (props: WaldieNodeModelModalBasicTab
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onDataChange({ description: e.target.value });
   };
-  const onApiTypeChange = (option: SingleValue<{ label: string; value: WaldieModelAPIType }>) => {
+  const onApiTypeChange = (option: SingleValue<{ label: string; value: WaldiezModelAPIType }>) => {
     if (option) {
       onDataChange({ apiType: option.value });
       onLogoChange(LOGOS[option.value]);
@@ -25,7 +25,7 @@ export const WaldieNodeModelModalBasicTab = (props: WaldieNodeModelModalBasicTab
     onDataChange({ baseUrl: e.target.value });
   };
   return (
-    <WaldieNodeModelModalBasicTabView
+    <WaldiezNodeModelModalBasicTabView
       data={data}
       onLabelChange={onLabelChange}
       onDescriptionChange={onDescriptionChange}

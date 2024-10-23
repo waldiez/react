@@ -3,7 +3,7 @@ import { Editor } from '@waldiez/components/inputs/editor';
 import { InfoCheckbox } from '@waldiez/components/inputs/infoCheckBox';
 import { InfoLabel } from '@waldiez/components/inputs/infoLabel';
 import { Select } from '@waldiez/components/inputs/select';
-import { WaldieMessage, WaldieMessageType } from '@waldiez/models';
+import { WaldiezMessage, WaldiezMessageType } from '@waldiez/models';
 
 const MessageOptionsMapping = {
   none: 'None',
@@ -12,16 +12,16 @@ const MessageOptionsMapping = {
   method: 'Method'
 };
 export type MessageInputViewProps = {
-  current: WaldieMessage;
+  current: WaldiezMessage;
   defaultContent: string;
   darkMode: boolean;
   selectLabel: string;
-  selectOptions: { label: string; value: WaldieMessageType }[];
+  selectOptions: { label: string; value: WaldiezMessageType }[];
   selectTestId: string;
   useDict: boolean;
   notNoneLabel?: string;
   notNoneLabelInfo?: string;
-  onTypeChange: (type: WaldieMessageType) => void;
+  onTypeChange: (type: WaldiezMessageType) => void;
   onUseCarryoverChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onContentUpdate: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onRagProblemUpdate: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -83,7 +83,7 @@ export const MessageInputView = (props: MessageInputViewProps) => {
         }}
         onChange={newValue => {
           if (newValue) {
-            onTypeChange(newValue.value as WaldieMessageType);
+            onTypeChange(newValue.value as WaldiezMessageType);
           } else {
             onTypeChange('none');
           }

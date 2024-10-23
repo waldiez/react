@@ -1,6 +1,6 @@
 import { ReactFlowInstance } from '@xyflow/react';
 
-import { WaldieNodeType } from '@waldiez/models';
+import { WaldiezNodeType } from '@waldiez/models';
 
 export type SideBarProps = {
   flowId: string;
@@ -14,7 +14,7 @@ export type SideBarProps = {
     [key: string]: unknown;
   } | null;
   onImport: (contents: any) => void;
-  onNodeTypeSelected: (nodeType: WaldieNodeType) => void;
+  onNodeTypeSelected: (nodeType: WaldiezNodeType) => void;
   // setModalOpen: (open: boolean) => void;
   // onThemeToggle: () => void;
   onEditFlow: () => void;

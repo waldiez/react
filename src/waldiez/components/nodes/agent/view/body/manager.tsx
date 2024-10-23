@@ -2,9 +2,9 @@ import { FaMinusCircle } from 'react-icons/fa';
 import { FaGear } from 'react-icons/fa6';
 
 import { getAgentModelsView, getAgentSkillsView } from '@waldiez/components/nodes/agent/view/body/common';
-import { WaldieNodeAgentManagerBodyViewProps } from '@waldiez/components/nodes/agent/view/body/types';
+import { WaldiezNodeAgentManagerBodyViewProps } from '@waldiez/components/nodes/agent/view/body/types';
 
-export const WaldieNodeAgentManagerBodyView = (props: WaldieNodeAgentManagerBodyViewProps) => {
+export const WaldiezNodeAgentManagerBodyView = (props: WaldiezNodeAgentManagerBodyViewProps) => {
   const {
     id,
     data,
@@ -13,10 +13,10 @@ export const WaldieNodeAgentManagerBodyView = (props: WaldieNodeAgentManagerBody
     onOpenMemberModal,
     onRemoveMember,
     agentModelNames,
-    agentWaldieModelAPITypes,
+    agentWaldiezModelAPITypes,
     agentModelLogos
   } = props;
-  const agentModelsView = getAgentModelsView(id, agentModelNames, agentModelLogos, agentWaldieModelAPITypes);
+  const agentModelsView = getAgentModelsView(id, agentModelNames, agentModelLogos, agentWaldiezModelAPITypes);
   const agentSkillsView = getAgentSkillsView(id, data, skills);
   return (
     <div className="agent-content nodrag nopan" data-testid={`agent-${id}-content`}>

@@ -1,23 +1,23 @@
 import { useState } from 'react';
 
-import { WaldieEdgeModalProps } from '@waldiez/components/edges/modal/types';
-import { WaldieEdgeModalView } from '@waldiez/components/edges/modal/view';
+import { WaldiezEdgeModalProps } from '@waldiez/components/edges/modal/types';
+import { WaldiezEdgeModalView } from '@waldiez/components/edges/modal/view';
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieEdge, WaldieEdgeData, WaldieEdgeType } from '@waldiez/models';
-import { useWaldieContext } from '@waldiez/store';
+import { WaldiezEdge, WaldiezEdgeData, WaldiezEdgeType } from '@waldiez/models';
+import { useWaldiezContext } from '@waldiez/store';
 
-export const WaldieEdgeModal = (props: WaldieEdgeModalProps) => {
+export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
   const { edgeId, isOpen, flowId, darkMode, onClose } = props;
-  const getEdgeSourceAgent = useWaldieContext(selector => selector.getEdgeSourceAgent);
-  const updateEdgeData = useWaldieContext(selector => selector.updateEdgeData);
-  const updateEdgeType = useWaldieContext(selector => selector.updateEdgeType);
-  const getEdgeById = useWaldieContext(selector => selector.getEdgeById);
-  const edge = getEdgeById(edgeId) as WaldieEdge | null;
+  const getEdgeSourceAgent = useWaldiezContext(selector => selector.getEdgeSourceAgent);
+  const updateEdgeData = useWaldiezContext(selector => selector.updateEdgeData);
+  const updateEdgeType = useWaldiezContext(selector => selector.updateEdgeType);
+  const getEdgeById = useWaldiezContext(selector => selector.getEdgeById);
+  const edge = getEdgeById(edgeId) as WaldiezEdge | null;
   const [edgeType, setEdgeType] = useState<'chat' | 'nested' | 'group' | 'hidden'>(edge?.type ?? 'chat');
-  const [edgeData, setEdgeData] = useState<WaldieEdgeData | undefined>(edge?.data);
+  const [edgeData, setEdgeData] = useState<WaldiezEdgeData | undefined>(edge?.data);
   const sourceAgent = edge ? getEdgeSourceAgent(edge) : null;
   const isRagUser = sourceAgent?.data?.agentType === 'rag_user';
-  const onDataChange = (data: Partial<WaldieEdgeData>) => {
+  const onDataChange = (data: Partial<WaldiezEdgeData>) => {
     if (edgeData) {
       setEdgeData({
         ...edgeData,
@@ -28,7 +28,7 @@ export const WaldieEdgeModal = (props: WaldieEdgeModalProps) => {
   const onTypeChange = (
     option: SingleValue<{
       label: string;
-      value: WaldieEdgeType;
+      value: WaldiezEdgeType;
     }>
   ) => {
     if (option && edge) {
@@ -54,7 +54,7 @@ export const WaldieEdgeModal = (props: WaldieEdgeModalProps) => {
     return <></>;
   }
   return (
-    <WaldieEdgeModalView
+    <WaldiezEdgeModalView
       flowId={flowId}
       edgeId={edgeId}
       edgeType={edgeType}

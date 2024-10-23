@@ -1,32 +1,32 @@
 import { FlowModalData } from '@waldiez/components/flow/modal/types';
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieEdge } from '@waldiez/models';
+import { WaldiezEdge } from '@waldiez/models';
 
-export type WaldieFlowModalBasicTabProps = {
+export type WaldiezFlowModalBasicTabProps = {
   flowId: string;
   data: FlowModalData;
   onDataChange: (data: Partial<FlowModalData>) => void;
-  remainingEdges: WaldieEdge[];
-  sortedEdges: WaldieEdge[];
-  selectedNewEdge: WaldieEdge | null;
-  onSelectedNewEdgeChange: (option: SingleValue<{ label: string; value: WaldieEdge }>) => void;
+  remainingEdges: WaldiezEdge[];
+  sortedEdges: WaldiezEdge[];
+  selectedNewEdge: WaldiezEdge | null;
+  onSelectedNewEdgeChange: (option: SingleValue<{ label: string; value: WaldiezEdge }>) => void;
   onAddEdge: () => void;
-  onRemoveEdge: (edge: WaldieEdge) => void;
+  onRemoveEdge: (edge: WaldiezEdge) => void;
   onMoveEdgeUp: (index: number) => void;
   onMoveEdgeDown: (index: number) => void;
 };
-export type WaldieFlowModalBasicTabViewProps = {
+export type WaldiezFlowModalBasicTabViewProps = {
   flowId: string;
   name: string;
   description: string;
-  remainingEdges: WaldieEdge[];
-  sortedEdges: WaldieEdge[];
-  selectedNewEdge: WaldieEdge | null;
+  remainingEdges: WaldiezEdge[];
+  sortedEdges: WaldiezEdge[];
+  selectedNewEdge: WaldiezEdge | null;
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onSelectedNewEdgeChange: (option: SingleValue<{ label: string; value: WaldieEdge }>) => void;
+  onSelectedNewEdgeChange: (option: SingleValue<{ label: string; value: WaldiezEdge }>) => void;
   onAddEdge: () => void;
-  onRemoveEdge: (edge: WaldieEdge) => void;
+  onRemoveEdge: (edge: WaldiezEdge) => void;
   onMoveEdgeUp: (index: number) => void;
   onMoveEdgeDown: (index: number) => void;
 };

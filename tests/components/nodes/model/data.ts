@@ -1,10 +1,10 @@
-import { WaldieModelAPIType } from '@waldiez/models';
+import { WaldiezModelAPIType } from '@waldiez/models';
 
 export const createdAt = new Date().toISOString();
 export const updatedAt = new Date().toISOString();
 export const flowId = 'wf-1';
 export const modelId = 'wm-1';
-export const apiType = 'other' as WaldieModelAPIType;
+export const apiType = 'other' as WaldiezModelAPIType;
 export const modelData = {
   name: 'test model',
   description: 'test model description',

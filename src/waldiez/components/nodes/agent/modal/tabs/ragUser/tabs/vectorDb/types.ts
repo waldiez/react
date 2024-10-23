@@ -1,14 +1,14 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieAgentNodeData, WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
 export type RagUserAgentConfigTabVectorDbProps = {
   id: string;
-  data: WaldieNodeRagUserData;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezNodeRagUserData;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
 export type RagUserAgentConfigTabVectorDbViewProps = {
   id: string;
-  data: WaldieNodeRagUserData;
+  data: WaldiezNodeRagUserData;
   onVectorDbChange: (
     option: SingleValue<{
       label: string;

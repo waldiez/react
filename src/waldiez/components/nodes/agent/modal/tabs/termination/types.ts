@@ -1,16 +1,16 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieAgentNodeData } from '@waldiez/models';
+import { WaldiezAgentNodeData } from '@waldiez/models';
 
 export type TerminationAgentConfigTabProps = {
   id: string;
-  data: WaldieAgentNodeData;
+  data: WaldiezAgentNodeData;
   isDarkMode: boolean;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
 
 export type TerminationAgentConfigTabViewProps = {
   id: string;
-  data: WaldieAgentNodeData;
+  data: WaldiezAgentNodeData;
   isDarkMode: boolean;
   onTerminationTypeChange: (
     option: SingleValue<{

@@ -1,10 +1,10 @@
 import { Edge, EdgeChange, applyEdgeChanges } from '@xyflow/react';
 
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeType,
-  WaldieEdge,
-  WaldieNodeUserProxyOrAssistantData
+  WaldiezAgentNode,
+  WaldiezAgentNodeType,
+  WaldiezEdge,
+  WaldiezNodeUserProxyOrAssistantData
 } from '@waldiez/models';
 import {
   edgeCommonStyle,
@@ -49,7 +49,7 @@ export class EdgesStore {
   };
   static addEdge: (source: string, target: string, hidden: boolean, get: typeOfGet, set: typeOfSet) => Edge =
     (source, target, hidden, get, set) => {
-      const nodes = get().nodes as WaldieAgentNode[];
+      const nodes = get().nodes as WaldiezAgentNode[];
       const edgesCounter = (chatType: string) => get().edges.filter(edge => edge.type === chatType).length;
       const newEdge = getNewEdge(source, target, hidden, edgesCounter, nodes);
       set({
@@ -72,19 +72,19 @@ export class EdgesStore {
     }
     return edge;
   };
-  static getEdgeSourceAgent: (edge: Edge, get: typeOfGet) => WaldieAgentNode | null = (edge, get) => {
+  static getEdgeSourceAgent: (edge: Edge, get: typeOfGet) => WaldiezAgentNode | null = (edge, get) => {
     const sourceNode = get().nodes.find(node => node.id === edge.source);
     if (!sourceNode) {
       return null;
     }
-    return sourceNode as WaldieAgentNode;
+    return sourceNode as WaldiezAgentNode;
   };
   static deleteEdge: (edgeId: string, get: typeOfGet, set: typeOfSet) => void = (edgeId, get, set) => {
     const agentNodes = get().nodes.filter(
       node => node.data.agentType === 'user' || node.data.agentType === 'assistant'
     );
     const newAgentNodes = agentNodes.map(agentNode => {
-      const nestedChats = (agentNode.data as WaldieNodeUserProxyOrAssistantData).nestedChats;
+      const nestedChats = (agentNode.data as WaldiezNodeUserProxyOrAssistantData).nestedChats;
       return {
         ...agentNode,
         data: {
@@ -134,7 +134,7 @@ export class EdgesStore {
     EdgesStore.resetEdgePositions(get, set);
   };
   static resetEdgePositions: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
-    const edges = get().edges as WaldieEdge[];
+    const edges = get().edges as WaldiezEdge[];
     const newEdges = edges.map(edge => {
       return {
         ...edge,
@@ -157,7 +157,7 @@ export class EdgesStore {
     );
     const nestedEdges: Edge[] = [];
     agentNodes.forEach(agentNode => {
-      const nestedChats = (agentNode.data as WaldieNodeUserProxyOrAssistantData).nestedChats;
+      const nestedChats = (agentNode.data as WaldiezNodeUserProxyOrAssistantData).nestedChats;
       nestedChats.forEach(nestedChat => {
         const messages = nestedChat.messages;
         messages.forEach((message, index) => {
@@ -192,7 +192,7 @@ export class EdgesStore {
           if (!sourceNode) {
             throw new Error(`Source node not found for edge ${edgeId}`);
           }
-          const color = AGENT_COLORS[sourceNode.data.agentType as WaldieAgentNodeType];
+          const color = AGENT_COLORS[sourceNode.data.agentType as WaldiezAgentNodeType];
           return {
             ...edge,
             type: edgeType,
@@ -210,7 +210,7 @@ export class EdgesStore {
   };
   static updateEdgePath: (
     edgeId: string,
-    agentType: WaldieAgentNodeType,
+    agentType: WaldiezAgentNodeType,
     get: typeOfGet,
     set: typeOfSet
   ) => void = (edgeId, agentType, get, set) => {

@@ -1,15 +1,15 @@
 import {
   SpeakerSelectionMode,
   SpeakerTransitionsType,
-  WaldieGroupManagerSpeakerSelectionMethodOption,
-  WaldieWaldieGroupManagerSpeakers
+  WaldiezGroupManagerSpeakerSelectionMethodOption,
+  WaldiezGroupManagerSpeakers
 } from '@waldiez/models/types/';
 
-export class WaldieWaldieGroupManagerSpeakersData {
-  data: WaldieWaldieGroupManagerSpeakers;
+export class WaldiezGroupManagerSpeakersData {
+  data: WaldiezGroupManagerSpeakers;
 
   constructor(
-    selectionMethod: WaldieGroupManagerSpeakerSelectionMethodOption = 'auto',
+    selectionMethod: WaldiezGroupManagerSpeakerSelectionMethodOption = 'auto',
     selectionCustomMethod: string = '',
     maxRetriesForSelecting: number | null = null,
     selectionMode: SpeakerSelectionMode = 'repeat',
@@ -30,14 +30,14 @@ export class WaldieWaldieGroupManagerSpeakersData {
 
   static getSelectionMethod = (
     json: Record<string, unknown>
-  ): WaldieGroupManagerSpeakerSelectionMethodOption => {
-    let selectionMethod: WaldieGroupManagerSpeakerSelectionMethodOption = 'auto';
+  ): WaldiezGroupManagerSpeakerSelectionMethodOption => {
+    let selectionMethod: WaldiezGroupManagerSpeakerSelectionMethodOption = 'auto';
     if (
       'selectionMethod' in json &&
       typeof json.selectionMethod === 'string' &&
       ['auto', 'manual', 'random', 'round_robin', 'custom'].includes(json.selectionMethod)
     ) {
-      selectionMethod = json.selectionMethod as WaldieGroupManagerSpeakerSelectionMethodOption;
+      selectionMethod = json.selectionMethod as WaldiezGroupManagerSpeakerSelectionMethodOption;
     }
     return selectionMethod;
   };
@@ -105,8 +105,8 @@ export class WaldieWaldieGroupManagerSpeakersData {
     return transitionsType;
   };
 
-  static fromJSON = (json: any): WaldieWaldieGroupManagerSpeakersData => {
-    const speakers: WaldieWaldieGroupManagerSpeakers = {
+  static fromJSON = (json: any): WaldiezGroupManagerSpeakersData => {
+    const speakers: WaldiezGroupManagerSpeakers = {
       selectionMethod: 'auto',
       selectionCustomMethod: '',
       maxRetriesForSelecting: null,
@@ -117,18 +117,17 @@ export class WaldieWaldieGroupManagerSpeakersData {
     };
     if ('speakers' in json && typeof json.speakers === 'object') {
       const speakersData = json.speakers as Record<string, unknown>;
-      speakers.selectionMethod = WaldieWaldieGroupManagerSpeakersData.getSelectionMethod(speakersData);
-      speakers.selectionCustomMethod =
-        WaldieWaldieGroupManagerSpeakersData.getSelectionCustomMethod(speakersData);
+      speakers.selectionMethod = WaldiezGroupManagerSpeakersData.getSelectionMethod(speakersData);
+      speakers.selectionCustomMethod = WaldiezGroupManagerSpeakersData.getSelectionCustomMethod(speakersData);
       speakers.maxRetriesForSelecting =
-        WaldieWaldieGroupManagerSpeakersData.getMaxRetriesForSelecting(speakersData);
-      speakers.selectionMode = WaldieWaldieGroupManagerSpeakersData.getSelectionMode(speakersData);
-      speakers.allowRepeat = WaldieWaldieGroupManagerSpeakersData.getAllowRepeat(speakersData);
+        WaldiezGroupManagerSpeakersData.getMaxRetriesForSelecting(speakersData);
+      speakers.selectionMode = WaldiezGroupManagerSpeakersData.getSelectionMode(speakersData);
+      speakers.allowRepeat = WaldiezGroupManagerSpeakersData.getAllowRepeat(speakersData);
       speakers.allowedOrDisallowedTransitions =
-        WaldieWaldieGroupManagerSpeakersData.getAllowedOrDisallowedTransitions(speakersData);
-      speakers.transitionsType = WaldieWaldieGroupManagerSpeakersData.getTransitionsType(speakersData);
+        WaldiezGroupManagerSpeakersData.getAllowedOrDisallowedTransitions(speakersData);
+      speakers.transitionsType = WaldiezGroupManagerSpeakersData.getTransitionsType(speakersData);
     }
-    return new WaldieWaldieGroupManagerSpeakersData(
+    return new WaldiezGroupManagerSpeakersData(
       speakers.selectionMethod,
       speakers.selectionCustomMethod,
       speakers.maxRetriesForSelecting,

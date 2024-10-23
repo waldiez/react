@@ -1,15 +1,15 @@
 import { assistantJson, createdAt, updatedAt } from './data';
 import { expectTypeOf } from 'vitest';
 
-import { WaldieSourceAssistant } from '@waldiez/models/agents/assistant';
-import { WaldieSourceAssistantData } from '@waldiez/models/agents/assistant/data';
+import { WaldiezSourceAssistant } from '@waldiez/models/agents/assistant';
+import { WaldiezSourceAssistantData } from '@waldiez/models/agents/assistant/data';
 import {
-  WaldieNodeAssistant,
-  WaldieNodeAssistantData
-} from '@waldiez/models/types/agents/waldieUserProxyOrAssistantAgent';
+  WaldiezNodeAssistant,
+  WaldiezNodeAssistantData
+} from '@waldiez/models/types/agents/userProxyOrAssistant';
 
-describe('WaldieSourceAssistant', () => {
-  const waldieSourceAssistantData: WaldieSourceAssistantData = {
+describe('WaldiezSourceAssistant', () => {
+  const waldieSourceAssistantData: WaldiezSourceAssistantData = {
     name: 'Assistant',
     nestedChats: [],
     agentType: 'assistant',
@@ -41,11 +41,11 @@ describe('WaldieSourceAssistant', () => {
     updatedAt
   };
 
-  const assistant = new WaldieSourceAssistant('test-id', waldieSourceAssistantData);
+  const assistant = new WaldiezSourceAssistant('test-id', waldieSourceAssistantData);
   const assistantNode = assistant.asNode();
 
   it('should create a new assistant', () => {
-    expect(assistant).toBeInstanceOf(WaldieSourceAssistant);
+    expect(assistant).toBeInstanceOf(WaldiezSourceAssistant);
   });
 
   it('should have the correct data', () => {
@@ -53,11 +53,11 @@ describe('WaldieSourceAssistant', () => {
   });
 
   it('should create a new assistant node', () => {
-    expectTypeOf(assistantNode).toEqualTypeOf<WaldieNodeAssistant>();
+    expectTypeOf(assistantNode).toEqualTypeOf<WaldiezNodeAssistant>();
   });
 
-  it('should have node data of type WaldieNodeAssistantData', () => {
-    expectTypeOf(assistantNode.data).toEqualTypeOf<WaldieNodeAssistantData>();
+  it('should have node data of type WaldiezNodeAssistantData', () => {
+    expectTypeOf(assistantNode.data).toEqualTypeOf<WaldiezNodeAssistantData>();
   });
 
   it('should have the correct node id', () => {
@@ -70,7 +70,7 @@ describe('WaldieSourceAssistant', () => {
   });
 
   it('should import an assistant from json', () => {
-    const importedAssistant = WaldieSourceAssistant.fromJSON(
+    const importedAssistant = WaldiezSourceAssistant.fromJSON(
       {
         ...assistantJson,
         id: 'test-id'
@@ -96,13 +96,13 @@ describe('WaldieSourceAssistant', () => {
   });
 
   it('should create new assistant data', () => {
-    const assistantData = new WaldieSourceAssistantData();
-    expect(assistantData).toBeInstanceOf(WaldieSourceAssistantData);
+    const assistantData = new WaldiezSourceAssistantData();
+    expect(assistantData).toBeInstanceOf(WaldiezSourceAssistantData);
   });
 
   it('should import assistant data from json', () => {
-    const importedAssistantData = WaldieSourceAssistantData.fromJSON(assistantJson, 'assistant');
-    expect(importedAssistantData).toBeInstanceOf(WaldieSourceAssistantData);
+    const importedAssistantData = WaldiezSourceAssistantData.fromJSON(assistantJson, 'assistant');
+    expect(importedAssistantData).toBeInstanceOf(WaldiezSourceAssistantData);
     expect(importedAssistantData).toEqual(assistantJson);
   });
 });

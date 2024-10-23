@@ -5,8 +5,8 @@ import { GroupManagerNodeTabProps } from '@waldiez/components/nodes/agent/modal/
 import { GroupManagerNodeTabView } from '@waldiez/components/nodes/agent/modal/tabs/groupManager/view';
 import {
   SpeakerTransitionsType,
-  WaldieGroupManagerSpeakerSelectionMethodOption,
-  WaldieNodeGroupManagerData
+  WaldiezGroupManagerSpeakerSelectionMethodOption,
+  WaldiezNodeGroupManagerData
 } from '@waldiez/models';
 
 export const GroupManagerConfigNodeTab = (props: GroupManagerNodeTabProps) => {
@@ -25,7 +25,7 @@ export const GroupManagerConfigNodeTab = (props: GroupManagerNodeTabProps) => {
   const onSendIntroductionsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onDataChange({ ...data, sendIntroductions: event.target.checked });
   };
-  const setSpeakersData = (partialData: Partial<WaldieNodeGroupManagerData['speakers']>) => {
+  const setSpeakersData = (partialData: Partial<WaldiezNodeGroupManagerData['speakers']>) => {
     onDataChange({
       ...data,
       speakers: { ...data.speakers, ...partialData }
@@ -110,7 +110,7 @@ export const GroupManagerConfigNodeTab = (props: GroupManagerNodeTabProps) => {
   const onSelectionMethodChange = (
     option: {
       label: string;
-      value: WaldieGroupManagerSpeakerSelectionMethodOption;
+      value: WaldiezGroupManagerSpeakerSelectionMethodOption;
     } | null
   ) => {
     if (option) {

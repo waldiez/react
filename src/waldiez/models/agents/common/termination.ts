@@ -1,8 +1,8 @@
-import { WaldieAgentTerminationMessageCheck } from '@waldiez/models/types/agents';
+import { WaldiezAgentTerminationMessageCheck } from '@waldiez/models/types/agents';
 
 export class TerminationData {
-  data: WaldieAgentTerminationMessageCheck;
-  constructor(data: WaldieAgentTerminationMessageCheck) {
+  data: WaldiezAgentTerminationMessageCheck;
+  constructor(data: WaldiezAgentTerminationMessageCheck) {
     this.data = data;
   }
   static fromJSON = (data: Record<string, unknown>): TerminationData => {

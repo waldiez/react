@@ -2,7 +2,7 @@ import { Edge, MarkerType, Node } from '@xyflow/react';
 
 import { nanoid } from 'nanoid';
 
-import { WaldieAgentNodeType, WaldieSourceEdge, WaldieSourceEdgeData } from '@waldiez/models';
+import { WaldiezAgentNodeType, WaldiezSourceEdge, WaldiezSourceEdgeData } from '@waldiez/models';
 import { AGENT_COLORS } from '@waldiez/theme';
 
 export const edgeCommonStyle = (color: string) => ({
@@ -39,7 +39,7 @@ const getNewEdgeName = (sourceNode: Node, targetNode: Node) => {
   return edgeName;
 };
 const getNewChatType = (sourceNode: Node, targetNode: Node, hidden: boolean) => {
-  const agentType = sourceNode.data.agentType as WaldieAgentNodeType;
+  const agentType = sourceNode.data.agentType as WaldiezAgentNodeType;
   let chatType = agentType === 'manager' ? 'group' : 'chat';
   if (hidden || targetNode.parentId) {
     chatType = 'hidden';
@@ -55,13 +55,13 @@ export const getNewEdge = (
 ) => {
   const { sourceNode, targetNode } = getNewEdgeNodes(nodes, source, target);
   const edgeName = getNewEdgeName(sourceNode, targetNode);
-  const edgeData = new WaldieSourceEdgeData(source, target, edgeName);
+  const edgeData = new WaldiezSourceEdgeData(source, target, edgeName);
   edgeData.order = -1;
-  const agentType = sourceNode.data.agentType as WaldieAgentNodeType;
+  const agentType = sourceNode.data.agentType as WaldiezAgentNodeType;
   const chatType = getNewChatType(sourceNode, targetNode, hidden);
   edgeData.position = positionGetter(chatType);
   const color = AGENT_COLORS[agentType];
-  const newEdge = new WaldieSourceEdge({
+  const newEdge = new WaldiezSourceEdge({
     id: `we-${nanoid()}`,
     source,
     target,

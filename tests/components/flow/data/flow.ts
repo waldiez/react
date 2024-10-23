@@ -5,24 +5,24 @@ import { nodes } from './nodes';
 import { Edge, Node } from '@xyflow/react';
 
 import {
-  WaldieNodeRagUserData,
-  WaldieSourceAssistant,
-  WaldieSourceEdge,
-  WaldieSourceGroupManager,
-  WaldieSourceModel,
-  WaldieSourceRagUser,
-  WaldieSourceSkill,
-  WaldieSourceUserProxy
+  WaldiezNodeRagUserData,
+  WaldiezSourceAssistant,
+  WaldiezSourceEdge,
+  WaldiezSourceGroupManager,
+  WaldiezSourceModel,
+  WaldiezSourceRagUser,
+  WaldiezSourceSkill,
+  WaldiezSourceUserProxy
 } from '@waldiez/models';
 
 const agents = {
-  users: [] as WaldieSourceUserProxy[],
-  assistants: [] as WaldieSourceAssistant[],
-  managers: [] as WaldieSourceGroupManager[],
-  rag_users: [] as WaldieSourceRagUser[]
+  users: [] as WaldiezSourceUserProxy[],
+  assistants: [] as WaldiezSourceAssistant[],
+  managers: [] as WaldiezSourceGroupManager[],
+  rag_users: [] as WaldiezSourceRagUser[]
 };
-const models = [] as WaldieSourceModel[];
-const skills = [] as WaldieSourceSkill[];
+const models = [] as WaldiezSourceModel[];
+const skills = [] as WaldiezSourceSkill[];
 
 /* eslint-disable max-statements */
 const nodesWithoutData = nodes.map((node: Node) => {
@@ -39,20 +39,20 @@ const nodesWithoutData = nodes.map((node: Node) => {
       updatedAt
     };
     if (agentType === 'user') {
-      agents.users.push(WaldieSourceUserProxy.fromJSON(jsonData, agentType, node.data.label as string));
+      agents.users.push(WaldiezSourceUserProxy.fromJSON(jsonData, agentType, node.data.label as string));
     } else if (agentType === 'assistant') {
-      agents.assistants.push(WaldieSourceAssistant.fromJSON(jsonData, agentType, node.data.label as string));
+      agents.assistants.push(WaldiezSourceAssistant.fromJSON(jsonData, agentType, node.data.label as string));
     } else if (agentType === 'manager') {
-      agents.managers.push(WaldieSourceGroupManager.fromJSON(jsonData));
+      agents.managers.push(WaldiezSourceGroupManager.fromJSON(jsonData));
     } else if (agentType === 'rag_user') {
       const dataWithRetrieveConfig = {
         ...jsonData,
         data: {
           ...jsonData.data,
-          retrieveConfig: (jsonData.data as WaldieNodeRagUserData).retrieveConfig
+          retrieveConfig: (jsonData.data as WaldiezNodeRagUserData).retrieveConfig
         }
       };
-      agents.rag_users.push(WaldieSourceRagUser.fromJSON(dataWithRetrieveConfig));
+      agents.rag_users.push(WaldiezSourceRagUser.fromJSON(dataWithRetrieveConfig));
     }
     return { ...node };
   } else if (nodeType === 'model') {
@@ -65,7 +65,7 @@ const nodesWithoutData = nodes.map((node: Node) => {
       createdAt,
       updatedAt
     };
-    models.push(WaldieSourceModel.fromJSON(jsonData));
+    models.push(WaldiezSourceModel.fromJSON(jsonData));
     return { ...node };
   } else if (nodeType === 'skill') {
     const skillData = node.data as any;
@@ -77,13 +77,13 @@ const nodesWithoutData = nodes.map((node: Node) => {
       createdAt,
       updatedAt
     };
-    skills.push(WaldieSourceSkill.fromJSON(jsonData));
+    skills.push(WaldiezSourceSkill.fromJSON(jsonData));
     return { ...node };
   }
   const newNode = { ...node, data: {} };
   return { ...newNode };
 });
-const chats = [] as WaldieSourceEdge[];
+const chats = [] as WaldiezSourceEdge[];
 const edgesWithoutData = edges.map((edge: Edge) => {
   const chatData = edge.data as any;
   const jsonData = {
@@ -94,7 +94,7 @@ const edgesWithoutData = edges.map((edge: Edge) => {
     position: chatData.position,
     hidden: chatData.hidden
   };
-  chats.push(WaldieSourceEdge.fromJSON(jsonData));
+  chats.push(WaldiezSourceEdge.fromJSON(jsonData));
   const newEdge = { ...edge, data: {} };
   return { ...newEdge };
 });

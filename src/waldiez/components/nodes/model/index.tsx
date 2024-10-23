@@ -3,23 +3,23 @@ import { Node, NodeProps } from '@xyflow/react';
 import { useState } from 'react';
 
 import { exportItem, importItem } from '@waldiez/components/nodes/common';
-import { WaldieNodeModelView } from '@waldiez/components/nodes/model/view';
-import { WaldieModelNode, WaldieModelNodeData } from '@waldiez/models';
-import { useWaldieContext } from '@waldiez/store';
+import { WaldiezNodeModelView } from '@waldiez/components/nodes/model/view';
+import { WaldiezModelNode, WaldiezModelNodeData } from '@waldiez/models';
+import { useWaldiezContext } from '@waldiez/store';
 import { LOGOS } from '@waldiez/theme';
 
-export const WaldieNodeModel = ({ id, data }: NodeProps<WaldieModelNode>) => {
-  const getModelById = useWaldieContext(selector => selector.getModelById);
-  const updateModelData = useWaldieContext(state => state.updateModelData);
-  const cloneModel = useWaldieContext(selector => selector.cloneModel);
-  const deleteModel = useWaldieContext(selector => selector.deleteModel);
-  const importModel = useWaldieContext(selector => selector.importModel);
-  const exportModel = useWaldieContext(selector => selector.exportModel);
-  const flowId = useWaldieContext(state => state.flowId);
+export const WaldiezNodeModel = ({ id, data }: NodeProps<WaldiezModelNode>) => {
+  const getModelById = useWaldiezContext(selector => selector.getModelById);
+  const updateModelData = useWaldiezContext(state => state.updateModelData);
+  const cloneModel = useWaldiezContext(selector => selector.cloneModel);
+  const deleteModel = useWaldiezContext(selector => selector.deleteModel);
+  const importModel = useWaldiezContext(selector => selector.importModel);
+  const exportModel = useWaldiezContext(selector => selector.exportModel);
+  const flowId = useWaldiezContext(state => state.flowId);
   // const model = getModelById(id);
   const [logo, setLogo] = useState<string>(LOGOS[data.apiType] as string);
   const [isOpen, setIsOpen] = useState(false);
-  const [modelData, setModelData] = useState<WaldieModelNodeData>(data);
+  const [modelData, setModelData] = useState<WaldiezModelNodeData>(data);
   const onOpenModal = () => {
     setIsOpen(true);
   };
@@ -42,7 +42,7 @@ export const WaldieNodeModel = ({ id, data }: NodeProps<WaldieModelNode>) => {
   const onExport = () => {
     exportItem(data.label, 'model', exportModel.bind(null, id));
   };
-  const onDataChange = (data: Partial<WaldieModelNodeData>) => {
+  const onDataChange = (data: Partial<WaldiezModelNodeData>) => {
     setModelData({ ...modelData, ...data });
   };
   const onCancel = () => {
@@ -56,12 +56,12 @@ export const WaldieNodeModel = ({ id, data }: NodeProps<WaldieModelNode>) => {
     const storedModel = getModelById(id);
     const storedData = storedModel?.data;
     if (storedData) {
-      setModelData(storedData as WaldieModelNodeData);
+      setModelData(storedData as WaldiezModelNodeData);
     }
     setIsOpen(false);
   };
   return (
-    <WaldieNodeModelView
+    <WaldiezNodeModelView
       modelId={id}
       data={modelData}
       flowId={flowId}

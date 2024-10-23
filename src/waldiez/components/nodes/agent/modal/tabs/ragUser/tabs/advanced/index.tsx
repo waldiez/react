@@ -1,10 +1,10 @@
 import { RagUserAgentConfigTabAdvancedProps } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/advanced/types';
 import { RagUserAgentConfigTabAdvancedView } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/advanced/view';
-import { WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezNodeRagUserData } from '@waldiez/models';
 
 export const RagUserAgentConfigTabAdvanced = (props: RagUserAgentConfigTabAdvancedProps) => {
   const { id, data, onDataChange } = props;
-  const setRetrieveConfigConfigData = (partialData: Partial<WaldieNodeRagUserData['retrieveConfig']>) => {
+  const setRetrieveConfigConfigData = (partialData: Partial<WaldiezNodeRagUserData['retrieveConfig']>) => {
     onDataChange({
       ...data,
       retrieveConfig: {

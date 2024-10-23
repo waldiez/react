@@ -1,13 +1,13 @@
-import { WaldieEdgeLlmSummaryMethod } from '@waldiez/models/types';
+import { WaldiezEdgeLlmSummaryMethod } from '@waldiez/models/types';
 
-export class WaldieEdgeSummaryData {
+export class WaldiezEdgeSummaryData {
   data: {
-    method: WaldieEdgeLlmSummaryMethod;
+    method: WaldiezEdgeLlmSummaryMethod;
     prompt: string;
     args: { [key: string]: any };
   };
   constructor(
-    method: WaldieEdgeLlmSummaryMethod = 'last_msg',
+    method: WaldiezEdgeLlmSummaryMethod = 'last_msg',
     prompt: string = '',
     args: { [key: string]: any } = {}
   ) {
@@ -17,8 +17,8 @@ export class WaldieEdgeSummaryData {
       args
     };
   }
-  static fromJSON(data: Record<string, unknown>): WaldieEdgeSummaryData {
-    let method: WaldieEdgeLlmSummaryMethod = 'last_msg';
+  static fromJSON(data: Record<string, unknown>): WaldiezEdgeSummaryData {
+    let method: WaldiezEdgeLlmSummaryMethod = 'last_msg';
     let prompt = '';
     const args: { [key: string]: any } = {};
     if (
@@ -26,7 +26,7 @@ export class WaldieEdgeSummaryData {
       typeof data.method === 'string' &&
       ['reflection_with_llm', 'last_msg'].includes(data.method)
     ) {
-      method = data.method as WaldieEdgeLlmSummaryMethod;
+      method = data.method as WaldiezEdgeLlmSummaryMethod;
     }
     if ('prompt' in data && typeof data.prompt === 'string') {
       prompt = data.prompt;
@@ -39,6 +39,6 @@ export class WaldieEdgeSummaryData {
         }
       }
     }
-    return new WaldieEdgeSummaryData(method, prompt, args);
+    return new WaldiezEdgeSummaryData(method, prompt, args);
   }
 }

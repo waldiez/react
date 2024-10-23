@@ -2,26 +2,26 @@ import { XYPosition } from '@xyflow/react';
 
 import { nanoid } from 'nanoid';
 
-import { WaldieSourceModelData } from '@waldiez/models/model/data';
+import { WaldiezSourceModelData } from '@waldiez/models/model/data';
 import {
-  IWaldieSourceModel,
-  IWaldieSourceModelData,
-  WaldieModelNode,
-  WaldieModelNodeData
+  IWaldiezSourceModel,
+  IWaldiezSourceModelData,
+  WaldiezModelNode,
+  WaldiezModelNodeData
 } from '@waldiez/models/types';
 
-export class WaldieSourceModel implements IWaldieSourceModel {
+export class WaldiezSourceModel implements IWaldiezSourceModel {
   id: string;
-  data: IWaldieSourceModelData;
+  data: IWaldiezSourceModelData;
   rest: { [key: string]: unknown } = {};
 
-  constructor(id: string, data: IWaldieSourceModelData, rest: { [key: string]: unknown } = {}) {
+  constructor(id: string, data: IWaldiezSourceModelData, rest: { [key: string]: unknown } = {}) {
     this.id = id;
     this.data = data;
     this.rest = rest;
   }
 
-  asNode = (position?: XYPosition): WaldieModelNode => {
+  asNode = (position?: XYPosition): WaldiezModelNode => {
     // if position is provided, use it
     // otherwise check if self.rest has position
     let pos = { x: 20, y: 20 };
@@ -43,28 +43,28 @@ export class WaldieSourceModel implements IWaldieSourceModel {
     return {
       id: this.id,
       type: 'model',
-      data: nodeData as WaldieModelNodeData,
+      data: nodeData as WaldiezModelNodeData,
       position: pos,
       ...this.rest
     };
   };
 
-  static fromJSON = (json: unknown): WaldieSourceModel => {
+  static fromJSON = (json: unknown): WaldiezSourceModel => {
     if (!json || typeof json !== 'object') {
-      return new WaldieSourceModel('wm-' + nanoid(), new WaldieSourceModelData());
+      return new WaldiezSourceModel('wm-' + nanoid(), new WaldiezSourceModelData());
     }
     const jsonObject = json as Record<string, unknown>;
-    const id = WaldieSourceModel.getId(jsonObject);
-    const name = WaldieSourceModel.getName(jsonObject);
-    const description = WaldieSourceModel.getDescription(jsonObject);
-    const tags = WaldieSourceModel.getTags(jsonObject);
-    const requirements = WaldieSourceModel.getRequirements(jsonObject);
-    const modelName = WaldieSourceModel.getModelName(name, jsonObject);
-    const createdAt = WaldieSourceModel.getCreatedAt(jsonObject);
-    const updatedAt = WaldieSourceModel.getUpdatedAt(jsonObject);
-    const rest = WaldieSourceModel.getRest(jsonObject);
+    const id = WaldiezSourceModel.getId(jsonObject);
+    const name = WaldiezSourceModel.getName(jsonObject);
+    const description = WaldiezSourceModel.getDescription(jsonObject);
+    const tags = WaldiezSourceModel.getTags(jsonObject);
+    const requirements = WaldiezSourceModel.getRequirements(jsonObject);
+    const modelName = WaldiezSourceModel.getModelName(name, jsonObject);
+    const createdAt = WaldiezSourceModel.getCreatedAt(jsonObject);
+    const updatedAt = WaldiezSourceModel.getUpdatedAt(jsonObject);
+    const rest = WaldiezSourceModel.getRest(jsonObject);
     const data = (jsonObject.data ?? {}) as Record<string, unknown>;
-    const modelData = WaldieSourceModelData.fromJSON(
+    const modelData = WaldiezSourceModelData.fromJSON(
       data,
       modelName,
       description,
@@ -73,7 +73,7 @@ export class WaldieSourceModel implements IWaldieSourceModel {
       createdAt,
       updatedAt
     );
-    return new WaldieSourceModel(id, modelData, rest);
+    return new WaldiezSourceModel(id, modelData, rest);
   };
 
   private static getId(json: Record<string, unknown>): string {

@@ -1,30 +1,30 @@
 import {
-  WaldieAgentNestedChat,
-  WaldieAgentNode,
-  WaldieAgentNodeData,
-  WaldieEdge,
-  WaldieNodeUserOrAssistantData
+  WaldiezAgentNestedChat,
+  WaldiezAgentNode,
+  WaldiezAgentNodeData,
+  WaldiezEdge,
+  WaldiezNodeUserOrAssistantData
 } from '@waldiez/models';
 
 export type NestedChatsAgentConfigTabProps = {
   id: string;
-  data: WaldieNodeUserOrAssistantData;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezNodeUserOrAssistantData;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
   agentConnections: {
     source: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
     target: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
   };
 };
 
 export type NestedChatsAgentConfigTabViewProps = {
   id: string;
-  chat: WaldieAgentNestedChat;
+  chat: WaldiezAgentNestedChat;
   allOptions: { label: string; value: string }[];
   selectedTrigger: { id: string; isReply: boolean } | null;
   selectedRecipient: { id: string; isReply: boolean } | null;

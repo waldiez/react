@@ -1,7 +1,7 @@
-import { WaldieSkillNodeModalProps } from '@waldiez/components/nodes/skill/modal/types';
-import { WaldieSkillNodeModalView } from '@waldiez/components/nodes/skill/modal/view';
+import { WaldiezSkillNodeModalProps } from '@waldiez/components/nodes/skill/modal/types';
+import { WaldiezSkillNodeModalView } from '@waldiez/components/nodes/skill/modal/view';
 
-export const WaldieSkillNodeModal = (props: WaldieSkillNodeModalProps) => {
+export const WaldiezSkillNodeModal = (props: WaldiezSkillNodeModalProps) => {
   const {
     skillId,
     flowId,
@@ -42,7 +42,7 @@ export const WaldieSkillNodeModal = (props: WaldieSkillNodeModalProps) => {
     onDataChange({ description: e.target.value });
   };
   return (
-    <WaldieSkillNodeModalView
+    <WaldiezSkillNodeModalView
       skillId={skillId}
       flowId={flowId}
       data={data}

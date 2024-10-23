@@ -1,7 +1,7 @@
-import { WaldieEdgeMessageTabViewProps } from '@waldiez/components/edges/modal/tabs/message/types';
+import { WaldiezEdgeMessageTabViewProps } from '@waldiez/components/edges/modal/tabs/message/types';
 import { MessageInput } from '@waldiez/components/inputs';
 
-export const WaldieEdgeMessageTabView = (props: WaldieEdgeMessageTabViewProps) => {
+export const WaldiezEdgeMessageTabView = (props: WaldiezEdgeMessageTabViewProps) => {
   const {
     edgeId,
     data,

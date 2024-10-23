@@ -1,9 +1,9 @@
 import { InfoLabel, Select } from '@waldiez/components/inputs';
 import { apiKeyEnvs, apiTypeOptions, baseUrlsMapping } from '@waldiez/components/nodes/model/common';
-import { WaldieNodeModelModalBasicTabViewProps } from '@waldiez/components/nodes/model/modal/tabs/basic/types';
-import { WaldieModelAPIType } from '@waldiez/models';
+import { WaldiezNodeModelModalBasicTabViewProps } from '@waldiez/components/nodes/model/modal/tabs/basic/types';
+import { WaldiezModelAPIType } from '@waldiez/models';
 
-export const WaldieNodeModelModalBasicTabView = (props: WaldieNodeModelModalBasicTabViewProps) => {
+export const WaldiezNodeModelModalBasicTabView = (props: WaldiezNodeModelModalBasicTabViewProps) => {
   const { data, onLabelChange, onDescriptionChange, onApiTypeChange, onApiKeyChange, onBaseUrlChange } =
     props;
   const { label, description, apiType, apiKey, baseUrl } = data;
@@ -71,7 +71,7 @@ export const WaldieNodeModelModalBasicTabView = (props: WaldieNodeModelModalBasi
   );
 };
 
-const getApiTypeLabel = (text: WaldieModelAPIType) => {
+const getApiTypeLabel = (text: WaldiezModelAPIType) => {
   if (text === 'anthropic') {
     return 'Claude';
   }
@@ -87,10 +87,10 @@ const getApiTypeLabel = (text: WaldieModelAPIType) => {
   return text[0].toUpperCase() + text.slice(1);
 };
 
-const getBaseUrl = (apiType: WaldieModelAPIType) => {
+const getBaseUrl = (apiType: WaldiezModelAPIType) => {
   return baseUrlsMapping[apiType];
 };
 
-const isBaseUrlEditable = (apiType: WaldieModelAPIType) => {
+const isBaseUrlEditable = (apiType: WaldiezModelAPIType) => {
   return ['other', 'nim', 'azure'].includes(apiType);
 };

@@ -1,6 +1,6 @@
 import { InfoCheckbox, NumberInput, Select, TextInput } from '@waldiez/components/inputs';
 import { BasicAgentConfigTabViewProps } from '@waldiez/components/nodes/agent/modal/tabs/basic/types';
-import { WaldieAgentHumanInputMode } from '@waldiez/types';
+import { WaldiezAgentHumanInputMode } from '@waldiez/types';
 
 export const BasicAgentConfigTabView = (props: BasicAgentConfigTabViewProps) => {
   const {
@@ -102,7 +102,7 @@ const inputMethodsMapping = {
 };
 const inputMethodOptions: {
   label: string;
-  value: WaldieAgentHumanInputMode;
+  value: WaldiezAgentHumanInputMode;
 }[] = [
   { label: 'Always', value: 'ALWAYS' },
   { label: 'Never', value: 'NEVER' },

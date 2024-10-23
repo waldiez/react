@@ -1,14 +1,14 @@
-// implements IWaldieUserProxyAgent
+// implements IWaldiezUserProxyAgent
 import { XYPosition } from '@xyflow/react';
 
-import { WaldieSourceUserProxyOrAssistant } from '@waldiez/models/agents/common/userProxyOrAssistant';
-import { IWaldieSourceUserProxy, WaldieNodeUserProxy } from '@waldiez/models/types';
+import { WaldiezSourceUserProxyOrAssistant } from '@waldiez/models/agents/common/userProxyOrAssistant';
+import { IWaldiezSourceUserProxy, WaldiezNodeUserProxy } from '@waldiez/models/types';
 
-export class WaldieSourceUserProxy
-  extends WaldieSourceUserProxyOrAssistant
-  implements IWaldieSourceUserProxy
+export class WaldiezSourceUserProxy
+  extends WaldiezSourceUserProxyOrAssistant
+  implements IWaldiezSourceUserProxy
 {
-  asNode(position?: XYPosition): WaldieNodeUserProxy {
+  asNode(position?: XYPosition): WaldiezNodeUserProxy {
     const rootNode = super.asNode(position);
     return {
       ...rootNode,
@@ -16,6 +16,6 @@ export class WaldieSourceUserProxy
         ...rootNode.data,
         agentType: 'user' as const
       }
-    } as WaldieNodeUserProxy;
+    } as WaldiezNodeUserProxy;
   }
 }

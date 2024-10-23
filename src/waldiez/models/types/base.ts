@@ -1,7 +1,7 @@
 // a common interface to inherit from
 import { Node, XYPosition } from '@xyflow/react';
 
-export interface IWaldieSourceNode {
+export interface IWaldiezSourceNode {
   id: string;
   data: unknown;
   rest: { [key: string]: unknown };

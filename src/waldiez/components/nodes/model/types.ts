@@ -1,8 +1,8 @@
-import { WaldieModelNodeData } from '@waldiez/models';
+import { WaldiezModelNodeData } from '@waldiez/models';
 
-export type WaldieNodeModelViewProps = {
+export type WaldiezNodeModelViewProps = {
   modelId: string;
-  data: WaldieModelNodeData;
+  data: WaldiezModelNodeData;
   flowId: string;
   logo: string;
   isOpen: boolean;
@@ -11,7 +11,7 @@ export type WaldieNodeModelViewProps = {
   onImport: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onExport: () => void;
   onClose: () => void;
-  onDataChange: (data: Partial<WaldieModelNodeData>) => void;
+  onDataChange: (data: Partial<WaldiezModelNodeData>) => void;
   onDelete: () => void;
   onClone: () => void;
   onSubmit: () => void;

@@ -1,6 +1,6 @@
-import { IWaldieSourceSkillData } from '@waldiez/models/types';
+import { IWaldiezSourceSkillData } from '@waldiez/models/types';
 
-export class WaldieSourceSkillData implements IWaldieSourceSkillData {
+export class WaldiezSourceSkillData implements IWaldiezSourceSkillData {
   name: string;
   content: string;
   description: string;
@@ -37,14 +37,14 @@ export class WaldieSourceSkillData implements IWaldieSourceSkillData {
     requirements: string[],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString()
-  ): WaldieSourceSkillData {
+  ): WaldiezSourceSkillData {
     if (!json || typeof json !== 'object' || !json) {
-      return new WaldieSourceSkillData();
+      return new WaldiezSourceSkillData();
     }
     const data = json as Record<string, unknown>;
-    const content = WaldieSourceSkillData.getContent(data);
-    const secrets = WaldieSourceSkillData.getSecrets(data);
-    return new WaldieSourceSkillData(
+    const content = WaldiezSourceSkillData.getContent(data);
+    const secrets = WaldiezSourceSkillData.getSecrets(data);
+    return new WaldiezSourceSkillData(
       name,
       content,
       description,

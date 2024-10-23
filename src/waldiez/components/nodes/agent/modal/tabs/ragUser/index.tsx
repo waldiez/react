@@ -1,11 +1,11 @@
 import { RagUserAgentConfigTabView } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs';
 import { RagUserAgentConfigTabProps } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/types';
 import { showSnackbar } from '@waldiez/components/snackbar';
-import { WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezNodeRagUserData } from '@waldiez/models';
 
 export const RagUserAgentConfigTab = (props: RagUserAgentConfigTabProps) => {
   const { flowId, id, data, darkMode, uploadEnabled, filesToUpload, setFilesToUpload, onDataChange } = props;
-  const setRetrieveConfigConfigData = (partialData: Partial<WaldieNodeRagUserData['retrieveConfig']>) => {
+  const setRetrieveConfigConfigData = (partialData: Partial<WaldiezNodeRagUserData['retrieveConfig']>) => {
     onDataChange({
       ...data,
       retrieveConfig: {

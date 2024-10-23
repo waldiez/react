@@ -1,6 +1,6 @@
 import { FaFileExport, FaFileImport } from 'react-icons/fa';
 
-import { WaldieNode } from '@waldiez/models';
+import { WaldiezNode } from '@waldiez/models';
 
 export const getImportExportView: (
   flowId: string,
@@ -63,8 +63,8 @@ export const exportItem = (
 
 export const importItem = (
   event: React.ChangeEvent<HTMLInputElement>,
-  itemGetter: () => WaldieNode | null,
-  onLoad: (item: WaldieNode, data: { [key: string]: unknown }) => void
+  itemGetter: () => WaldiezNode | null,
+  onLoad: (item: WaldiezNode, data: { [key: string]: unknown }) => void
 ) => {
   const file = event.target.files?.[0];
   if (file) {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { NestedChatsAgentConfigTabProps } from '@waldiez/components/nodes/agent/modal/tabs/nestedChats/types';
 import { NestedChatsAgentConfigTabView } from '@waldiez/components/nodes/agent/modal/tabs/nestedChats/view';
-import { WaldieAgentNestedChat, WaldieEdge } from '@waldiez/models';
+import { WaldiezAgentNestedChat, WaldiezEdge } from '@waldiez/models';
 
 export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps) => {
   const { id, data, onDataChange, agentConnections } = props;
@@ -14,16 +14,16 @@ export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps)
     id: string;
     isReply: boolean;
   } | null>(null);
-  const chat: WaldieAgentNestedChat =
+  const chat: WaldiezAgentNestedChat =
     data.nestedChats.length > 0
       ? data.nestedChats[0]
-      : ({ triggeredBy: [], messages: [] } as WaldieAgentNestedChat);
+      : ({ triggeredBy: [], messages: [] } as WaldiezAgentNestedChat);
   const sources = agentConnections.source;
   const targets = agentConnections.target;
   const triggerEdges = sources.edges;
   const recipientEdges = targets.edges;
   const allEdges = triggerEdges.concat(recipientEdges);
-  const allOptions = allEdges.map((edge: WaldieEdge) => {
+  const allOptions = allEdges.map((edge: WaldiezEdge) => {
     return {
       label: edge.data?.label as string,
       value: edge.id
@@ -56,7 +56,7 @@ export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps)
           }
         ],
         messages: []
-      } as WaldieAgentNestedChat;
+      } as WaldiezAgentNestedChat;
       onDataChange({
         ...data,
         nestedChats: [newChat]
@@ -68,7 +68,7 @@ export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps)
       ...chat,
       triggeredBy: chat.triggeredBy.filter((_, i) => i !== index),
       messages: []
-    } as WaldieAgentNestedChat;
+    } as WaldiezAgentNestedChat;
     onDataChange({
       ...data,
       nestedChats: [newChat]
@@ -94,7 +94,7 @@ export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps)
             isReply: selectedRecipient.isReply
           }
         ]
-      } as WaldieAgentNestedChat;
+      } as WaldiezAgentNestedChat;
       onDataChange({
         ...data,
         nestedChats: [newChat]
@@ -105,7 +105,7 @@ export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps)
     const newChat = {
       ...chat,
       messages: chat.messages.filter((_, i) => i !== index)
-    } as WaldieAgentNestedChat;
+    } as WaldiezAgentNestedChat;
     onDataChange({
       ...data,
       nestedChats: [newChat]
@@ -121,7 +121,7 @@ export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps)
         ...chat,
         messages: recipients
       }
-    ] as WaldieAgentNestedChat[];
+    ] as WaldiezAgentNestedChat[];
     onDataChange({
       ...data,
       nestedChats: newChats
@@ -137,7 +137,7 @@ export const NestedChatsAgentConfigTab = (props: NestedChatsAgentConfigTabProps)
         ...chat,
         messages: recipients
       }
-    ] as WaldieAgentNestedChat[];
+    ] as WaldiezAgentNestedChat[];
     onDataChange({
       ...data,
       nestedChats: newChats

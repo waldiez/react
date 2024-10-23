@@ -1,12 +1,12 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieAgentNodeData, WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
 export type RagUserAgentConfigTabRetrieveConfigProps = {
   id: string;
-  data: WaldieNodeRagUserData;
+  data: WaldiezNodeRagUserData;
   filesToUpload: File[];
   setFilesToUpload: (files: File[]) => void;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
   onFilesUpload?: (files: File[]) => void;
   onFileDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   onFileDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
@@ -14,7 +14,7 @@ export type RagUserAgentConfigTabRetrieveConfigProps = {
 };
 export type RagUserAgentConfigTabRetrieveConfigViewProps = {
   id: string;
-  data: WaldieNodeRagUserData;
+  data: WaldiezNodeRagUserData;
   onFilesUpload?: (files: File[]) => void;
   onTaskChange: (option: SingleValue<{ label: string; value: 'code' | 'qa' | 'default' }>) => void;
   onFileDrop: (event: React.DragEvent<HTMLDivElement>) => void;

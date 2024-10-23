@@ -1,15 +1,15 @@
 import { FaCopy, FaGear, FaTrashCan } from 'react-icons/fa6';
 
 import { getImportExportView } from '@waldiez/components/nodes/common';
-import { WaldieNodeModelModal } from '@waldiez/components/nodes/model/modal';
-import { WaldieNodeModelViewProps } from '@waldiez/components/nodes/model/types';
+import { WaldiezNodeModelModal } from '@waldiez/components/nodes/model/modal';
+import { WaldiezNodeModelViewProps } from '@waldiez/components/nodes/model/types';
 
 const renderDate = (date: string) => {
   const d = new Date(date);
   return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
 };
 
-export const WaldieNodeModelView = (props: WaldieNodeModelViewProps) => {
+export const WaldiezNodeModelView = (props: WaldiezNodeModelViewProps) => {
   const {
     modelId,
     data,
@@ -71,7 +71,7 @@ export const WaldieNodeModelView = (props: WaldieNodeModelViewProps) => {
           <FaCopy />
         </div>
       </div>
-      <WaldieNodeModelModal
+      <WaldiezNodeModelModal
         modelId={modelId}
         data={data}
         isOpen={isOpen}

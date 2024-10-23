@@ -1,7 +1,7 @@
 import { SingleValue } from '@waldiez/components/inputs';
 import { RagUserAgentConfigTabRetrieveConfigProps } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/retrieveConfig/types';
 import { RagUserAgentConfigTabRetrieveConfigView } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/retrieveConfig/view';
-import { WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezNodeRagUserData } from '@waldiez/models';
 
 export const RagUserAgentConfigTabRetrieveConfig = (props: RagUserAgentConfigTabRetrieveConfigProps) => {
   const {
@@ -15,7 +15,7 @@ export const RagUserAgentConfigTabRetrieveConfig = (props: RagUserAgentConfigTab
     onFileDragOver,
     setFilesToUpload
   } = props;
-  const setRetrieveConfigConfigData = (partialData: Partial<WaldieNodeRagUserData['retrieveConfig']>) => {
+  const setRetrieveConfigConfigData = (partialData: Partial<WaldiezNodeRagUserData['retrieveConfig']>) => {
     onDataChange({
       ...data,
       retrieveConfig: {

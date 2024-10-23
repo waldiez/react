@@ -1,10 +1,10 @@
 import { FlowModalData } from '@waldiez/components/flow/modal/types';
 
-export type WaldieFlowModalOtherTabProps = {
+export type WaldiezFlowModalOtherTabProps = {
   data: FlowModalData;
   onDataChange: (data: Partial<FlowModalData>) => void;
 };
-export type WaldieFlowModalOtherTabViewProps = {
+export type WaldiezFlowModalOtherTabViewProps = {
   tags: string[];
   requirements: string[];
   onAddTag: (tag: string) => void;

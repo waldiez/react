@@ -1,7 +1,7 @@
-import { WaldieFlowModalBasicTabProps } from '@waldiez/components/flow/modal/tabs/basic/types';
-import { WaldieFlowModalBasicTabView } from '@waldiez/components/flow/modal/tabs/basic/view';
+import { WaldiezFlowModalBasicTabProps } from '@waldiez/components/flow/modal/tabs/basic/types';
+import { WaldiezFlowModalBasicTabView } from '@waldiez/components/flow/modal/tabs/basic/view';
 
-export const WaldieFlowModalBasicTab = (props: WaldieFlowModalBasicTabProps) => {
+export const WaldiezFlowModalBasicTab = (props: WaldiezFlowModalBasicTabProps) => {
   const {
     flowId,
     data,
@@ -25,7 +25,7 @@ export const WaldieFlowModalBasicTab = (props: WaldieFlowModalBasicTabProps) => 
     onDataChange({ description });
   };
   return (
-    <WaldieFlowModalBasicTabView
+    <WaldiezFlowModalBasicTabView
       flowId={flowId}
       name={name}
       description={description}

@@ -1,10 +1,10 @@
-import { WaldieEdgeNestedTabProps } from '@waldiez/components/edges/modal/tabs/nested/types';
-import { WaldieEdgeNestedTabView } from '@waldiez/components/edges/modal/tabs/nested/view';
-import { WaldieMessage, WaldieMessageType } from '@waldiez/models';
+import { WaldiezEdgeNestedTabProps } from '@waldiez/components/edges/modal/tabs/nested/types';
+import { WaldiezEdgeNestedTabView } from '@waldiez/components/edges/modal/tabs/nested/view';
+import { WaldiezMessage, WaldiezMessageType } from '@waldiez/models';
 
-export const WaldieEdgeNestedTab = (props: WaldieEdgeNestedTabProps) => {
+export const WaldiezEdgeNestedTab = (props: WaldiezEdgeNestedTabProps) => {
   const { flowId, edgeId, darkMode, data, onDataChange } = props;
-  const onNestedMessageTypeChange = (type: WaldieMessageType) => {
+  const onNestedMessageTypeChange = (type: WaldiezMessageType) => {
     onDataChange({
       nestedChat: {
         reply: data.nestedChat.reply,
@@ -17,7 +17,7 @@ export const WaldieEdgeNestedTab = (props: WaldieEdgeNestedTabProps) => {
       }
     });
   };
-  const onNestedReplyTypeChange = (type: WaldieMessageType) => {
+  const onNestedReplyTypeChange = (type: WaldiezMessageType) => {
     onDataChange({
       nestedChat: {
         message: data.nestedChat.message,
@@ -30,7 +30,7 @@ export const WaldieEdgeNestedTab = (props: WaldieEdgeNestedTabProps) => {
       }
     });
   };
-  const onNestedMessageChange = (message: WaldieMessage) => {
+  const onNestedMessageChange = (message: WaldiezMessage) => {
     onDataChange({
       nestedChat: {
         reply: data.nestedChat.reply,
@@ -38,7 +38,7 @@ export const WaldieEdgeNestedTab = (props: WaldieEdgeNestedTabProps) => {
       }
     });
   };
-  const onNestedReplyChange = (reply: WaldieMessage) => {
+  const onNestedReplyChange = (reply: WaldiezMessage) => {
     onDataChange({
       nestedChat: {
         message: data.nestedChat.message,
@@ -54,7 +54,7 @@ export const WaldieEdgeNestedTab = (props: WaldieEdgeNestedTabProps) => {
   // so for now a custom method can be used to handle the context
   const noOp = () => {};
   return (
-    <WaldieEdgeNestedTabView
+    <WaldiezEdgeNestedTabView
       flowId={flowId}
       edgeId={edgeId}
       darkMode={darkMode}

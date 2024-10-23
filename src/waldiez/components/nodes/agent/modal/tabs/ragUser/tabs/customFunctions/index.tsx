@@ -1,10 +1,10 @@
 import { RagUserAgentConfigTabCustomFunctionsProps } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/customFunctions/types';
 import { RagUserAgentConfigTabCustomFunctionsView } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/customFunctions/view';
-import { WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezNodeRagUserData } from '@waldiez/models';
 
 export const RagUserAgentConfigTabCustomFunctions = (props: RagUserAgentConfigTabCustomFunctionsProps) => {
   const { id, flowId, data, darkMode, onDataChange } = props;
-  const setRetrieveConfigConfigData = (partialData: Partial<WaldieNodeRagUserData['retrieveConfig']>) => {
+  const setRetrieveConfigConfigData = (partialData: Partial<WaldiezNodeRagUserData['retrieveConfig']>) => {
     onDataChange({
       ...data,
       retrieveConfig: {

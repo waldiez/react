@@ -1,19 +1,19 @@
-import { WaldieAgentNode, WaldieEdge, WaldieNodeGroupManagerData } from '@waldiez/models';
+import { WaldiezAgentNode, WaldiezEdge, WaldiezNodeGroupManagerData } from '@waldiez/models';
 
 export type GroupManagerNodeTabProps = {
   flowId: string;
   id: string;
-  data: WaldieNodeGroupManagerData;
+  data: WaldiezNodeGroupManagerData;
   isDarkMode: boolean;
   nodeConnections: {
     source: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
     target: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
   };
-  onDataChange: (data: WaldieNodeGroupManagerData) => void;
+  onDataChange: (data: WaldiezNodeGroupManagerData) => void;
 };

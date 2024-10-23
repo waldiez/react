@@ -5,25 +5,25 @@ import { createStore } from 'zustand';
 import { nanoid } from 'nanoid';
 
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeType,
-  WaldieModelNodeData,
-  WaldieNodeType,
-  WaldieSkillNodeData
+  WaldiezAgentNode,
+  WaldiezAgentNodeType,
+  WaldiezModelNodeData,
+  WaldiezNodeType,
+  WaldiezSkillNodeData
 } from '@waldiez/models';
 import { EdgesStore } from '@waldiez/store/edges';
 import { FlowStore } from '@waldiez/store/flow';
 import { AgentsStore, ModelsStore, NodesStore, SkillsStore } from '@waldiez/store/nodes';
-import { WaldieState } from '@waldiez/store/types';
-import { WaldieProps } from '@waldiez/types';
+import { WaldiezState } from '@waldiez/store/types';
+import { WaldiezProps } from '@waldiez/types';
 
 /**
  * Create a Waldie Store
- * @param initialProps - WaldieProps to initialize the store if needed
- * @returns WaldieState
+ * @param initialProps - WaldiezProps to initialize the store if needed
+ * @returns WaldiezState
  */
-export const createWaldieStore = (
-  props?: WaldieProps & {
+export const createWaldiezStore = (
+  props?: WaldiezProps & {
     rfInstance?: ReactFlowInstance | null;
   }
 ) => {
@@ -45,7 +45,7 @@ export const createWaldieStore = (
   if (!storageId) {
     storageId = flowId;
   }
-  return createStore<WaldieState & { rfInstance?: ReactFlowInstance | null }>()((set, get) => ({
+  return createStore<WaldiezState & { rfInstance?: ReactFlowInstance | null }>()((set, get) => ({
     rfInstance,
     flowId,
     storageId,
@@ -98,7 +98,7 @@ export const createWaldieStore = (
     onNodeDoubleClick: (_event: any, node: Node) => {
       NodesStore.onNodeDoubleClick(flowId, node, get, set);
     },
-    showNodes: (nodeType: WaldieNodeType) => {
+    showNodes: (nodeType: WaldiezNodeType) => {
       NodesStore.showNodes(nodeType, get, set);
     },
     reselectNode: (nodeId: string) => {
@@ -117,7 +117,7 @@ export const createWaldieStore = (
     cloneModel: (modelId: string) => {
       return ModelsStore.cloneModel(modelId, get, set);
     },
-    updateModelData: (modelId: string, data: WaldieModelNodeData) => {
+    updateModelData: (modelId: string, data: WaldiezModelNodeData) => {
       ModelsStore.updateModelData(modelId, data, get, set);
     },
     deleteModel: (modelId: string) => {
@@ -142,7 +142,7 @@ export const createWaldieStore = (
     cloneSkill: (skillId: string) => {
       return SkillsStore.cloneSkill(skillId, get, set);
     },
-    updateSkillData: (skillId: string, data: WaldieSkillNodeData) => {
+    updateSkillData: (skillId: string, data: WaldiezSkillNodeData) => {
       SkillsStore.updateSkillData(skillId, data, get, set);
     },
     deleteSkill: (skillId: string) => {
@@ -182,7 +182,7 @@ export const createWaldieStore = (
     getAgents: () => {
       return AgentsStore.getAgents(get);
     },
-    addAgent: (agentType: WaldieAgentNodeType, position: { x: number; y: number }, parentId?: string) => {
+    addAgent: (agentType: WaldiezAgentNodeType, position: { x: number; y: number }, parentId?: string) => {
       return AgentsStore.addAgent(agentType, position, get, set, parentId);
     },
     getAgentById: (agentId: string) => {
@@ -191,7 +191,7 @@ export const createWaldieStore = (
     cloneAgent: (agentId: string) => {
       return AgentsStore.cloneAgent(agentId, get, set);
     },
-    updateAgentData: (agentId: string, data: Partial<WaldieAgentNode['data']>) => {
+    updateAgentData: (agentId: string, data: Partial<WaldiezAgentNode['data']>) => {
       AgentsStore.updateAgentData(agentId, data, get, set);
     },
     deleteAgent: (agentId: string) => {
@@ -218,14 +218,14 @@ export const createWaldieStore = (
     getFlowEdges: () => {
       return FlowStore.getFlowEdges(get);
     },
-    importFlow: (flow: unknown, typeShown: WaldieNodeType) => {
+    importFlow: (flow: unknown, typeShown: WaldiezNodeType) => {
       FlowStore.importFlow(flow, createdAt, updatedAt, typeShown, get, set);
       EdgesStore.resetEdgePositions(get, set);
     },
     exportFlow: (hideSecrets: boolean) => {
       return FlowStore.exportFlow(hideSecrets, get);
     },
-    onViewportChange: (viewport: { zoom: number; x: number; y: number }, nodeType: WaldieNodeType) => {
+    onViewportChange: (viewport: { zoom: number; x: number; y: number }, nodeType: WaldiezNodeType) => {
       FlowStore.onViewportChange(viewport, nodeType, get, set);
     }
   }));

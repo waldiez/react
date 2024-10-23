@@ -10,10 +10,10 @@ import 'rc-slider/assets/index.css';
 
 import { loader } from '@monaco-editor/react';
 
-import { WaldieFlow } from '@waldiez/components';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezFlow } from '@waldiez/components';
+import { WaldiezProvider } from '@waldiez/store';
 import '@waldiez/styles/index.css';
-import { WaldieProps } from '@waldiez/types';
+import { WaldiezProps } from '@waldiez/types';
 
 type errorRenderProps = {
   error: Error;
@@ -32,7 +32,7 @@ const fallbackRender = (props: errorRenderProps) => {
   );
 };
 
-const getInitialProps = (props: Partial<WaldieProps>) => {
+const getInitialProps = (props: Partial<WaldiezProps>) => {
   const flowId: string = props.flowId ?? `wf-${nanoid()}`;
   const storageId: string = props.storageId ?? `wf-storage-${nanoid()}`;
   const createdAt: string = props.createdAt ?? new Date().toISOString();
@@ -57,7 +57,7 @@ const getInitialProps = (props: Partial<WaldieProps>) => {
   };
 };
 
-export const Waldie = (props: Partial<WaldieProps>) => {
+export const Waldiez = (props: Partial<WaldiezProps>) => {
   const { flowId, storageId, createdAt, updatedAt, name, description, tags, requirements, nodes, edges } =
     getInitialProps(props);
   const { viewport, inputPrompt, monacoVsPath, onChange, onRun, onUserInput, onUpload } = props;
@@ -69,7 +69,7 @@ export const Waldie = (props: Partial<WaldieProps>) => {
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
       <ReactFlowProvider>
-        <WaldieProvider
+        <WaldiezProvider
           flowId={flowId}
           viewport={viewport}
           name={name}
@@ -83,7 +83,7 @@ export const Waldie = (props: Partial<WaldieProps>) => {
           edges={edges}
           onUpload={onUpload}
         >
-          <WaldieFlow
+          <WaldiezFlow
             flowId={flowId}
             storageId={storageId}
             monacoVsPath={monacoVsPath}
@@ -93,7 +93,7 @@ export const Waldie = (props: Partial<WaldieProps>) => {
             onUpload={onUpload}
             inputPrompt={inputPrompt}
           />
-        </WaldieProvider>
+        </WaldiezProvider>
       </ReactFlowProvider>
     </ErrorBoundary>
   );

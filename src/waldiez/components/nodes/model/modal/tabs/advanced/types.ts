@@ -1,11 +1,11 @@
-import { WaldieModelNodeData } from '@waldiez/models';
+import { WaldiezModelNodeData } from '@waldiez/models';
 
-export type WaldieNodeModelModalAdvancedTabProps = {
-  data: WaldieModelNodeData;
-  onDataChange: (data: Partial<WaldieModelNodeData>) => void;
+export type WaldiezNodeModelModalAdvancedTabProps = {
+  data: WaldiezModelNodeData;
+  onDataChange: (data: Partial<WaldiezModelNodeData>) => void;
 };
-export type WaldieNodeModelModalAdvancedTabViewProps = {
-  data: WaldieModelNodeData;
+export type WaldiezNodeModelModalAdvancedTabViewProps = {
+  data: WaldiezModelNodeData;
   onTemperatureChange: (temperature: number | null) => void;
   onTopPChange: (topP: number | null) => void;
   onMaxTokensChange: (maxTokens: number | null) => void;

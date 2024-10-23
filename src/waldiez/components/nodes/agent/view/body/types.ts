@@ -1,30 +1,30 @@
-import { WaldieAgentNode, WaldieAgentNodeData, WaldieSkillNode } from '@waldiez/models';
+import { WaldiezAgentNode, WaldiezAgentNodeData, WaldiezSkillNode } from '@waldiez/models';
 
-export type WaldieNodeAgentBodyViewProps = {
+export type WaldiezNodeAgentBodyViewProps = {
   id: string;
   parentId?: string;
-  data: WaldieAgentNodeData;
+  data: WaldiezAgentNodeData;
   isNodeModalOpen: boolean;
   isEdgeModalOpen: boolean;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
-export type WaldieNodeAgentNoManagerViewProps = {
+export type WaldiezNodeAgentNoManagerViewProps = {
   id: string;
-  data: WaldieAgentNodeData;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
-  skills: WaldieSkillNode[];
+  data: WaldiezAgentNodeData;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
+  skills: WaldiezSkillNode[];
   agentModelNames: string[];
   agentModelLogos: string[];
-  agentWaldieModelAPITypes: string[];
+  agentWaldiezModelAPITypes: string[];
 };
-export type WaldieNodeAgentManagerBodyViewProps = {
+export type WaldiezNodeAgentManagerBodyViewProps = {
   id: string;
-  data: WaldieAgentNodeData;
-  skills: WaldieSkillNode[];
+  data: WaldiezAgentNodeData;
+  skills: WaldiezSkillNode[];
   agentModelNames: string[];
-  agentWaldieModelAPITypes: string[];
-  groupMembers: WaldieAgentNode[];
+  agentWaldiezModelAPITypes: string[];
+  groupMembers: WaldiezAgentNode[];
   agentModelLogos: string[];
-  onOpenMemberModal: (agent: WaldieAgentNode) => void;
-  onRemoveMember: (agent: WaldieAgentNode) => void;
+  onOpenMemberModal: (agent: WaldiezAgentNode) => void;
+  onRemoveMember: (agent: WaldiezAgentNode) => void;
 };

@@ -1,10 +1,10 @@
-import { WaldieEdgeMessageTabProps } from '@waldiez/components/edges/modal/tabs/message/types';
-import { WaldieEdgeMessageTabView } from '@waldiez/components/edges/modal/tabs/message/view';
-import { WaldieMessage, WaldieMessageType } from '@waldiez/models';
+import { WaldiezEdgeMessageTabProps } from '@waldiez/components/edges/modal/tabs/message/types';
+import { WaldiezEdgeMessageTabView } from '@waldiez/components/edges/modal/tabs/message/view';
+import { WaldiezMessage, WaldiezMessageType } from '@waldiez/models';
 
-export const WaldieEdgeMessageTab = (props: WaldieEdgeMessageTabProps) => {
+export const WaldiezEdgeMessageTab = (props: WaldiezEdgeMessageTabProps) => {
   const { edgeId, data, darkMode, skipRagOption, onDataChange } = props;
-  const onMessageTypeChange = (type: WaldieMessageType) => {
+  const onMessageTypeChange = (type: WaldiezMessageType) => {
     onDataChange({
       message: {
         ...data.message,
@@ -15,7 +15,7 @@ export const WaldieEdgeMessageTab = (props: WaldieEdgeMessageTabProps) => {
       }
     });
   };
-  const onMessageChange = (message: WaldieMessage) => {
+  const onMessageChange = (message: WaldiezMessage) => {
     onDataChange({ message });
   };
   const onAddMessageContextEntry = (key: string, value: string) => {
@@ -32,7 +32,7 @@ export const WaldieEdgeMessageTab = (props: WaldieEdgeMessageTabProps) => {
     onDataChange({ message: { ...data.message, context: entries } });
   };
   return (
-    <WaldieEdgeMessageTabView
+    <WaldiezEdgeMessageTabView
       edgeId={edgeId}
       data={data}
       darkMode={darkMode}

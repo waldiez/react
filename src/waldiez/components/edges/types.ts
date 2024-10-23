@@ -1,10 +1,10 @@
 import { EdgeProps } from '@xyflow/react';
 
-import { WaldieAgentNode, WaldieEdge, WaldieEdgeType } from '@waldiez/models';
+import { WaldiezAgentNode, WaldiezEdge, WaldiezEdgeType } from '@waldiez/models';
 
-export type WaldieEdgeViewProps = EdgeProps<WaldieEdge> & {
-  type: WaldieEdgeType;
-  sourceAgent: WaldieAgentNode | null;
+export type WaldiezEdgeViewProps = EdgeProps<WaldiezEdge> & {
+  type: WaldiezEdgeType;
+  sourceAgent: WaldiezAgentNode | null;
   onOpenModal: (event: React.MouseEvent) => void;
   onDelete: () => void;
 };

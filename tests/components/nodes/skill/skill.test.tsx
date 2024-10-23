@@ -3,12 +3,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { WaldieNodeSkill } from '@waldiez/components';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezNodeSkill } from '@waldiez/components';
+import { WaldiezProvider } from '@waldiez/store';
 
 const renderSkillNode = (skipStoredNodes = false, includeSecrets = false) => {
   render(
-    <WaldieProvider
+    <WaldiezProvider
       flowId={flowId}
       storageId="test-storage"
       name="flow name"
@@ -20,7 +20,7 @@ const renderSkillNode = (skipStoredNodes = false, includeSecrets = false) => {
       createdAt={createdAt}
       updatedAt={updatedAt}
     >
-      <WaldieNodeSkill
+      <WaldiezNodeSkill
         id={skillId}
         data={includeSecrets ? skillData : { ...skillData, secrets: {} }}
         type="skill"
@@ -30,14 +30,14 @@ const renderSkillNode = (skipStoredNodes = false, includeSecrets = false) => {
         positionAbsoluteX={0}
         positionAbsoluteY={0}
       />
-    </WaldieProvider>
+    </WaldiezProvider>
   );
 };
 
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
 
-describe('WaldieNodeSkill', () => {
+describe('WaldiezNodeSkill', () => {
   beforeEach(() => {
     getItemSpy.mockClear();
     setItemSpy.mockClear();
@@ -117,7 +117,7 @@ describe('WaldieNodeSkill', () => {
     getItemSpy.mockReset();
   });
 });
-describe('WaldieNodeSkill data', () => {
+describe('WaldiezNodeSkill data', () => {
   it('should update skill label', () => {
     renderSkillNode();
     const openButton = screen.getByTestId(`open-node-modal-${skillId}`);

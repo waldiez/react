@@ -3,11 +3,11 @@ import { Edge } from '@xyflow/react';
 import { nanoid } from 'nanoid';
 
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeType,
-  WaldieEdge,
-  WaldieSourceEdge,
-  WaldieSourceEdgeData
+  WaldiezAgentNode,
+  WaldiezAgentNodeType,
+  WaldiezEdge,
+  WaldiezSourceEdge,
+  WaldiezSourceEdgeData
 } from '@waldiez/models';
 import { EdgesStore } from '@waldiez/store/edges';
 import { exportAgent } from '@waldiez/store/exporting';
@@ -16,17 +16,17 @@ import { getAgentNode } from '@waldiez/store/nodes/agents/utils';
 import { typeOfGet, typeOfSet } from '@waldiez/store/types';
 
 export class AgentsStore {
-  static getAgents: (get: typeOfGet) => WaldieAgentNode[] = get => {
-    return get().nodes.filter(node => node.type === 'agent') as WaldieAgentNode[];
+  static getAgents: (get: typeOfGet) => WaldiezAgentNode[] = get => {
+    return get().nodes.filter(node => node.type === 'agent') as WaldiezAgentNode[];
   };
   static addAgent: (
-    agentType: WaldieAgentNodeType,
+    agentType: WaldiezAgentNodeType,
     position: { x: number; y: number },
     get: typeOfGet,
     set: typeOfSet,
     parentId?: string
-  ) => WaldieAgentNode = (agentType, position, get, set, parentId) => {
-    const newNode = getAgentNode(agentType, position) as WaldieAgentNode;
+  ) => WaldiezAgentNode = (agentType, position, get, set, parentId) => {
+    const newNode = getAgentNode(agentType, position) as WaldiezAgentNode;
     if (parentId) {
       newNode.parentId = parentId;
       newNode.extent = 'parent';
@@ -40,16 +40,16 @@ export class AgentsStore {
       ],
       updatedAt: new Date().toISOString()
     });
-    return newNode as WaldieAgentNode;
+    return newNode as WaldiezAgentNode;
   };
-  static getAgentById: (agentId: string, get: typeOfGet) => WaldieAgentNode | null = (agentId, get) => {
+  static getAgentById: (agentId: string, get: typeOfGet) => WaldiezAgentNode | null = (agentId, get) => {
     const agent = get().nodes.find(node => node.id === agentId && node.type === 'agent');
     if (!agent) {
       return null;
     }
-    return agent as WaldieAgentNode;
+    return agent as WaldiezAgentNode;
   };
-  static cloneAgent: (agentId: string, get: typeOfGet, set: typeOfSet) => WaldieAgentNode = (
+  static cloneAgent: (agentId: string, get: typeOfGet, set: typeOfSet) => WaldiezAgentNode = (
     agentId,
     get,
     set
@@ -65,7 +65,7 @@ export class AgentsStore {
         x: agent.position.x + (agent.width ?? 100) + 40,
         y: agent.position.y + (agent.height ?? 100) + 40
       }
-    } as WaldieAgentNode;
+    } as WaldiezAgentNode;
     set({
       nodes: [...get().nodes, { ...newNode, type: 'agent', selected: false }],
       updatedAt: new Date().toISOString()
@@ -85,7 +85,7 @@ export class AgentsStore {
   };
   static updateAgentData: (
     agentId: string,
-    data: Partial<WaldieAgentNode['data']>,
+    data: Partial<WaldiezAgentNode['data']>,
     get: typeOfGet,
     set: typeOfSet
   ) => void = (agentId, data, get, set) => {
@@ -143,22 +143,22 @@ export class AgentsStore {
       if (node.id !== edge.source) {
         return false;
       }
-      // return !!(node as WaldieAgentNode).parentId;
+      // return !!(node as WaldiezAgentNode).parentId;
       // why exclude manager nodes?
-      return (node as WaldieAgentNode).data.agentType !== 'manager';
+      return (node as WaldiezAgentNode).data.agentType !== 'manager';
     });
-    return sourceNode as WaldieAgentNode | undefined;
+    return sourceNode as WaldiezAgentNode | undefined;
   };
   static getEdgeTargetAgent = (get: typeOfGet, edge: Edge) => {
     const targetNode = get().nodes.find(node => {
       if (node.id !== edge.target) {
         return false;
       }
-      // return !!(node as WaldieAgentNode).parentId;
+      // return !!(node as WaldiezAgentNode).parentId;
       // why exclude manager nodes?
-      return (node as WaldieAgentNode).data.agentType !== 'manager';
+      return (node as WaldiezAgentNode).data.agentType !== 'manager';
     });
-    return targetNode as WaldieAgentNode | undefined;
+    return targetNode as WaldiezAgentNode | undefined;
   };
   static getAgentEdgeConnections = (
     nodeId: string,
@@ -187,12 +187,12 @@ export class AgentsStore {
     }
   ) => {
     source: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
     target: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
   } = (nodeId, get, options) => {
     const { sourcesOnly, targetsOnly } = options;
@@ -219,19 +219,19 @@ export class AgentsStore {
     }
     return {
       source: {
-        nodes: sourceConnectedNodes as WaldieAgentNode[],
-        edges: sourceConnectionEdges as WaldieEdge[]
+        nodes: sourceConnectedNodes as WaldiezAgentNode[],
+        edges: sourceConnectionEdges as WaldiezEdge[]
       },
       target: {
-        nodes: targetConnectedNodes as WaldieAgentNode[],
-        edges: targetConnectionEdges as WaldieEdge[]
+        nodes: targetConnectedNodes as WaldiezAgentNode[],
+        edges: targetConnectionEdges as WaldiezEdge[]
       }
     };
   };
-  static getGroupMembers: (groupId: string, get: typeOfGet) => WaldieAgentNode[] = (groupId, get) => {
+  static getGroupMembers: (groupId: string, get: typeOfGet) => WaldiezAgentNode[] = (groupId, get) => {
     return get().nodes.filter(
       node => node.type === 'agent' && node.parentId === groupId
-    ) as WaldieAgentNode[];
+    ) as WaldiezAgentNode[];
   };
   static addGroupMember: (groupId: string, memberId: string, get: typeOfGet, set: typeOfSet) => void = (
     groupId,
@@ -240,11 +240,11 @@ export class AgentsStore {
     set
   ) => {
     // add an edge with source the parent and target the member
-    const newEdge = new WaldieSourceEdge({
+    const newEdge = new WaldiezSourceEdge({
       id: `we-${nanoid()}`,
       source: groupId,
       target: memberId,
-      data: new WaldieSourceEdgeData(groupId, memberId),
+      data: new WaldiezSourceEdgeData(groupId, memberId),
       rest: {}
     }).asEdge();
     const newEdges: Edge[] = [{ ...newEdge, type: 'hidden', selected: false }];
@@ -331,14 +331,14 @@ export class AgentsStore {
     if (!agent) {
       return null;
     }
-    return exportAgent(agent as WaldieAgentNode, skipLinks);
+    return exportAgent(agent as WaldiezAgentNode, skipLinks);
   };
   static importAgent: (
     data: { [key: string]: unknown },
     agentId: string,
     skipLinks: boolean,
     position: { x: number; y: number } | undefined
-  ) => WaldieAgentNode = (data, agentId, skipLinks, position) => {
+  ) => WaldiezAgentNode = (data, agentId, skipLinks, position) => {
     const agent = importAgent(data, agentId, skipLinks);
     if (position) {
       agent.position = position;

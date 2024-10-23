@@ -1,17 +1,17 @@
-import { IWaldieSourceModelData, WaldieModelAPIType, WaldieModelPrice } from '@waldiez/models/types';
+import { IWaldiezSourceModelData, WaldiezModelAPIType, WaldiezModelPrice } from '@waldiez/models/types';
 
-export class WaldieSourceModelData implements IWaldieSourceModelData {
+export class WaldiezSourceModelData implements IWaldiezSourceModelData {
   name: string;
   description: string;
   baseUrl: string | null;
   apiKey: string | null;
-  apiType: WaldieModelAPIType;
+  apiType: WaldiezModelAPIType;
   apiVersion: string | null;
   temperature: number | null;
   topP: number | null;
   maxTokens: number | null;
   defaultHeaders: { [key: string]: string };
-  price: WaldieModelPrice;
+  price: WaldiezModelPrice;
   tags: string[];
   requirements: string[];
   createdAt: string;
@@ -22,13 +22,13 @@ export class WaldieSourceModelData implements IWaldieSourceModelData {
     description: string = 'Model description',
     baseUrl: string | null = null,
     apiKey: string | null = null,
-    apiType: WaldieModelAPIType = 'openai',
+    apiType: WaldiezModelAPIType = 'openai',
     apiVersion: string | null = null,
     temperature: number | null = null,
     topP: number | null = null,
     maxTokens: number | null = null,
     defaultHeaders: { [key: string]: string } = {},
-    price: WaldieModelPrice = {
+    price: WaldiezModelPrice = {
       promptPricePer1k: null,
       completionTokenPricePer1k: null
     },
@@ -61,21 +61,21 @@ export class WaldieSourceModelData implements IWaldieSourceModelData {
     requirements: string[],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString()
-  ): IWaldieSourceModelData => {
+  ): IWaldiezSourceModelData => {
     if (!json || typeof json !== 'object' || !json) {
-      return new WaldieSourceModelData();
+      return new WaldiezSourceModelData();
     }
     const jsonObject = json as Record<string, unknown>;
-    const baseUrl = WaldieSourceModelData.getBaseUrl(jsonObject);
-    const apiKey = WaldieSourceModelData.getApiKey(jsonObject);
-    const apiType = WaldieSourceModelData.getApiType(jsonObject);
-    const apiVersion = WaldieSourceModelData.getApiVersion(jsonObject);
-    const temperature = WaldieSourceModelData.getTemperature(jsonObject);
-    const topP = WaldieSourceModelData.getTopP(jsonObject);
-    const maxTokens = WaldieSourceModelData.getMaxTokens(jsonObject);
-    const defaultHeaders = WaldieSourceModelData.getDefaultHeaders(jsonObject);
-    const price = WaldieSourceModelData.getPrice(jsonObject);
-    return new WaldieSourceModelData(
+    const baseUrl = WaldiezSourceModelData.getBaseUrl(jsonObject);
+    const apiKey = WaldiezSourceModelData.getApiKey(jsonObject);
+    const apiType = WaldiezSourceModelData.getApiType(jsonObject);
+    const apiVersion = WaldiezSourceModelData.getApiVersion(jsonObject);
+    const temperature = WaldiezSourceModelData.getTemperature(jsonObject);
+    const topP = WaldiezSourceModelData.getTopP(jsonObject);
+    const maxTokens = WaldiezSourceModelData.getMaxTokens(jsonObject);
+    const defaultHeaders = WaldiezSourceModelData.getDefaultHeaders(jsonObject);
+    const price = WaldiezSourceModelData.getPrice(jsonObject);
+    return new WaldiezSourceModelData(
       name,
       description,
       baseUrl,
@@ -107,8 +107,8 @@ export class WaldieSourceModelData implements IWaldieSourceModelData {
     }
     return apiKey;
   }
-  private static getApiType(json: Record<string, unknown>): WaldieModelAPIType {
-    let apiType: WaldieModelAPIType = 'openai';
+  private static getApiType(json: Record<string, unknown>): WaldiezModelAPIType {
+    let apiType: WaldiezModelAPIType = 'openai';
     if (
       'apiType' in json &&
       typeof json.apiType === 'string' &&
@@ -116,7 +116,7 @@ export class WaldieSourceModelData implements IWaldieSourceModelData {
         json.apiType
       )
     ) {
-      apiType = json.apiType as WaldieModelAPIType;
+      apiType = json.apiType as WaldiezModelAPIType;
     }
     return apiType;
   }
@@ -159,8 +159,8 @@ export class WaldieSourceModelData implements IWaldieSourceModelData {
     }
     return defaultHeaders;
   }
-  private static getPrice(json: Record<string, unknown>): WaldieModelPrice {
-    const price: WaldieModelPrice = {
+  private static getPrice(json: Record<string, unknown>): WaldiezModelPrice {
+    const price: WaldiezModelPrice = {
       promptPricePer1k: null,
       completionTokenPricePer1k: null
     };
