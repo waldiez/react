@@ -1,13 +1,14 @@
 ---
 name: Lint, test, and docs
-    
+
 # yamllint disable rule:truthy
 on:
   push:
     branches:
       - main
-      - dev
   pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -33,7 +34,7 @@ jobs:
         - name: Install dependencies
           run: bun install
         - name: Prepare Playwright
-          run: npx playwright install
+          run: npx playwright install --with-deps chromium
         - name: Run tests
           run: bun run test:all
         - name: Report to Coveralls
@@ -69,15 +70,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
   
-  # upload-to-nmp:
-  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: oven-sh/setup-bun@v2
-  #     - name: Install dependencies
-  #       run: bun install
-  #     - name: Publish to NPM
-  #       run: bun run publish
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
