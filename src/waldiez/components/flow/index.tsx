@@ -11,17 +11,17 @@ import {
 
 import { KeyboardEvent, useCallback, useEffect, useState } from 'react';
 
-import { WaldieFlowProps } from '@waldiez/components/flow/types';
-import { WaldieFlowView } from '@waldiez/components/flow/view';
+import { WaldiezFlowProps } from '@waldiez/components/flow/types';
+import { WaldiezFlowView } from '@waldiez/components/flow/view';
 import { showSnackbar } from '@waldiez/components/snackbar';
-import { WaldieAgentNodeType, WaldieNodeType } from '@waldiez/models';
-import { useWaldieContext } from '@waldiez/store';
+import { WaldiezAgentNodeType, WaldiezNodeType } from '@waldiez/models';
+import { useWaldiezContext } from '@waldiez/store';
 import { selector } from '@waldiez/store/selector';
 import { isDarkMode, setDarkMode, toggleThemeMode } from '@waldiez/theme';
 
-export const WaldieFlow = (props: WaldieFlowProps) => {
+export const WaldiezFlow = (props: WaldiezFlowProps) => {
   const { flowId, storageId, onRun, onChange, inputPrompt, onUserInput } = props;
-  const store = useWaldieContext(selector);
+  const store = useWaldiezContext(selector);
   const { screenToFlowPosition, getIntersectingNodes } = useReactFlow();
   const darkTheme = isDarkMode(flowId, storageId);
   const [isDark, setIsDark] = useState<boolean>(darkTheme);
@@ -30,7 +30,7 @@ export const WaldieFlow = (props: WaldieFlowProps) => {
     store.showNodes('agent');
     setDarkMode(flowId, storageId, isDarkMode(flowId, storageId));
   }, []);
-  const [selectedNodeType, setSelectedNodeType] = useState<WaldieNodeType>('agent');
+  const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>('agent');
   const onFlowChanged = () => {
     const flow = getFlow();
     if (flow && onChange) {
@@ -144,7 +144,7 @@ export const WaldieFlow = (props: WaldieFlowProps) => {
     }
     return parent;
   };
-  const getDroppedAgentParent = (agentType: WaldieAgentNodeType, position: XYPosition) => {
+  const getDroppedAgentParent = (agentType: WaldiezAgentNodeType, position: XYPosition) => {
     let parent: Node | undefined;
     if (agentType !== 'manager') {
       const { x, y } = position;
@@ -168,11 +168,11 @@ export const WaldieFlow = (props: WaldieFlowProps) => {
   };
   const getAgentType = (event: React.DragEvent<HTMLDivElement>) => {
     const nodeTypeData = event.dataTransfer.getData('application/node');
-    let agentType: WaldieAgentNodeType | undefined;
+    let agentType: WaldiezAgentNodeType | undefined;
     if (nodeTypeData === 'agent') {
       const agentTypeData = event.dataTransfer.getData('application/agent');
       if (['user', 'assistant', 'manager'].includes(agentTypeData)) {
-        agentType = agentTypeData as WaldieAgentNodeType;
+        agentType = agentTypeData as WaldiezAgentNodeType;
       }
     }
     if (nodeTypeData !== 'agent' || !agentType) {
@@ -180,7 +180,7 @@ export const WaldieFlow = (props: WaldieFlowProps) => {
     }
     return agentType;
   };
-  const addAgentNode = (event: React.DragEvent<HTMLDivElement>, agentType: WaldieAgentNodeType) => {
+  const addAgentNode = (event: React.DragEvent<HTMLDivElement>, agentType: WaldiezAgentNodeType) => {
     let position = screenToFlowPosition({
       x: event.clientX,
       y: event.clientY
@@ -218,7 +218,7 @@ export const WaldieFlow = (props: WaldieFlowProps) => {
     },
     [screenToFlowPosition]
   );
-  const onNodeTypeSelected = (nodeType: WaldieNodeType) => {
+  const onNodeTypeSelected = (nodeType: WaldiezNodeType) => {
     setSelectedNodeType(nodeType);
     store.showNodes(nodeType);
   };
@@ -273,7 +273,7 @@ export const WaldieFlow = (props: WaldieFlowProps) => {
     store.onViewportChange(viewport, selectedNodeType);
   };
   return (
-    <WaldieFlowView
+    <WaldiezFlowView
       flowId={flowId}
       storageId={storageId}
       darkMode={isDark}

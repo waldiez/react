@@ -1,8 +1,8 @@
-import { WaldieAgentNestedChat } from '@waldiez/models';
+import { WaldiezAgentNestedChat } from '@waldiez/models';
 
 export type NestedChatsAgentConfigTabTriggersViewProps = {
   id: string;
-  chat: WaldieAgentNestedChat;
+  chat: WaldiezAgentNestedChat;
   allOptions: { label: string; value: string }[];
   selectedTrigger: { id: string; isReply: boolean } | null;
   getEdgeLabel: (id: string) => string;
@@ -18,7 +18,7 @@ export type NestedChatsAgentConfigTabTriggersViewProps = {
 
 export type NestedChatsAgentConfigTabMessagesViewProps = {
   id: string;
-  chat: WaldieAgentNestedChat;
+  chat: WaldiezAgentNestedChat;
   allOptions: { label: string; value: string }[];
   selectedRecipient: { id: string; isReply: boolean } | null;
   getEdgeLabel: (id: string) => string;

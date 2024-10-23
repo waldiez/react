@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-describe('WaldieEdgeModalTabNested', () => {
+describe('WaldiezEdgeModalTabNested', () => {
   it('updates the nested chat message type', async () => {
     renderEdge('nested');
     const tab = screen.getByTestId(`tab-id-we-${flowId}-edge-nested-${edgeId}`);

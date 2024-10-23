@@ -1,10 +1,10 @@
 export {
-  WaldieEdgeChat,
-  WaldieEdgeGroup,
-  WaldieEdgeNested,
-  WaldieEdgeHidden
+  WaldiezEdgeChat,
+  WaldiezEdgeGroup,
+  WaldiezEdgeNested,
+  WaldiezEdgeHidden
 } from '@waldiez/components/edges';
-export { WaldieFlow } from '@waldiez/components/flow';
+export { WaldiezFlow } from '@waldiez/components/flow';
 export { FlowModal } from '@waldiez/components/flow/modal';
 export {
   Dict,
@@ -18,9 +18,9 @@ export {
 } from '@waldiez/components/inputs';
 export { Modal } from '@waldiez/components/modal';
 export {
-  WaldieNodeAgent,
-  WaldieNodeModel,
-  WaldieNodeSkill,
+  WaldiezNodeAgent,
+  WaldiezNodeModel,
+  WaldiezNodeSkill,
   apiKeyEnvs,
   apiTypeOptions,
   baseUrlsMapping

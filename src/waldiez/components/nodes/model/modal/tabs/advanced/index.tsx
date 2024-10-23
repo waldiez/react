@@ -1,7 +1,7 @@
-import { WaldieNodeModelModalAdvancedTabProps } from '@waldiez/components/nodes/model/modal/tabs/advanced/types';
-import { WaldieNodeModelModalAdvancedTabView } from '@waldiez/components/nodes/model/modal/tabs/advanced/view';
+import { WaldiezNodeModelModalAdvancedTabProps } from '@waldiez/components/nodes/model/modal/tabs/advanced/types';
+import { WaldiezNodeModelModalAdvancedTabView } from '@waldiez/components/nodes/model/modal/tabs/advanced/view';
 
-export const WaldieNodeModelModalAdvancedTab = (props: WaldieNodeModelModalAdvancedTabProps) => {
+export const WaldiezNodeModelModalAdvancedTab = (props: WaldiezNodeModelModalAdvancedTabProps) => {
   const { data, onDataChange } = props;
   const onTemperatureChange = (value: number | null) => {
     let temperature: number | null = null;
@@ -61,7 +61,7 @@ export const WaldieNodeModelModalAdvancedTab = (props: WaldieNodeModelModalAdvan
     }
   };
   return (
-    <WaldieNodeModelModalAdvancedTabView
+    <WaldiezNodeModelModalAdvancedTabView
       data={data}
       onTemperatureChange={onTemperatureChange}
       onTopPChange={onTopPChange}

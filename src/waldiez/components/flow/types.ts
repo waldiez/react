@@ -1,11 +1,11 @@
 import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance, Viewport } from '@xyflow/react';
 
-import { WaldieNodeType } from '@waldiez/models';
-import { WaldieState } from '@waldiez/store';
+import { WaldiezNodeType } from '@waldiez/models';
+import { WaldiezState } from '@waldiez/store';
 
 export * from '@waldiez/components/flow/modal/types';
 
-export type WaldieFlowProps = {
+export type WaldiezFlowProps = {
   flowId: string;
   storageId: string;
   monacoVsPath?: string | null;
@@ -19,14 +19,14 @@ export type WaldieFlowProps = {
   onUpload?: ((files: File[]) => Promise<string[]>) | null;
 };
 
-export type WaldieFlowViewProps = {
+export type WaldiezFlowViewProps = {
   flowId: string;
   storageId: string;
   darkMode: boolean;
-  store: WaldieState & {
+  store: WaldiezState & {
     rfInstance: ReactFlowInstance | null;
   };
-  selectedNodeType: WaldieNodeType;
+  selectedNodeType: WaldiezNodeType;
   includeRunButton: boolean;
   // flowModalVisible: boolean;
   inputPrompt?: {
@@ -44,7 +44,7 @@ export type WaldieFlowViewProps = {
   // includeRunBtn: boolean;
   onUserInput?: ((userInput: string) => void) | null;
   // onCloseFlowModal: () => void;
-  onNodeTypeSelected: (type: WaldieNodeType) => void;
+  onNodeTypeSelected: (type: WaldiezNodeType) => void;
   onModalSubmit: (data: {
     name: string;
     description: string;

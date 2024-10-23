@@ -1,18 +1,18 @@
 import { nanoid } from 'nanoid';
 
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeType,
-  WaldieNodeGroupManager,
-  WaldieNodeRagUser,
-  WaldieNodeUserProxyOrAssistant,
-  WaldieSourceAssistant,
-  WaldieSourceGroupManager,
-  WaldieSourceRagUser,
-  WaldieSourceUserProxy
+  WaldiezAgentNode,
+  WaldiezAgentNodeType,
+  WaldiezNodeGroupManager,
+  WaldiezNodeRagUser,
+  WaldiezNodeUserProxyOrAssistant,
+  WaldiezSourceAssistant,
+  WaldiezSourceGroupManager,
+  WaldiezSourceRagUser,
+  WaldiezSourceUserProxy
 } from '@waldiez/models';
 
-export const importAgent: (data: any, agentId?: string, skipLinks?: boolean) => WaldieAgentNode = (
+export const importAgent: (data: any, agentId?: string, skipLinks?: boolean) => WaldiezAgentNode = (
   data,
   agentId,
   skipLinks = true
@@ -20,31 +20,31 @@ export const importAgent: (data: any, agentId?: string, skipLinks?: boolean) => 
   const id = getAgentId(data, agentId);
   const agentType = getAgentType(data);
   const agentData = { ...data, id };
-  let agent: WaldieAgentNode;
+  let agent: WaldiezAgentNode;
   switch (agentType) {
     case 'user':
-      agent = WaldieSourceUserProxy.fromJSON(agentData, 'user').asNode();
+      agent = WaldiezSourceUserProxy.fromJSON(agentData, 'user').asNode();
       return skipLinks ? removeLinks(agent) : agent;
     case 'assistant':
-      agent = WaldieSourceAssistant.fromJSON(agentData, 'assistant').asNode();
+      agent = WaldiezSourceAssistant.fromJSON(agentData, 'assistant').asNode();
       return skipLinks ? removeLinks(agent) : agent;
     case 'manager':
-      agent = WaldieSourceGroupManager.fromJSON(agentData).asNode();
+      agent = WaldiezSourceGroupManager.fromJSON(agentData).asNode();
       return skipLinks ? removeLinks(agent) : agent;
     case 'rag_user':
-      agent = WaldieSourceRagUser.fromJSON(agentData).asNode();
+      agent = WaldiezSourceRagUser.fromJSON(agentData).asNode();
       return skipLinks ? removeLinks(agent) : agent;
   }
 };
 
-const removeLinks: (agent: WaldieAgentNode) => WaldieAgentNode = agent => {
+const removeLinks: (agent: WaldiezAgentNode) => WaldiezAgentNode = agent => {
   // remove agent's links to other nodes, such as models, skills, and nested chats
   // if the agent is a manager,
   //    also remove the speaker transitions (allowedOrDisallowedTransitions)
   //    and allowRepeat if it's a list of strings
   // if the agent is a rag_user, also remove the model and docsPath
   if (agent.data.agentType === 'manager') {
-    return removeManagerLinks(agent as WaldieNodeGroupManager);
+    return removeManagerLinks(agent as WaldiezNodeGroupManager);
   }
   const agentCopy = { ...agent };
   agentCopy.data.modelIds = [];
@@ -52,10 +52,10 @@ const removeLinks: (agent: WaldieAgentNode) => WaldieAgentNode = agent => {
   if (agentCopy.data.codeExecutionConfig) {
     agentCopy.data.codeExecutionConfig.functions = [];
   }
-  (agentCopy as WaldieNodeUserProxyOrAssistant).data.nestedChats = [];
+  (agentCopy as WaldiezNodeUserProxyOrAssistant).data.nestedChats = [];
   if (agent.data.agentType === 'rag_user') {
-    (agentCopy as WaldieNodeRagUser).data.retrieveConfig = {
-      ...(agentCopy as WaldieNodeRagUser).data.retrieveConfig,
+    (agentCopy as WaldiezNodeRagUser).data.retrieveConfig = {
+      ...(agentCopy as WaldiezNodeRagUser).data.retrieveConfig,
       model: null,
       docsPath: []
     };
@@ -63,15 +63,15 @@ const removeLinks: (agent: WaldieAgentNode) => WaldieAgentNode = agent => {
   return agentCopy;
 };
 
-const removeManagerLinks: (agent: WaldieNodeGroupManager) => WaldieNodeGroupManager = agent => {
+const removeManagerLinks: (agent: WaldiezNodeGroupManager) => WaldiezNodeGroupManager = agent => {
   const agentCopy = { ...agent };
   agentCopy.data.modelIds = [];
   agentCopy.data.skills = [];
   if (agentCopy.data.codeExecutionConfig) {
     agentCopy.data.codeExecutionConfig.functions = [];
   }
-  (agentCopy as WaldieNodeGroupManager).data.speakers = {
-    ...(agentCopy as WaldieNodeGroupManager).data.speakers,
+  (agentCopy as WaldiezNodeGroupManager).data.speakers = {
+    ...(agentCopy as WaldiezNodeGroupManager).data.speakers,
     allowRepeat: [],
     allowedOrDisallowedTransitions: {}
   };
@@ -91,13 +91,13 @@ const getAgentId = (data: any, agentId?: string) => {
 };
 
 const getAgentType = (data: any) => {
-  let agentType: WaldieAgentNodeType = 'user';
+  let agentType: WaldiezAgentNodeType = 'user';
   if (
     'agentType' in data &&
     typeof data.agentType === 'string' &&
     ['user', 'assistant', 'manager', 'rag_user'].includes(data.agentType)
   ) {
-    agentType = data.agentType as WaldieAgentNodeType;
+    agentType = data.agentType as WaldiezAgentNodeType;
   }
   return agentType;
 };

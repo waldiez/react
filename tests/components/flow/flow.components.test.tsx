@@ -3,7 +3,7 @@ import { edgesCount } from './data';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-describe('WaldieFlow Nodes and Edges', () => {
+describe('WaldiezFlow Nodes and Edges', () => {
   it('should add a model node', () => {
     renderFlow();
     expect(screen.queryByTestId('model-0')).toBeNull();
@@ -102,7 +102,7 @@ describe('WaldieFlow Nodes and Edges', () => {
     vi.advanceTimersByTime(500);
   });
 });
-describe('WaldieFlow Delete Nodes', () => {
+describe('WaldiezFlow Delete Nodes', () => {
   it('should delete an agent node', async () => {
     act(() => {
       renderFlow();
@@ -152,7 +152,7 @@ describe('WaldieFlow Delete Nodes', () => {
     expect(onChange).toHaveBeenCalled();
   });
 });
-describe('WaldieFlow Clone Nodes', () => {
+describe('WaldiezFlow Clone Nodes', () => {
   it('should clone a model node', async () => {
     act(() => {
       renderFlow();

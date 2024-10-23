@@ -1,7 +1,7 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieEdgeData } from '@waldiez/models';
+import { WaldiezEdgeData } from '@waldiez/models';
 
-export type WaldieEdgeModalProps = {
+export type WaldiezEdgeModalProps = {
   flowId: string;
   darkMode: boolean;
   edgeId: string;
@@ -9,10 +9,10 @@ export type WaldieEdgeModalProps = {
   onClose: () => void;
 };
 
-export type WaldieEdgeModalViewProps = {
+export type WaldiezEdgeModalViewProps = {
   flowId: string;
   edgeId: string;
-  data: WaldieEdgeData;
+  data: WaldiezEdgeData;
   isOpen: boolean;
   darkMode: boolean;
   sourceIsRagUser: boolean;
@@ -23,7 +23,7 @@ export type WaldieEdgeModalViewProps = {
       value: 'chat' | 'nested' | 'group' | 'hidden';
     }>
   ) => void;
-  onDataChange: (data: Partial<WaldieEdgeData>) => void;
+  onDataChange: (data: Partial<WaldiezEdgeData>) => void;
   onCancel: () => void;
   onSubmit: () => void;
   onClose: () => void;

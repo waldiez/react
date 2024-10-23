@@ -1,42 +1,42 @@
 import { Node } from '@xyflow/react';
 
 import {
-  WaldieAgentNodeType,
-  WaldieSourceAssistant,
-  WaldieSourceAssistantData,
-  WaldieSourceEdge,
-  WaldieSourceEdgeData,
-  WaldieSourceGroupManager,
-  WaldieSourceGroupManagerData,
-  WaldieSourceModel,
-  WaldieSourceModelData,
-  WaldieSourceRagUser,
-  WaldieSourceRagUserData,
-  WaldieSourceSkill,
-  WaldieSourceSkillData,
-  WaldieSourceUserProxy,
-  WaldieSourceUserProxyData
+  WaldiezAgentNodeType,
+  WaldiezSourceAssistant,
+  WaldiezSourceAssistantData,
+  WaldiezSourceEdge,
+  WaldiezSourceEdgeData,
+  WaldiezSourceGroupManager,
+  WaldiezSourceGroupManagerData,
+  WaldiezSourceModel,
+  WaldiezSourceModelData,
+  WaldiezSourceRagUser,
+  WaldiezSourceRagUserData,
+  WaldiezSourceSkill,
+  WaldiezSourceSkillData,
+  WaldiezSourceUserProxy,
+  WaldiezSourceUserProxyData
 } from '@waldiez/models';
 
 export const agentId = 'test-agent';
 export const flowId = 'test-flow';
 export const createdAt = new Date().toISOString();
 export const updatedAt = new Date().toISOString();
-export const getAgentData = (agentType: WaldieAgentNodeType) => {
+export const getAgentData = (agentType: WaldiezAgentNodeType) => {
   if (agentType === 'user') {
-    return new WaldieSourceUserProxyData();
+    return new WaldiezSourceUserProxyData();
   }
   if (agentType === 'assistant') {
-    return new WaldieSourceAssistantData();
+    return new WaldiezSourceAssistantData();
   }
   if (agentType === 'manager') {
-    return new WaldieSourceGroupManagerData();
+    return new WaldiezSourceGroupManagerData();
   }
-  return new WaldieSourceRagUserData();
+  return new WaldiezSourceRagUserData();
 };
 
 export const getAgentNode = (
-  agentType: WaldieAgentNodeType,
+  agentType: WaldiezAgentNodeType,
   nodeOverrides: Partial<Node> = {},
   dataOverrides: { [key: string]: any } = {}
 ) => {
@@ -44,45 +44,45 @@ export const getAgentNode = (
   let node: Node;
   switch (agentType) {
     case 'user':
-      node = new WaldieSourceUserProxy(agentId, {
+      node = new WaldiezSourceUserProxy(agentId, {
         ...agentData,
         agentType: agentType as any,
         ...dataOverrides
-      } as WaldieSourceUserProxyData).asNode({ x: 0, y: 0 });
+      } as WaldiezSourceUserProxyData).asNode({ x: 0, y: 0 });
       break;
     case 'assistant':
-      node = new WaldieSourceAssistant(agentId, {
+      node = new WaldiezSourceAssistant(agentId, {
         ...agentData,
         agentType: agentType as any,
         ...dataOverrides
-      } as WaldieSourceAssistantData).asNode({ x: 0, y: 0 });
+      } as WaldiezSourceAssistantData).asNode({ x: 0, y: 0 });
       break;
     case 'manager':
-      node = new WaldieSourceAssistant(agentId, {
+      node = new WaldiezSourceAssistant(agentId, {
         ...agentData,
         agentType: agentType as any,
         ...dataOverrides
-      } as WaldieSourceAssistantData).asNode({ x: 0, y: 0 });
+      } as WaldiezSourceAssistantData).asNode({ x: 0, y: 0 });
       break;
     case 'rag_user':
-      node = new WaldieSourceRagUser(agentId, {
+      node = new WaldiezSourceRagUser(agentId, {
         ...agentData,
         agentType: agentType as any,
         ...dataOverrides
-      } as WaldieSourceRagUserData).asNode({ x: 0, y: 0 });
+      } as WaldiezSourceRagUserData).asNode({ x: 0, y: 0 });
   }
   return { ...node, ...nodeOverrides } as Node;
 };
 
 export const getSkillNodes = () => {
-  const skillData = new WaldieSourceSkillData();
+  const skillData = new WaldiezSourceSkillData();
   skillData.name = 'test skill1';
-  const skill1 = new WaldieSourceSkill('test-skill1', skillData).asNode({
+  const skill1 = new WaldiezSourceSkill('test-skill1', skillData).asNode({
     x: 0,
     y: 0
   });
   skillData.name = 'test skill2';
-  const skill2 = new WaldieSourceSkill('test-skill2', skillData).asNode({
+  const skill2 = new WaldiezSourceSkill('test-skill2', skillData).asNode({
     x: 0,
     y: 0
   });
@@ -90,14 +90,14 @@ export const getSkillNodes = () => {
 };
 
 export const getModelNodes = () => {
-  const modelData = new WaldieSourceModelData();
+  const modelData = new WaldiezSourceModelData();
   modelData.name = 'test model1';
-  const model1 = new WaldieSourceModel('test-model1', modelData).asNode({
+  const model1 = new WaldiezSourceModel('test-model1', modelData).asNode({
     x: 0,
     y: 0
   });
   modelData.name = 'test model2';
-  const model2 = new WaldieSourceModel('test-model2', modelData).asNode({
+  const model2 = new WaldiezSourceModel('test-model2', modelData).asNode({
     x: 0,
     y: 0
   });
@@ -107,8 +107,8 @@ const getEdge = (agent: Node, index: number, isGroup: boolean) => {
   const source = isGroup ? agentId : index % 2 === 0 ? agentId : agent.id;
   const target = isGroup ? agent.id : index % 2 === 0 ? agent.id : agentId;
   const type = isGroup ? 'hidden' : index < 2 ? 'nested' : 'chat';
-  const edgeData = new WaldieSourceEdgeData(source, target, `${source} to ${target}`);
-  const edge = new WaldieSourceEdge({
+  const edgeData = new WaldiezSourceEdgeData(source, target, `${source} to ${target}`);
+  const edge = new WaldiezSourceEdge({
     id: `test-edge${index}`,
     source,
     target,
@@ -140,9 +140,9 @@ export const getConnectedAgents = (areGroupMembers: boolean = false) => {
   const nodes: Node[] = [];
   const edges = [];
   for (let i = 0; i < 5; i++) {
-    const agentData = new WaldieSourceUserProxyData();
+    const agentData = new WaldiezSourceUserProxyData();
     agentData.name = `Agent ${i}`;
-    const agent = new WaldieSourceUserProxy(`test-agent${i}`, agentData).asNode({
+    const agent = new WaldiezSourceUserProxy(`test-agent${i}`, agentData).asNode({
       x: 0,
       y: 0
     });
@@ -166,14 +166,14 @@ export const getNestedChats = () => {
 };
 
 export const getGroupNodes = () => {
-  const groupData = new WaldieSourceGroupManagerData();
+  const groupData = new WaldiezSourceGroupManagerData();
   groupData.name = 'test group1';
-  const group1 = new WaldieSourceGroupManager('test-group1', groupData).asNode({
+  const group1 = new WaldiezSourceGroupManager('test-group1', groupData).asNode({
     x: 0,
     y: 0
   });
   groupData.name = 'test group2';
-  const group2 = new WaldieSourceGroupManager('test-group2', groupData).asNode({
+  const group2 = new WaldiezSourceGroupManager('test-group2', groupData).asNode({
     x: 0,
     y: 0
   });

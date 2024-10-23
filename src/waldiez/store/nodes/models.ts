@@ -3,11 +3,11 @@ import { Node, ReactFlowInstance } from '@xyflow/react';
 import { nanoid } from 'nanoid';
 
 import {
-  WaldieAgentNode,
-  WaldieModelNode,
-  WaldieModelNodeData,
-  WaldieSourceModel,
-  WaldieSourceModelData
+  WaldiezAgentNode,
+  WaldiezModelNode,
+  WaldiezModelNodeData,
+  WaldiezSourceModel,
+  WaldiezSourceModelData
 } from '@waldiez/models';
 import { exportModel } from '@waldiez/store/exporting';
 import { importModel } from '@waldiez/store/importing';
@@ -15,23 +15,23 @@ import { getNewNodePosition, reArrangeNodes, setViewPortTopLeft } from '@waldiez
 import { typeOfGet, typeOfSet } from '@waldiez/store/types';
 
 export class ModelsStore {
-  static getModels: (get: typeOfGet) => WaldieModelNode[] = get => {
-    return get().nodes.filter(node => node.type === 'model') as WaldieModelNode[];
+  static getModels: (get: typeOfGet) => WaldiezModelNode[] = get => {
+    return get().nodes.filter(node => node.type === 'model') as WaldiezModelNode[];
   };
-  static getModelById: (modelId: string, get: typeOfGet) => WaldieModelNode | null = (modelId, get) => {
+  static getModelById: (modelId: string, get: typeOfGet) => WaldiezModelNode | null = (modelId, get) => {
     const model = get().nodes.find(node => node.id === modelId && node.type === 'model');
     if (!model) {
       return null;
     }
-    return model as WaldieModelNode;
+    return model as WaldiezModelNode;
   };
-  static addModel: (get: typeOfGet, set: typeOfSet) => WaldieModelNode = (get, set) => {
+  static addModel: (get: typeOfGet, set: typeOfSet) => WaldiezModelNode = (get, set) => {
     const existingModels = get().nodes.filter(node => node.type === 'model');
     const modelCount = existingModels.length;
     const flowId = get().flowId;
     const rfInstance = get().rfInstance;
     const position = getNewNodePosition(modelCount, flowId, rfInstance);
-    const newNode: WaldieModelNode = new WaldieSourceModel(`wm-${nanoid()}`, new WaldieSourceModelData(), {
+    const newNode: WaldiezModelNode = new WaldiezSourceModel(`wm-${nanoid()}`, new WaldiezSourceModelData(), {
       position
     }).asNode();
     set({
@@ -47,7 +47,7 @@ export class ModelsStore {
     ModelsStore.reArrangeModels(get, set);
     setViewPortTopLeft(rfInstance);
     const model = get().nodes.find(node => node.id === newNode.id);
-    return model as WaldieModelNode;
+    return model as WaldiezModelNode;
   };
   static getClonedModel = (modelId: string, rfInstance: ReactFlowInstance | null, get: typeOfGet) => {
     const model = get().nodes.find(node => node.id === modelId);
@@ -58,12 +58,12 @@ export class ModelsStore {
     const modelCount = existingModels.length;
     const flowId = get().flowId;
     const position = getNewNodePosition(modelCount, flowId, rfInstance);
-    return new WaldieSourceModel(`wm-${nanoid()}`, new WaldieSourceModelData(), {
+    return new WaldiezSourceModel(`wm-${nanoid()}`, new WaldiezSourceModelData(), {
       position,
       data: model.data
     }).asNode();
   };
-  static cloneModel: (modelId: string, get: typeOfGet, set: typeOfSet) => WaldieModelNode = (
+  static cloneModel: (modelId: string, get: typeOfGet, set: typeOfSet) => WaldiezModelNode = (
     modelId,
     get,
     set
@@ -89,11 +89,11 @@ export class ModelsStore {
     ModelsStore.reArrangeModels(get, set);
     setViewPortTopLeft(rfInstance);
     const modelWithNewPosition = get().nodes.find(node => node.id === newNode.id);
-    return modelWithNewPosition as WaldieModelNode;
+    return modelWithNewPosition as WaldiezModelNode;
   };
   static updateModelData: (
     modelId: string,
-    data: WaldieModelNodeData,
+    data: WaldiezModelNodeData,
     get: typeOfGet,
     set: typeOfSet
   ) => void = (modelId, data, get, set) => {
@@ -129,7 +129,7 @@ export class ModelsStore {
     const newNodes = [] as Node[];
     allNodes.forEach(node => {
       if (node.type === 'agent') {
-        const agent = node as WaldieAgentNode;
+        const agent = node as WaldiezAgentNode;
         const modelIds = agent.data.modelIds;
         const newModelIds = modelIds.filter(id => id !== modelId);
         newNodes.push({
@@ -160,13 +160,13 @@ export class ModelsStore {
     if (!model) {
       return null;
     }
-    return exportModel(model as WaldieModelNode);
+    return exportModel(model as WaldiezModelNode);
   };
   static importModel: (
     model: { [key: string]: unknown },
     modelId: string,
     position: { x: number; y: number } | undefined
-  ) => WaldieModelNode = (model, modelId, position) => {
+  ) => WaldiezModelNode = (model, modelId, position) => {
     const newModel = importModel(model, modelId);
     if (position) {
       newModel.position = position;

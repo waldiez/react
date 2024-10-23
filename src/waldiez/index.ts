@@ -1,6 +1,6 @@
-import { Waldie } from '@waldiez/waldie';
+import { Waldiez } from '@waldiez/waldiez';
 
 export { importFlow } from '@waldiez/store';
-export type { WaldieProps } from '@waldiez/types';
-export { Waldie };
-export default Waldie;
+export type { WaldiezProps } from '@waldiez/types';
+export { Waldiez };
+export default Waldiez;

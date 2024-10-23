@@ -6,11 +6,11 @@ import { GiNestEggs } from 'react-icons/gi';
 import { GoAlert } from 'react-icons/go';
 import { MdMessage } from 'react-icons/md';
 
-import { WaldieEdgeViewProps } from '@waldiez/components/edges/types';
-import { WaldieAgentNodeType } from '@waldiez/models';
+import { WaldiezEdgeViewProps } from '@waldiez/components/edges/types';
+import { WaldiezAgentNodeType } from '@waldiez/models';
 import { AGENT_COLORS } from '@waldiez/theme';
 
-export const WaldieEdgeView = (props: WaldieEdgeViewProps) => {
+export const WaldiezEdgeView = (props: WaldiezEdgeViewProps) => {
   const {
     id,
     data,
@@ -43,7 +43,7 @@ export const WaldieEdgeView = (props: WaldieEdgeViewProps) => {
   }
   const getEdgeColor = () => {
     let edgeColor;
-    const agentType = sourceAgent.data.agentType as WaldieAgentNodeType;
+    const agentType = sourceAgent.data.agentType as WaldiezAgentNodeType;
     if (['user', 'assistant', 'manager', 'rag_user'].includes(agentType)) {
       edgeColor = AGENT_COLORS[agentType];
     }

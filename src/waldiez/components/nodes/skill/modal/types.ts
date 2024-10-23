@@ -1,22 +1,22 @@
-import { WaldieSkillNodeData } from '@waldiez/models';
+import { WaldiezSkillNodeData } from '@waldiez/models';
 
-export type WaldieSkillNodeModalProps = {
+export type WaldiezSkillNodeModalProps = {
   skillId: string;
   flowId: string;
-  data: WaldieSkillNodeData;
+  data: WaldiezSkillNodeData;
   isModalOpen: boolean;
   darkMode: boolean;
   onClose: () => void;
   onCancel: () => void;
   onSubmit: () => void;
-  onDataChange: (data: Partial<WaldieSkillNodeData>) => void;
+  onDataChange: (data: Partial<WaldiezSkillNodeData>) => void;
   onImport: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onExport: () => void;
 };
-export type WaldieSkillNodeModalViewProps = {
+export type WaldiezSkillNodeModalViewProps = {
   skillId: string;
   flowId: string;
-  data: WaldieSkillNodeData;
+  data: WaldiezSkillNodeData;
   isModalOpen: boolean;
   darkMode: boolean;
   onClose: () => void;

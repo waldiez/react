@@ -1,5 +1,5 @@
 {
-  "$id": "https://github.com/waldiez/react/tree/v0.1.0/schema.json",
+  "$id": "https://github.com/waldiez/react/tree/v0.1.3/schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
@@ -55,19 +55,19 @@
             "users": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieUserProxy"
+                "$ref": "#/definitions/WaldiezUserProxy"
               }
             },
             "assistants": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieAssistant"
+                "$ref": "#/definitions/WaldiezAssistant"
               }
             },
             "managers": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieGroupManager"
+                "$ref": "#/definitions/WaldiezGroupManager"
               }
             }
           },
@@ -77,19 +77,19 @@
         "models": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/WaldieModel"
+            "$ref": "#/definitions/WaldiezModel"
           }
         },
         "skills": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/WaldieSkill"
+            "$ref": "#/definitions/WaldiezSkill"
           }
         },
         "chats": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/WaldieChat"
+            "$ref": "#/definitions/WaldiezChat"
           }
         }
       },
@@ -99,9 +99,9 @@
   },
   "required": ["type", "name", "description", "tags", "requirements", "data"],
   "additionalProperties": false,
-  "description": "Waldie Flow.",
+  "description": "Waldiez Flow.",
   "definitions": {
-    "WaldieUserProxy": {
+    "WaldiezUserProxy": {
       "type": "object",
       "properties": {
         "id": {
@@ -146,13 +146,13 @@
               "type": ["string", "null"]
             },
             "humanInputMode": {
-              "$ref": "#/definitions/WaldieAgentHumanInputMode"
+              "$ref": "#/definitions/WaldiezAgentHumanInputMode"
             },
             "maxTokens": {
               "type": ["number", "null"]
             },
             "codeExecutionConfig": {
-              "$ref": "#/definitions/WaldieAgentCodeExecutionConfig"
+              "$ref": "#/definitions/WaldiezAgentCodeExecutionConfig"
             },
             "agentDefaultAutoReply": {
               "type": ["string", "null"]
@@ -161,10 +161,10 @@
               "type": ["number", "null"]
             },
             "termination": {
-              "$ref": "#/definitions/WaldieAgentTerminationMessageCheck"
+              "$ref": "#/definitions/WaldiezAgentTerminationMessageCheck"
             },
             "teachability": {
-              "$ref": "#/definitions/WaldieAgentTeachability"
+              "$ref": "#/definitions/WaldiezAgentTeachability"
             },
             "modelIds": {
               "type": "array",
@@ -175,13 +175,13 @@
             "skills": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieAgentLinkedSkill"
+                "$ref": "#/definitions/WaldiezAgentLinkedSkill"
               }
             },
             "nestedChats": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieAgentNestedChat"
+                "$ref": "#/definitions/WaldiezAgentNestedChat"
               }
             }
           },
@@ -213,16 +213,16 @@
         "data"
       ],
       "additionalProperties": false,
-      "description": "Waldie User Proxy Agent."
+      "description": "Waldiez User Proxy Agent."
     },
-    "WaldieAgentHumanInputMode": {
+    "WaldiezAgentHumanInputMode": {
       "type": "string",
       "enum": ["ALWAYS", "NEVER", "TERMINATE"]
     },
-    "WaldieAgentCodeExecutionConfig": {
+    "WaldiezAgentCodeExecutionConfig": {
       "anyOf": [
         {
-          "$ref": "#/definitions/WaldieAgentCodeExecutionConfigDict"
+          "$ref": "#/definitions/WaldiezAgentCodeExecutionConfigDict"
         },
         {
           "type": "boolean",
@@ -230,7 +230,7 @@
         }
       ]
     },
-    "WaldieAgentCodeExecutionConfigDict": {
+    "WaldiezAgentCodeExecutionConfigDict": {
       "type": "object",
       "properties": {
         "workDir": {
@@ -275,11 +275,11 @@
       },
       "additionalProperties": false
     },
-    "WaldieAgentTerminationMessageCheck": {
+    "WaldiezAgentTerminationMessageCheck": {
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/WaldieAgentTypeTerminationTypeOption"
+          "$ref": "#/definitions/WaldiezAgentTypeTerminationTypeOption"
         },
         "keywords": {
           "type": "array",
@@ -290,7 +290,7 @@
         "criterion": {
           "anyOf": [
             {
-              "$ref": "#/definitions/WaldieAgentTerminationCriterionOption"
+              "$ref": "#/definitions/WaldiezAgentTerminationCriterionOption"
             },
             {
               "type": "null"
@@ -304,15 +304,15 @@
       "required": ["type", "keywords", "criterion", "methodContent"],
       "additionalProperties": false
     },
-    "WaldieAgentTypeTerminationTypeOption": {
+    "WaldiezAgentTypeTerminationTypeOption": {
       "type": "string",
       "enum": ["none", "keyword", "method"]
     },
-    "WaldieAgentTerminationCriterionOption": {
+    "WaldiezAgentTerminationCriterionOption": {
       "type": "string",
       "enum": ["found", "ending", "exact"]
     },
-    "WaldieAgentTeachability": {
+    "WaldiezAgentTeachability": {
       "type": "object",
       "properties": {
         "enabled": {
@@ -335,7 +335,7 @@
       "required": ["enabled", "verbosity", "resetDb", "recallThreshold", "maxMumRetrievals"],
       "additionalProperties": false
     },
-    "WaldieAgentLinkedSkill": {
+    "WaldiezAgentLinkedSkill": {
       "type": "object",
       "properties": {
         "id": {
@@ -348,7 +348,7 @@
       "required": ["id", "executorId"],
       "additionalProperties": false
     },
-    "WaldieAgentNestedChat": {
+    "WaldiezAgentNestedChat": {
       "type": "object",
       "properties": {
         "triggeredBy": {
@@ -387,7 +387,7 @@
       "required": ["triggeredBy", "messages"],
       "additionalProperties": false
     },
-    "WaldieAssistant": {
+    "WaldiezAssistant": {
       "type": "object",
       "properties": {
         "id": {
@@ -432,13 +432,13 @@
               "type": ["string", "null"]
             },
             "humanInputMode": {
-              "$ref": "#/definitions/WaldieAgentHumanInputMode"
+              "$ref": "#/definitions/WaldiezAgentHumanInputMode"
             },
             "maxTokens": {
               "type": ["number", "null"]
             },
             "codeExecutionConfig": {
-              "$ref": "#/definitions/WaldieAgentCodeExecutionConfig"
+              "$ref": "#/definitions/WaldiezAgentCodeExecutionConfig"
             },
             "agentDefaultAutoReply": {
               "type": ["string", "null"]
@@ -447,10 +447,10 @@
               "type": ["number", "null"]
             },
             "termination": {
-              "$ref": "#/definitions/WaldieAgentTerminationMessageCheck"
+              "$ref": "#/definitions/WaldiezAgentTerminationMessageCheck"
             },
             "teachability": {
-              "$ref": "#/definitions/WaldieAgentTeachability"
+              "$ref": "#/definitions/WaldiezAgentTeachability"
             },
             "modelIds": {
               "type": "array",
@@ -461,13 +461,13 @@
             "skills": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieAgentLinkedSkill"
+                "$ref": "#/definitions/WaldiezAgentLinkedSkill"
               }
             },
             "nestedChats": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieAgentNestedChat"
+                "$ref": "#/definitions/WaldiezAgentNestedChat"
               }
             }
           },
@@ -499,9 +499,9 @@
         "data"
       ],
       "additionalProperties": false,
-      "description": "Waldie Assistant Agent."
+      "description": "Waldiez Assistant Agent."
     },
-    "WaldieGroupManager": {
+    "WaldiezGroupManager": {
       "type": "object",
       "properties": {
         "id": {
@@ -546,13 +546,13 @@
               "type": ["string", "null"]
             },
             "humanInputMode": {
-              "$ref": "#/definitions/WaldieAgentHumanInputMode"
+              "$ref": "#/definitions/WaldiezAgentHumanInputMode"
             },
             "maxTokens": {
               "type": ["number", "null"]
             },
             "codeExecutionConfig": {
-              "$ref": "#/definitions/WaldieAgentCodeExecutionConfig"
+              "$ref": "#/definitions/WaldiezAgentCodeExecutionConfig"
             },
             "agentDefaultAutoReply": {
               "type": ["string", "null"]
@@ -561,10 +561,10 @@
               "type": ["number", "null"]
             },
             "termination": {
-              "$ref": "#/definitions/WaldieAgentTerminationMessageCheck"
+              "$ref": "#/definitions/WaldiezAgentTerminationMessageCheck"
             },
             "teachability": {
-              "$ref": "#/definitions/WaldieAgentTeachability"
+              "$ref": "#/definitions/WaldiezAgentTeachability"
             },
             "modelIds": {
               "type": "array",
@@ -575,7 +575,7 @@
             "skills": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WaldieAgentLinkedSkill"
+                "$ref": "#/definitions/WaldiezAgentLinkedSkill"
               }
             },
             "maxRound": {
@@ -585,7 +585,7 @@
               "type": ["string", "null"]
             },
             "speakers": {
-              "$ref": "#/definitions/WaldieWaldieGroupManagerSpeakers"
+              "$ref": "#/definitions/WaldiezGroupManagerSpeakers"
             },
             "enableClearHistory": {
               "type": "boolean"
@@ -624,13 +624,13 @@
         "data"
       ],
       "additionalProperties": false,
-      "description": "Waldie Group Chat Manager Agent."
+      "description": "Waldiez Group Chat Manager Agent."
     },
-    "WaldieWaldieGroupManagerSpeakers": {
+    "WaldiezGroupManagerSpeakers": {
       "type": "object",
       "properties": {
         "selectionMethod": {
-          "$ref": "#/definitions/WaldieGroupManagerSpeakerSelectionMethodOption"
+          "$ref": "#/definitions/WaldiezGroupManagerSpeakerSelectionMethodOption"
         },
         "selectionCustomMethod": {
           "type": "string"
@@ -678,7 +678,7 @@
       ],
       "additionalProperties": false
     },
-    "WaldieGroupManagerSpeakerSelectionMethodOption": {
+    "WaldiezGroupManagerSpeakerSelectionMethodOption": {
       "type": "string",
       "enum": ["auto", "manual", "random", "round_robin", "custom"]
     },
@@ -690,7 +690,7 @@
       "type": "string",
       "enum": ["allowed", "disallowed"]
     },
-    "WaldieModel": {
+    "WaldiezModel": {
       "type": "object",
       "properties": {
         "id": {
@@ -734,7 +734,7 @@
               "type": ["string", "null"]
             },
             "apiType": {
-              "$ref": "#/definitions/WaldieModelAPIType"
+              "$ref": "#/definitions/WaldiezModelAPIType"
             },
             "apiVersion": {
               "type": ["string", "null"]
@@ -755,7 +755,7 @@
               }
             },
             "price": {
-              "$ref": "#/definitions/WaldieModelPrice"
+              "$ref": "#/definitions/WaldiezModelPrice"
             }
           },
           "required": [
@@ -774,13 +774,13 @@
       },
       "required": ["type", "name", "description", "tags", "requirements", "createdAt", "updatedAt", "data"],
       "additionalProperties": false,
-      "description": "Waldie Model."
+      "description": "Waldiez Model."
     },
-    "WaldieModelAPIType": {
+    "WaldiezModelAPIType": {
       "type": "string",
       "enum": ["openai", "azure", "google", "anthropic", "mistral", "groq", "together", "nim", "other"]
     },
-    "WaldieModelPrice": {
+    "WaldiezModelPrice": {
       "type": "object",
       "properties": {
         "promptPricePer1k": {
@@ -793,7 +793,7 @@
       "required": ["promptPricePer1k", "completionTokenPricePer1k"],
       "additionalProperties": false
     },
-    "WaldieSkill": {
+    "WaldiezSkill": {
       "type": "object",
       "properties": {
         "id": {
@@ -846,9 +846,9 @@
       },
       "required": ["type", "name", "description", "tags", "requirements", "createdAt", "updatedAt", "data"],
       "additionalProperties": false,
-      "description": "Waldie Skill."
+      "description": "Waldiez Skill."
     },
-    "WaldieChat": {
+    "WaldiezChat": {
       "type": "object",
       "properties": {
         "id": {
@@ -880,7 +880,7 @@
               "type": "boolean"
             },
             "message": {
-              "$ref": "#/definitions/IWaldieMessage"
+              "$ref": "#/definitions/IWaldiezMessage"
             },
             "nestedChat": {
               "type": "object",
@@ -888,7 +888,7 @@
                 "message": {
                   "anyOf": [
                     {
-                      "$ref": "#/definitions/IWaldieMessage"
+                      "$ref": "#/definitions/IWaldiezMessage"
                     },
                     {
                       "type": "null"
@@ -898,7 +898,7 @@
                 "reply": {
                   "anyOf": [
                     {
-                      "$ref": "#/definitions/IWaldieMessage"
+                      "$ref": "#/definitions/IWaldiezMessage"
                     },
                     {
                       "type": "null"
@@ -913,7 +913,7 @@
               "type": "object",
               "properties": {
                 "method": {
-                  "$ref": "#/definitions/WaldieEdgeLlmSummaryMethod"
+                  "$ref": "#/definitions/WaldiezEdgeLlmSummaryMethod"
                 },
                 "prompt": {
                   "type": "string"
@@ -946,13 +946,13 @@
       },
       "required": ["data"],
       "additionalProperties": false,
-      "description": "Waldie Chat."
+      "description": "Waldiez Chat."
     },
-    "IWaldieMessage": {
+    "IWaldiezMessage": {
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/WaldieMessageType"
+          "$ref": "#/definitions/WaldiezMessageType"
         },
         "use_carryover": {
           "type": "boolean"
@@ -969,16 +969,16 @@
       },
       "required": ["type", "use_carryover", "content", "context"],
       "additionalProperties": false,
-      "description": "Waldie Message.\n\nA generic message with a type and content.\n\nIf the type is not 'none', the content is a string. If the type is 'method', the content is the code of a method."
+      "description": "Waldiez Message.\n\nA generic message with a type and content.\n\nIf the type is not 'none', the content is a string. If the type is 'method', the content is the code of a method."
     },
-    "WaldieMessageType": {
+    "WaldiezMessageType": {
       "type": "string",
       "enum": ["string", "method", "rag_message_generator", "none"]
     },
-    "WaldieEdgeLlmSummaryMethod": {
+    "WaldiezEdgeLlmSummaryMethod": {
       "type": ["string", "null"],
       "enum": ["reflection_with_llm", "last_msg", null],
-      "description": "Waldie Edge Llm Summary Method."
+      "description": "Waldiez Edge Llm Summary Method."
     }
   }
 }

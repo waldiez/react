@@ -1,12 +1,12 @@
-import { WaldieAgentNodeData, WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
 export type RagUserAgentConfigTabViewProps = {
   flowId: string;
   id: string;
   darkMode: boolean;
-  data: WaldieNodeRagUserData;
+  data: WaldiezNodeRagUserData;
   filesToUpload: File[];
-  onDataChange: (data: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  onDataChange: (data: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
   setFilesToUpload: (files: File[]) => void;
   onFilesUpload?: (files: File[]) => void;
   onFileDrop: (event: React.DragEvent<HTMLDivElement>) => void;

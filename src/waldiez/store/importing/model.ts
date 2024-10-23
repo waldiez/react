@@ -1,23 +1,23 @@
 import { nanoid } from 'nanoid';
 
-import { WaldieModelNode, WaldieSourceModel, WaldieSourceModelData } from '@waldiez/models';
+import { WaldiezModelNode, WaldiezSourceModel, WaldiezSourceModelData } from '@waldiez/models';
 import { getNodeMeta } from '@waldiez/store/importing/common';
 
-export const importModel: (data: any, modelId?: string) => WaldieModelNode = (data, modelId) => {
+export const importModel: (data: any, modelId?: string) => WaldiezModelNode = (data, modelId) => {
   let id = 'wm-' + nanoid();
   if (modelId && typeof modelId === 'string') {
     id = modelId;
   }
   if (!data || typeof data !== 'object') {
-    const emptyModelData = new WaldieSourceModelData();
-    return new WaldieSourceModel(id, emptyModelData).asNode();
+    const emptyModelData = new WaldiezSourceModelData();
+    return new WaldiezSourceModel(id, emptyModelData).asNode();
   }
   const { name, description, tags, requirements, createdAt, updatedAt } = getNodeMeta(data, 'model');
   let modelData = data;
   if ('data' in data && typeof data.data === 'object') {
     modelData = data.data;
   }
-  const importedModelData = WaldieSourceModelData.fromJSON(
+  const importedModelData = WaldiezSourceModelData.fromJSON(
     modelData,
     name,
     description,

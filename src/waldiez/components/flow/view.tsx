@@ -5,11 +5,11 @@ import { FaCirclePlay } from 'react-icons/fa6';
 
 import { FlowModal } from '@waldiez/components/flow/modal';
 import { edgeTypes, nodeTypes } from '@waldiez/components/flow/reactFlowTypes';
-import { WaldieFlowViewProps } from '@waldiez/components/flow/types';
+import { WaldiezFlowViewProps } from '@waldiez/components/flow/types';
 import { SideBar } from '@waldiez/components/sidebar';
 import { UserInputModal } from '@waldiez/components/userInputModal';
 
-export const WaldieFlowView = (props: WaldieFlowViewProps) => {
+export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
   const {
     flowId,
     storageId,

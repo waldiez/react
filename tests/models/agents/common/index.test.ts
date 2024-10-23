@@ -1,9 +1,9 @@
 import { commonDataJson } from './data';
 
-import { WaldieSourceAgentCommonData } from '@waldiez/models/agents/common';
+import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 
-describe('WaldieSourceAgentCommonData', () => {
-  const waldieAgentCommonData: WaldieSourceAgentCommonData = new WaldieSourceAgentCommonData();
+describe('WaldiezSourceAgentCommonData', () => {
+  const waldieAgentCommonData: WaldiezSourceAgentCommonData = new WaldiezSourceAgentCommonData();
   it('should have the correct default values', () => {
     expect(waldieAgentCommonData.name).toEqual('Agent');
     expect(waldieAgentCommonData.systemMessage).toBeNull();
@@ -33,7 +33,7 @@ describe('WaldieSourceAgentCommonData', () => {
   });
 
   it('should import agent data from json', () => {
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJson, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJson, 'user');
     expect(importedAgent.name).toEqual(commonDataJson.name);
     expect(importedAgent.systemMessage).toBeNull();
     expect(importedAgent.humanInputMode).toEqual(commonDataJson.humanInputMode);
@@ -54,7 +54,7 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       systemMessage: 'system message'
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithSystemMessage, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithSystemMessage, 'user');
     expect(importedAgent.systemMessage).toEqual('system message');
   });
 
@@ -63,7 +63,7 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       maxTokens: 10
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithMaxTokens, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithMaxTokens, 'user');
     expect(importedAgent.maxTokens).toEqual(10);
   });
 
@@ -78,7 +78,10 @@ describe('WaldieSourceAgentCommonData', () => {
         functions: ['function1', 'function2']
       }
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithCodeExecutionConfig, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(
+      commonDataJsonWithCodeExecutionConfig,
+      'user'
+    );
     expect(importedAgent.codeExecutionConfig).toEqual({
       workDir: 'workDir',
       useDocker: false,
@@ -93,7 +96,10 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       codeExecutionConfig: false
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithCodeExecutionConfig, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(
+      commonDataJsonWithCodeExecutionConfig,
+      'user'
+    );
     expect(importedAgent.codeExecutionConfig).toBeFalsy();
   });
 
@@ -102,7 +108,7 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       agentDefaultAutoReply: 'auto reply'
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(
       commonDataJsonWithAgentDefaultAutoReply,
       'user'
     );
@@ -114,7 +120,7 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       maxConsecutiveAutoReply: 10
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(
       commonDataJsonWithMaxConsecutiveAutoReply,
       'user'
     );
@@ -126,7 +132,7 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       tags: ['tag1', 'tag2']
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithTags, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithTags, 'user');
     expect(importedAgent.tags).toEqual(['tag1', 'tag2']);
   });
 
@@ -135,7 +141,7 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       requirements: ['requirement1', 'requirement2']
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithRequirements, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithRequirements, 'user');
     expect(importedAgent.requirements).toEqual(['requirement1', 'requirement2']);
   });
 
@@ -145,7 +151,7 @@ describe('WaldieSourceAgentCommonData', () => {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithDates, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithDates, 'user');
     expect(importedAgent.createdAt).toEqual(commonDataJsonWithDates.createdAt);
     expect(importedAgent.updatedAt).toEqual(commonDataJsonWithDates.updatedAt);
   });
@@ -155,7 +161,7 @@ describe('WaldieSourceAgentCommonData', () => {
       ...commonDataJson,
       modelIds: ['modelId1', 'modelId2']
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithModelIds, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithModelIds, 'user');
     expect(importedAgent.modelIds).toEqual(['modelId1', 'modelId2']);
   });
 
@@ -167,7 +173,7 @@ describe('WaldieSourceAgentCommonData', () => {
         { id: 'skillId2', executorId: 'executorId2' }
       ]
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithSkills, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithSkills, 'user');
     expect(importedAgent.skills).toEqual([
       { id: 'skillId1', executorId: 'executorId1' },
       { id: 'skillId2', executorId: 'executorId2' }
@@ -179,12 +185,12 @@ describe('WaldieSourceAgentCommonData', () => {
       label: 'name of the agent'
     } as any;
     delete commonDataJsonWithLabel.name;
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(commonDataJsonWithLabel, 'user');
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithLabel, 'user');
     expect(importedAgent.name).toEqual('name of the agent');
   });
 
   it('should import agent data from json with name in args', () => {
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(
       commonDataJson,
       'user',
       'the name of the agent'
@@ -192,11 +198,11 @@ describe('WaldieSourceAgentCommonData', () => {
     expect(importedAgent.name).toEqual('the name of the agent');
   });
   it('should create an agent with default values', () => {
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(null, 'user', 'the name of the agent');
-    expect(importedAgent).toBeInstanceOf(WaldieSourceAgentCommonData);
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(null, 'user', 'the name of the agent');
+    expect(importedAgent).toBeInstanceOf(WaldiezSourceAgentCommonData);
     expect(importedAgent.name).toEqual('the name of the agent');
-    const importedAgentUnnamed = WaldieSourceAgentCommonData.fromJSON(null, 'user');
-    expect(importedAgentUnnamed).toBeInstanceOf(WaldieSourceAgentCommonData);
+    const importedAgentUnnamed = WaldiezSourceAgentCommonData.fromJSON(null, 'user');
+    expect(importedAgentUnnamed).toBeInstanceOf(WaldiezSourceAgentCommonData);
     expect(importedAgentUnnamed.name).toEqual('Agent');
   });
 });

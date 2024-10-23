@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import selectEvent from 'react-select-event';
 
 import { MessageInput } from '@waldiez/components/inputs/messageInput';
-import { WaldieMessage } from '@waldiez/models';
+import { WaldiezMessage } from '@waldiez/models';
 
 const onTypeChange = vi.fn();
 const onMessageChange = vi.fn();
@@ -14,7 +14,7 @@ const messageInputProps = {
     use_carryover: false,
     content: '',
     context: {}
-  } as WaldieMessage,
+  } as WaldiezMessage,
   defaultContent: 'test',
   darkMode: false,
   selectLabel: 'test',
@@ -32,7 +32,7 @@ const messageInputWithStringType = {
     use_carryover: false,
     content: '',
     context: {}
-  } as WaldieMessage
+  } as WaldiezMessage
 };
 
 beforeEach(() => {
@@ -96,7 +96,7 @@ it('should render with null string content', () => {
       use_carryover: false,
       content: null,
       context: {}
-    } as WaldieMessage
+    } as WaldiezMessage
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
   expect(baseElement).toBeTruthy();
@@ -109,7 +109,7 @@ it('should render with null method content', () => {
       use_carryover: false,
       content: null,
       context: {}
-    } as WaldieMessage
+    } as WaldiezMessage
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
   expect(baseElement).toBeTruthy();
@@ -122,7 +122,7 @@ it('should handle method message change', async () => {
       use_carryover: false,
       content: '',
       context: {}
-    } as WaldieMessage
+    } as WaldiezMessage
   };
   render(<MessageInput {...customMessageInputProps} />);
   const editor = await screen.findByRole('textbox');
@@ -145,7 +145,7 @@ it('should include context', () => {
       context: {
         key1: 'value1'
       }
-    } as WaldieMessage
+    } as WaldiezMessage
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
   expect(baseElement).toBeTruthy();
@@ -161,7 +161,7 @@ it('should add a context entry', () => {
       context: {
         key1: 'value1'
       }
-    } as WaldieMessage,
+    } as WaldiezMessage,
     onAddContextEntry: addContextEntry,
     includeContext: true
   };
@@ -185,7 +185,7 @@ it('should remove a context entry', () => {
       context: {
         key1: 'value1'
       }
-    } as WaldieMessage,
+    } as WaldiezMessage,
     onRemoveContextEntry: removeContextEntry,
     includeContext: true
   };
@@ -205,7 +205,7 @@ it('should update context entries', () => {
       context: {
         key1: 'value1'
       }
-    } as WaldieMessage,
+    } as WaldiezMessage,
     onUpdateContextEntries: updateContextEntries,
     includeContext: true
   };
@@ -224,7 +224,7 @@ it('should include rag option', () => {
       use_carryover: false,
       content: '',
       context: {}
-    } as WaldieMessage,
+    } as WaldiezMessage,
     skipRagOption: false
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
@@ -241,7 +241,7 @@ it('should skip rag option', () => {
       use_carryover: false,
       content: '',
       context: {}
-    } as WaldieMessage,
+    } as WaldiezMessage,
     skipRagOption: true
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
@@ -260,7 +260,7 @@ it('should display and update the rag input', () => {
       context: {
         key1: 'value1'
       }
-    } as WaldieMessage,
+    } as WaldiezMessage,
     skipRagOption: false
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
@@ -288,7 +288,7 @@ it('should display and update the carryover input with type string', () => {
       context: {
         key1: 'value1'
       }
-    } as WaldieMessage,
+    } as WaldiezMessage,
     skipCarryoverOption: false
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
@@ -315,7 +315,7 @@ it('should display and update the carryover input with type rag_message_generato
       context: {
         key1: 'value1'
       }
-    } as WaldieMessage,
+    } as WaldiezMessage,
     skipCarryoverOption: false
   };
   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
@@ -342,7 +342,7 @@ it('should display and update the carryover input with type rag_message_generato
 //             context: {
 //                 key1: 'value1'
 //             }
-//         } as WaldieMessage,
+//         } as WaldiezMessage,
 //         skipCarryoverOption: false
 //     };
 //     const { baseElement } = render(
@@ -364,7 +364,7 @@ it('should display and update the carryover input with type rag_message_generato
 //             context: {
 //                 key1: 'value1'
 //             }
-//         } as WaldieMessage,
+//         } as WaldiezMessage,
 //         defaultContent: 'test',
 //         editorTheme: 'test',
 //         selectLabel: 'test',
@@ -402,7 +402,7 @@ it('should display and update the carryover input with type rag_message_generato
 //             context: {
 //                 key1: 'value1'
 //             }
-//         } as WaldieMessage,
+//         } as WaldiezMessage,
 //         defaultContent: 'test',
 //         editorTheme: 'test',
 //         selectLabel: 'test',
@@ -438,7 +438,7 @@ it('should display and update the carryover input with type rag_message_generato
 //                 key1: 'value1',
 //                 text: 'test'
 //             }
-//         } as WaldieMessage,
+//         } as WaldiezMessage,
 //         defaultContent: 'test',
 //         editorTheme: 'test',
 //         selectLabel: 'test',

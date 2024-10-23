@@ -1,27 +1,27 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieEdgeData, WaldieEdgeLlmSummaryMethod, WaldieEdgeType } from '@waldiez/models';
+import { WaldiezEdgeData, WaldiezEdgeLlmSummaryMethod, WaldiezEdgeType } from '@waldiez/models';
 
-export type WaldieEdgeBasicTabProps = {
+export type WaldiezEdgeBasicTabProps = {
   edgeId: string;
-  edgeType: WaldieEdgeType;
-  data: WaldieEdgeData;
+  edgeType: WaldiezEdgeType;
+  data: WaldiezEdgeData;
   onTypeChange: (
     option: SingleValue<{
       label: string;
-      value: WaldieEdgeType;
+      value: WaldiezEdgeType;
     }>
   ) => void;
-  onDataChange: (data: Partial<WaldieEdgeData>) => void;
+  onDataChange: (data: Partial<WaldiezEdgeData>) => void;
 };
 
-export type WaldieEdgeBasicTabViewProps = {
+export type WaldiezEdgeBasicTabViewProps = {
   edgeId: string;
-  edgeType: WaldieEdgeType;
-  data: WaldieEdgeData;
+  edgeType: WaldiezEdgeType;
+  data: WaldiezEdgeData;
   onEdgeTypeChange: (
     option: SingleValue<{
       label: string;
-      value: WaldieEdgeType;
+      value: WaldiezEdgeType;
     }>
   ) => void;
   onLabelChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -31,7 +31,7 @@ export type WaldieEdgeBasicTabViewProps = {
   onSummaryMethodChange: (
     option: SingleValue<{
       label: string;
-      value: WaldieEdgeLlmSummaryMethod;
+      value: WaldiezEdgeLlmSummaryMethod;
     }>
   ) => void;
   onLlmPromptChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;

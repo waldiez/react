@@ -1,11 +1,11 @@
 import { SingleValue } from '@waldiez/components/inputs';
 import { RagUserAgentConfigTabTextSplitProps } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/textSplit/types';
 import { RagUserAgentConfigTabTextSplitView } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/textSplit/view';
-import { WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezNodeRagUserData } from '@waldiez/models';
 
 export const RagUserAgentConfigTabTextSplit = (props: RagUserAgentConfigTabTextSplitProps) => {
   const { id, data, onDataChange } = props;
-  const setRetrieveConfigConfigData = (partialData: Partial<WaldieNodeRagUserData['retrieveConfig']>) => {
+  const setRetrieveConfigConfigData = (partialData: Partial<WaldiezNodeRagUserData['retrieveConfig']>) => {
     onDataChange({
       ...data,
       retrieveConfig: {

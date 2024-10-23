@@ -1,7 +1,7 @@
-import { WaldieFlowModalOtherTabProps } from '@waldiez/components/flow/modal/tabs/other/types';
-import { WaldieFlowModalOtherTabView } from '@waldiez/components/flow/modal/tabs/other/view';
+import { WaldiezFlowModalOtherTabProps } from '@waldiez/components/flow/modal/tabs/other/types';
+import { WaldiezFlowModalOtherTabView } from '@waldiez/components/flow/modal/tabs/other/view';
 
-export const WaldieFlowModalOtherTab = (props: WaldieFlowModalOtherTabProps) => {
+export const WaldiezFlowModalOtherTab = (props: WaldiezFlowModalOtherTabProps) => {
   const { data, onDataChange } = props;
   const { tags, requirements } = data;
   const onAddTag = (tag: string) => {
@@ -27,7 +27,7 @@ export const WaldieFlowModalOtherTab = (props: WaldieFlowModalOtherTabProps) => 
     });
   };
   return (
-    <WaldieFlowModalOtherTabView
+    <WaldiezFlowModalOtherTabView
       tags={tags}
       requirements={requirements}
       onAddTag={onAddTag}

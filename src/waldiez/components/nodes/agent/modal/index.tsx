@@ -12,14 +12,14 @@ import { NestedChatsAgentConfigTab } from '@waldiez/components/nodes/agent/modal
 import { RagUserAgentConfigTab } from '@waldiez/components/nodes/agent/modal/tabs/ragUser';
 import { SkillsAgentConfigTab } from '@waldiez/components/nodes/agent/modal/tabs/skills';
 import { TerminationAgentConfigTab } from '@waldiez/components/nodes/agent/modal/tabs/termination';
-import { WaldieNodeAgentModalProps } from '@waldiez/components/nodes/agent/modal/types';
+import { WaldiezNodeAgentModalProps } from '@waldiez/components/nodes/agent/modal/types';
 import { exportItem, importItem } from '@waldiez/components/nodes/common';
 import { getImportExportView } from '@waldiez/components/nodes/common';
 import { TabItem, TabItems } from '@waldiez/components/tabs';
-import { WaldieNodeGroupManagerData, WaldieNodeRagUserData } from '@waldiez/models';
-import { useWaldieContext } from '@waldiez/store';
+import { WaldiezNodeGroupManagerData, WaldiezNodeRagUserData } from '@waldiez/models';
+import { useWaldiezContext } from '@waldiez/store';
 
-export const WaldieNodeAgentModal = (props: WaldieNodeAgentModalProps) => {
+export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
   const {
     flowId,
     id,
@@ -41,9 +41,9 @@ export const WaldieNodeAgentModal = (props: WaldieNodeAgentModalProps) => {
   } = props;
   const isManager = data.agentType === 'manager';
   const isRagUser = data.agentType === 'rag_user';
-  const getAgentById = useWaldieContext(selector => selector.getAgentById);
-  const exportAgent = useWaldieContext(selector => selector.exportAgent);
-  const importAgent = useWaldieContext(selector => selector.importAgent);
+  const getAgentById = useWaldiezContext(selector => selector.getAgentById);
+  const exportAgent = useWaldiezContext(selector => selector.exportAgent);
+  const importAgent = useWaldiezContext(selector => selector.importAgent);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
   const _onSubmit = () => {
     onSubmit(filesToUpload);
@@ -86,7 +86,7 @@ export const WaldieNodeAgentModal = (props: WaldieNodeAgentModalProps) => {
               <GroupManagerConfigNodeTab
                 flowId={flowId}
                 id={id}
-                data={data as WaldieNodeGroupManagerData}
+                data={data as WaldiezNodeGroupManagerData}
                 isDarkMode={isDarkMode}
                 onDataChange={onDataChange}
                 nodeConnections={agentConnections}
@@ -99,7 +99,7 @@ export const WaldieNodeAgentModal = (props: WaldieNodeAgentModalProps) => {
                 flowId={flowId}
                 id={id}
                 darkMode={isDarkMode}
-                data={data as WaldieNodeRagUserData}
+                data={data as WaldiezNodeRagUserData}
                 filesToUpload={filesToUpload}
                 setFilesToUpload={setFilesToUpload}
                 onDataChange={onDataChange}

@@ -1,13 +1,13 @@
 import { ReactFlowInstance } from '@xyflow/react';
 
-import { WaldieState } from '@waldiez/types';
+import { WaldiezState } from '@waldiez/types';
 
 /**
  * Store actions selector to get and set the state
- * @param store - WaldieState
- * @returns WaldieState
+ * @param store - WaldiezState
+ * @returns WaldiezState
  */
-export const selector = (store: WaldieState & { rfInstance: ReactFlowInstance | null }) => ({
+export const selector = (store: WaldiezState & { rfInstance: ReactFlowInstance | null }) => ({
   flowId: store.flowId,
   nodes: store.nodes,
   edges: store.edges,

@@ -1,6 +1,6 @@
-import { WaldieRageUserRetrieveConfig } from '@waldiez/models/types/agents/waldieRagUserAgent';
+import { WaldiezRageUserRetrieveConfig } from '@waldiez/models/types/agents/ragUser';
 
-export const defaultRetrieveConfig: WaldieRageUserRetrieveConfig = {
+export const defaultRetrieveConfig: WaldiezRageUserRetrieveConfig = {
   task: 'default',
   vectorDb: 'chroma',
   dbConfig: {
@@ -36,8 +36,8 @@ export const defaultRetrieveConfig: WaldieRageUserRetrieveConfig = {
 };
 
 export class RetrieveConfigData {
-  data: WaldieRageUserRetrieveConfig;
-  constructor(data: WaldieRageUserRetrieveConfig = defaultRetrieveConfig) {
+  data: WaldiezRageUserRetrieveConfig;
+  constructor(data: WaldiezRageUserRetrieveConfig = defaultRetrieveConfig) {
     this.data = data;
   }
   static fromJSON(data: any): RetrieveConfigData {

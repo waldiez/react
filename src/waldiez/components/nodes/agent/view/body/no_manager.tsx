@@ -1,10 +1,10 @@
 import { getAgentModelsView, getAgentSkillsView } from '@waldiez/components/nodes/agent/view/body/common';
-import { WaldieNodeAgentNoManagerViewProps } from '@waldiez/components/nodes/agent/view/body/types';
+import { WaldiezNodeAgentNoManagerViewProps } from '@waldiez/components/nodes/agent/view/body/types';
 
-export const WaldieNodeAgentNoManagerView = (props: WaldieNodeAgentNoManagerViewProps) => {
-  const { id, data, onDataChange, skills, agentModelNames, agentModelLogos, agentWaldieModelAPITypes } =
+export const WaldiezNodeAgentNoManagerView = (props: WaldiezNodeAgentNoManagerViewProps) => {
+  const { id, data, onDataChange, skills, agentModelNames, agentModelLogos, agentWaldiezModelAPITypes } =
     props;
-  const agentModelsView = getAgentModelsView(id, agentModelNames, agentModelLogos, agentWaldieModelAPITypes);
+  const agentModelsView = getAgentModelsView(id, agentModelNames, agentModelLogos, agentWaldiezModelAPITypes);
   const agentSkillsView = getAgentSkillsView(id, data, skills);
   const onSystemMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onDataChange(

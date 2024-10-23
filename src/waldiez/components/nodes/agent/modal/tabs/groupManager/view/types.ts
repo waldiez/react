@@ -1,14 +1,14 @@
 import { MultiValue, SingleValue } from '@waldiez/components/inputs';
 import {
   SpeakerTransitionsType,
-  WaldieAgentNode,
-  WaldieGroupManagerSpeakerSelectionMethodOption,
-  WaldieNodeGroupManagerData
+  WaldiezAgentNode,
+  WaldiezGroupManagerSpeakerSelectionMethodOption,
+  WaldiezNodeGroupManagerData
 } from '@waldiez/models';
 
 export type GroupManagerConfigTabViewProps = {
   id: string;
-  data: WaldieNodeGroupManagerData;
+  data: WaldiezNodeGroupManagerData;
   onAdminNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onMaxRoundChange: (value: number | null) => void;
   onEnableClearHistoryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -18,8 +18,8 @@ export type GroupManagerConfigTabViewProps = {
 
 export type GroupManagerSpeakersTransitionViewProps = {
   id: string;
-  data: WaldieNodeGroupManagerData;
-  allConnectedNodes: WaldieAgentNode[];
+  data: WaldiezNodeGroupManagerData;
+  allConnectedNodes: WaldiezAgentNode[];
   transitionSource: string | null;
   transitionTargets: string[];
   selectAgentOptions: { label: string; value: string }[];
@@ -32,8 +32,8 @@ export type GroupManagerSpeakersTransitionViewProps = {
 };
 export type GroupManagerSpeakersTabViewProps = {
   id: string;
-  data: WaldieNodeGroupManagerData;
-  allConnectedNodes: WaldieAgentNode[];
+  data: WaldiezNodeGroupManagerData;
+  allConnectedNodes: WaldiezAgentNode[];
   transitionSource: string | null;
   transitionTargets: string[];
   isDarkMode: boolean;
@@ -52,7 +52,7 @@ export type GroupManagerSpeakersTabViewProps = {
   onSelectionMethodChange: (
     option: SingleValue<{
       label: string;
-      value: WaldieGroupManagerSpeakerSelectionMethodOption;
+      value: WaldiezGroupManagerSpeakerSelectionMethodOption;
     }>
   ) => void;
   onSelectionCustomMethodChange: (value?: string) => void;
@@ -60,8 +60,8 @@ export type GroupManagerSpeakersTabViewProps = {
 export type GroupManagerNodeTabViewProps = {
   flowId: string;
   id: string;
-  data: WaldieNodeGroupManagerData;
-  allConnectedNodes: WaldieAgentNode[];
+  data: WaldiezNodeGroupManagerData;
+  allConnectedNodes: WaldiezAgentNode[];
   transitionSource: string | null;
   transitionTargets: string[];
   selectAgentOptions: { label: string; value: string }[];
@@ -86,7 +86,7 @@ export type GroupManagerNodeTabViewProps = {
   onSelectionMethodChange: (
     option: SingleValue<{
       label: string;
-      value: WaldieGroupManagerSpeakerSelectionMethodOption;
+      value: WaldiezGroupManagerSpeakerSelectionMethodOption;
     }>
   ) => void;
   onSelectionCustomMethodChange: (value?: string) => void;

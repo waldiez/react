@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-describe('WaldieEdgeModalTab basic', () => {
+describe('WaldiezEdgeModalTab basic', () => {
   it('changes edge type', async () => {
     renderEdge('chat');
     fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
@@ -126,7 +126,7 @@ describe('WaldieEdgeModalTab basic', () => {
     });
   });
 });
-describe('WaldieEdgeModalTabGroup', () => {
+describe('WaldiezEdgeModalTabGroup', () => {
   it('updates a group chat label', () => {
     renderEdge('group');
     const labelInput = screen.getByTestId(`edge-${edgeId}-label-input`) as HTMLInputElement;

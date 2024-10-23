@@ -1,7 +1,7 @@
 import { SingleValue } from '@waldiez/components/inputs';
 import { BasicAgentConfigTabProps } from '@waldiez/components/nodes/agent/modal/tabs/basic/types';
 import { BasicAgentConfigTabView } from '@waldiez/components/nodes/agent/modal/tabs/basic/view';
-import { WaldieAgentHumanInputMode } from '@waldiez/models';
+import { WaldiezAgentHumanInputMode } from '@waldiez/models';
 
 export const BasicAgentConfigTab = (props: BasicAgentConfigTabProps) => {
   const { id, data, onDataChange, onAgentTypeChange } = props;
@@ -19,7 +19,7 @@ export const BasicAgentConfigTab = (props: BasicAgentConfigTabProps) => {
     onDataChange({ systemMessage: event.target.value });
   };
   const onHumanInputModeChange = (
-    option: SingleValue<{ label: string; value: WaldieAgentHumanInputMode }>
+    option: SingleValue<{ label: string; value: WaldiezAgentHumanInputMode }>
   ) => {
     if (option) {
       onDataChange({ humanInputMode: option.value });

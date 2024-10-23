@@ -1,25 +1,25 @@
 import { useRef } from 'react';
 
-import { WaldieContext, WaldieStore, createWaldieStore } from '@waldiez/store';
-import { WaldieStoreProps } from '@waldiez/types';
+import { WaldiezContext, WaldiezStore, createWaldiezStore } from '@waldiez/store';
+import { WaldiezStoreProps } from '@waldiez/types';
 
-export type WaldieProviderProps = React.PropsWithChildren<WaldieStoreProps>;
+export type WaldiezProviderProps = React.PropsWithChildren<WaldiezStoreProps>;
 
 /**
- * React Context Provider for Waldie Store
+ * React Context Provider for Waldiez Store
  * @param children - ReactNode
- * @param props - WaldieProviderProps
+ * @param props - WaldiezProviderProps
  * @returns JSX.Element
  */
-export function WaldieProvider({
+export function WaldiezProvider({
   children,
   ...props
-}: WaldieProviderProps & {
+}: WaldiezProviderProps & {
   storageId: string;
   createdAt: string;
   updatedAt: string;
 }): JSX.Element {
-  const storeRef = useRef<WaldieStore>();
+  const storeRef = useRef<WaldiezStore>();
   const nodes = props.nodes;
   const edges = props.edges;
   const flowId = props.flowId;
@@ -32,7 +32,7 @@ export function WaldieProvider({
   const storageId = props.storageId;
   const onUpload = props.onUpload ?? null;
   if (!storeRef.current) {
-    storeRef.current = createWaldieStore({
+    storeRef.current = createWaldiezStore({
       flowId,
       name,
       description,
@@ -46,5 +46,5 @@ export function WaldieProvider({
       onUpload
     });
   }
-  return <WaldieContext.Provider value={storeRef.current}>{children}</WaldieContext.Provider>;
+  return <WaldiezContext.Provider value={storeRef.current}>{children}</WaldiezContext.Provider>;
 }

@@ -5,11 +5,11 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type WaldieAgentHumanInputMode = 'ALWAYS' | 'NEVER' | 'TERMINATE';
-export type WaldieAgentCodeExecutionConfig = WaldieAgentCodeExecutionConfigDict | false;
-export type WaldieAgentTypeTerminationTypeOption = 'none' | 'keyword' | 'method';
-export type WaldieAgentTerminationCriterionOption = 'found' | 'ending' | 'exact';
-export type WaldieGroupManagerSpeakerSelectionMethodOption =
+export type WaldiezAgentHumanInputMode = 'ALWAYS' | 'NEVER' | 'TERMINATE';
+export type WaldiezAgentCodeExecutionConfig = WaldiezAgentCodeExecutionConfigDict | false;
+export type WaldiezAgentTypeTerminationTypeOption = 'none' | 'keyword' | 'method';
+export type WaldiezAgentTerminationCriterionOption = 'found' | 'ending' | 'exact';
+export type WaldiezGroupManagerSpeakerSelectionMethodOption =
   | 'auto'
   | 'manual'
   | 'random'
@@ -17,7 +17,7 @@ export type WaldieGroupManagerSpeakerSelectionMethodOption =
   | 'custom';
 export type SpeakerSelectionMode = 'repeat' | 'transition';
 export type SpeakerTransitionsType = 'allowed' | 'disallowed';
-export type WaldieModelAPIType =
+export type WaldiezModelAPIType =
   | 'openai'
   | 'azure'
   | 'google'
@@ -27,11 +27,11 @@ export type WaldieModelAPIType =
   | 'together'
   | 'other'
   | null;
-export type WaldieMessageType = 'string' | 'method' | 'none' | 'last_carryover' | 'rag_message_generator';
-export type WaldieEdgeLlmSummaryMethod = 'reflection_with_llm' | 'last_msg' | null;
+export type WaldiezMessageType = 'string' | 'method' | 'none' | 'last_carryover' | 'rag_message_generator';
+export type WaldiezEdgeLlmSummaryMethod = 'reflection_with_llm' | 'last_msg' | null;
 
 /**
- * Waldie Schema.
+ * Waldiez Schema.
  */
 export interface HttpsGithubComWaldiezJsTreeV001SchemaJson {
   type: 'flow';
@@ -51,19 +51,19 @@ export interface HttpsGithubComWaldiezJsTreeV001SchemaJson {
       [k: string]: unknown;
     };
     agents: {
-      users: WaldieUserProxy[];
-      assistants: WaldieAssistant[];
-      managers: WaldieGroupManager[];
+      users: WaldiezUserProxy[];
+      assistants: WaldiezAssistant[];
+      managers: WaldiezGroupManager[];
     };
-    models: WaldieModel[];
-    skills: WaldieSkill[];
-    chats: WaldieChat[];
+    models: WaldiezModel[];
+    skills: WaldiezSkill[];
+    chats: WaldiezChat[];
   };
 }
 /**
- * Waldie User Proxy Agent.
+ * Waldiez User Proxy Agent.
  */
-export interface WaldieUserProxy {
+export interface WaldiezUserProxy {
   id?: string;
   type: 'agent';
   agentType: 'user';
@@ -73,44 +73,44 @@ export interface WaldieUserProxy {
   requirements: string[];
   data: {
     systemMessage: string | null;
-    humanInputMode: WaldieAgentHumanInputMode;
+    humanInputMode: WaldiezAgentHumanInputMode;
     maxTokens: number | null;
-    codeExecutionConfig: WaldieAgentCodeExecutionConfig;
+    codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
     agentDefaultAutoReply: string | null;
     maxConsecutiveAutoReply: number | null;
-    termination: WaldieAgentTerminationMessageCheck;
-    teachability: WaldieAgentTeachability;
+    termination: WaldiezAgentTerminationMessageCheck;
+    teachability: WaldiezAgentTeachability;
     modelIds: string[];
-    skills: WaldieAgentLinkedSkill[];
+    skills: WaldiezAgentLinkedSkill[];
     requirements: string[];
-    nestedChats: WaldieAgentNestedChat[];
+    nestedChats: WaldiezAgentNestedChat[];
   };
 }
-export interface WaldieAgentCodeExecutionConfigDict {
+export interface WaldiezAgentCodeExecutionConfigDict {
   workDir?: string;
   useDocker?: string | string[] | boolean;
   timeout?: number;
   lastNMessages?: number | 'auto';
   functions?: string[];
 }
-export interface WaldieAgentTerminationMessageCheck {
-  type: WaldieAgentTypeTerminationTypeOption;
+export interface WaldiezAgentTerminationMessageCheck {
+  type: WaldiezAgentTypeTerminationTypeOption;
   keywords: string[];
-  criterion: WaldieAgentTerminationCriterionOption | null;
+  criterion: WaldiezAgentTerminationCriterionOption | null;
   methodContent: string | null;
 }
-export interface WaldieAgentTeachability {
+export interface WaldiezAgentTeachability {
   enabled: boolean;
   verbosity: 0 | 1 | 2 | 3;
   resetDb: boolean;
   recallThreshold: number;
   maxMumRetrievals: number;
 }
-export interface WaldieAgentLinkedSkill {
+export interface WaldiezAgentLinkedSkill {
   id: string;
   executorId: string;
 }
-export interface WaldieAgentNestedChat {
+export interface WaldiezAgentNestedChat {
   triggeredBy: {
     id: string;
     isReply: boolean;
@@ -121,9 +121,9 @@ export interface WaldieAgentNestedChat {
   }[];
 }
 /**
- * Waldie Assistant Agent.
+ * Waldiez Assistant Agent.
  */
-export interface WaldieAssistant {
+export interface WaldiezAssistant {
   id?: string;
   type: 'agent';
   agentType: 'assistant';
@@ -133,23 +133,23 @@ export interface WaldieAssistant {
   requirements: string[];
   data: {
     systemMessage: string | null;
-    humanInputMode: WaldieAgentHumanInputMode;
+    humanInputMode: WaldiezAgentHumanInputMode;
     maxTokens: number | null;
-    codeExecutionConfig: WaldieAgentCodeExecutionConfig;
+    codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
     agentDefaultAutoReply: string | null;
     maxConsecutiveAutoReply: number | null;
-    termination: WaldieAgentTerminationMessageCheck;
-    teachability: WaldieAgentTeachability;
+    termination: WaldiezAgentTerminationMessageCheck;
+    teachability: WaldiezAgentTeachability;
     modelIds: string[];
-    skills: WaldieAgentLinkedSkill[];
+    skills: WaldiezAgentLinkedSkill[];
     requirements: string[];
-    nestedChats: WaldieAgentNestedChat[];
+    nestedChats: WaldiezAgentNestedChat[];
   };
 }
 /**
- * Waldie Group Chat Manager Agent.
+ * Waldiez Group Chat Manager Agent.
  */
-export interface WaldieGroupManager {
+export interface WaldiezGroupManager {
   id?: string;
   type: 'agent';
   agentType: 'manager';
@@ -159,25 +159,25 @@ export interface WaldieGroupManager {
   requirements: string[];
   data: {
     systemMessage: string | null;
-    humanInputMode: WaldieAgentHumanInputMode;
+    humanInputMode: WaldiezAgentHumanInputMode;
     maxTokens: number | null;
-    codeExecutionConfig: WaldieAgentCodeExecutionConfig;
+    codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
     agentDefaultAutoReply: string | null;
     maxConsecutiveAutoReply: number | null;
-    termination: WaldieAgentTerminationMessageCheck;
-    teachability: WaldieAgentTeachability;
+    termination: WaldiezAgentTerminationMessageCheck;
+    teachability: WaldiezAgentTeachability;
     modelIds: string[];
-    skills: WaldieAgentLinkedSkill[];
+    skills: WaldiezAgentLinkedSkill[];
     requirements: string[];
     maxRound: number | null;
     adminName: string | null;
-    speakers: WaldieWaldieGroupManagerSpeakers;
+    speakers: WaldiezGroupManagerSpeakers;
     enableClearHistory?: boolean;
     sendIntroductions?: boolean;
   };
 }
-export interface WaldieWaldieGroupManagerSpeakers {
-  selectionMethod: WaldieGroupManagerSpeakerSelectionMethodOption;
+export interface WaldiezGroupManagerSpeakers {
+  selectionMethod: WaldiezGroupManagerSpeakerSelectionMethodOption;
   selectionCustomMethod: string;
   maxRetriesForSelecting: number | null;
   selectionMode: SpeakerSelectionMode;
@@ -188,9 +188,9 @@ export interface WaldieWaldieGroupManagerSpeakers {
   transitionsType: SpeakerTransitionsType;
 }
 /**
- * Waldie Model.
+ * Waldiez Model.
  */
-export interface WaldieModel {
+export interface WaldiezModel {
   id?: string;
   type: 'model';
   name: string;
@@ -200,7 +200,7 @@ export interface WaldieModel {
   data: {
     baseUrl: string | null;
     apiKey: string | null;
-    apiType: WaldieModelAPIType;
+    apiType: WaldiezModelAPIType;
     apiVersion: string | null;
     temperature: number | null;
     topP: number | null;
@@ -208,18 +208,18 @@ export interface WaldieModel {
     defaultHeaders: {
       [k: string]: string;
     };
-    price: WaldieModelPrice | null;
+    price: WaldiezModelPrice | null;
     requirements: string[];
   };
 }
-export interface WaldieModelPrice {
+export interface WaldiezModelPrice {
   promptPricePer1k: number | null;
   completionTokenPricePer1k: number | null;
 }
 /**
- * Waldie Skill.
+ * Waldiez Skill.
  */
-export interface WaldieSkill {
+export interface WaldiezSkill {
   id?: string;
   type: 'skill';
   name: string;
@@ -235,9 +235,9 @@ export interface WaldieSkill {
   };
 }
 /**
- * Waldie Chat.
+ * Waldiez Chat.
  */
-export interface WaldieChat {
+export interface WaldiezChat {
   id?: string;
   data: {
     name: string;
@@ -246,23 +246,23 @@ export interface WaldieChat {
     description: string;
     position: number;
     clearHistory: boolean | null;
-    message: WaldieMessage;
+    message: WaldiezMessage;
     nestedChat: {
-      message: WaldieMessage | null;
-      reply: WaldieMessage | null;
+      message: WaldiezMessage | null;
+      reply: WaldiezMessage | null;
     };
     maxTurns: number | null;
   };
 }
 /**
- * Waldie Message.
+ * Waldiez Message.
  *
  * A generic message with a type and content.
  *
  * If the type is not 'none', the content is a string. If the type is 'method', the content is the code of a method.
  */
-export interface WaldieMessage {
-  type: WaldieMessageType;
+export interface WaldiezMessage {
+  type: WaldiezMessageType;
   content: string | null;
   context: { [key: string]: any };
 }

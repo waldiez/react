@@ -1,7 +1,7 @@
 import { Editor, Select } from '@waldiez/components/inputs';
 import { GroupManagerSpeakersTransitionView } from '@waldiez/components/nodes/agent/modal/tabs/groupManager/view/speakersTransition';
 import { GroupManagerSpeakersTabViewProps } from '@waldiez/components/nodes/agent/modal/tabs/groupManager/view/types';
-import { WaldieGroupManagerSpeakerSelectionMethodOption } from '@waldiez/types';
+import { WaldiezGroupManagerSpeakerSelectionMethodOption } from '@waldiez/types';
 
 export const GroupManagerSpeakersTabView = (props: GroupManagerSpeakersTabViewProps) => {
   const {
@@ -137,7 +137,7 @@ export const GroupManagerSpeakersTabView = (props: GroupManagerSpeakersTabViewPr
 
 const speakerSelectionOptions: {
   label: string;
-  value: WaldieGroupManagerSpeakerSelectionMethodOption;
+  value: WaldiezGroupManagerSpeakerSelectionMethodOption;
 }[] = [
   { label: 'Auto', value: 'auto' },
   { label: 'Manual', value: 'manual' },

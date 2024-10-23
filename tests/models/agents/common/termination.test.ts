@@ -1,8 +1,8 @@
 import { commonDataJson } from './data';
 
-import { WaldieSourceAgentCommonData } from '@waldiez/models/agents/common';
+import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 
-describe('WaldieSourceAgentCommonDataTermination', () => {
+describe('WaldiezSourceAgentCommonDataTermination', () => {
   it('should import agent data from json with termination criterion', () => {
     const commonDataJsonWithTerminationCriterion = {
       ...commonDataJson,
@@ -13,7 +13,7 @@ describe('WaldieSourceAgentCommonDataTermination', () => {
         methodContent: null
       }
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(
       commonDataJsonWithTerminationCriterion,
       'user'
     );
@@ -35,7 +35,7 @@ describe('WaldieSourceAgentCommonDataTermination', () => {
         methodContent: 'def method():\n    return "messageText"'
       }
     };
-    const importedAgent = WaldieSourceAgentCommonData.fromJSON(
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(
       commonDataJsonWithTerminationMethodContent,
       'user'
     );

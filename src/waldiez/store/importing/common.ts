@@ -1,9 +1,9 @@
-import { WaldieAgentNodeType } from '@waldiez/models';
+import { WaldiezAgentNodeType } from '@waldiez/models';
 
 export const getNodeMeta = (
   element: any,
   nodeType: 'agent' | 'model' | 'skill',
-  agentType?: WaldieAgentNodeType
+  agentType?: WaldiezAgentNodeType
 ) => {
   const nodeTypeCapitalized = nodeType.charAt(0).toUpperCase() + nodeType.slice(1);
   let defaultName = nodeTypeCapitalized;

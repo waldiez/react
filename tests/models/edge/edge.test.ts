@@ -1,23 +1,23 @@
 import { edgeJson, waldieEdgeData, waldieEdgeSource } from './data.ts';
 import { expectTypeOf } from 'vitest';
 
-import { WaldieSourceEdge, WaldieSourceEdgeData } from '@waldiez/models/edge';
-import { WaldieEdge, WaldieEdgeData } from '@waldiez/models/types/waldieEdge';
+import { WaldiezSourceEdge, WaldiezSourceEdgeData } from '@waldiez/models/edge';
+import { WaldiezEdge, WaldiezEdgeData } from '@waldiez/models/types/waldiezEdge.ts';
 
-describe('WaldieEdge', () => {
+describe('WaldiezEdge', () => {
   const waldieEdge = waldieEdgeSource.asEdge();
   it('should create a new edge', () => {
-    expect(waldieEdgeSource).toBeInstanceOf(WaldieSourceEdge);
+    expect(waldieEdgeSource).toBeInstanceOf(WaldiezSourceEdge);
   });
   it('should have the correct data', () => {
     expect(waldieEdgeSource.data).toEqual(waldieEdgeData);
   });
   it('should create a new rf Edge', () => {
-    expectTypeOf(waldieEdge).toEqualTypeOf<WaldieEdge>();
+    expectTypeOf(waldieEdge).toEqualTypeOf<WaldiezEdge>();
   });
-  it('should have edge data of type WaldieEdgeData', () => {
+  it('should have edge data of type WaldiezEdgeData', () => {
     expect(waldieEdge.data).toBeDefined();
-    expectTypeOf(waldieEdge.data!).toEqualTypeOf<WaldieEdgeData>();
+    expectTypeOf(waldieEdge.data!).toEqualTypeOf<WaldiezEdgeData>();
   });
   it('should have the correct edge id', () => {
     expect(waldieEdge.id).toEqual('edgeId');
@@ -32,7 +32,7 @@ describe('WaldieEdge', () => {
     expect(waldieEdge.target).toEqual('targetId');
   });
   it('should import an edge from json', () => {
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeJson);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeJson);
     const importedEdgeData = importedEdge.data as any;
     const edgeJsonData = edgeJson.data as any;
     Object.keys(edgeJson.data).forEach(key => {
@@ -54,7 +54,7 @@ describe('WaldieEdge', () => {
       label: 'label of test edge'
     } as any;
     delete waldieEdgeDataWithLabel.name;
-    const waldieEdgeSourceWithLabel = new WaldieSourceEdge({
+    const waldieEdgeSourceWithLabel = new WaldiezSourceEdge({
       id: 'edgeId',
       source: 'sourceId',
       target: 'targetId',
@@ -75,18 +75,18 @@ describe('WaldieEdge', () => {
       }
     } as any;
     delete edgeJsonWithLabel.data.name;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeJsonWithLabel);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeJsonWithLabel);
     expect(importedEdge.data.name).toEqual('label of test edge');
   });
   it('should create an edge with default values', () => {
-    const importedEdge = WaldieSourceEdge.fromJSON(null);
-    expectTypeOf(importedEdge.data).toEqualTypeOf<WaldieSourceEdgeData>();
+    const importedEdge = WaldiezSourceEdge.fromJSON(null);
+    expectTypeOf(importedEdge.data).toEqualTypeOf<WaldiezSourceEdgeData>();
   });
   it('should create an edge with no data', () => {
-    const importedEdgeData = WaldieSourceEdgeData.fromJSON(null);
-    expect(importedEdgeData).toBeInstanceOf(WaldieSourceEdgeData);
-    const importedEdge = WaldieSourceEdge.fromJSON({ data: null });
-    expectTypeOf(importedEdge.data!).toEqualTypeOf<WaldieSourceEdgeData>();
+    const importedEdgeData = WaldiezSourceEdgeData.fromJSON(null);
+    expect(importedEdgeData).toBeInstanceOf(WaldiezSourceEdgeData);
+    const importedEdge = WaldiezSourceEdge.fromJSON({ data: null });
+    expectTypeOf(importedEdge.data!).toEqualTypeOf<WaldiezSourceEdgeData>();
   });
   it('should create an edge without nested chat message and reply', () => {
     const edgeWithoutNestedChat = {
@@ -100,7 +100,7 @@ describe('WaldieEdge', () => {
         }
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithoutNestedChat);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithoutNestedChat);
     expect(importedEdge.data.nestedChat.message).toBeNull();
     expect(importedEdge.data.nestedChat.reply).toBeNull();
   });
@@ -114,7 +114,7 @@ describe('WaldieEdge', () => {
         }
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithoutLLM);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithoutLLM);
     expect(importedEdge.data.summary?.prompt).toEqual('');
     expect(importedEdge.data.summary?.args).toEqual({});
   });
@@ -130,7 +130,7 @@ describe('WaldieEdge', () => {
         }
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithoutPrompt);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithoutPrompt);
     expect(importedEdge.data.summary?.prompt).toEqual('');
   });
   it('should create an edge without summary options args', () => {
@@ -145,7 +145,7 @@ describe('WaldieEdge', () => {
         }
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithoutArgs);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithoutArgs);
     expect(importedEdge.data.summary?.args).toEqual({});
   });
   it('should create an edge with default position', () => {
@@ -156,7 +156,7 @@ describe('WaldieEdge', () => {
         position: null
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithoutPosition);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithoutPosition);
     expect(importedEdge.data.position).toEqual(0);
   });
   it('should create an edge with position in args', () => {
@@ -166,7 +166,7 @@ describe('WaldieEdge', () => {
         ...edgeJson.data
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithPositionInArgs, 2);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithPositionInArgs, 2);
     expect(importedEdge.data.position).toEqual(1);
   });
   it('should create an edge with negative position', () => {
@@ -177,7 +177,7 @@ describe('WaldieEdge', () => {
         position: -1
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithNegativePosition);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithNegativePosition);
     expect(importedEdge.data.position).toEqual(0);
   });
   it('should create an edge with default order', () => {
@@ -188,7 +188,7 @@ describe('WaldieEdge', () => {
         order: null
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithoutOrder);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithoutOrder);
     expect(importedEdge.data.order).toEqual(-1);
   });
   it('should create an edge with negative order', () => {
@@ -199,7 +199,7 @@ describe('WaldieEdge', () => {
         order: -1
       }
     } as any;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeWithNegativeOrder);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeWithNegativeOrder);
     expect(importedEdge.data.order).toEqual(-1);
   });
   it('should create an edge from json using source in data', () => {
@@ -211,7 +211,7 @@ describe('WaldieEdge', () => {
       }
     } as any;
     delete edgeJsonWithSourceInData.source;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeJsonWithSourceInData);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeJsonWithSourceInData);
     expect(importedEdge.data.source).toEqual('id of the source');
   });
   it('should create an edge from json using target in data', () => {
@@ -223,7 +223,7 @@ describe('WaldieEdge', () => {
       }
     } as any;
     delete edgeJsonWithTargetInData.target;
-    const importedEdge = WaldieSourceEdge.fromJSON(edgeJsonWithTargetInData);
+    const importedEdge = WaldiezSourceEdge.fromJSON(edgeJsonWithTargetInData);
     expect(importedEdge.data.target).toEqual('id of the target');
   });
 });

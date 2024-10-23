@@ -1,11 +1,11 @@
 import { modelJson } from './data';
 import { expectTypeOf } from 'vitest';
 
-import { WaldieSourceModel, WaldieSourceModelData } from '@waldiez/models';
-import { WaldieModelNode, WaldieModelNodeData } from '@waldiez/models/types';
+import { WaldiezSourceModel, WaldiezSourceModelData } from '@waldiez/models';
+import { WaldiezModelNode, WaldiezModelNodeData } from '@waldiez/models/types';
 
-describe('WaldieSourceModel', () => {
-  const modelData: WaldieSourceModelData = {
+describe('WaldiezSourceModel', () => {
+  const modelData: WaldiezSourceModelData = {
     name: 'test model',
     description: 'test description',
     baseUrl: 'http://localhost:3000',
@@ -25,11 +25,11 @@ describe('WaldieSourceModel', () => {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
-  const model = new WaldieSourceModel('test-id', modelData);
+  const model = new WaldiezSourceModel('test-id', modelData);
   const modelNode = model.asNode();
 
   it('should create a new model', () => {
-    expect(model).toBeInstanceOf(WaldieSourceModel);
+    expect(model).toBeInstanceOf(WaldiezSourceModel);
   });
 
   it('should have the correct data', () => {
@@ -37,11 +37,11 @@ describe('WaldieSourceModel', () => {
   });
 
   it('should create a new model node', () => {
-    expectTypeOf(modelNode).toEqualTypeOf<WaldieModelNode>();
+    expectTypeOf(modelNode).toEqualTypeOf<WaldiezModelNode>();
   });
 
-  it('should have node data of type WaldieModelNodeData', () => {
-    expectTypeOf(modelNode.data).toEqualTypeOf<WaldieModelNodeData>();
+  it('should have node data of type WaldiezModelNodeData', () => {
+    expectTypeOf(modelNode.data).toEqualTypeOf<WaldiezModelNodeData>();
   });
 
   it('should have the correct node id', () => {
@@ -53,7 +53,7 @@ describe('WaldieSourceModel', () => {
   });
 
   it('should import a model from json', () => {
-    const importedModel = WaldieSourceModel.fromJSON(modelJson);
+    const importedModel = WaldiezSourceModel.fromJSON(modelJson);
     const importedModelData = importedModel.data as any;
     const modelJsonData = modelJson.data as any;
     Object.keys(modelJson.data).forEach(key => {
@@ -77,7 +77,7 @@ describe('WaldieSourceModel', () => {
       label: 'label of test model'
     } as any;
     delete modelJsonWithLabel.name;
-    const importedModel = WaldieSourceModel.fromJSON(modelJsonWithLabel);
+    const importedModel = WaldiezSourceModel.fromJSON(modelJsonWithLabel);
     expect(importedModel.data.name).toEqual('label of test model');
   });
 
@@ -86,12 +86,12 @@ describe('WaldieSourceModel', () => {
       ...modelJson
     } as any;
     delete modelJsonWithoutName.name;
-    const importedModel = WaldieSourceModel.fromJSON(modelJsonWithoutName);
+    const importedModel = WaldiezSourceModel.fromJSON(modelJsonWithoutName);
     expect(importedModel.data.name).toEqual('Model');
   });
 
   it('should create a model from json overriding position', () => {
-    const importedModel = WaldieSourceModel.fromJSON(modelJson);
+    const importedModel = WaldiezSourceModel.fromJSON(modelJson);
     const modelNode = importedModel.asNode({
       x: 10,
       y: 10
@@ -100,14 +100,14 @@ describe('WaldieSourceModel', () => {
   });
 
   it('should create a model with default values', () => {
-    const importedModel = WaldieSourceModel.fromJSON(null);
-    expectTypeOf(importedModel.data).toEqualTypeOf<WaldieSourceModelData>();
+    const importedModel = WaldiezSourceModel.fromJSON(null);
+    expectTypeOf(importedModel.data).toEqualTypeOf<WaldiezSourceModelData>();
   });
 
   it('should create a model with no data', () => {
-    const importedModelData = WaldieSourceModelData.fromJSON(null, '', '', [], []);
-    expect(importedModelData).toBeInstanceOf(WaldieSourceModelData);
-    const importedModel = WaldieSourceModel.fromJSON({ data: null });
-    expectTypeOf(importedModel.data).toEqualTypeOf<WaldieSourceModelData>();
+    const importedModelData = WaldiezSourceModelData.fromJSON(null, '', '', [], []);
+    expect(importedModelData).toBeInstanceOf(WaldiezSourceModelData);
+    const importedModel = WaldiezSourceModel.fromJSON({ data: null });
+    expectTypeOf(importedModel.data).toEqualTypeOf<WaldiezSourceModelData>();
   });
 });

@@ -6,17 +6,17 @@ import {
   stringMessageJson
 } from './data.ts';
 
-import { WaldieMessage } from '@waldiez/models/edge/message';
+import { WaldiezMessage } from '@waldiez/models/edge/message';
 
-describe('WaldieMessage', () => {
-  const stringMessage = WaldieMessage.fromJSON(stringMessageJson);
-  const methodMessage = WaldieMessage.fromJSON(methodMessageJson);
-  const noneMessage = WaldieMessage.fromJSON(noneMessageJson);
-  const messageWithCarryOverObj = WaldieMessage.fromJSON(messageWithCarryOver);
-  const messageWithCarryOverCamelObj = WaldieMessage.fromJSON(messageWithCarryOverCamel);
+describe('WaldiezMessage', () => {
+  const stringMessage = WaldiezMessage.fromJSON(stringMessageJson);
+  const methodMessage = WaldiezMessage.fromJSON(methodMessageJson);
+  const noneMessage = WaldiezMessage.fromJSON(noneMessageJson);
+  const messageWithCarryOverObj = WaldiezMessage.fromJSON(messageWithCarryOver);
+  const messageWithCarryOverCamelObj = WaldiezMessage.fromJSON(messageWithCarryOverCamel);
 
   it('should create a new string message', () => {
-    expect(stringMessage).toBeInstanceOf(WaldieMessage);
+    expect(stringMessage).toBeInstanceOf(WaldiezMessage);
   });
 
   it('should have the correct type', () => {
@@ -28,7 +28,7 @@ describe('WaldieMessage', () => {
   });
 
   it('should create a new method message', () => {
-    expect(methodMessage).toBeInstanceOf(WaldieMessage);
+    expect(methodMessage).toBeInstanceOf(WaldiezMessage);
   });
 
   it('should have the correct type', () => {
@@ -40,7 +40,7 @@ describe('WaldieMessage', () => {
   });
 
   it('should create a new none message', () => {
-    expect(noneMessage).toBeInstanceOf(WaldieMessage);
+    expect(noneMessage).toBeInstanceOf(WaldiezMessage);
   });
 
   it('should have the correct type', () => {
@@ -52,7 +52,7 @@ describe('WaldieMessage', () => {
   });
 
   it('should create a message with not a json object', () => {
-    const message = WaldieMessage.fromJSON(null);
+    const message = WaldiezMessage.fromJSON(null);
     expect(message.type).toEqual('none');
     expect(message.content).toEqual(null);
   });

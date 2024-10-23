@@ -1,15 +1,15 @@
 import { createdAt, updatedAt, userProxyJson } from './data';
 import { expectTypeOf } from 'vitest';
 
-import { WaldieSourceUserProxy } from '@waldiez/models/agents/userProxy';
-import { WaldieSourceUserProxyData } from '@waldiez/models/agents/userProxy/data';
+import { WaldiezSourceUserProxy } from '@waldiez/models/agents/userProxy';
+import { WaldiezSourceUserProxyData } from '@waldiez/models/agents/userProxy/data';
 import {
-  WaldieNodeUserProxy,
-  WaldieNodeUserProxyData
-} from '@waldiez/models/types/agents/waldieUserProxyOrAssistantAgent';
+  WaldiezNodeUserProxy,
+  WaldiezNodeUserProxyData
+} from '@waldiez/models/types/agents/userProxyOrAssistant';
 
-describe('WaldieSourceUserProxy', () => {
-  const waldieSourceUserProxyData: WaldieSourceUserProxyData = {
+describe('WaldiezSourceUserProxy', () => {
+  const waldieSourceUserProxyData: WaldiezSourceUserProxyData = {
     name: 'User',
     nestedChats: [],
     agentType: 'user',
@@ -41,23 +41,23 @@ describe('WaldieSourceUserProxy', () => {
     updatedAt
   };
 
-  const userProxy = new WaldieSourceUserProxy('test-id', waldieSourceUserProxyData);
+  const userProxy = new WaldiezSourceUserProxy('test-id', waldieSourceUserProxyData);
   const userProxyNode = userProxy.asNode();
 
   it('should create a new User Proxy', () => {
-    expectTypeOf(userProxyNode).toEqualTypeOf<WaldieNodeUserProxy>();
+    expectTypeOf(userProxyNode).toEqualTypeOf<WaldiezNodeUserProxy>();
   });
 
   it('should have the correct agentType', () => {
     expect(userProxyNode.data.agentType).toBe('user');
   });
 
-  it('should have node data of type WaldieNodeUserProxyData', () => {
-    expectTypeOf(userProxyNode.data).toEqualTypeOf<WaldieNodeUserProxyData>();
+  it('should have node data of type WaldiezNodeUserProxyData', () => {
+    expectTypeOf(userProxyNode.data).toEqualTypeOf<WaldiezNodeUserProxyData>();
   });
 
   it('should create a new User Proxy node', () => {
-    expect(userProxy).toBeInstanceOf(WaldieSourceUserProxy);
+    expect(userProxy).toBeInstanceOf(WaldiezSourceUserProxy);
   });
 
   it('should have the correct node id', () => {
@@ -65,17 +65,17 @@ describe('WaldieSourceUserProxy', () => {
   });
 
   it('should import a user proxy from json', () => {
-    const userProxyFromJSON = WaldieSourceUserProxy.fromJSON(userProxyJson, 'user');
+    const userProxyFromJSON = WaldiezSourceUserProxy.fromJSON(userProxyJson, 'user');
     expect(userProxyFromJSON.data).toEqual(userProxyJson);
   });
 
   it('should create new user proxy data', () => {
-    const userProxyData = new WaldieSourceUserProxyData();
-    expect(userProxyData).toBeInstanceOf(WaldieSourceUserProxyData);
+    const userProxyData = new WaldiezSourceUserProxyData();
+    expect(userProxyData).toBeInstanceOf(WaldiezSourceUserProxyData);
   });
 
   it('should import user proxy data from json', () => {
-    const userProxyData = WaldieSourceUserProxyData.fromJSON(userProxyJson, 'user');
+    const userProxyData = WaldiezSourceUserProxyData.fromJSON(userProxyJson, 'user');
     expect(userProxyData).toEqual(waldieSourceUserProxyData);
   });
 });

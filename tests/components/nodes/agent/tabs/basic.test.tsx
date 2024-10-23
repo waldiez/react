@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-describe('WaldieAgentNode Basic Modal Tab', () => {
+describe('WaldiezAgentNode Basic Modal Tab', () => {
   it('Updates the agent type from user to rag_user', () => {
     renderAgent('user', { openModal: true });
     const ragToggle = screen.getByTestId(`agent-rag-toggle-${agentId}`);

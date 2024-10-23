@@ -1,17 +1,17 @@
-import { WaldieAgentNodeData, WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
 export type RagUserAgentConfigTabCustomFunctionsProps = {
   id: string;
   flowId: string;
   darkMode: boolean;
-  data: WaldieNodeRagUserData;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezNodeRagUserData;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };
 export type RagUserAgentConfigTabCustomFunctionsViewProps = {
   id: string;
   flowId: string;
   darkMode: boolean;
-  data: WaldieNodeRagUserData;
+  data: WaldiezNodeRagUserData;
   onUseCustomEmbeddingChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onEmbeddingFunctionChange: (value: string | undefined) => void;
   onUseCustomTokenCountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

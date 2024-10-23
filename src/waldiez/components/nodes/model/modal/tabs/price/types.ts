@@ -1,14 +1,14 @@
-import { WaldieModelNodeData } from '@waldiez/models';
+import { WaldiezModelNodeData } from '@waldiez/models';
 
-export type WaldieNodeModelModalPriceTabProps = {
+export type WaldiezNodeModelModalPriceTabProps = {
   modelId: string;
-  data: WaldieModelNodeData;
-  onDataChange: (data: Partial<WaldieModelNodeData>) => void;
+  data: WaldiezModelNodeData;
+  onDataChange: (data: Partial<WaldiezModelNodeData>) => void;
 };
 
-export type WaldieNodeModelModalPriceTabViewProps = {
+export type WaldiezNodeModelModalPriceTabViewProps = {
   modelId: string;
-  data: WaldieModelNodeData;
+  data: WaldiezModelNodeData;
   onPricePromptChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPriceCompletionChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

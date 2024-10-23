@@ -1,17 +1,17 @@
 import { nanoid } from 'nanoid';
 
-import { WaldieSourceEdgeData } from '@waldiez/models/edge/data';
+import { WaldiezSourceEdgeData } from '@waldiez/models/edge/data';
 import {
-  IWaldieSourceEdge,
-  IWaldieSourceEdgeData,
-  WaldieEdge,
-  WaldieEdgeData,
-  WaldieEdgeDataCommon
+  IWaldiezSourceEdge,
+  IWaldiezSourceEdgeData,
+  WaldiezEdge,
+  WaldiezEdgeData,
+  WaldiezEdgeDataCommon
 } from '@waldiez/models/types';
 
-export class WaldieSourceEdge implements IWaldieSourceEdge {
+export class WaldiezSourceEdge implements IWaldiezSourceEdge {
   id: string;
-  data: IWaldieSourceEdgeData;
+  data: IWaldiezSourceEdgeData;
   source: string;
   target: string;
   rest: { [key: string]: unknown };
@@ -20,7 +20,7 @@ export class WaldieSourceEdge implements IWaldieSourceEdge {
     id: string;
     source: string;
     target: string;
-    data: WaldieEdgeData | IWaldieSourceEdgeData | WaldieEdgeDataCommon;
+    data: WaldiezEdgeData | IWaldiezSourceEdgeData | WaldiezEdgeDataCommon;
     rest: { [key: string]: unknown };
   }) {
     const { id, source, target, data, rest } = edgeData;
@@ -49,7 +49,7 @@ export class WaldieSourceEdge implements IWaldieSourceEdge {
     this.rest = rest;
   }
 
-  asEdge(): WaldieEdge {
+  asEdge(): WaldiezEdge {
     const data = {
       label: this.data.name,
       description: this.data.description,
@@ -60,7 +60,7 @@ export class WaldieSourceEdge implements IWaldieSourceEdge {
       nestedChat: this.data.nestedChat,
       summary: this.data.summary,
       maxTurns: this.data.maxTurns
-    } as WaldieEdgeData;
+    } as WaldiezEdgeData;
     return {
       id: this.id,
       source: this.source,
@@ -103,22 +103,22 @@ export class WaldieSourceEdge implements IWaldieSourceEdge {
     }
     return edgeData;
   }
-  static fromJSON(json: unknown, position: number | null = null): WaldieSourceEdge {
+  static fromJSON(json: unknown, position: number | null = null): WaldiezSourceEdge {
     if (!json || typeof json !== 'object') {
-      return new WaldieSourceEdge({
+      return new WaldiezSourceEdge({
         id: `we-${nanoid()}`,
         source: 'source',
         target: 'target',
-        data: new WaldieSourceEdgeData(),
+        data: new WaldiezSourceEdgeData(),
         rest: {}
       });
     }
     const jsonObject = json as Record<string, unknown>;
-    const id = WaldieSourceEdge.getId(jsonObject);
-    const edgeData = WaldieSourceEdge.getEdgeData(jsonObject);
-    const source = WaldieSourceEdge.getSource(edgeData, jsonObject);
-    const target = WaldieSourceEdge.getTarget(edgeData, jsonObject);
-    const data = WaldieSourceEdgeData.fromJSON(edgeData, position);
+    const id = WaldiezSourceEdge.getId(jsonObject);
+    const edgeData = WaldiezSourceEdge.getEdgeData(jsonObject);
+    const source = WaldiezSourceEdge.getSource(edgeData, jsonObject);
+    const target = WaldiezSourceEdge.getTarget(edgeData, jsonObject);
+    const data = WaldiezSourceEdgeData.fromJSON(edgeData, position);
     const rest: { [key: string]: unknown } = {};
     // gather the remaining keys
     for (const key in jsonObject) {
@@ -126,6 +126,6 @@ export class WaldieSourceEdge implements IWaldieSourceEdge {
         rest[key] = jsonObject[key];
       }
     }
-    return new WaldieSourceEdge({ id, source, target, data, rest });
+    return new WaldiezSourceEdge({ id, source, target, data, rest });
   }
 }

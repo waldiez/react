@@ -1,12 +1,12 @@
 import { AiFillCode } from 'react-icons/ai';
 
-import { WaldieAgentNodeData, WaldieSkillNode } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezSkillNode } from '@waldiez/models';
 
 export const getAgentModelsView = (
   id: string,
   agentModelNames: string[],
   agentModelLogos: string[],
-  agentWaldieModelAPITypes: string[]
+  agentWaldiezModelAPITypes: string[]
 ) => {
   if (agentModelNames.length === 0) {
     return <div className="agent-models-empty">No models</div>;
@@ -15,7 +15,7 @@ export const getAgentModelsView = (
     <div className="agent-models-preview">
       {agentModelNames.map((name, index) => (
         <div key={name} className="agent-model-preview" data-testid="agent-model-preview">
-          <div className={`agent-model-img ${agentWaldieModelAPITypes[index]}`}>
+          <div className={`agent-model-img ${agentWaldiezModelAPITypes[index]}`}>
             <img src={agentModelLogos[index]} />
           </div>
           <div className="agent-model-name" data-testid={`agent-${id}-linked-model-${index}`}>
@@ -26,7 +26,7 @@ export const getAgentModelsView = (
     </div>
   );
 };
-export const getAgentSkillsView = (id: string, data: WaldieAgentNodeData, skills: WaldieSkillNode[]) => {
+export const getAgentSkillsView = (id: string, data: WaldiezAgentNodeData, skills: WaldiezSkillNode[]) => {
   const skillsCount = data.skills.length;
   if (skillsCount === 0) {
     return <div className="agent-skills-empty">No skills</div>;

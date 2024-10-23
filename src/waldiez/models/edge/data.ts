@@ -1,8 +1,8 @@
-import { WaldieMessage } from '@waldiez/models/edge/message';
-import { WaldieEdgeSummaryData } from '@waldiez/models/edge/summary';
-import { IWaldieMessage, IWaldieSourceEdgeData, WaldieEdgeLlmSummaryMethod } from '@waldiez/models/types';
+import { WaldiezMessage } from '@waldiez/models/edge/message';
+import { WaldiezEdgeSummaryData } from '@waldiez/models/edge/summary';
+import { IWaldiezMessage, IWaldiezSourceEdgeData, WaldiezEdgeLlmSummaryMethod } from '@waldiez/models/types';
 
-export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
+export class WaldiezSourceEdgeData implements IWaldiezSourceEdgeData {
   source: string;
   target: string;
   name: string;
@@ -10,16 +10,16 @@ export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
   position: number;
   order: number;
   clearHistory: boolean;
-  message: IWaldieMessage;
+  message: IWaldiezMessage;
   maxTurns: number | null;
   summary: {
-    method: WaldieEdgeLlmSummaryMethod;
+    method: WaldiezEdgeLlmSummaryMethod;
     prompt: string;
     args: { [key: string]: any };
   };
   nestedChat: {
-    message: IWaldieMessage | null;
-    reply: IWaldieMessage | null;
+    message: IWaldiezMessage | null;
+    reply: IWaldiezMessage | null;
   };
   constructor(
     source: string = 'source',
@@ -29,7 +29,7 @@ export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
     clearHistory: boolean = true,
     maxTurns: number | null = null,
     summary: {
-      method: WaldieEdgeLlmSummaryMethod;
+      method: WaldiezEdgeLlmSummaryMethod;
       prompt: string;
       args: { [key: string]: any };
     } = {
@@ -39,15 +39,15 @@ export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
     },
     position = 1,
     order = -1,
-    message: IWaldieMessage = {
+    message: IWaldiezMessage = {
       type: 'none',
       use_carryover: false,
       content: null,
       context: {}
     },
     nestedChat: {
-      message: IWaldieMessage | null;
-      reply: IWaldieMessage | null;
+      message: IWaldiezMessage | null;
+      reply: IWaldiezMessage | null;
     } = {
       message: null,
       reply: null
@@ -103,25 +103,25 @@ export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
     }
     return clearHistory;
   }
-  private static getMessage(data: Record<string, unknown>): IWaldieMessage {
-    let message: IWaldieMessage = {
+  private static getMessage(data: Record<string, unknown>): IWaldiezMessage {
+    let message: IWaldiezMessage = {
       type: 'none',
       use_carryover: false,
       content: null,
       context: {}
     };
     if ('message' in data && typeof data.message === 'object') {
-      message = WaldieMessage.fromJSON(data.message);
+      message = WaldiezMessage.fromJSON(data.message);
     }
     return message;
   }
   private static getNestedChat(data: Record<string, unknown>): {
-    message: IWaldieMessage | null;
-    reply: IWaldieMessage | null;
+    message: IWaldiezMessage | null;
+    reply: IWaldiezMessage | null;
   } {
     const nestedChat: {
-      message: IWaldieMessage | null;
-      reply: IWaldieMessage | null;
+      message: IWaldiezMessage | null;
+      reply: IWaldiezMessage | null;
     } = {
       message: null,
       reply: null
@@ -131,21 +131,21 @@ export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
       const messageObject = nestedChatObject.message ?? null;
       const replyObject = nestedChatObject.reply ?? null;
       if (messageObject && typeof messageObject === 'object') {
-        nestedChat.message = WaldieMessage.fromJSON(messageObject);
+        nestedChat.message = WaldiezMessage.fromJSON(messageObject);
       }
       if (replyObject && typeof replyObject === 'object') {
-        nestedChat.reply = WaldieMessage.fromJSON(replyObject);
+        nestedChat.reply = WaldiezMessage.fromJSON(replyObject);
       }
     }
     return nestedChat;
   }
   private static getSummary(data: Record<string, unknown>): {
-    method: WaldieEdgeLlmSummaryMethod;
+    method: WaldiezEdgeLlmSummaryMethod;
     prompt: string;
     args: { [key: string]: any };
   } {
     const summary: {
-      method: WaldieEdgeLlmSummaryMethod;
+      method: WaldiezEdgeLlmSummaryMethod;
       prompt: string;
       args: { [key: string]: any };
     } = {
@@ -155,7 +155,7 @@ export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
     };
     if ('summary' in data && typeof data.summary === 'object' && data.summary !== null) {
       const summaryObject = data.summary as Record<string, unknown>;
-      const summaryData = WaldieEdgeSummaryData.fromJSON(summaryObject);
+      const summaryData = WaldiezEdgeSummaryData.fromJSON(summaryObject);
       summary.method = summaryData.data.method;
       summary.prompt = summaryData.data.prompt;
       summary.args = summaryData.data.args;
@@ -184,23 +184,23 @@ export class WaldieSourceEdgeData implements IWaldieSourceEdgeData {
     return chatOrder;
   }
 
-  static fromJSON(json: unknown, position: number | null = null): IWaldieSourceEdgeData {
+  static fromJSON(json: unknown, position: number | null = null): IWaldiezSourceEdgeData {
     if (!json || typeof json !== 'object') {
-      return new WaldieSourceEdgeData();
+      return new WaldiezSourceEdgeData();
     }
     const data = json as Record<string, unknown>;
-    const name = WaldieSourceEdgeData.getName(data);
-    const source = WaldieSourceEdgeData.getSource(data);
-    const target = WaldieSourceEdgeData.getTarget(data);
-    const description = WaldieSourceEdgeData.getDescription(data);
-    const clearHistory = WaldieSourceEdgeData.getClearHistory(data);
-    const message = WaldieSourceEdgeData.getMessage(data);
-    const nestedChat = WaldieSourceEdgeData.getNestedChat(data);
-    const summary = WaldieSourceEdgeData.getSummary(data);
-    const maxTurns = WaldieSourceEdgeData.getMaxTurns(data);
-    const chatPosition = WaldieSourceEdgeData.getPosition(data, position);
-    const chatOrder = WaldieSourceEdgeData.getOrder(data);
-    return new WaldieSourceEdgeData(
+    const name = WaldiezSourceEdgeData.getName(data);
+    const source = WaldiezSourceEdgeData.getSource(data);
+    const target = WaldiezSourceEdgeData.getTarget(data);
+    const description = WaldiezSourceEdgeData.getDescription(data);
+    const clearHistory = WaldiezSourceEdgeData.getClearHistory(data);
+    const message = WaldiezSourceEdgeData.getMessage(data);
+    const nestedChat = WaldiezSourceEdgeData.getNestedChat(data);
+    const summary = WaldiezSourceEdgeData.getSummary(data);
+    const maxTurns = WaldiezSourceEdgeData.getMaxTurns(data);
+    const chatPosition = WaldiezSourceEdgeData.getPosition(data, position);
+    const chatOrder = WaldiezSourceEdgeData.getOrder(data);
+    return new WaldiezSourceEdgeData(
       source,
       target,
       name,

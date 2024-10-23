@@ -1,6 +1,6 @@
 import { Edge } from '@xyflow/react';
 
-import { WaldieSourceEdgeData } from '@waldiez/models';
+import { WaldiezSourceEdgeData } from '@waldiez/models';
 
 export const getFlowEdges = (data: { [key: string]: unknown }) => {
   const edges: Edge[] = [];
@@ -18,7 +18,7 @@ export const getFlowEdges = (data: { [key: string]: unknown }) => {
         ['chat', 'nested', 'group', 'hidden'].includes(element.type)
       ) {
         const edge = element as Edge;
-        const edgeData = WaldieSourceEdgeData.fromJSON({
+        const edgeData = WaldiezSourceEdgeData.fromJSON({
           ...edge.data,
           sender: data.source,
           recipient: data.target

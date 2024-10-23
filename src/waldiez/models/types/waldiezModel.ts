@@ -1,8 +1,8 @@
 import { Node, XYPosition } from '@xyflow/react';
 
-import { IWaldieSourceNode } from '@waldiez/models/types/base';
+import { IWaldiezSourceNode } from '@waldiez/models/types/base';
 
-export type WaldieModelAPIType =
+export type WaldiezModelAPIType =
   | 'openai'
   | 'azure'
   | 'google'
@@ -13,39 +13,39 @@ export type WaldieModelAPIType =
   | 'nim'
   | 'other';
 
-export type WaldieModelPrice = {
+export type WaldiezModelPrice = {
   promptPricePer1k: number | null;
   completionTokenPricePer1k: number | null;
 };
 
-export type WaldieModelDataCommon = {
+export type WaldiezModelDataCommon = {
   description: string;
   baseUrl: string | null;
   apiKey: string | null;
-  apiType: WaldieModelAPIType;
+  apiType: WaldiezModelAPIType;
   apiVersion: string | null;
   temperature: number | null;
   topP: number | null;
   maxTokens: number | null;
   defaultHeaders: { [key: string]: string };
-  price: WaldieModelPrice;
+  price: WaldiezModelPrice;
   requirements: string[];
   tags: string[];
   createdAt: string;
   updatedAt: string;
 };
 
-export type WaldieModelNodeData = WaldieModelDataCommon & {
+export type WaldiezModelNodeData = WaldiezModelDataCommon & {
   label: string;
 };
 
-export type WaldieModelNode = Node<WaldieModelNodeData, 'model'>;
+export type WaldiezModelNode = Node<WaldiezModelNodeData, 'model'>;
 
-export interface IWaldieSourceModelData extends WaldieModelDataCommon {
+export interface IWaldiezSourceModelData extends WaldiezModelDataCommon {
   name: string;
 }
 
-export interface IWaldieSourceModel extends IWaldieSourceNode {
-  data: IWaldieSourceModelData;
-  asNode: (position?: XYPosition) => WaldieModelNode;
+export interface IWaldiezSourceModel extends IWaldiezSourceNode {
+  data: IWaldiezSourceModelData;
+  asNode: (position?: XYPosition) => WaldiezModelNode;
 }

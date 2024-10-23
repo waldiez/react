@@ -1,15 +1,15 @@
 import { createdAt, groupManagerJson, updatedAt } from './data';
 import { expectTypeOf } from 'vitest';
 
-import { WaldieSourceGroupManager } from '@waldiez/models/agents/manager';
-import { WaldieSourceGroupManagerData } from '@waldiez/models/agents/manager/data';
+import { WaldiezSourceGroupManager } from '@waldiez/models/agents/manager';
+import { WaldiezSourceGroupManagerData } from '@waldiez/models/agents/manager/data';
 import {
-  WaldieNodeGroupManager,
-  WaldieNodeGroupManagerData
-} from '@waldiez/models/types/agents/waldieGroupManagerAgent';
+  WaldiezNodeGroupManager,
+  WaldiezNodeGroupManagerData
+} from '@waldiez/models/types/agents/groupManager';
 
-describe('WaldieSourceGroupManager', () => {
-  const waldieSourceGroupManagerData: WaldieSourceGroupManagerData = {
+describe('WaldiezSourceGroupManager', () => {
+  const waldieSourceGroupManagerData: WaldiezSourceGroupManagerData = {
     name: 'Group Manager',
     agentType: 'manager',
     systemMessage: null,
@@ -57,12 +57,12 @@ describe('WaldieSourceGroupManager', () => {
     updatedAt
   };
 
-  const manager = new WaldieSourceGroupManager('manager-id', waldieSourceGroupManagerData);
+  const manager = new WaldiezSourceGroupManager('manager-id', waldieSourceGroupManagerData);
 
   const managerNode = manager.asNode();
 
   it('should create a new Group Manager', () => {
-    expectTypeOf(manager).toEqualTypeOf<WaldieSourceGroupManager>();
+    expectTypeOf(manager).toEqualTypeOf<WaldiezSourceGroupManager>();
   });
 
   it('should have the correct agentType', () => {
@@ -70,11 +70,11 @@ describe('WaldieSourceGroupManager', () => {
   });
 
   it('should create a new manager node', () => {
-    expectTypeOf(managerNode).toEqualTypeOf<WaldieNodeGroupManager>();
+    expectTypeOf(managerNode).toEqualTypeOf<WaldiezNodeGroupManager>();
   });
 
-  it('should have node data of type WaldieNodeGroupManagerData', () => {
-    expectTypeOf(managerNode.data).toEqualTypeOf<WaldieNodeGroupManagerData>();
+  it('should have node data of type WaldiezNodeGroupManagerData', () => {
+    expectTypeOf(managerNode.data).toEqualTypeOf<WaldiezNodeGroupManagerData>();
   });
 
   it('should have the correct node id', () => {
@@ -82,28 +82,28 @@ describe('WaldieSourceGroupManager', () => {
   });
 
   it('should import a manager from json', () => {
-    const managerFromJSON = WaldieSourceGroupManager.fromJSON(groupManagerJson);
+    const managerFromJSON = WaldiezSourceGroupManager.fromJSON(groupManagerJson);
     expect(managerFromJSON.data).toEqual(groupManagerJson);
   });
 
   it('should create new manager data', () => {
-    const managerData = new WaldieSourceGroupManagerData();
-    expect(managerData).toBeInstanceOf(WaldieSourceGroupManagerData);
+    const managerData = new WaldiezSourceGroupManagerData();
+    expect(managerData).toBeInstanceOf(WaldiezSourceGroupManagerData);
   });
 
   it('should import manager data from json', () => {
-    const managerData = WaldieSourceGroupManagerData.fromJSON(groupManagerJson);
+    const managerData = WaldiezSourceGroupManagerData.fromJSON(groupManagerJson);
     expect(managerData).toEqual(waldieSourceGroupManagerData);
   });
 
   it('should create a manager with default values', () => {
-    const importedAgent = WaldieSourceGroupManager.fromJSON(null);
-    expect(importedAgent).toBeInstanceOf(WaldieSourceGroupManager);
+    const importedAgent = WaldiezSourceGroupManager.fromJSON(null);
+    expect(importedAgent).toBeInstanceOf(WaldiezSourceGroupManager);
   });
 
   it('should import manager data with default values', () => {
-    const managerData = WaldieSourceGroupManagerData.fromJSON(null);
-    expect(managerData).toBeInstanceOf(WaldieSourceGroupManagerData);
+    const managerData = WaldiezSourceGroupManagerData.fromJSON(null);
+    expect(managerData).toBeInstanceOf(WaldiezSourceGroupManagerData);
   });
 
   it('should import manager data with label instead of name', () => {
@@ -112,7 +112,7 @@ describe('WaldieSourceGroupManager', () => {
       label: 'label of Group Manager'
     } as any;
     delete managerJson.name;
-    const managerDataFromJSON = WaldieSourceGroupManagerData.fromJSON(managerJson);
+    const managerDataFromJSON = WaldiezSourceGroupManagerData.fromJSON(managerJson);
     expect(managerDataFromJSON.name).toBe('label of Group Manager');
   });
 
@@ -121,7 +121,7 @@ describe('WaldieSourceGroupManager', () => {
       ...groupManagerJson
     } as any;
     delete jsonWithoutName.name;
-    const managerDataWithName = WaldieSourceGroupManagerData.fromJSON(jsonWithoutName, 'Manager Name');
+    const managerDataWithName = WaldiezSourceGroupManagerData.fromJSON(jsonWithoutName, 'Manager Name');
     expect(managerDataWithName.name).toBe('Manager Name');
   });
 
@@ -130,7 +130,7 @@ describe('WaldieSourceGroupManager', () => {
       ...groupManagerJson
     } as any;
     delete jsonWithoutName.name;
-    const managerDataWithoutName = WaldieSourceGroupManagerData.fromJSON(jsonWithoutName);
+    const managerDataWithoutName = WaldiezSourceGroupManagerData.fromJSON(jsonWithoutName);
     expect(managerDataWithoutName.name).toBe('Manager');
   });
 
@@ -139,7 +139,7 @@ describe('WaldieSourceGroupManager', () => {
       ...groupManagerJson,
       id: 'manager-id'
     };
-    const managerFromJSON = WaldieSourceGroupManager.fromJSON(jsonWithId);
+    const managerFromJSON = WaldiezSourceGroupManager.fromJSON(jsonWithId);
     expect(managerFromJSON.id).toBe('manager-id');
   });
 
@@ -149,9 +149,13 @@ describe('WaldieSourceGroupManager', () => {
   });
 
   it('should create a manager node with position in json', () => {
-    const managerNodeWithPosition = new WaldieSourceGroupManager('manager-id', waldieSourceGroupManagerData, {
-      position: { x: 15, y: 25 }
-    }).asNode();
+    const managerNodeWithPosition = new WaldiezSourceGroupManager(
+      'manager-id',
+      waldieSourceGroupManagerData,
+      {
+        position: { x: 15, y: 25 }
+      }
+    ).asNode();
     expect(managerNodeWithPosition.position).toEqual({ x: 15, y: 25 });
   });
 });

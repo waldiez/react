@@ -1,7 +1,7 @@
-import { WaldieNodeModelModalPriceTabProps } from '@waldiez/components/nodes/model/modal/tabs/price/types';
-import { WaldieNodeModelModalPriceTabView } from '@waldiez/components/nodes/model/modal/tabs/price/view';
+import { WaldiezNodeModelModalPriceTabProps } from '@waldiez/components/nodes/model/modal/tabs/price/types';
+import { WaldiezNodeModelModalPriceTabView } from '@waldiez/components/nodes/model/modal/tabs/price/view';
 
-export const WaldieNodeModelModalPriceTab = (props: WaldieNodeModelModalPriceTabProps) => {
+export const WaldiezNodeModelModalPriceTab = (props: WaldiezNodeModelModalPriceTabProps) => {
   const { modelId, data, onDataChange } = props;
   const onPricePromptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -50,7 +50,7 @@ export const WaldieNodeModelModalPriceTab = (props: WaldieNodeModelModalPriceTab
     }
   };
   return (
-    <WaldieNodeModelModalPriceTabView
+    <WaldiezNodeModelModalPriceTabView
       modelId={modelId}
       data={data}
       onPricePromptChange={onPricePromptChange}

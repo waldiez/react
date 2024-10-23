@@ -1,11 +1,11 @@
-import { WaldieEdgeBasicTab } from '@waldiez/components/edges/modal/tabs/basic';
-import { WaldieEdgeMessageTab } from '@waldiez/components/edges/modal/tabs/message';
-import { WaldieEdgeNestedTab } from '@waldiez/components/edges/modal/tabs/nested';
-import { WaldieEdgeModalViewProps } from '@waldiez/components/edges/modal/types';
+import { WaldiezEdgeBasicTab } from '@waldiez/components/edges/modal/tabs/basic';
+import { WaldiezEdgeMessageTab } from '@waldiez/components/edges/modal/tabs/message';
+import { WaldiezEdgeNestedTab } from '@waldiez/components/edges/modal/tabs/nested';
+import { WaldiezEdgeModalViewProps } from '@waldiez/components/edges/modal/types';
 import { Modal } from '@waldiez/components/modal';
 import { TabItem, TabItems } from '@waldiez/components/tabs';
 
-export const WaldieEdgeModalView = (props: WaldieEdgeModalViewProps) => {
+export const WaldiezEdgeModalView = (props: WaldiezEdgeModalViewProps) => {
   const {
     flowId,
     edgeId,
@@ -26,7 +26,7 @@ export const WaldieEdgeModalView = (props: WaldieEdgeModalViewProps) => {
         {edgeType !== 'group' ? (
           <TabItems activeTabIndex={0}>
             <TabItem label="Properties" id={`we-${flowId}-edge-properties-${edgeId}`}>
-              <WaldieEdgeBasicTab
+              <WaldiezEdgeBasicTab
                 edgeId={edgeId}
                 data={data}
                 edgeType={edgeType}
@@ -36,7 +36,7 @@ export const WaldieEdgeModalView = (props: WaldieEdgeModalViewProps) => {
             </TabItem>
             {edgeType === 'chat' && (
               <TabItem label="Message" id={`we-${flowId}-edge-message-${edgeId}`}>
-                <WaldieEdgeMessageTab
+                <WaldiezEdgeMessageTab
                   edgeId={edgeId}
                   data={data}
                   darkMode={darkMode}
@@ -47,7 +47,7 @@ export const WaldieEdgeModalView = (props: WaldieEdgeModalViewProps) => {
             )}
             {edgeType === 'nested' && (
               <TabItem label="Nested Chat" id={`we-${flowId}-edge-nested-${edgeId}`}>
-                <WaldieEdgeNestedTab
+                <WaldiezEdgeNestedTab
                   flowId={flowId}
                   edgeId={edgeId}
                   darkMode={darkMode}
@@ -58,7 +58,7 @@ export const WaldieEdgeModalView = (props: WaldieEdgeModalViewProps) => {
             )}
           </TabItems>
         ) : (
-          <WaldieEdgeBasicTab
+          <WaldiezEdgeBasicTab
             edgeId={edgeId}
             data={data}
             edgeType="group"

@@ -1,6 +1,6 @@
 import { Position } from '@xyflow/react';
 
-import { WaldieEdgeLlmSummaryMethod, WaldieMessageType } from '@waldiez/models';
+import { WaldiezEdgeLlmSummaryMethod, WaldiezMessageType } from '@waldiez/models';
 
 export const createdAt = new Date().toISOString();
 export const updatedAt = new Date().toISOString();
@@ -14,13 +14,13 @@ export const edgeData = {
   position: 1,
   clearHistory: false,
   summary: {
-    method: 'last_msg' as WaldieEdgeLlmSummaryMethod,
+    method: 'last_msg' as WaldiezEdgeLlmSummaryMethod,
     prompt: '',
     args: {}
   },
   maxTurns: 2,
   message: {
-    type: 'none' as WaldieMessageType,
+    type: 'none' as WaldiezMessageType,
     content: null,
     context: {}
   },

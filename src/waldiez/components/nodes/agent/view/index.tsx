@@ -1,13 +1,13 @@
 import { Handle, Position } from '@xyflow/react';
 
-import { WaldieEdgeModal } from '@waldiez/components/edges/modal';
-import { WaldieNodeAgentModal } from '@waldiez/components/nodes/agent/modal';
-import { WaldieNodeAgentBodyView } from '@waldiez/components/nodes/agent/view/body';
-import { WaldieNodeAgentFooterView } from '@waldiez/components/nodes/agent/view/footer';
-import { WaldieNodeAgentHeaderView } from '@waldiez/components/nodes/agent/view/header';
-import { WaldieNodeAgentViewProps } from '@waldiez/components/nodes/agent/view/types';
+import { WaldiezEdgeModal } from '@waldiez/components/edges/modal';
+import { WaldiezNodeAgentModal } from '@waldiez/components/nodes/agent/modal';
+import { WaldiezNodeAgentBodyView } from '@waldiez/components/nodes/agent/view/body';
+import { WaldiezNodeAgentFooterView } from '@waldiez/components/nodes/agent/view/footer';
+import { WaldiezNodeAgentHeaderView } from '@waldiez/components/nodes/agent/view/header';
+import { WaldiezNodeAgentViewProps } from '@waldiez/components/nodes/agent/view/types';
 
-export const WaldieNodeAgentView = (props: WaldieNodeAgentViewProps) => {
+export const WaldiezNodeAgentView = (props: WaldiezNodeAgentViewProps) => {
   const {
     id,
     flowId,
@@ -46,15 +46,15 @@ export const WaldieNodeAgentView = (props: WaldieNodeAgentViewProps) => {
     <div className={className} data-testid={`agent-node-${id}-view`}>
       {!parentId && (
         <>
-          <WaldieNodeAgentHeaderView id={id} data={data} onOpenNodeModal={onOpenNodeModal} />
-          <WaldieNodeAgentBodyView
+          <WaldiezNodeAgentHeaderView id={id} data={data} onOpenNodeModal={onOpenNodeModal} />
+          <WaldiezNodeAgentBodyView
             id={id}
             data={data}
             isEdgeModalOpen={isEdgeModalOpen}
             isNodeModalOpen={isNodeModalOpen}
             onDataChange={onDataChange}
           />
-          <WaldieNodeAgentFooterView id={id} data={data} onDelete={onDelete} onClone={onClone} />
+          <WaldiezNodeAgentFooterView id={id} data={data} onDelete={onDelete} onClone={onClone} />
           {!parentId && (
             <Handle
               type="target"
@@ -85,7 +85,7 @@ export const WaldieNodeAgentView = (props: WaldieNodeAgentViewProps) => {
         data-edge-id=""
       ></button>
       {isNodeModalOpen && (
-        <WaldieNodeAgentModal
+        <WaldiezNodeAgentModal
           flowId={flowId}
           id={id}
           data={data}
@@ -107,7 +107,7 @@ export const WaldieNodeAgentView = (props: WaldieNodeAgentViewProps) => {
       )}
 
       {edge && isEdgeModalOpen && (
-        <WaldieEdgeModal
+        <WaldiezEdgeModal
           flowId={flowId}
           darkMode={isDarkMode}
           isOpen={isEdgeModalOpen}

@@ -1,12 +1,12 @@
 import { FaCopy, FaTrashCan } from 'react-icons/fa6';
 
-import { WaldieNodeAgentFooterViewProps } from '@waldiez/components/nodes/agent/view/types';
+import { WaldiezNodeAgentFooterViewProps } from '@waldiez/components/nodes/agent/view/types';
 
 const renderDate = (date: string) => {
   const d = new Date(date);
   return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
 };
-export const WaldieNodeAgentFooterView = (props: WaldieNodeAgentFooterViewProps) => {
+export const WaldiezNodeAgentFooterView = (props: WaldiezNodeAgentFooterViewProps) => {
   const { id, data, onDelete, onClone } = props;
   return (
     <div className="agent-footer" data-testid={`agent-footer-${id}`}>

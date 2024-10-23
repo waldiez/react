@@ -1,13 +1,13 @@
 import { Modal } from '@waldiez/components/modal';
 import {
-  WaldieNodeModelModalAdvancedTab,
-  WaldieNodeModelModalBasicTab,
-  WaldieNodeModelModalPriceTab
+  WaldiezNodeModelModalAdvancedTab,
+  WaldiezNodeModelModalBasicTab,
+  WaldiezNodeModelModalPriceTab
 } from '@waldiez/components/nodes/model/modal/tabs';
-import { WaldieNodeModelModalProps } from '@waldiez/components/nodes/model/modal/types';
+import { WaldiezNodeModelModalProps } from '@waldiez/components/nodes/model/modal/types';
 import { TabItem, TabItems } from '@waldiez/components/tabs';
 
-export const WaldieNodeModelModal = (props: WaldieNodeModelModalProps) => {
+export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
   const { modelId, data, isOpen, importExportView, onDataChange, onLogoChange, onClose, onSubmit, onCancel } =
     props;
   return (
@@ -21,17 +21,17 @@ export const WaldieNodeModelModal = (props: WaldieNodeModelModalProps) => {
       <div className="modal-body">
         <TabItems activeTabIndex={0}>
           <TabItem label="Basic" id={`model-config-basic-${modelId}`}>
-            <WaldieNodeModelModalBasicTab
+            <WaldiezNodeModelModalBasicTab
               data={data}
               onDataChange={onDataChange}
               onLogoChange={onLogoChange}
             />
           </TabItem>
           <TabItem label="Advanced" id={`model-config-advanced-${modelId}`}>
-            <WaldieNodeModelModalAdvancedTab data={data} onDataChange={onDataChange} />
+            <WaldiezNodeModelModalAdvancedTab data={data} onDataChange={onDataChange} />
           </TabItem>
           <TabItem label="Price" id={`model-config-price-${modelId}`}>
-            <WaldieNodeModelModalPriceTab modelId={modelId} data={data} onDataChange={onDataChange} />
+            <WaldiezNodeModelModalPriceTab modelId={modelId} data={data} onDataChange={onDataChange} />
           </TabItem>
         </TabItems>
         <div className="modal-actions">

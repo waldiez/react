@@ -3,11 +3,11 @@ import { Node, ReactFlowInstance, XYPosition } from '@xyflow/react';
 import { nanoid } from 'nanoid';
 
 import {
-  WaldieAgentNode,
-  WaldieSkillNode,
-  WaldieSkillNodeData,
-  WaldieSourceSkill,
-  WaldieSourceSkillData
+  WaldiezAgentNode,
+  WaldiezSkillNode,
+  WaldiezSkillNodeData,
+  WaldiezSourceSkill,
+  WaldiezSourceSkillData
 } from '@waldiez/models';
 import { exportSkill } from '@waldiez/store/exporting';
 import { importSkill } from '@waldiez/store/importing';
@@ -15,23 +15,23 @@ import { getNewNodePosition, reArrangeNodes, setViewPortTopLeft } from '@waldiez
 import { typeOfGet, typeOfSet } from '@waldiez/store/types';
 
 export class SkillsStore {
-  static getSkills: (get: typeOfGet) => WaldieSkillNode[] = get => {
-    return get().nodes.filter(node => node.type === 'skill') as WaldieSkillNode[];
+  static getSkills: (get: typeOfGet) => WaldiezSkillNode[] = get => {
+    return get().nodes.filter(node => node.type === 'skill') as WaldiezSkillNode[];
   };
-  static getSkillById: (skillId: string, get: typeOfGet) => WaldieSkillNode | null = (skillId, get) => {
+  static getSkillById: (skillId: string, get: typeOfGet) => WaldiezSkillNode | null = (skillId, get) => {
     const skill = get().nodes.find(node => node.id === skillId && node.type === 'skill');
     if (!skill) {
       return null;
     }
-    return skill as WaldieSkillNode;
+    return skill as WaldiezSkillNode;
   };
-  static addSkill: (get: typeOfGet, set: typeOfSet) => WaldieSkillNode = (get, set) => {
+  static addSkill: (get: typeOfGet, set: typeOfSet) => WaldiezSkillNode = (get, set) => {
     const existingSkills = get().nodes.filter(node => node.type === 'skill');
     const flowId = get().flowId;
     const rfInstance = get().rfInstance;
     const skillCount = existingSkills.length;
     const position = getNewNodePosition(skillCount, flowId, rfInstance);
-    const newNode: WaldieSkillNode = new WaldieSourceSkill(`ws-${nanoid()}`, new WaldieSourceSkillData(), {
+    const newNode: WaldiezSkillNode = new WaldiezSourceSkill(`ws-${nanoid()}`, new WaldiezSourceSkillData(), {
       position
     }).asNode();
     set({
@@ -47,23 +47,23 @@ export class SkillsStore {
     SkillsStore.reArrangeSkills(get, set);
     setViewPortTopLeft(rfInstance);
     const skillWithNewPosition = get().nodes.find(node => node.id === newNode.id);
-    return skillWithNewPosition as WaldieSkillNode;
+    return skillWithNewPosition as WaldiezSkillNode;
   };
   static getClonedSkill: (
-    skill: WaldieSkillNode,
+    skill: WaldiezSkillNode,
     rfInstance: ReactFlowInstance | null,
     get: typeOfGet
-  ) => WaldieSkillNode = (skill, rfInstance, get) => {
+  ) => WaldiezSkillNode = (skill, rfInstance, get) => {
     const skillsCount = get().nodes.filter(node => node.type === 'skill').length;
     const flowId = get().flowId;
     const position = getNewNodePosition(skillsCount, flowId, rfInstance);
-    const clonedSkill = new WaldieSourceSkill(`ws-${nanoid()}`, new WaldieSourceSkillData(), {
+    const clonedSkill = new WaldiezSourceSkill(`ws-${nanoid()}`, new WaldiezSourceSkillData(), {
       position,
       data: { ...skill.data }
     }).asNode();
     return clonedSkill;
   };
-  static cloneSkill: (skillId: string, get: typeOfGet, set: typeOfSet) => WaldieSkillNode = (
+  static cloneSkill: (skillId: string, get: typeOfGet, set: typeOfSet) => WaldiezSkillNode = (
     skillId,
     get,
     set
@@ -73,7 +73,7 @@ export class SkillsStore {
       throw new Error(`Skill with id ${skillId} not found`);
     }
     const rfInstance = get().rfInstance;
-    const newNode = SkillsStore.getClonedSkill(skill as WaldieSkillNode, rfInstance, get);
+    const newNode = SkillsStore.getClonedSkill(skill as WaldiezSkillNode, rfInstance, get);
     set({
       nodes: [
         ...get().nodes.map(node => {
@@ -93,11 +93,11 @@ export class SkillsStore {
     SkillsStore.reArrangeSkills(get, set);
     setViewPortTopLeft(rfInstance);
     const skillWithNewPosition = get().nodes.find(node => node.id === newNode.id);
-    return skillWithNewPosition as WaldieSkillNode;
+    return skillWithNewPosition as WaldiezSkillNode;
   };
   static updateSkillData: (
     skillId: string,
-    data: WaldieSkillNodeData,
+    data: WaldiezSkillNodeData,
     get: typeOfGet,
     set: typeOfSet
   ) => void = (skillId, data, get, set) => {
@@ -115,7 +115,7 @@ export class SkillsStore {
     });
   };
   static getAgentAfterSkillDeletion = (skillId: string, node: Node) => {
-    const agent = node as WaldieAgentNode;
+    const agent = node as WaldiezAgentNode;
     const skills = agent.data.skills;
     const newSkills = skills.filter(skill => skill.id !== skillId);
     const codeExecution = agent.data.codeExecutionConfig;
@@ -186,13 +186,13 @@ export class SkillsStore {
     if (!skill) {
       return null;
     }
-    return exportSkill(skill as WaldieSkillNode);
+    return exportSkill(skill as WaldiezSkillNode);
   };
   static importSkill: (
     skill: { [key: string]: unknown },
     skillId: string,
     position: XYPosition | undefined
-  ) => WaldieSkillNode = (skill, skillId, position) => {
+  ) => WaldiezSkillNode = (skill, skillId, position) => {
     const newSkill = importSkill(skill, skillId);
     if (position) {
       newSkill.position = position;

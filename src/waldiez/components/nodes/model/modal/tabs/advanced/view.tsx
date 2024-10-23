@@ -1,7 +1,7 @@
 import { Dict, NumberInput, StringList } from '@waldiez/components/inputs';
-import { WaldieNodeModelModalAdvancedTabViewProps } from '@waldiez/components/nodes/model/modal/tabs/advanced/types';
+import { WaldiezNodeModelModalAdvancedTabViewProps } from '@waldiez/components/nodes/model/modal/tabs/advanced/types';
 
-export const WaldieNodeModelModalAdvancedTabView = (props: WaldieNodeModelModalAdvancedTabViewProps) => {
+export const WaldiezNodeModelModalAdvancedTabView = (props: WaldiezNodeModelModalAdvancedTabViewProps) => {
   const {
     data,
     onTemperatureChange,

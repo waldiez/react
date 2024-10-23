@@ -1,24 +1,24 @@
-import { WaldieEdgeData, WaldieMessage, WaldieMessageType } from '@waldiez/models';
+import { WaldiezEdgeData, WaldiezMessage, WaldiezMessageType } from '@waldiez/models';
 
-export type WaldieEdgeNestedTabProps = {
+export type WaldiezEdgeNestedTabProps = {
   flowId: string;
   edgeId: string;
   darkMode: boolean;
-  data: WaldieEdgeData;
-  onDataChange: (data: Partial<WaldieEdgeData>) => void;
+  data: WaldiezEdgeData;
+  onDataChange: (data: Partial<WaldiezEdgeData>) => void;
 };
-export type WaldieEdgeNestedTabViewProps = {
+export type WaldiezEdgeNestedTabViewProps = {
   flowId: string;
   edgeId: string;
   darkMode: boolean;
-  data: WaldieEdgeData;
-  onNestedMessageTypeChange: (type: WaldieMessageType) => void;
-  onNestedMessageChange: (message: WaldieMessage) => void;
+  data: WaldiezEdgeData;
+  onNestedMessageTypeChange: (type: WaldiezMessageType) => void;
+  onNestedMessageChange: (message: WaldiezMessage) => void;
   onAddNestedMessageContextEntry: (key: string, value: string) => void;
   onRemoveNestedMessageContextEntry: (key: string) => void;
   onUpdateNestedMessageContextEntries: (entries: Record<string, string>) => void;
-  onNestedReplyTypeChange: (type: WaldieMessageType) => void;
-  onNestedReplyChange: (reply: WaldieMessage) => void;
+  onNestedReplyTypeChange: (type: WaldiezMessageType) => void;
+  onNestedReplyChange: (reply: WaldiezMessage) => void;
   onAddReplyContextEntry: (key: string, value: string) => void;
   onRemoveReplyContextEntry: (key: string) => void;
   onUpdateReplyContextEntries: (entries: Record<string, string>) => void;

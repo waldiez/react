@@ -1,15 +1,15 @@
 import {
-  WaldieEdgeData,
-  WaldieModelNodeData,
-  WaldieNodeAssistantData,
-  WaldieNodeGroupManagerData,
-  WaldieNodeRagUserData,
-  WaldieNodeUserProxyData,
-  WaldieSkillNodeData
+  WaldiezEdgeData,
+  WaldiezModelNodeData,
+  WaldiezNodeAssistantData,
+  WaldiezNodeGroupManagerData,
+  WaldiezNodeRagUserData,
+  WaldiezNodeUserProxyData,
+  WaldiezSkillNodeData
 } from '@waldiez/models/types';
 
 /**
- * Waldie User Proxy Agent.
+ * Waldiez User Proxy Agent.
  * @param id - The id of the user proxy
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (user)
@@ -19,9 +19,9 @@ import {
  * @param requirements - The requirements of the agent
  * @param createdAt - The creation date of the agent
  * @param updatedAt - The update date of the agent
- * @param data - The data of the agent. See {@link WaldieNodeUserProxyData}
+ * @param data - The data of the agent. See {@link WaldiezNodeUserProxyData}
  */
-export type WaldieUserProxy = {
+export type WaldiezUserProxy = {
   id?: string;
   type: 'agent';
   agentType: 'user';
@@ -32,13 +32,13 @@ export type WaldieUserProxy = {
   createdAt: string;
   updatedAt: string;
   data: Omit<
-    WaldieNodeUserProxyData,
+    WaldiezNodeUserProxyData,
     'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
   >;
 };
 
 /**
- * Waldie Assistant Agent.
+ * Waldiez Assistant Agent.
  * @param id - The id of the assistant
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (assistant)
@@ -48,9 +48,9 @@ export type WaldieUserProxy = {
  * @param requirements - The requirements of the agent
  * @param createdAt - The creation date of the agent
  * @param updatedAt - The update date of the agent
- * @param data - The data of the agent. See {@link WaldieNodeAssistantData}
+ * @param data - The data of the agent. See {@link WaldiezNodeAssistantData}
  */
-export type WaldieAssistant = {
+export type WaldiezAssistant = {
   id?: string;
   type: 'agent';
   agentType: 'assistant';
@@ -61,13 +61,13 @@ export type WaldieAssistant = {
   createdAt: string;
   updatedAt: string;
   data: Omit<
-    WaldieNodeAssistantData,
+    WaldiezNodeAssistantData,
     'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
   >;
 };
 
 /**
- * Waldie Group Chat Manager Agent.
+ * Waldiez Group Chat Manager Agent.
  * @param id - The id of the manager
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (manager)
@@ -77,9 +77,9 @@ export type WaldieAssistant = {
  * @param requirements - The requirements of the agent
  * @param createdAt - The creation date of the agent
  * @param updatedAt - The update date of the agent
- * @param data - The data of the agent. See {@link WaldieNodeGroupManagerData}
+ * @param data - The data of the agent. See {@link WaldiezNodeGroupManagerData}
  */
-export type WaldieGroupManager = {
+export type WaldiezGroupManager = {
   id?: string;
   type: 'agent';
   agentType: 'manager';
@@ -90,13 +90,13 @@ export type WaldieGroupManager = {
   createdAt: string;
   updatedAt: string;
   data: Omit<
-    WaldieNodeGroupManagerData,
+    WaldiezNodeGroupManagerData,
     'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
   >;
 };
 
 /**
- * Waldie RAG User.
+ * Waldiez RAG User.
  * @param id - The id of the RAG user
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (RAG user)
@@ -106,9 +106,9 @@ export type WaldieGroupManager = {
  * @param requirements - The requirements of the user
  * @param createdAt - The creation date of the user
  * @param updatedAt - The update date of the user
- * @param data - The data of the user. See {@link WaldieNodeRagUserData}
+ * @param data - The data of the user. See {@link WaldiezNodeRagUserData}
  */
-export type WaldieRagUser = {
+export type WaldiezRagUser = {
   id?: string;
   type: 'agent';
   agentType: 'rag_user';
@@ -119,13 +119,13 @@ export type WaldieRagUser = {
   createdAt: string;
   updatedAt: string;
   data: Omit<
-    WaldieNodeRagUserData,
+    WaldiezNodeRagUserData,
     'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
   >;
 };
 
 /**
- * Waldie Model.
+ * Waldiez Model.
  * @param id - The id of the model
  * @param type - The type of the node in a graph (model)
  * @param name - The name of the model
@@ -134,9 +134,9 @@ export type WaldieRagUser = {
  * @param requirements - The requirements of the model
  * @param createdAt - The creation date of the model
  * @param updatedAt - The update date of the model
- * @param data - The data of the model. See {@link WaldieModelNodeData}
+ * @param data - The data of the model. See {@link WaldiezModelNodeData}
  */
-export type WaldieModel = {
+export type WaldiezModel = {
   id?: string;
   type: 'model';
   name: string;
@@ -146,13 +146,13 @@ export type WaldieModel = {
   createdAt: string;
   updatedAt: string;
   data: Omit<
-    WaldieModelNodeData,
+    WaldiezModelNodeData,
     'label' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
   >;
 };
 
 /**
- * Waldie Skill.
+ * Waldiez Skill.
  * @param id - The id of the skill
  * @param type - The type of the node in a graph (skill)
  * @param name - The name of the skill
@@ -161,9 +161,9 @@ export type WaldieModel = {
  * @param requirements - The requirements of the skill
  * @param createdAt - The creation date of the skill
  * @param updatedAt - The update date of the skill
- * @param data - The data of the skill. See {@link WaldieSkillNodeData}
+ * @param data - The data of the skill. See {@link WaldiezSkillNodeData}
  */
-export type WaldieSkill = {
+export type WaldiezSkill = {
   id?: string;
   type: 'skill';
   name: string;
@@ -173,19 +173,19 @@ export type WaldieSkill = {
   createdAt: string;
   updatedAt: string;
   data: Omit<
-    WaldieSkillNodeData,
+    WaldiezSkillNodeData,
     'label' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
   >;
 };
 
 /**
- * Waldie Chat.
+ * Waldiez Chat.
  * @param id - The id of the chat
- * @param data - The data of the chat. See {@link WaldieEdgeData}
+ * @param data - The data of the chat. See {@link WaldiezEdgeData}
  */
-export type WaldieChat = {
+export type WaldiezChat = {
   id?: string;
-  data: Omit<WaldieEdgeData, 'label'> & {
+  data: Omit<WaldiezEdgeData, 'label'> & {
     name: string;
     source: string;
     target: string;
@@ -193,7 +193,7 @@ export type WaldieChat = {
 };
 
 /**
- * Waldie Flow.
+ * Waldiez Flow.
  * @param id - The id of the flow
  * @param storageId - The storage id of the flow
  * @param type - The type of the object (flow)
@@ -206,14 +206,14 @@ export type WaldieChat = {
  *  - edges: The edges of the flow (UI only).
  *  - viewport: The viewport of the flow (UI only).
  *  - agents: The agent nodes of the flow:
- *    - users: The user nodes of the flow. See {@link WaldieUserProxy}
- *    - assistants: The assistant nodes of the flow. See {@link WaldieAssistant}
- *    - managers: The manager nodes of the flow. See {@link WaldieGroupManager}
- * - models: The model nodes of the flow. See {@link WaldieModel}
- * - skills: The skill nodes of the flow. See {@link WaldieSkill}
- * - chats: The chats (from edges) of the flow. See {@link WaldieChat}
+ *    - users: The user nodes of the flow. See {@link WaldiezUserProxy}
+ *    - assistants: The assistant nodes of the flow. See {@link WaldiezAssistant}
+ *    - managers: The manager nodes of the flow. See {@link WaldiezGroupManager}
+ * - models: The model nodes of the flow. See {@link WaldiezModel}
+ * - skills: The skill nodes of the flow. See {@link WaldiezSkill}
+ * - chats: The chats (from edges) of the flow. See {@link WaldiezChat}
  */
-export type WaldieFlow = {
+export type WaldiezFlow = {
   id?: string;
   storageId?: string;
   type: 'flow';
@@ -226,12 +226,12 @@ export type WaldieFlow = {
     edges: object[];
     viewport?: object;
     agents: {
-      users: WaldieUserProxy[];
-      assistants: WaldieAssistant[];
-      managers: WaldieGroupManager[];
+      users: WaldiezUserProxy[];
+      assistants: WaldiezAssistant[];
+      managers: WaldiezGroupManager[];
     };
-    models: WaldieModel[];
-    skills: WaldieSkill[];
-    chats: WaldieChat[];
+    models: WaldiezModel[];
+    skills: WaldiezSkill[];
+    chats: WaldiezChat[];
   };
 };

@@ -1,7 +1,7 @@
-import { WaldieFlowModalOtherTabViewProps } from '@waldiez/components/flow/modal/tabs/other/types';
+import { WaldiezFlowModalOtherTabViewProps } from '@waldiez/components/flow/modal/tabs/other/types';
 import { StringList } from '@waldiez/components/inputs';
 
-export const WaldieFlowModalOtherTabView = (props: WaldieFlowModalOtherTabViewProps) => {
+export const WaldiezFlowModalOtherTabView = (props: WaldiezFlowModalOtherTabViewProps) => {
   const {
     tags,
     requirements,

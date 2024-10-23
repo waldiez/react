@@ -21,7 +21,7 @@ const codeExecutionOverrides = {
   functions: []
 };
 
-describe('WaldieAgentNode Code Execution Tab', () => {
+describe('WaldiezAgentNode Code Execution Tab', () => {
   it('Shows the code execution tab', () => {
     renderAgent('user', {
       openModal: true

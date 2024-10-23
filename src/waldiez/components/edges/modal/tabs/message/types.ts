@@ -1,20 +1,20 @@
-import { WaldieEdgeData, WaldieMessage, WaldieMessageType } from '@waldiez/models';
+import { WaldiezEdgeData, WaldiezMessage, WaldiezMessageType } from '@waldiez/models';
 
-export type WaldieEdgeMessageTabProps = {
+export type WaldiezEdgeMessageTabProps = {
   edgeId: string;
-  data: WaldieEdgeData;
+  data: WaldiezEdgeData;
   darkMode: boolean;
   skipRagOption: boolean;
-  onDataChange: (data: Partial<WaldieEdgeData>) => void;
+  onDataChange: (data: Partial<WaldiezEdgeData>) => void;
 };
 
-export type WaldieEdgeMessageTabViewProps = {
+export type WaldiezEdgeMessageTabViewProps = {
   edgeId: string;
-  data: WaldieEdgeData;
+  data: WaldiezEdgeData;
   darkMode: boolean;
   skipRagOption: boolean;
-  onMessageChange: (message: WaldieMessage) => void;
-  onMessageTypeChange: (type: WaldieMessageType) => void;
+  onMessageChange: (message: WaldiezMessage) => void;
+  onMessageTypeChange: (type: WaldiezMessageType) => void;
   onAddMessageContextEntry: (key: string, value: string) => void;
   onRemoveMessageContextEntry: (key: string) => void;
   onUpdateMessageContextEntries: (entries: Record<string, string>) => void;

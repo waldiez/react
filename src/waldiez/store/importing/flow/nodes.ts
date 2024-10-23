@@ -1,13 +1,13 @@
 import { Edge, Node } from '@xyflow/react';
 
 import {
-  WaldieAgentNodeType,
-  WaldieSourceAssistantData,
-  WaldieSourceGroupManagerData,
-  WaldieSourceModelData,
-  WaldieSourceRagUserData,
-  WaldieSourceSkillData,
-  WaldieSourceUserProxyData
+  WaldiezAgentNodeType,
+  WaldiezSourceAssistantData,
+  WaldiezSourceGroupManagerData,
+  WaldiezSourceModelData,
+  WaldiezSourceRagUserData,
+  WaldiezSourceSkillData,
+  WaldiezSourceUserProxyData
 } from '@waldiez/models';
 import { getNodeMeta } from '@waldiez/store/importing/common';
 import { getAgentNestedChats } from '@waldiez/store/importing/flow/nested';
@@ -53,12 +53,12 @@ export const getNodeData = (
   requirements: string[],
   createdAt: string,
   updatedAt: string,
-  agentType?: WaldieAgentNodeType
+  agentType?: WaldiezAgentNodeType
 ) => {
   let elementData: any;
   switch (nodeType) {
     case 'model':
-      elementData = WaldieSourceModelData.fromJSON(
+      elementData = WaldiezSourceModelData.fromJSON(
         elementNodeData.data,
         name,
         description,
@@ -69,7 +69,7 @@ export const getNodeData = (
       );
       break;
     case 'skill':
-      elementData = WaldieSourceSkillData.fromJSON(
+      elementData = WaldiezSourceSkillData.fromJSON(
         elementNodeData.data,
         name,
         description,
@@ -91,7 +91,7 @@ export const getFlowExportedNodes = (
   flowEdges: Edge[],
   nodeData: { [key: string]: unknown },
   nodeType: 'agent' | 'model' | 'skill',
-  agentType?: WaldieAgentNodeType
+  agentType?: WaldiezAgentNodeType
 ) => {
   const nodeTypes = nodeType !== 'agent' ? `${nodeType}s` : `${agentType}s`;
   if (nodeTypes in nodeData && Array.isArray(nodeData[nodeTypes])) {
@@ -106,7 +106,7 @@ const updateFlowExportedNode = (
   flowNodes: Node[],
   flowEdges: Edge[],
   nodeType: 'agent' | 'model' | 'skill',
-  agentType?: WaldieAgentNodeType
+  agentType?: WaldiezAgentNodeType
 ) => {
   if (
     'id' in element &&
@@ -140,7 +140,7 @@ const getNodeDataToExport = (
   element: any,
   flowEdges: Edge[],
   nodeType: 'agent' | 'model' | 'skill',
-  agentType?: WaldieAgentNodeType
+  agentType?: WaldiezAgentNodeType
 ) => {
   const { name, description, tags, requirements, createdAt, updatedAt } = getNodeMeta(
     element,
@@ -189,20 +189,20 @@ const getNodeDataToExport = (
   return nodeData;
 };
 
-const _getAgentNodeData = (name: string, elementNodeData: any, agentType?: WaldieAgentNodeType) => {
+const _getAgentNodeData = (name: string, elementNodeData: any, agentType?: WaldiezAgentNodeType) => {
   let elementData: any;
   switch (agentType) {
     case 'user':
-      elementData = WaldieSourceUserProxyData.fromJSON(elementNodeData.data, agentType, name);
+      elementData = WaldiezSourceUserProxyData.fromJSON(elementNodeData.data, agentType, name);
       break;
     case 'assistant':
-      elementData = WaldieSourceAssistantData.fromJSON(elementNodeData.data, agentType, name);
+      elementData = WaldiezSourceAssistantData.fromJSON(elementNodeData.data, agentType, name);
       break;
     case 'manager':
-      elementData = WaldieSourceGroupManagerData.fromJSON(elementNodeData.data, name);
+      elementData = WaldiezSourceGroupManagerData.fromJSON(elementNodeData.data, name);
       break;
     case 'rag_user':
-      elementData = WaldieSourceRagUserData.fromJSON(elementNodeData.data, name);
+      elementData = WaldiezSourceRagUserData.fromJSON(elementNodeData.data, name);
       break;
   }
   return elementData;

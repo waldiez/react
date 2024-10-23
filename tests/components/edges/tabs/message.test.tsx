@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-describe('WaldieEdgeModalTab message', () => {
+describe('WaldiezEdgeModalTab message', () => {
   it('updates the message type', async () => {
     // change tab to "message"
     renderEdge('chat');

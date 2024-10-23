@@ -1,9 +1,9 @@
 import { Node, XYPosition } from '@xyflow/react';
 
-import { WaldieAgentCommonData, WaldieAgentNestedChat } from '@waldiez/models/types/agents/waldieAgent';
-import { IWaldieSourceNode } from '@waldiez/models/types/base';
+import { WaldiezAgentCommonData, WaldiezAgentNestedChat } from '@waldiez/models/types/agents/agent';
+import { IWaldiezSourceNode } from '@waldiez/models/types/base';
 
-export type WaldieVectorDbConfig = {
+export type WaldiezVectorDbConfig = {
   model: string;
   useMemory: boolean;
   useLocalStorage: boolean;
@@ -11,11 +11,11 @@ export type WaldieVectorDbConfig = {
   connectionUrl: string | null;
 };
 
-export type WaldieRageUserRetrieveConfig = {
+export type WaldiezRageUserRetrieveConfig = {
   task: 'code' | 'qa' | 'default';
   // vectorDb?: string;
   vectorDb: 'chroma' | 'pgvector' | 'mongodb' | 'qdrant';
-  dbConfig: WaldieVectorDbConfig;
+  dbConfig: WaldiezVectorDbConfig;
   docsPath: string[];
   newDocs: boolean;
   model: string | null;
@@ -42,23 +42,23 @@ export type WaldieRageUserRetrieveConfig = {
   n_results: number | null;
 };
 
-export type WaldieAgentRagUserData = WaldieAgentCommonData & {
-  nestedChats: WaldieAgentNestedChat[];
-  retrieveConfig: WaldieRageUserRetrieveConfig;
+export type WaldiezAgentRagUserData = WaldiezAgentCommonData & {
+  nestedChats: WaldiezAgentNestedChat[];
+  retrieveConfig: WaldiezRageUserRetrieveConfig;
 };
 
-export type WaldieNodeRagUserData = WaldieAgentRagUserData & {
+export type WaldiezNodeRagUserData = WaldiezAgentRagUserData & {
   label: string;
   agentType: 'rag_user';
 };
 
-export type WaldieNodeRagUser = Node<WaldieNodeRagUserData, 'agent'>;
+export type WaldiezNodeRagUser = Node<WaldiezNodeRagUserData, 'agent'>;
 
-export interface IWaldieSourceRagUserData extends WaldieAgentRagUserData {
+export interface IWaldiezSourceRagUserData extends WaldiezAgentRagUserData {
   name: string;
 }
 
-export interface IWaldieSourceRagUser extends IWaldieSourceNode {
-  data: IWaldieSourceRagUserData;
-  asNode: (position?: XYPosition) => WaldieNodeRagUser;
+export interface IWaldiezSourceRagUser extends IWaldiezSourceNode {
+  data: IWaldiezSourceRagUserData;
+  asNode: (position?: XYPosition) => WaldiezNodeRagUser;
 }

@@ -3,26 +3,26 @@ import { Node, NodeProps } from '@xyflow/react';
 import { useState } from 'react';
 
 import { exportItem, importItem } from '@waldiez/components/nodes/common';
-import { WaldieNodeSkillView } from '@waldiez/components/nodes/skill/view';
-import { WaldieSkillNode, WaldieSkillNodeData } from '@waldiez/models';
-import { useWaldieContext } from '@waldiez/store';
+import { WaldiezNodeSkillView } from '@waldiez/components/nodes/skill/view';
+import { WaldiezSkillNode, WaldiezSkillNodeData } from '@waldiez/models';
+import { useWaldiezContext } from '@waldiez/store';
 import { isDarkMode } from '@waldiez/theme';
 
-export const WaldieNodeSkill = ({ id, data }: NodeProps<WaldieSkillNode>) => {
-  const flowId = useWaldieContext(state => state.flowId);
-  let storageId = useWaldieContext(state => state.storageId);
+export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
+  const flowId = useWaldiezContext(state => state.flowId);
+  let storageId = useWaldiezContext(state => state.storageId);
   if (!storageId) {
     storageId = flowId;
   }
   const [isModalOpen, setModalOpen] = useState(false);
   // tmp state to save on submit, discard on cancel
-  const [skillData, setSkillData] = useState<WaldieSkillNodeData>(data);
-  const updateSkillData = useWaldieContext(state => state.updateSkillData);
-  const cloneSkill = useWaldieContext(selector => selector.cloneSkill);
-  const deleteSkill = useWaldieContext(selector => selector.deleteSkill);
-  const getSkillById = useWaldieContext(selector => selector.getSkillById);
-  const importSkill = useWaldieContext(selector => selector.importSkill);
-  const exportSkill = useWaldieContext(selector => selector.exportSkill);
+  const [skillData, setSkillData] = useState<WaldiezSkillNodeData>(data);
+  const updateSkillData = useWaldiezContext(state => state.updateSkillData);
+  const cloneSkill = useWaldiezContext(selector => selector.cloneSkill);
+  const deleteSkill = useWaldiezContext(selector => selector.deleteSkill);
+  const getSkillById = useWaldiezContext(selector => selector.getSkillById);
+  const importSkill = useWaldiezContext(selector => selector.importSkill);
+  const exportSkill = useWaldiezContext(selector => selector.exportSkill);
   const onClose = () => {
     setModalOpen(false);
   };
@@ -46,11 +46,11 @@ export const WaldieNodeSkill = ({ id, data }: NodeProps<WaldieSkillNode>) => {
     const storedSkill = getSkillById(id);
     const storedData = storedSkill?.data;
     if (storedData) {
-      setSkillData(storedData as WaldieSkillNodeData);
+      setSkillData(storedData as WaldiezSkillNodeData);
     }
     setModalOpen(false);
   };
-  const onChange = (data: Partial<WaldieSkillNodeData>) => {
+  const onChange = (data: Partial<WaldiezSkillNodeData>) => {
     setSkillData({ ...skillData, ...data });
   };
   const onExport = () => {
@@ -65,7 +65,7 @@ export const WaldieNodeSkill = ({ id, data }: NodeProps<WaldieSkillNode>) => {
   };
   const isDark = isDarkMode(flowId, storageId);
   return (
-    <WaldieNodeSkillView
+    <WaldiezNodeSkillView
       skillId={id}
       flowId={flowId}
       data={skillData}

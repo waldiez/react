@@ -1,9 +1,9 @@
-import { WaldieEdgeBasicTabProps } from '@waldiez/components/edges/modal/tabs/basic/types';
-import { WaldieEdgeBasicTabView } from '@waldiez/components/edges/modal/tabs/basic/view';
+import { WaldiezEdgeBasicTabProps } from '@waldiez/components/edges/modal/tabs/basic/types';
+import { WaldiezEdgeBasicTabView } from '@waldiez/components/edges/modal/tabs/basic/view';
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieEdgeLlmSummaryMethod } from '@waldiez/models';
+import { WaldiezEdgeLlmSummaryMethod } from '@waldiez/models';
 
-export const WaldieEdgeBasicTab = (props: WaldieEdgeBasicTabProps) => {
+export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
   const { edgeId, edgeType, data, onTypeChange, onDataChange } = props;
   const onLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onDataChange({ label: e.target.value });
@@ -20,7 +20,7 @@ export const WaldieEdgeBasicTab = (props: WaldieEdgeBasicTabProps) => {
   const onSummaryMethodChange = (
     option: SingleValue<{
       label: string;
-      value: WaldieEdgeLlmSummaryMethod;
+      value: WaldiezEdgeLlmSummaryMethod;
     }>
   ) => {
     if (option) {
@@ -66,7 +66,7 @@ export const WaldieEdgeBasicTab = (props: WaldieEdgeBasicTabProps) => {
     }
   };
   return (
-    <WaldieEdgeBasicTabView
+    <WaldiezEdgeBasicTabView
       data={data}
       edgeId={edgeId}
       edgeType={edgeType}

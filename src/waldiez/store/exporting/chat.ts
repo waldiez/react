@@ -1,6 +1,6 @@
 import { Edge } from '@xyflow/react';
 
-import { WaldieEdgeData } from '@waldiez/models';
+import { WaldiezEdgeData } from '@waldiez/models';
 
 const VALID_CHAT_TYPES = ['chat', 'nested', 'group', 'hidden'];
 const VALID_CHAT_MESSAGE_TYPES = ['string', 'method', 'rag_message_generator', 'none'];
@@ -15,7 +15,7 @@ export const exportChat = (chat: Edge) => {
     }
   };
   const chatType = getChatType(chat);
-  const data = chat.data as WaldieEdgeData;
+  const data = chat.data as WaldiezEdgeData;
   json.data = {
     ...json.data,
     name: getChatName(data),
@@ -31,7 +31,7 @@ export const exportChat = (chat: Edge) => {
   return json;
 };
 
-const getChatName = (data: WaldieEdgeData) => {
+const getChatName = (data: WaldiezEdgeData) => {
   let name = 'Chat';
   if ('label' in data && data.label) {
     if (typeof data.label === 'string') {
@@ -41,7 +41,7 @@ const getChatName = (data: WaldieEdgeData) => {
   return name;
 };
 
-const getChatDescription = (data: WaldieEdgeData) => {
+const getChatDescription = (data: WaldiezEdgeData) => {
   let description = 'Chat Description';
   if ('description' in data && data.description) {
     if (typeof data.description === 'string') {
@@ -51,7 +51,7 @@ const getChatDescription = (data: WaldieEdgeData) => {
   return description;
 };
 
-const getChatPosition = (data: WaldieEdgeData) => {
+const getChatPosition = (data: WaldiezEdgeData) => {
   let position = 0;
   if ('position' in data && typeof data.position === 'number') {
     position = data.position;
@@ -59,7 +59,7 @@ const getChatPosition = (data: WaldieEdgeData) => {
   return position;
 };
 
-const getChatClearHistory = (data: WaldieEdgeData) => {
+const getChatClearHistory = (data: WaldiezEdgeData) => {
   let clearHistory = null;
   if ('clearHistory' in data && typeof data.clearHistory === 'boolean') {
     clearHistory = data.clearHistory;
@@ -67,7 +67,7 @@ const getChatClearHistory = (data: WaldieEdgeData) => {
   return clearHistory;
 };
 
-const getChatMaxTurns = (data: WaldieEdgeData) => {
+const getChatMaxTurns = (data: WaldiezEdgeData) => {
   let maxTurns = null;
   if ('maxTurns' in data && typeof data.maxTurns === 'number') {
     maxTurns = data.maxTurns;

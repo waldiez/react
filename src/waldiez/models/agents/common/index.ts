@@ -1,51 +1,51 @@
 import { TeachabilityData } from '@waldiez/models/agents/common/teachability';
 import { TerminationData } from '@waldiez/models/agents/common/termination';
 import {
-  IWaldieSourceAgentCommonData,
-  WaldieAgentCodeExecutionConfig,
-  WaldieAgentHumanInputMode,
-  WaldieAgentLinkedSkill,
-  WaldieAgentNodeType,
-  WaldieAgentTeachability,
-  WaldieAgentTerminationMessageCheck
+  IWaldiezSourceAgentCommonData,
+  WaldiezAgentCodeExecutionConfig,
+  WaldiezAgentHumanInputMode,
+  WaldiezAgentLinkedSkill,
+  WaldiezAgentNodeType,
+  WaldiezAgentTeachability,
+  WaldiezAgentTerminationMessageCheck
 } from '@waldiez/models/types';
 
-export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData {
+export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonData {
   name: string;
-  agentType: WaldieAgentNodeType;
+  agentType: WaldiezAgentNodeType;
   systemMessage: string | null;
-  humanInputMode: WaldieAgentHumanInputMode;
+  humanInputMode: WaldiezAgentHumanInputMode;
   description: string;
   maxTokens: number | null;
-  codeExecutionConfig: WaldieAgentCodeExecutionConfig;
+  codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
   agentDefaultAutoReply: string | null;
   maxConsecutiveAutoReply: number | null;
-  termination: WaldieAgentTerminationMessageCheck;
-  teachability: WaldieAgentTeachability;
+  termination: WaldiezAgentTerminationMessageCheck;
+  teachability: WaldiezAgentTeachability;
   // links
   modelIds: string[];
-  skills: WaldieAgentLinkedSkill[];
+  skills: WaldiezAgentLinkedSkill[];
   tags: string[];
   requirements: string[];
   createdAt: string;
   updatedAt: string;
   constructor(
     name: string = 'Agent',
-    agentType: WaldieAgentNodeType = 'user',
+    agentType: WaldiezAgentNodeType = 'user',
     systemMessage: string | null = null,
-    humanInputMode: WaldieAgentHumanInputMode = 'ALWAYS',
+    humanInputMode: WaldiezAgentHumanInputMode = 'ALWAYS',
     description: string = 'An agent',
     maxTokens: number | null = null,
-    codeExecutionConfig: WaldieAgentCodeExecutionConfig = false,
+    codeExecutionConfig: WaldiezAgentCodeExecutionConfig = false,
     agentDefaultAutoReply: string | null = null,
     maxConsecutiveAutoReply: number | null = null,
-    termination: WaldieAgentTerminationMessageCheck = {
+    termination: WaldiezAgentTerminationMessageCheck = {
       type: 'none',
       keywords: [],
       criterion: null,
       methodContent: null
     },
-    teachability: WaldieAgentTeachability = {
+    teachability: WaldiezAgentTeachability = {
       enabled: false,
       verbosity: 0,
       resetDb: false,
@@ -53,7 +53,7 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
       maxMumRetrievals: 0
     },
     modelIds: string[] = [],
-    skills: WaldieAgentLinkedSkill[] = [],
+    skills: WaldiezAgentLinkedSkill[] = [],
     tags: string[] = [],
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
@@ -80,30 +80,30 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
   }
   static fromJSON = (
     json: unknown,
-    agentType: WaldieAgentNodeType,
+    agentType: WaldiezAgentNodeType,
     name: string | null = null
-  ): IWaldieSourceAgentCommonData => {
+  ): IWaldiezSourceAgentCommonData => {
     if (!json || typeof json !== 'object') {
-      return new WaldieSourceAgentCommonData(name ?? 'Agent', agentType);
+      return new WaldiezSourceAgentCommonData(name ?? 'Agent', agentType);
     }
     const data = json as Record<string, unknown>;
-    const systemMessage = WaldieSourceAgentCommonData.getSystemMessage(data);
-    const humanInputMode = WaldieSourceAgentCommonData.getHumanInputMode(data);
-    const description = WaldieSourceAgentCommonData.getDescription(data);
-    const maxTokens = WaldieSourceAgentCommonData.getMaxTokens(data);
-    const codeExecutionConfig = WaldieSourceAgentCommonData.getCodeExecutionConfig(data);
-    const agentDefaultAutoReply = WaldieSourceAgentCommonData.getAgentDefaultAutoReply(data);
-    const maxConsecutiveAutoReply = WaldieSourceAgentCommonData.getMaximumConsecutiveAutoReply(data);
-    const termination = WaldieSourceAgentCommonData.getTermination(data);
-    const teachability = WaldieSourceAgentCommonData.getTeachability(data);
-    const modelIds = WaldieSourceAgentCommonData.getModelIds(data);
-    const skills = WaldieSourceAgentCommonData.getSkills(data);
-    const agentName = WaldieSourceAgentCommonData.getAgentName(data, name);
-    const tags = WaldieSourceAgentCommonData.getTags(data);
-    const requirements = WaldieSourceAgentCommonData.getRequirements(data);
-    const createdAt = WaldieSourceAgentCommonData.getCreatedAt(data);
-    const updatedAt = WaldieSourceAgentCommonData.getUpdatedAt(data);
-    return new WaldieSourceAgentCommonData(
+    const systemMessage = WaldiezSourceAgentCommonData.getSystemMessage(data);
+    const humanInputMode = WaldiezSourceAgentCommonData.getHumanInputMode(data);
+    const description = WaldiezSourceAgentCommonData.getDescription(data);
+    const maxTokens = WaldiezSourceAgentCommonData.getMaxTokens(data);
+    const codeExecutionConfig = WaldiezSourceAgentCommonData.getCodeExecutionConfig(data);
+    const agentDefaultAutoReply = WaldiezSourceAgentCommonData.getAgentDefaultAutoReply(data);
+    const maxConsecutiveAutoReply = WaldiezSourceAgentCommonData.getMaximumConsecutiveAutoReply(data);
+    const termination = WaldiezSourceAgentCommonData.getTermination(data);
+    const teachability = WaldiezSourceAgentCommonData.getTeachability(data);
+    const modelIds = WaldiezSourceAgentCommonData.getModelIds(data);
+    const skills = WaldiezSourceAgentCommonData.getSkills(data);
+    const agentName = WaldiezSourceAgentCommonData.getAgentName(data, name);
+    const tags = WaldiezSourceAgentCommonData.getTags(data);
+    const requirements = WaldiezSourceAgentCommonData.getRequirements(data);
+    const createdAt = WaldiezSourceAgentCommonData.getCreatedAt(data);
+    const updatedAt = WaldiezSourceAgentCommonData.getUpdatedAt(data);
+    return new WaldiezSourceAgentCommonData(
       agentName,
       agentType,
       systemMessage,
@@ -129,13 +129,13 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
     }
     return null;
   };
-  private static getHumanInputMode = (data: Record<string, unknown>): WaldieAgentHumanInputMode => {
+  private static getHumanInputMode = (data: Record<string, unknown>): WaldiezAgentHumanInputMode => {
     if (
       'humanInputMode' in data &&
       typeof data.humanInputMode === 'string' &&
       ['ALWAYS', 'NEVER', 'TERMINATE'].includes(data.humanInputMode)
     ) {
-      return data.humanInputMode as WaldieAgentHumanInputMode;
+      return data.humanInputMode as WaldiezAgentHumanInputMode;
     }
     return 'ALWAYS';
   };
@@ -151,13 +151,15 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
     }
     return null;
   };
-  private static getCodeExecutionConfig = (data: Record<string, unknown>): WaldieAgentCodeExecutionConfig => {
+  private static getCodeExecutionConfig = (
+    data: Record<string, unknown>
+  ): WaldiezAgentCodeExecutionConfig => {
     if (
       'codeExecutionConfig' in data &&
       typeof data.codeExecutionConfig === 'object' &&
       data.codeExecutionConfig
     ) {
-      return data.codeExecutionConfig as WaldieAgentCodeExecutionConfig;
+      return data.codeExecutionConfig as WaldiezAgentCodeExecutionConfig;
     }
     return false;
   };
@@ -173,7 +175,7 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
     }
     return null;
   };
-  private static getTermination = (data: Record<string, unknown>): WaldieAgentTerminationMessageCheck => {
+  private static getTermination = (data: Record<string, unknown>): WaldiezAgentTerminationMessageCheck => {
     if ('termination' in data && typeof data.termination === 'object' && data.termination) {
       return TerminationData.fromJSON(data.termination as Record<string, unknown>).data;
     }
@@ -184,7 +186,7 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
       methodContent: null
     };
   };
-  private static getTeachability = (data: Record<string, unknown>): WaldieAgentTeachability => {
+  private static getTeachability = (data: Record<string, unknown>): WaldiezAgentTeachability => {
     if ('teachability' in data && typeof data.teachability === 'object' && data.teachability) {
       return TeachabilityData.fromJSON(data.teachability as Record<string, unknown>).data;
     }
@@ -203,8 +205,8 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
     }
     return modelIds;
   };
-  private static getSkills = (data: Record<string, unknown>): WaldieAgentLinkedSkill[] => {
-    let skills: WaldieAgentLinkedSkill[] = [];
+  private static getSkills = (data: Record<string, unknown>): WaldiezAgentLinkedSkill[] => {
+    let skills: WaldiezAgentLinkedSkill[] = [];
     if ('skills' in data && Array.isArray(data.skills)) {
       skills = data.skills.filter(
         s =>
@@ -214,7 +216,7 @@ export class WaldieSourceAgentCommonData implements IWaldieSourceAgentCommonData
           'executorId' in s &&
           typeof s.id === 'string' &&
           typeof s.executorId === 'string'
-      ) as WaldieAgentLinkedSkill[];
+      ) as WaldiezAgentLinkedSkill[];
     }
     return skills;
   };

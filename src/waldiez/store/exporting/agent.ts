@@ -1,11 +1,11 @@
 import {
-  WaldieAgentNode,
-  WaldieNodeGroupManager,
-  WaldieNodeRagUser,
+  WaldiezAgentNode,
+  WaldiezNodeGroupManager,
+  WaldiezNodeRagUser,
   defaultRetrieveConfig
 } from '@waldiez/models';
 
-export const exportAgent = (agent: WaldieAgentNode, skipLinks: boolean = false) => {
+export const exportAgent = (agent: WaldiezAgentNode, skipLinks: boolean = false) => {
   const agentData = { ...agent.data } as { [key: string]: unknown };
   const createdAt = agentData.createdAt ?? new Date().toISOString();
   const updatedAt = agentData.updatedAt ?? new Date().toISOString();
@@ -30,7 +30,7 @@ export const exportAgent = (agent: WaldieAgentNode, skipLinks: boolean = false) 
   return json;
 };
 
-const exportAgentNestedChats = (agent: WaldieAgentNode, skipLinks: boolean) => {
+const exportAgentNestedChats = (agent: WaldiezAgentNode, skipLinks: boolean) => {
   if (!skipLinks && agent.data.agentType !== 'manager') {
     const nestedChats = agent.data.nestedChats.map(nestedChat => {
       return {
@@ -53,7 +53,7 @@ const exportAgentNestedChats = (agent: WaldieAgentNode, skipLinks: boolean) => {
   return [];
 };
 
-const exportManagerData = (agent: WaldieNodeGroupManager, skipLinks: boolean) => {
+const exportManagerData = (agent: WaldiezNodeGroupManager, skipLinks: boolean) => {
   const maxRound = agent.data.maxRound ?? null;
   const adminName = agent.data.adminName ?? null;
   const enableClearHistory = agent.data.enableClearHistory ?? false;
@@ -90,7 +90,7 @@ const exportManagerData = (agent: WaldieNodeGroupManager, skipLinks: boolean) =>
 };
 
 /* eslint-disable max-statements */
-export const exportAgentData = (agent: WaldieAgentNode, skipLinks: boolean) => {
+export const exportAgentData = (agent: WaldiezAgentNode, skipLinks: boolean) => {
   const data = {
     systemMessage: agent.data.systemMessage,
     humanInputMode: agent.data.humanInputMode,
@@ -112,7 +112,7 @@ export const exportAgentData = (agent: WaldieAgentNode, skipLinks: boolean) => {
   }
   data.nestedChats = exportAgentNestedChats(agent, skipLinks);
   if (agent.data.agentType === 'manager') {
-    const managerData = exportManagerData(agent as WaldieNodeGroupManager, skipLinks);
+    const managerData = exportManagerData(agent as WaldiezNodeGroupManager, skipLinks);
     data.maxRound = managerData.maxRound;
     data.adminName = managerData.adminName;
     data.enableClearHistory = managerData.enableClearHistory;
@@ -120,13 +120,13 @@ export const exportAgentData = (agent: WaldieAgentNode, skipLinks: boolean) => {
     data.speakers = managerData.speakers;
   }
   if (agent.data.agentType === 'rag_user') {
-    const ragUserData = exportRagUserData(agent as WaldieNodeRagUser, skipLinks);
+    const ragUserData = exportRagUserData(agent as WaldiezNodeRagUser, skipLinks);
     data.retrieveConfig = ragUserData;
   }
   return data;
 };
 /* eslint-disable complexity */
-const exportRagUserData = (agent: WaldieNodeRagUser, skipLinks: boolean) => {
+const exportRagUserData = (agent: WaldiezNodeRagUser, skipLinks: boolean) => {
   const retrieveConfig = agent.data.retrieveConfig as {
     task?: string;
     vectorDb?: string;

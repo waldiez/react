@@ -2,30 +2,30 @@ import { Node, XYPosition } from '@xyflow/react';
 
 import { nanoid } from 'nanoid';
 
-import { WaldieSourceAgentCommonData } from '@waldiez/models/agents/common';
+import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 import {
-  IWaldieSourceUserProxyOrAssistant,
-  IWaldieSourceUserProxyOrAssistantData,
-  WaldieAgentCodeExecutionConfig,
-  WaldieAgentHumanInputMode,
-  WaldieAgentLinkedSkill,
-  WaldieAgentNestedChat,
-  WaldieAgentNodeType,
-  WaldieAgentTeachability,
-  WaldieAgentTerminationMessageCheck,
-  WaldieNodeUserProxyOrAssistant,
-  WaldieNodeUserProxyOrAssistantData
+  IWaldiezSourceUserProxyOrAssistant,
+  IWaldiezSourceUserProxyOrAssistantData,
+  WaldiezAgentCodeExecutionConfig,
+  WaldiezAgentHumanInputMode,
+  WaldiezAgentLinkedSkill,
+  WaldiezAgentNestedChat,
+  WaldiezAgentNodeType,
+  WaldiezAgentTeachability,
+  WaldiezAgentTerminationMessageCheck,
+  WaldiezNodeUserProxyOrAssistant,
+  WaldiezNodeUserProxyOrAssistantData
 } from '@waldiez/models/types';
 
-export class WaldieSourceUserProxyOrAssistant implements IWaldieSourceUserProxyOrAssistant {
+export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProxyOrAssistant {
   id: string;
-  data: IWaldieSourceUserProxyOrAssistantData;
+  data: IWaldiezSourceUserProxyOrAssistantData;
   rest: { [key: string]: unknown };
   agentType: 'user' | 'assistant';
 
   constructor(
     id: string,
-    data: IWaldieSourceUserProxyOrAssistantData,
+    data: IWaldiezSourceUserProxyOrAssistantData,
     rest: { [key: string]: unknown } = {}
   ) {
     this.id = id;
@@ -34,7 +34,7 @@ export class WaldieSourceUserProxyOrAssistant implements IWaldieSourceUserProxyO
     this.agentType = data.agentType;
   }
 
-  asNode(position?: XYPosition): WaldieNodeUserProxyOrAssistant {
+  asNode(position?: XYPosition): WaldiezNodeUserProxyOrAssistant {
     // if position is provided, use it
     // otherwise check if self.rest has position
     let pos = { x: 20, y: 20 };
@@ -50,14 +50,14 @@ export class WaldieSourceUserProxyOrAssistant implements IWaldieSourceUserProxyO
       label: this.data.name
     } as { [key: string]: unknown };
     delete agentData.name;
-    const data = agentData as WaldieNodeUserProxyOrAssistantData;
+    const data = agentData as WaldiezNodeUserProxyOrAssistantData;
     return {
       id: this.id,
       type: 'agent' as const,
       data: data,
       position: pos,
       ...this.rest
-    } as Node<WaldieNodeUserProxyOrAssistantData, 'agent'>;
+    } as Node<WaldiezNodeUserProxyOrAssistantData, 'agent'>;
   }
   static getId = (json: Record<string, unknown>): string => {
     let id = `wa-${nanoid()}`;
@@ -84,7 +84,7 @@ export class WaldieSourceUserProxyOrAssistant implements IWaldieSourceUserProxyO
   };
   static getAgentType = (
     json: Record<string, unknown>,
-    fallback: WaldieAgentNodeType
+    fallback: WaldiezAgentNodeType
   ): 'user' | 'assistant' => {
     let agentType = fallback;
     if (
@@ -98,38 +98,38 @@ export class WaldieSourceUserProxyOrAssistant implements IWaldieSourceUserProxyO
   };
   static fromJSON = (
     json: unknown,
-    agentType: WaldieAgentNodeType,
+    agentType: WaldiezAgentNodeType,
     name: string | null = null
-  ): WaldieSourceUserProxyOrAssistant => {
+  ): WaldiezSourceUserProxyOrAssistant => {
     if (!json || typeof json !== 'object') {
-      return new WaldieSourceUserProxyOrAssistant(
+      return new WaldiezSourceUserProxyOrAssistant(
         'wa-' + nanoid(),
-        new WaldieSourceUserProxyOrAssistantData(name ?? 'Agent', agentType as 'user' | 'assistant')
+        new WaldiezSourceUserProxyOrAssistantData(name ?? 'Agent', agentType as 'user' | 'assistant')
       );
     }
     const jsonObject = json as Record<string, unknown>;
     const rest = { ...jsonObject };
-    const id = WaldieSourceUserProxyOrAssistant.getId(rest);
-    const agentNodeType = WaldieSourceUserProxyOrAssistant.getAgentType(jsonObject, agentType);
-    const agentName = WaldieSourceUserProxyOrAssistant.getAgentName(agentNodeType, name, jsonObject);
-    let data: IWaldieSourceUserProxyOrAssistantData;
+    const id = WaldiezSourceUserProxyOrAssistant.getId(rest);
+    const agentNodeType = WaldiezSourceUserProxyOrAssistant.getAgentType(jsonObject, agentType);
+    const agentName = WaldiezSourceUserProxyOrAssistant.getAgentName(agentNodeType, name, jsonObject);
+    let data: IWaldiezSourceUserProxyOrAssistantData;
     if ('data' in jsonObject && typeof jsonObject.data === 'object') {
       delete rest.data;
-      data = WaldieSourceUserProxyOrAssistantData.fromJSON(
+      data = WaldiezSourceUserProxyOrAssistantData.fromJSON(
         jsonObject.data as Record<string, unknown>,
         agentNodeType,
         name
       );
     } else {
-      data = WaldieSourceUserProxyOrAssistantData.fromJSON(jsonObject, agentNodeType, agentName);
+      data = WaldiezSourceUserProxyOrAssistantData.fromJSON(jsonObject, agentNodeType, agentName);
     }
-    return new WaldieSourceUserProxyOrAssistant(id, data, rest);
+    return new WaldiezSourceUserProxyOrAssistant(id, data, rest);
   };
 }
 
-export class WaldieSourceUserProxyOrAssistantData
-  extends WaldieSourceAgentCommonData
-  implements IWaldieSourceUserProxyOrAssistantData
+export class WaldiezSourceUserProxyOrAssistantData
+  extends WaldiezSourceAgentCommonData
+  implements IWaldiezSourceUserProxyOrAssistantData
 {
   agentType: 'user' | 'assistant';
   nestedChats: {
@@ -141,19 +141,19 @@ export class WaldieSourceUserProxyOrAssistantData
     name: string = 'Agent',
     agentType: 'user' | 'assistant' = 'user',
     systemMessage: string | null = null,
-    humanInputMode: WaldieAgentHumanInputMode = 'NEVER',
+    humanInputMode: WaldiezAgentHumanInputMode = 'NEVER',
     description: string = "The agent's description",
     maxTokens: number | null = null,
-    codeExecutionConfig: WaldieAgentCodeExecutionConfig = false,
+    codeExecutionConfig: WaldiezAgentCodeExecutionConfig = false,
     agentDefaultAutoReply: string | null = null,
     maxConsecutiveAutoReply: number | null = null,
-    termination: WaldieAgentTerminationMessageCheck = {
+    termination: WaldiezAgentTerminationMessageCheck = {
       type: 'none',
       keywords: [],
       criterion: null,
       methodContent: null
     },
-    teachability: WaldieAgentTeachability = {
+    teachability: WaldiezAgentTeachability = {
       enabled: false,
       verbosity: 0,
       resetDb: false,
@@ -161,12 +161,12 @@ export class WaldieSourceUserProxyOrAssistantData
       maxMumRetrievals: 0
     },
     modelIds: string[] = [],
-    skills: WaldieAgentLinkedSkill[] = [],
+    skills: WaldiezAgentLinkedSkill[] = [],
     tags: string[] = [],
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
-    nestedChats: WaldieAgentNestedChat[] = []
+    nestedChats: WaldiezAgentNestedChat[] = []
   ) {
     super(
       name,
@@ -192,14 +192,14 @@ export class WaldieSourceUserProxyOrAssistantData
   }
   static fromJSON = (
     data: unknown,
-    agentType: WaldieAgentNodeType,
+    agentType: WaldiezAgentNodeType,
     name: string | null = null
-  ): IWaldieSourceUserProxyOrAssistantData => {
+  ): IWaldiezSourceUserProxyOrAssistantData => {
     if (!data || typeof data !== 'object') {
-      return new WaldieSourceUserProxyOrAssistantData(name ?? 'Agent', agentType as 'user' | 'assistant');
+      return new WaldiezSourceUserProxyOrAssistantData(name ?? 'Agent', agentType as 'user' | 'assistant');
     }
-    const commonData = WaldieSourceAgentCommonData.fromJSON(data, agentType, name);
-    let nestedChats: WaldieAgentNestedChat[] = [];
+    const commonData = WaldiezSourceAgentCommonData.fromJSON(data, agentType, name);
+    let nestedChats: WaldiezAgentNestedChat[] = [];
     if ('nestedChats' in data && Array.isArray(data.nestedChats)) {
       nestedChats = data.nestedChats.filter(
         nc =>
@@ -209,9 +209,9 @@ export class WaldieSourceUserProxyOrAssistantData
           Array.isArray(nc.triggeredBy) &&
           'messages' in nc &&
           Array.isArray(nc.messages)
-      ) as WaldieAgentNestedChat[];
+      ) as WaldiezAgentNestedChat[];
     }
-    return new WaldieSourceUserProxyOrAssistantData(
+    return new WaldiezSourceUserProxyOrAssistantData(
       commonData.name,
       commonData.agentType as 'user' | 'assistant',
       commonData.systemMessage,

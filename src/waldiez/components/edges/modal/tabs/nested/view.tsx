@@ -1,8 +1,8 @@
-import { WaldieEdgeNestedTabViewProps } from '@waldiez/components/edges/modal/tabs/nested/types';
+import { WaldiezEdgeNestedTabViewProps } from '@waldiez/components/edges/modal/tabs/nested/types';
 import { MessageInput } from '@waldiez/components/inputs';
 import { TabItem, TabItems } from '@waldiez/components/tabs';
 
-export const WaldieEdgeNestedTabView = (props: WaldieEdgeNestedTabViewProps) => {
+export const WaldiezEdgeNestedTabView = (props: WaldiezEdgeNestedTabViewProps) => {
   const {
     flowId,
     edgeId,

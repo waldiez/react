@@ -1,4 +1,4 @@
-import { WaldieAgentNodeData, WaldieNodeRagUserData } from '@waldiez/models';
+import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
 export type RagUserAgentConfigTabProps = {
   id: string;
@@ -7,6 +7,6 @@ export type RagUserAgentConfigTabProps = {
   uploadEnabled: boolean;
   filesToUpload: File[];
   setFilesToUpload: (files: File[]) => void;
-  data: WaldieNodeRagUserData;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  data: WaldiezNodeRagUserData;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };

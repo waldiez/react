@@ -1,35 +1,35 @@
 import { nanoid } from 'nanoid';
 
 import {
-  WaldieAgentNodeType,
-  WaldieSourceAssistant,
-  WaldieSourceAssistantData,
-  WaldieSourceGroupManager,
-  WaldieSourceGroupManagerData,
-  WaldieSourceRagUser,
-  WaldieSourceRagUserData,
-  WaldieSourceUserProxy,
-  WaldieSourceUserProxyData
+  WaldiezAgentNodeType,
+  WaldiezSourceAssistant,
+  WaldiezSourceAssistantData,
+  WaldiezSourceGroupManager,
+  WaldiezSourceGroupManagerData,
+  WaldiezSourceRagUser,
+  WaldiezSourceRagUserData,
+  WaldiezSourceUserProxy,
+  WaldiezSourceUserProxyData
 } from '@waldiez/models';
 
-export const getAgentNode = (agentType: WaldieAgentNodeType, position: { x: number; y: number }) => {
+export const getAgentNode = (agentType: WaldiezAgentNodeType, position: { x: number; y: number }) => {
   const nodeId = `wa-${nanoid()}`;
   switch (agentType) {
     case 'user':
-      return new WaldieSourceUserProxy(nodeId, new WaldieSourceUserProxyData(), {
+      return new WaldiezSourceUserProxy(nodeId, new WaldiezSourceUserProxyData(), {
         position
       }).asNode();
     case 'assistant':
-      return new WaldieSourceAssistant(nodeId, new WaldieSourceAssistantData(), {
+      return new WaldiezSourceAssistant(nodeId, new WaldiezSourceAssistantData(), {
         position
       }).asNode();
     case 'manager':
-      return new WaldieSourceGroupManager(nodeId, new WaldieSourceGroupManagerData(), {
+      return new WaldiezSourceGroupManager(nodeId, new WaldiezSourceGroupManagerData(), {
         position
       }).asNode();
     // rag_users are converted from a user node
     case 'rag_user':
-      return new WaldieSourceRagUser(nodeId, new WaldieSourceRagUserData(), {
+      return new WaldiezSourceRagUser(nodeId, new WaldiezSourceRagUserData(), {
         position
       }).asNode();
   }

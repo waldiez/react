@@ -1,20 +1,20 @@
 import { SingleValue } from '@waldiez/components/inputs';
-import { WaldieAgentNode, WaldieAgentNodeData } from '@waldiez/models';
+import { WaldiezAgentNode, WaldiezAgentNodeData } from '@waldiez/models';
 
 export type GroupAgentConfigTabProps = {
   id: string;
-  data: WaldieAgentNodeData;
-  agents: WaldieAgentNode[];
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
-  currentGroupManager: WaldieAgentNode | null;
-  setCurrentGroupManager: (manager: WaldieAgentNode | null) => void;
+  data: WaldiezAgentNodeData;
+  agents: WaldiezAgentNode[];
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
+  currentGroupManager: WaldiezAgentNode | null;
+  setCurrentGroupManager: (manager: WaldiezAgentNode | null) => void;
 };
 export type GroupAgentConfigTabViewProps = {
   id: string;
-  currentGroup: WaldieAgentNode | null;
-  selectedGroup: WaldieAgentNode | null;
-  groupOptions: { label: string; value: WaldieAgentNode }[];
-  onSelectGroupChange: (option: SingleValue<{ label: string; value: WaldieAgentNode }>) => void;
+  currentGroup: WaldiezAgentNode | null;
+  selectedGroup: WaldiezAgentNode | null;
+  groupOptions: { label: string; value: WaldiezAgentNode }[];
+  onSelectGroupChange: (option: SingleValue<{ label: string; value: WaldiezAgentNode }>) => void;
   onJoinGroup: () => void;
   onLeaveGroup: () => void;
 };

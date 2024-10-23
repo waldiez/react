@@ -3,8 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
-import { WaldieNodeModel } from '@waldiez/components';
-import { WaldieProvider } from '@waldiez/store';
+import { WaldiezNodeModel } from '@waldiez/components';
+import { WaldiezProvider } from '@waldiez/store';
 
 const renderModel = (overrides: { [key: string]: any } = {}, openModal: boolean = false) => {
   const modelDataToUse = { ...modelData, ...overrides };
@@ -15,7 +15,7 @@ const renderModel = (overrides: { [key: string]: any } = {}, openModal: boolean 
     position: { x: 0, y: 0 }
   };
   render(
-    <WaldieProvider
+    <WaldiezProvider
       flowId={flowId}
       storageId="test-storage"
       name="flow name"
@@ -27,7 +27,7 @@ const renderModel = (overrides: { [key: string]: any } = {}, openModal: boolean 
       createdAt={createdAt}
       updatedAt={updatedAt}
     >
-      <WaldieNodeModel
+      <WaldiezNodeModel
         id={modelId}
         data={{ ...modelDataToUse, label: modelData.name }}
         type="model"
@@ -37,7 +37,7 @@ const renderModel = (overrides: { [key: string]: any } = {}, openModal: boolean 
         positionAbsoluteX={0}
         positionAbsoluteY={0}
       />
-    </WaldieProvider>
+    </WaldiezProvider>
   );
   if (openModal) {
     const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
@@ -45,7 +45,7 @@ const renderModel = (overrides: { [key: string]: any } = {}, openModal: boolean 
   }
 };
 
-describe('WaldieModelNode', () => {
+describe('WaldiezModelNode', () => {
   it('should render', () => {
     renderModel();
     const labelElement = screen.getByTestId(`node-label-${modelId}`);
@@ -114,7 +114,7 @@ describe('WaldieModelNode', () => {
     ]);
   });
 });
-describe('WaldieModelNode with branches', () => {
+describe('WaldiezModelNode with branches', () => {
   // handle null values/branches in advanced and price tabs
   it('should handle null temperature', () => {
     renderModel({ temperature: null });

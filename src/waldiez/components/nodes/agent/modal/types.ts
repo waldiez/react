@@ -1,36 +1,36 @@
 import {
-  WaldieAgentNode,
-  WaldieAgentNodeData,
-  WaldieAgentNodeType,
-  WaldieEdge,
-  WaldieModelNode,
-  WaldieSkillNode
+  WaldiezAgentNode,
+  WaldiezAgentNodeData,
+  WaldiezAgentNodeType,
+  WaldiezEdge,
+  WaldiezModelNode,
+  WaldiezSkillNode
 } from '@waldiez/models';
 
-export type WaldieNodeAgentModalProps = {
+export type WaldiezNodeAgentModalProps = {
   flowId: string;
   id: string;
   isNodeModalOpen: boolean;
   isDarkMode: boolean;
   canUploadFiles: boolean;
-  currentGroupManager: WaldieAgentNode | null;
-  data: WaldieAgentNodeData;
-  models: WaldieModelNode[];
-  skills: WaldieSkillNode[];
-  agents: WaldieAgentNode[];
+  currentGroupManager: WaldiezAgentNode | null;
+  data: WaldiezAgentNodeData;
+  models: WaldiezModelNode[];
+  skills: WaldiezSkillNode[];
+  agents: WaldiezAgentNode[];
   agentConnections: {
     source: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
     target: {
-      nodes: WaldieAgentNode[];
-      edges: WaldieEdge[];
+      nodes: WaldiezAgentNode[];
+      edges: WaldiezEdge[];
     };
   };
-  setCurrentGroupManager: (manager: WaldieAgentNode | null) => void;
-  onAgentTypeChange: (type: WaldieAgentNodeType) => void;
-  onDataChange: (partialData: Partial<WaldieAgentNodeData>, persist?: boolean) => void;
+  setCurrentGroupManager: (manager: WaldiezAgentNode | null) => void;
+  onAgentTypeChange: (type: WaldiezAgentNodeType) => void;
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
   onCloseNodeModal: () => void;
   onCancel: () => void;
   onSubmit: (filesToUpload: File[]) => void;
