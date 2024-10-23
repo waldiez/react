@@ -6,15 +6,6 @@ import ReactDOM from 'react-dom/client';
 
 const isProd = import.meta.env.PROD;
 
-/**
- * Monaco Editor
- */
-// DEV: downloaded in `public/vs` folder (.gitignored)
-// PROD:
-//  either served and `VITE_VS_PATH` is set to the path, or
-//  use the default cdn (jsdelivr) that monaco loader uses
-const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
-
 // the actions should be handled by other components
 // that use `Waldie` as a child component
 
@@ -33,6 +24,20 @@ const onChange = null;
 // reset `inputPrompt` to `null` to remove/hide the modal
 // these two props are used to show a modal to the user
 // and get the user input
+// Example:
+//
+// const [ inputPrompt, setInputPrompt ] = useState<{
+//   previousMessages: string[];
+//   prompt: string;
+// } | null>(null);
+//
+// const onUserInput = (input: string) => {
+//   const allMessages = input.split('\n');
+//   const previousMessages = allMessages.slice(0, allMessages.length - 1);
+//   const prompt = allMessages[allMessages.length - 1];
+//   setInputPrompt({ previousMessages, prompt });
+// };
+
 // const inputPrompt = {
 //   previousMessages: ['Hello, World!', 'How\n are you?'],
 //   prompt: 'What is your name?'
@@ -83,6 +88,15 @@ const onUploadDev = (files: File[]) => {
   });
 };
 const onUpload = isProd ? null : onUploadDev;
+
+/**
+ * Monaco Editor
+ */
+// DEV: downloaded in `public/vs` folder (.gitignored)
+// PROD:
+//  either served and `VITE_VS_PATH` is set to the path, or
+//  use the default cdn (jsdelivr) that monaco loader uses
+const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
 /**
  * Other props:
  *  we can use:
@@ -98,6 +112,7 @@ const onUpload = isProd ? null : onUploadDev;
  *    - createdAt?: string;
  *    - updatedAt?: string;
  */
+
 export const startApp = () => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
