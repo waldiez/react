@@ -3,7 +3,7 @@ import { Edge } from '@xyflow/react';
 import { IWaldiezMessage } from '@waldiez/models/types/waldiezMessage';
 
 /**
- * Waldie Edge Llm Summary Method.
+ * Waldiez Edge Llm Summary Method.
  * @param reflection_with_llm - Use reflection with llm summary method
  * @param last_msg - Use last message summary method
  * @param null - No summary method
@@ -11,7 +11,7 @@ import { IWaldiezMessage } from '@waldiez/models/types/waldiezMessage';
 export type WaldiezEdgeLlmSummaryMethod = 'reflection_with_llm' | 'last_msg' | null;
 
 /**
- * Waldie Edge Data.
+ * Waldiez Edge Data.
  * @param description - The description of the edge
  * @param position - The position of the edge
  * @param order - The order of the edge
@@ -43,7 +43,7 @@ export type WaldiezEdgeDataCommon = {
 };
 
 /**
- * Waldie Edge Data.
+ * Waldiez Edge Data.
  * @param label - The label of the edge
  * @see WaldiezEdgeDataCommon
  */
@@ -56,7 +56,7 @@ export type WaldiezEdgeType = 'chat' | 'group' | 'nested' | 'hidden';
 export type WaldiezEdge = Edge<WaldiezEdgeData, WaldiezEdgeType>;
 
 /**
- * Waldie Edge Chat.
+ * Waldiez Edge Chat.
  * @param source - The source of the edge
  * @param target - The target of the edge
  * @param name - The name of the edge
@@ -69,7 +69,7 @@ export interface IWaldiezSourceEdgeData extends WaldiezEdgeDataCommon {
 }
 
 /**
- * Waldie Edge Chat.
+ * Waldiez Edge Chat.
  * @param id - The id of the edge
  * @param data - The data of the edge
  * @param rest - The rest of the edge

@@ -1,5 +1,5 @@
 {
-  "$id": "https://github.com/waldiez/react/tree/v0.1.1/schema.json",
+  "$id": "https://github.com/waldiez/react/tree/v0.1.3/schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
@@ -99,7 +99,7 @@
   },
   "required": ["type", "name", "description", "tags", "requirements", "data"],
   "additionalProperties": false,
-  "description": "Waldie Flow.",
+  "description": "Waldiez Flow.",
   "definitions": {
     "WaldiezUserProxy": {
       "type": "object",
@@ -213,7 +213,7 @@
         "data"
       ],
       "additionalProperties": false,
-      "description": "Waldie User Proxy Agent."
+      "description": "Waldiez User Proxy Agent."
     },
     "WaldiezAgentHumanInputMode": {
       "type": "string",
@@ -499,7 +499,7 @@
         "data"
       ],
       "additionalProperties": false,
-      "description": "Waldie Assistant Agent."
+      "description": "Waldiez Assistant Agent."
     },
     "WaldiezGroupManager": {
       "type": "object",
@@ -624,7 +624,7 @@
         "data"
       ],
       "additionalProperties": false,
-      "description": "Waldie Group Chat Manager Agent."
+      "description": "Waldiez Group Chat Manager Agent."
     },
     "WaldiezGroupManagerSpeakers": {
       "type": "object",
@@ -774,7 +774,7 @@
       },
       "required": ["type", "name", "description", "tags", "requirements", "createdAt", "updatedAt", "data"],
       "additionalProperties": false,
-      "description": "Waldie Model."
+      "description": "Waldiez Model."
     },
     "WaldiezModelAPIType": {
       "type": "string",
@@ -846,7 +846,7 @@
       },
       "required": ["type", "name", "description", "tags", "requirements", "createdAt", "updatedAt", "data"],
       "additionalProperties": false,
-      "description": "Waldie Skill."
+      "description": "Waldiez Skill."
     },
     "WaldiezChat": {
       "type": "object",
@@ -946,7 +946,7 @@
       },
       "required": ["data"],
       "additionalProperties": false,
-      "description": "Waldie Chat."
+      "description": "Waldiez Chat."
     },
     "IWaldiezMessage": {
       "type": "object",
@@ -969,7 +969,7 @@
       },
       "required": ["type", "use_carryover", "content", "context"],
       "additionalProperties": false,
-      "description": "Waldie Message.\n\nA generic message with a type and content.\n\nIf the type is not 'none', the content is a string. If the type is 'method', the content is the code of a method."
+      "description": "Waldiez Message.\n\nA generic message with a type and content.\n\nIf the type is not 'none', the content is a string. If the type is 'method', the content is the code of a method."
     },
     "WaldiezMessageType": {
       "type": "string",
@@ -978,7 +978,7 @@
     "WaldiezEdgeLlmSummaryMethod": {
       "type": ["string", "null"],
       "enum": ["reflection_with_llm", "last_msg", null],
-      "description": "Waldie Edge Llm Summary Method."
+      "description": "Waldiez Edge Llm Summary Method."
     }
   }
 }

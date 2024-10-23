@@ -18,7 +18,7 @@ import { WaldiezState } from '@waldiez/store/types';
 import { WaldiezProps } from '@waldiez/types';
 
 /**
- * Create a Waldie Store
+ * Create a Waldiez Store
  * @param initialProps - WaldiezProps to initialize the store if needed
  * @returns WaldiezState
  */

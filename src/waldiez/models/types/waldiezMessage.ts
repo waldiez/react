@@ -1,6 +1,6 @@
 export type WaldiezMessageType = 'string' | 'method' | 'rag_message_generator' | 'none';
 /**
- * Waldie Message.
+ * Waldiez Message.
  *
  * A generic message with a type and content.
  *

@@ -1,4 +1,4 @@
-// waldie user proxy agent
+// waldiez user proxy agent
 import { Node, XYPosition } from '@xyflow/react';
 
 import { WaldiezAgentCommonData } from '@waldiez/models/types/agents/agent';

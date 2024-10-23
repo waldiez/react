@@ -9,7 +9,7 @@ import {
 } from '@waldiez/models/types';
 
 /**
- * Waldie User Proxy Agent.
+ * Waldiez User Proxy Agent.
  * @param id - The id of the user proxy
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (user)
@@ -38,7 +38,7 @@ export type WaldiezUserProxy = {
 };
 
 /**
- * Waldie Assistant Agent.
+ * Waldiez Assistant Agent.
  * @param id - The id of the assistant
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (assistant)
@@ -67,7 +67,7 @@ export type WaldiezAssistant = {
 };
 
 /**
- * Waldie Group Chat Manager Agent.
+ * Waldiez Group Chat Manager Agent.
  * @param id - The id of the manager
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (manager)
@@ -96,7 +96,7 @@ export type WaldiezGroupManager = {
 };
 
 /**
- * Waldie RAG User.
+ * Waldiez RAG User.
  * @param id - The id of the RAG user
  * @param type - The type of the node in a graph (agent)
  * @param agentType - The type of the agent (RAG user)
@@ -125,7 +125,7 @@ export type WaldiezRagUser = {
 };
 
 /**
- * Waldie Model.
+ * Waldiez Model.
  * @param id - The id of the model
  * @param type - The type of the node in a graph (model)
  * @param name - The name of the model
@@ -152,7 +152,7 @@ export type WaldiezModel = {
 };
 
 /**
- * Waldie Skill.
+ * Waldiez Skill.
  * @param id - The id of the skill
  * @param type - The type of the node in a graph (skill)
  * @param name - The name of the skill
@@ -179,7 +179,7 @@ export type WaldiezSkill = {
 };
 
 /**
- * Waldie Chat.
+ * Waldiez Chat.
  * @param id - The id of the chat
  * @param data - The data of the chat. See {@link WaldiezEdgeData}
  */
@@ -193,7 +193,7 @@ export type WaldiezChat = {
 };
 
 /**
- * Waldie Flow.
+ * Waldiez Flow.
  * @param id - The id of the flow
  * @param storageId - The storage id of the flow
  * @param type - The type of the object (flow)

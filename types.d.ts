@@ -31,7 +31,7 @@ export type WaldiezMessageType = 'string' | 'method' | 'none' | 'last_carryover'
 export type WaldiezEdgeLlmSummaryMethod = 'reflection_with_llm' | 'last_msg' | null;
 
 /**
- * Waldie Schema.
+ * Waldiez Schema.
  */
 export interface HttpsGithubComWaldiezJsTreeV001SchemaJson {
   type: 'flow';
@@ -61,7 +61,7 @@ export interface HttpsGithubComWaldiezJsTreeV001SchemaJson {
   };
 }
 /**
- * Waldie User Proxy Agent.
+ * Waldiez User Proxy Agent.
  */
 export interface WaldiezUserProxy {
   id?: string;
@@ -121,7 +121,7 @@ export interface WaldiezAgentNestedChat {
   }[];
 }
 /**
- * Waldie Assistant Agent.
+ * Waldiez Assistant Agent.
  */
 export interface WaldiezAssistant {
   id?: string;
@@ -147,7 +147,7 @@ export interface WaldiezAssistant {
   };
 }
 /**
- * Waldie Group Chat Manager Agent.
+ * Waldiez Group Chat Manager Agent.
  */
 export interface WaldiezGroupManager {
   id?: string;
@@ -188,7 +188,7 @@ export interface WaldiezGroupManagerSpeakers {
   transitionsType: SpeakerTransitionsType;
 }
 /**
- * Waldie Model.
+ * Waldiez Model.
  */
 export interface WaldiezModel {
   id?: string;
@@ -217,7 +217,7 @@ export interface WaldiezModelPrice {
   completionTokenPricePer1k: number | null;
 }
 /**
- * Waldie Skill.
+ * Waldiez Skill.
  */
 export interface WaldiezSkill {
   id?: string;
@@ -235,7 +235,7 @@ export interface WaldiezSkill {
   };
 }
 /**
- * Waldie Chat.
+ * Waldiez Chat.
  */
 export interface WaldiezChat {
   id?: string;
@@ -255,7 +255,7 @@ export interface WaldiezChat {
   };
 }
 /**
- * Waldie Message.
+ * Waldiez Message.
  *
  * A generic message with a type and content.
  *

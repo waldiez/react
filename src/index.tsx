@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom/client';
 const isProd = import.meta.env.PROD;
 
 // the actions should be handled by other components
-// that use `Waldie` as a child component
+// that use `Waldiez` as a child component
 
 /**
  *OnChange

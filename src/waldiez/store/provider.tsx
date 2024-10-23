@@ -6,7 +6,7 @@ import { WaldiezStoreProps } from '@waldiez/types';
 export type WaldiezProviderProps = React.PropsWithChildren<WaldiezStoreProps>;
 
 /**
- * React Context Provider for Waldie Store
+ * React Context Provider for Waldiez Store
  * @param children - ReactNode
  * @param props - WaldiezProviderProps
  * @returns JSX.Element

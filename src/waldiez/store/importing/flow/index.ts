@@ -12,8 +12,8 @@ const emptyFlow = {
   nodes: [],
   edges: [],
   viewport: { zoom: 1, x: 0, y: 0 },
-  name: 'Waldie Flow',
-  description: 'A waldie flow',
+  name: 'Waldiez Flow',
+  description: 'A waldiez flow',
   tags: [],
   requirements: []
 } as {
@@ -36,8 +36,8 @@ export const importFlow = (thing: any) => {
   };
   const { id, name, description, tags, requirements, createdAt, updatedAt } = getEntryMeta(
     json,
-    'Waldie flow',
-    'A waldie flow'
+    'Waldiez flow',
+    'A waldiez flow'
   );
   let storageId = id;
   if ('storageId' in json && typeof json.storageId === 'string') {

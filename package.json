@@ -2,14 +2,14 @@
     "name": "@waldiez/react",
     "private": false,
     "license": "MIT",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "type": "module",
     "main": "./dist/@waldiez.umd.cjs",
     "module": "./dist/@waldiez.js",
-    "types": "./dist/waldiez.d.ts",
+    "types": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "types": "./dist/waldiez.d.ts",
+            "types": "./dist/index.d.ts",
             "import": "./dist/@waldiez.js",
             "require": "./dist/@waldiez.js"
         },
