@@ -13,7 +13,6 @@
 {
     "@monaco-editor/react": "^4.6.0",
     "@xyflow/react": "^12.3.2",
-    "bun-types": "^1.1.32",
     "nanoid": "^5.0.7",
     "rc-slider": "^11.1.7",
     "react": "^18.3.1",

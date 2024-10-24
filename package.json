@@ -48,7 +48,7 @@
         "clean:lib": "rimraf dist",
         "clean:out": "rimraf out",
         "clean:coverage": "rimraf coverage",
-        "clean:tsbuild": "rimraf *.tsbuildinfo",
+        "clean:tsbuild": "rimraf tsconfig.app.tsbuildinfo tsconfig.node.tsbuildinfo tsconfig.build.tsbuildinfo",
         "clean": "bun clean:lintcache && bun clean:lib && bun clean:coverage && bun clean:out && bun clean:tsbuild",
         "schema": "bun scripts/schema.ts && bun format",
         "test:components": "vitest run",
@@ -71,7 +71,6 @@
     "dependencies": {
         "@monaco-editor/react": "^4.6.0",
         "@xyflow/react": "^12.3.2",
-        "bun-types": "^1.1.32",
         "nanoid": "^5.0.7",
         "rc-slider": "^11.1.7",
         "react": "^18.3.1",
@@ -103,6 +102,7 @@
         "@vitest/coverage-v8": "^2.1.3",
         "@vitest/ui": "^2.1.3",
         "ajv": "^8.17.1",
+        "bun-types": "^1.1.33",
         "eslint": "^9.13.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-import-resolver-typescript": "^3.6.3",
@@ -169,7 +169,7 @@
             "^@waldiez/"
         ]
     },
-    "packageManager": "bun@1.1.32",
+    "packageManager": "bun@1.1.33",
     "publishConfig": {
         "access": "public"
     }
