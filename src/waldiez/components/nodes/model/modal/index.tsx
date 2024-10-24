@@ -22,6 +22,7 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
         <TabItems activeTabIndex={0}>
           <TabItem label="Basic" id={`model-config-basic-${modelId}`}>
             <WaldiezNodeModelModalBasicTab
+              id={modelId}
               data={data}
               onDataChange={onDataChange}
               onLogoChange={onLogoChange}

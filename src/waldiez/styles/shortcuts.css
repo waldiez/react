@@ -26,6 +26,11 @@
   font-style: italic;
 }
 
+.flow-wrapper .flex {
+  display: flex;
+  align-items: center;
+}
+
 .flow-wrapper .flex-column {
   display: flex;
   flex-direction: column;
