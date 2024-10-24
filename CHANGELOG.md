@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.4
+
+- Toggle the model's API key visibility
+
 ## v0.1.3
 
 - Bugfix: Replace `Waldie` with `Waldiez` everywhere
