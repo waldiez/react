@@ -46,7 +46,6 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
   const importAgent = useWaldiezContext(selector => selector.importAgent);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
   const _onSubmit = () => {
-    console.info('onSubmit', filesToUpload);
     onSubmit(filesToUpload);
   };
   const groupManagers = agents.filter(agent => agent.data.agentType === 'manager');
