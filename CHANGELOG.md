@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.6
+
+- Remove `maxTokens` from agents' data
+- Fix bug with nested chats remaining after edge deletion.
+
 ## v0.1.5
 
 - Handle file-drops and uploads
