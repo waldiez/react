@@ -25,9 +25,6 @@ export const BasicAgentConfigTab = (props: BasicAgentConfigTabProps) => {
       onDataChange({ humanInputMode: option.value });
     }
   };
-  const onMaxTokensChange = (value: number | null) => {
-    onDataChange({ maxTokens: value });
-  };
   const onMaxConsecutiveAutoReplyChange = (value: number | null) => {
     onDataChange({ maxConsecutiveAutoReply: value });
   };
@@ -43,7 +40,6 @@ export const BasicAgentConfigTab = (props: BasicAgentConfigTabProps) => {
       onDescriptionChange={onDescriptionChange}
       onSystemMessageChange={onSystemMessageChange}
       onHumanInputModeChange={onHumanInputModeChange}
-      onMaxTokensChange={onMaxTokensChange}
       onMaxConsecutiveAutoReplyChange={onMaxConsecutiveAutoReplyChange}
       onAgentDefaultAutoReplyChange={onAgentDefaultAutoReplyChange}
     />

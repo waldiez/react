@@ -9,7 +9,6 @@ describe('WaldiezSourceAgentCommonData', () => {
     expect(waldieAgentCommonData.systemMessage).toBeNull();
     expect(waldieAgentCommonData.humanInputMode).toEqual('ALWAYS');
     expect(waldieAgentCommonData.description).toEqual('An agent');
-    expect(waldieAgentCommonData.maxTokens).toBeNull();
     expect(waldieAgentCommonData.codeExecutionConfig).toBeFalsy();
     expect(waldieAgentCommonData.agentDefaultAutoReply).toBeNull();
     expect(waldieAgentCommonData.maxConsecutiveAutoReply).toBeNull();
@@ -38,7 +37,6 @@ describe('WaldiezSourceAgentCommonData', () => {
     expect(importedAgent.systemMessage).toBeNull();
     expect(importedAgent.humanInputMode).toEqual(commonDataJson.humanInputMode);
     expect(importedAgent.description).toEqual(commonDataJson.description);
-    expect(importedAgent.maxTokens).toBeNull();
     expect(importedAgent.codeExecutionConfig).toBeFalsy();
     expect(importedAgent.agentDefaultAutoReply).toBeNull();
     expect(importedAgent.maxConsecutiveAutoReply).toBeNull();
@@ -56,15 +54,6 @@ describe('WaldiezSourceAgentCommonData', () => {
     };
     const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithSystemMessage, 'user');
     expect(importedAgent.systemMessage).toEqual('system message');
-  });
-
-  it('should import agent data from json with max tokens', () => {
-    const commonDataJsonWithMaxTokens = {
-      ...commonDataJson,
-      maxTokens: 10
-    };
-    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithMaxTokens, 'user');
-    expect(importedAgent.maxTokens).toEqual(10);
   });
 
   it('should import agent data from json with code execution config object', () => {

@@ -21,7 +21,6 @@ export class WaldiezSourceGroupManagerData
   systemMessage: string | null;
   humanInputMode: WaldiezAgentHumanInputMode;
   description: string;
-  maxTokens: number | null;
   codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
   agentDefaultAutoReply: string | null;
   maxConsecutiveAutoReply: number | null;
@@ -46,7 +45,6 @@ export class WaldiezSourceGroupManagerData
     systemMessage: string | null = null,
     humanInputMode: WaldiezAgentHumanInputMode = 'NEVER',
     description: string = 'A group manager agent',
-    maxTokens: number | null = null,
     codeExecutionConfig: WaldiezAgentCodeExecutionConfig = false,
     agentDefaultAutoReply: string | null = null,
     maxConsecutiveAutoReply: number | null = null,
@@ -89,7 +87,6 @@ export class WaldiezSourceGroupManagerData
       systemMessage,
       humanInputMode,
       description,
-      maxTokens,
       codeExecutionConfig,
       agentDefaultAutoReply,
       maxConsecutiveAutoReply,
@@ -106,7 +103,6 @@ export class WaldiezSourceGroupManagerData
     this.systemMessage = systemMessage;
     this.humanInputMode = humanInputMode;
     this.description = description;
-    this.maxTokens = maxTokens;
     this.codeExecutionConfig = codeExecutionConfig;
     this.agentDefaultAutoReply = agentDefaultAutoReply;
     this.maxConsecutiveAutoReply = maxConsecutiveAutoReply;
@@ -182,7 +178,6 @@ export class WaldiezSourceGroupManagerData
       inherited.systemMessage,
       inherited.humanInputMode,
       inherited.description,
-      inherited.maxTokens,
       inherited.codeExecutionConfig,
       inherited.agentDefaultAutoReply,
       inherited.maxConsecutiveAutoReply,

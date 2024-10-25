@@ -16,7 +16,6 @@ describe('WaldiezSourceUserProxy', () => {
     systemMessage: null,
     humanInputMode: 'ALWAYS',
     description: 'A user proxy agent',
-    maxTokens: null,
     codeExecutionConfig: false,
     agentDefaultAutoReply: null,
     maxConsecutiveAutoReply: null,

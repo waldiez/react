@@ -16,7 +16,6 @@ describe('WaldiezSourceAssistant', () => {
     systemMessage: null,
     humanInputMode: 'NEVER',
     description: 'An assistant agent',
-    maxTokens: null,
     codeExecutionConfig: false,
     agentDefaultAutoReply: null,
     maxConsecutiveAutoReply: null,

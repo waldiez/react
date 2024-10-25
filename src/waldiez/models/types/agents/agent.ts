@@ -41,7 +41,6 @@ export type WaldiezAgentCommonData = {
   systemMessage: string | null;
   humanInputMode: WaldiezAgentHumanInputMode;
   description: string;
-  maxTokens: number | null;
   codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
   agentDefaultAutoReply: string | null;
   maxConsecutiveAutoReply: number | null;

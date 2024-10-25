@@ -16,7 +16,6 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
   systemMessage: string | null;
   humanInputMode: WaldiezAgentHumanInputMode;
   description: string;
-  maxTokens: number | null;
   codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
   agentDefaultAutoReply: string | null;
   maxConsecutiveAutoReply: number | null;
@@ -35,7 +34,6 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
     systemMessage: string | null = null,
     humanInputMode: WaldiezAgentHumanInputMode = 'ALWAYS',
     description: string = 'An agent',
-    maxTokens: number | null = null,
     codeExecutionConfig: WaldiezAgentCodeExecutionConfig = false,
     agentDefaultAutoReply: string | null = null,
     maxConsecutiveAutoReply: number | null = null,
@@ -64,7 +62,6 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
     this.systemMessage = systemMessage;
     this.humanInputMode = humanInputMode;
     this.description = description;
-    this.maxTokens = maxTokens;
     this.codeExecutionConfig = codeExecutionConfig;
     this.agentDefaultAutoReply = agentDefaultAutoReply;
     this.maxConsecutiveAutoReply = maxConsecutiveAutoReply;
@@ -90,7 +87,6 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
     const systemMessage = WaldiezSourceAgentCommonData.getSystemMessage(data);
     const humanInputMode = WaldiezSourceAgentCommonData.getHumanInputMode(data);
     const description = WaldiezSourceAgentCommonData.getDescription(data);
-    const maxTokens = WaldiezSourceAgentCommonData.getMaxTokens(data);
     const codeExecutionConfig = WaldiezSourceAgentCommonData.getCodeExecutionConfig(data);
     const agentDefaultAutoReply = WaldiezSourceAgentCommonData.getAgentDefaultAutoReply(data);
     const maxConsecutiveAutoReply = WaldiezSourceAgentCommonData.getMaximumConsecutiveAutoReply(data);
@@ -109,7 +105,6 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
       systemMessage,
       humanInputMode,
       description,
-      maxTokens,
       codeExecutionConfig,
       agentDefaultAutoReply,
       maxConsecutiveAutoReply,
@@ -144,12 +139,6 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
       return data.description;
     }
     return 'An agent';
-  };
-  private static getMaxTokens = (data: Record<string, unknown>): number | null => {
-    if ('maxTokens' in data && typeof data.maxTokens === 'number') {
-      return data.maxTokens;
-    }
-    return null;
   };
   private static getCodeExecutionConfig = (
     data: Record<string, unknown>

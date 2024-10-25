@@ -11,7 +11,6 @@ export const BasicAgentConfigTabView = (props: BasicAgentConfigTabViewProps) => 
     onDescriptionChange,
     onSystemMessageChange,
     onHumanInputModeChange,
-    onMaxTokensChange,
     onMaxConsecutiveAutoReplyChange,
     onAgentDefaultAutoReplyChange
   } = props;
@@ -57,19 +56,6 @@ export const BasicAgentConfigTabView = (props: BasicAgentConfigTabViewProps) => 
         }}
         onChange={onHumanInputModeChange}
         inputId={`agent-human-input-mode-select-${id}`}
-      />
-      <NumberInput
-        label="Max tokens:"
-        value={data.maxTokens}
-        onChange={onMaxTokensChange}
-        min={0}
-        max={50000}
-        step={1}
-        forceInt
-        setNullOnLower={true}
-        onLowerLabel="Unset"
-        labelInfo="Maximum number of tokens to use for the agent."
-        dataTestId={`agent-max-tokens-input-${id}`}
       />
       <NumberInput
         label="Max consecutive auto reply: "

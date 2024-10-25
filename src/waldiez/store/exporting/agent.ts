@@ -94,7 +94,6 @@ export const exportAgentData = (agent: WaldiezAgentNode, skipLinks: boolean) => 
   const data = {
     systemMessage: agent.data.systemMessage,
     humanInputMode: agent.data.humanInputMode,
-    maxTokens: agent.data.maxTokens,
     codeExecutionConfig: agent.data.codeExecutionConfig,
     agentDefaultAutoReply: agent.data.agentDefaultAutoReply,
     maxConsecutiveAutoReply: agent.data.maxConsecutiveAutoReply,

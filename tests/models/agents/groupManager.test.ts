@@ -15,7 +15,6 @@ describe('WaldiezSourceGroupManager', () => {
     systemMessage: null,
     humanInputMode: 'ALWAYS',
     description: 'A group manager agent',
-    maxTokens: null,
     codeExecutionConfig: false,
     agentDefaultAutoReply: null,
     maxConsecutiveAutoReply: null,

@@ -14,7 +14,6 @@ describe('WaldiezSourceUserProxyOrAssistant', () => {
     systemMessage: null,
     humanInputMode: 'NEVER',
     description: "The agent's description",
-    maxTokens: null,
     codeExecutionConfig: false,
     agentDefaultAutoReply: null,
     maxConsecutiveAutoReply: null,
@@ -86,7 +85,6 @@ describe('WaldiezSourceUserProxyOrAssistant', () => {
     expect(agent.data.name).toBe('Agent');
     expect(agent.data.agentType).toBe('assistant');
     expect(agent.data.createdAt).toBe(createdAt);
-    expect(agent.data.maxTokens).toBeNull();
   });
 
   it('should import an agent wih not a json', () => {

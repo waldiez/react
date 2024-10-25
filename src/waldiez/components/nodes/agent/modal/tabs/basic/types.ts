@@ -15,7 +15,6 @@ export type BasicAgentConfigTabViewProps = {
   onDescriptionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSystemMessageChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onHumanInputModeChange: (option: SingleValue<{ label: string; value: WaldiezAgentHumanInputMode }>) => void;
-  onMaxTokensChange: (value: number | null) => void;
   onMaxConsecutiveAutoReplyChange: (value: number | null) => void;
   onAgentDefaultAutoReplyChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

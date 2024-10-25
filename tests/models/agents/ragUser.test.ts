@@ -13,7 +13,6 @@ describe('WaldiezSourceRagUser', () => {
     systemMessage: null,
     humanInputMode: 'ALWAYS',
     description: 'A rag user agent',
-    maxTokens: null,
     codeExecutionConfig: false,
     agentDefaultAutoReply: null,
     maxConsecutiveAutoReply: null,
