@@ -28,8 +28,7 @@ export const RagUserAgentConfigTab = (props: RagUserAgentConfigTabProps) => {
   };
 
   const handleFilesUpload = (files: File[]) => {
-    const docsPath = data.retrieveConfig.docsPath;
-    const newDocsPath = [...docsPath];
+    const newDocsPath = [...data.retrieveConfig.docsPath];
     const newFilesToUpload = [...filesToUpload];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
@@ -42,6 +41,7 @@ export const RagUserAgentConfigTab = (props: RagUserAgentConfigTabProps) => {
         newFilesToUpload.push(file);
       }
     }
+    setFilesToUpload(newFilesToUpload);
     setRetrieveConfigConfigData({ docsPath: newDocsPath });
   };
   const onFilesUpload = uploadEnabled ? handleFilesUpload : undefined;
