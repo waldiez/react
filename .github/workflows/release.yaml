@@ -16,22 +16,19 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v4
+        - name: Setup bun
+          uses: oven-sh/setup-bun@v2
+        - name: Install dependencies
+          run: bun install
+        - name: Build
+          run: bun build:lib
         - name: Read changelog
           id: changelog
           run: |
-            echo "changelog=$(bun changelog)" >> $GITHUB_ENV
+            changelog=$(bun changelog)
             echo "changelog<<EOF" >> $GITHUB_OUTPUT
-            bun changelog >> $GITHUB_OUTPUT
+            echo "$changelog" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
-        - name: Setup bun
-          if: steps.changelog.outputs.changelog != ''
-          uses: oven-sh/setup-bun@v2
-        - name: Install dependencies
-          if: steps.changelog.outputs.changelog != ''
-          run: bun install
-        - name: Build
-          if: steps.changelog.outputs.changelog != ''
-          run: bun build:lib
         - name: Release
           id: create_release
           if: steps.changelog.outputs.changelog != ''
