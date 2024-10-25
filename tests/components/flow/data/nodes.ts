@@ -62,7 +62,6 @@ const agentNodes: Node[] = edges.map((_, index) => {
       codeExecutionConfig,
       systemMessage: `System Message ${index}`,
       humanInputMode: agentType.includes('user') ? 'ALWAYS' : 'NEVER',
-      maxTokens: 100,
       termination: {
         type: 'keyword',
         keywords: ['keyword1', 'keyword2'],

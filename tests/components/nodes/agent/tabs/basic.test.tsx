@@ -61,18 +61,6 @@ describe('WaldiezAgentNode Basic Modal Tab', () => {
     expect(humanInputModeSelect).toHaveValue('TERMINATE');
     submitAgentChanges();
   });
-  it('Updates the agent max tokens', async () => {
-    renderAgent('user', {
-      openModal: true,
-      dataOverrides: { maxTokens: 100 }
-    });
-
-    const maxTokensInput = screen.getByTestId(`agent-max-tokens-input-${agentId}`);
-    await userEvent.clear(maxTokensInput);
-    await userEvent.type(maxTokensInput, '200');
-    expect(maxTokensInput).toHaveValue(200);
-    submitAgentChanges();
-  });
   it('Updates the agent max consecutive auto reply', async () => {
     renderAgent('user', {
       openModal: true,

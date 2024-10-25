@@ -1,5 +1,5 @@
 {
-  "$id": "https://github.com/waldiez/react/tree/v0.1.4/schema.json",
+  "$id": "https://github.com/waldiez/react/tree/v0.1.5/schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
@@ -148,9 +148,6 @@
             "humanInputMode": {
               "$ref": "#/definitions/WaldiezAgentHumanInputMode"
             },
-            "maxTokens": {
-              "type": ["number", "null"]
-            },
             "codeExecutionConfig": {
               "$ref": "#/definitions/WaldiezAgentCodeExecutionConfig"
             },
@@ -188,7 +185,6 @@
           "required": [
             "systemMessage",
             "humanInputMode",
-            "maxTokens",
             "codeExecutionConfig",
             "agentDefaultAutoReply",
             "maxConsecutiveAutoReply",
@@ -434,9 +430,6 @@
             "humanInputMode": {
               "$ref": "#/definitions/WaldiezAgentHumanInputMode"
             },
-            "maxTokens": {
-              "type": ["number", "null"]
-            },
             "codeExecutionConfig": {
               "$ref": "#/definitions/WaldiezAgentCodeExecutionConfig"
             },
@@ -474,7 +467,6 @@
           "required": [
             "systemMessage",
             "humanInputMode",
-            "maxTokens",
             "codeExecutionConfig",
             "agentDefaultAutoReply",
             "maxConsecutiveAutoReply",
@@ -548,9 +540,6 @@
             "humanInputMode": {
               "$ref": "#/definitions/WaldiezAgentHumanInputMode"
             },
-            "maxTokens": {
-              "type": ["number", "null"]
-            },
             "codeExecutionConfig": {
               "$ref": "#/definitions/WaldiezAgentCodeExecutionConfig"
             },
@@ -597,7 +586,6 @@
           "required": [
             "systemMessage",
             "humanInputMode",
-            "maxTokens",
             "codeExecutionConfig",
             "agentDefaultAutoReply",
             "maxConsecutiveAutoReply",

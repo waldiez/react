@@ -3,7 +3,6 @@ export const commonDataJson = {
   systemMessage: null,
   humanInputMode: 'ALWAYS',
   description: 'An agent',
-  maxTokens: null,
   codeExecutionConfig: false,
   agentDefaultAutoReply: null,
   maxConsecutiveAutoReply: null,

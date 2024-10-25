@@ -22,7 +22,6 @@ export class WaldiezSourceRagUserData
   systemMessage: string | null;
   humanInputMode: WaldiezAgentHumanInputMode;
   description: string;
-  maxTokens: number | null;
   codeExecutionConfig: WaldiezAgentCodeExecutionConfig;
   agentDefaultAutoReply: string | null;
   maxConsecutiveAutoReply: number | null;
@@ -42,7 +41,6 @@ export class WaldiezSourceRagUserData
     systemMessage: string | null = null,
     humanInputMode: WaldiezAgentHumanInputMode = 'ALWAYS',
     description: string = "The agent's description",
-    maxTokens: number | null = null,
     codeExecutionConfig: WaldiezAgentCodeExecutionConfig = false,
     agentDefaultAutoReply: string | null = null,
     maxConsecutiveAutoReply: number | null = null,
@@ -74,7 +72,6 @@ export class WaldiezSourceRagUserData
       systemMessage,
       humanInputMode,
       description,
-      maxTokens,
       codeExecutionConfig,
       agentDefaultAutoReply,
       maxConsecutiveAutoReply,
@@ -91,7 +88,6 @@ export class WaldiezSourceRagUserData
     this.systemMessage = systemMessage;
     this.humanInputMode = humanInputMode;
     this.description = description;
-    this.maxTokens = maxTokens;
     this.codeExecutionConfig = codeExecutionConfig;
     this.agentDefaultAutoReply = agentDefaultAutoReply;
     this.maxConsecutiveAutoReply = maxConsecutiveAutoReply;

@@ -21,7 +21,6 @@ export class WaldiezSourceRagUser extends WaldiezSourceAgentCommonData implement
       data.systemMessage,
       data.humanInputMode,
       data.description,
-      data.maxTokens,
       data.codeExecutionConfig,
       data.agentDefaultAutoReply,
       data.maxConsecutiveAutoReply,
