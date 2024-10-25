@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.5
+
+- Handle file-drops and uploads
+
 ## v0.1.4
 
 - Toggle the model's API key visibility
