@@ -32,8 +32,8 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: ${{ github.ref }}
-            name: Release ${{ github.ref }}
+            tag_name: ${{ github.ref_name }}
+            name: Release ${{ github.ref_name }}
             # body: the changelog
             body: ${{ steps.changelog.outputs.changelog }}
             draft: false
