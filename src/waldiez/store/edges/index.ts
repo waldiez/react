@@ -80,10 +80,10 @@ export class EdgesStore {
     return sourceNode as WaldiezAgentNode;
   };
   static deleteEdge: (edgeId: string, get: typeOfGet, set: typeOfSet) => void = (edgeId, get, set) => {
-    const agentNodes = get().nodes.filter(
-      node => node.data.agentType === 'user' || node.data.agentType === 'assistant'
+    const nodesWithNestedChats = get().nodes.filter(
+      node => node.type === 'agent' && node.data.agentType !== 'manager'
     );
-    const newAgentNodes = agentNodes.map(agentNode => {
+    const newNodesWithNestedChats = nodesWithNestedChats.map(agentNode => {
       const nestedChats = (agentNode.data as WaldiezNodeUserProxyOrAssistantData).nestedChats;
       return {
         ...agentNode,
@@ -99,10 +99,10 @@ export class EdgesStore {
         }
       };
     });
-    const notAgentNodes = get().nodes.filter(
-      node => node.data.agentType !== 'user' && node.data.agentType !== 'assistant'
+    const nodesWithoutNestedChats = get().nodes.filter(
+      node => node.type !== 'agent' || node.data.agentType === 'manager'
     );
-    const nodes = [...newAgentNodes, ...notAgentNodes];
+    const nodes = [...newNodesWithNestedChats, ...nodesWithoutNestedChats];
     const newEdges = get().edges.filter(edge => edge.id !== edgeId);
     set({
       nodes,
