@@ -15,6 +15,10 @@ public/monaco_latest_version
 .DS_Store
 # glob patterns
 **/.local
+**/*.local
+**/*.env
+**/*.env.*
+!.env.example
 **/*.tgz
 **/node_modules/
 **/dist/
