@@ -19,7 +19,9 @@ export const ModelsAgentConfigTabView = (props: ModelsAgentConfigTabViewProps) =
   return (
     <div className="agent-panel agent-models-panel" data-testid="agent-models-panel">
       {models.length === 0 ? (
-        <div className="select-models-label">No models found in the workspace</div>
+        <div className="select-models-label margin-top-20 margin-bottom-20">
+          No models found in the workspace
+        </div>
       ) : (
         <>
           <div className="select-models-label">

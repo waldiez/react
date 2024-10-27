@@ -32,6 +32,8 @@ export type MessageInputViewProps = {
 };
 const carryOverInfo = (
   <div>
+    <div>This should not be checked if this is the first message in the flow.</div>
+    <br />
     Append the context's last carryover to the message.
     <br />
     Example final message:

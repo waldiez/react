@@ -20,7 +20,7 @@ export const SkillsAgentConfigTabView = (props: SkillsAgentConfigTabViewProps) =
   return (
     <div className="agent-panel agent-skills-panel">
       {skills.length === 0 ? (
-        <div className="agent-no-skills">No skills found in the workspace</div>
+        <div className="agent-no-skills margin-top-20 margin-bottom-20">No skills found in the workspace</div>
       ) : (
         <>
           <div className="agent-panel-add-skill">

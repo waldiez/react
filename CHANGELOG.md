@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.1.7
+
+- Updated info tooltips and views
+- Added CODE_OF_CONDUCT.md
+- Added CODEOWNERS
+- Added CONTRIBUTING.md
+
 ## v0.1.6
 
 - Remove `maxTokens` from agents' data

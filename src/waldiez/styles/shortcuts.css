@@ -8,6 +8,10 @@
   height: 0;
 }
 
+.flow-wrapper label.hidden {
+  display: block !important;
+}
+
 .flow-wrapper .full-width {
   width: 100%;
 }
@@ -71,6 +75,10 @@
 
 .flow-wrapper .margin-right-10 {
   margin-right: 10px;
+}
+
+.flow-wrapper .margin-top-20 {
+  margin-top: 20px;
 }
 
 .flow-wrapper .margin-top-10 {

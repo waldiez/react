@@ -1,4 +1,4 @@
-import { NumberInput, Select, TextInput } from '@waldiez/components/inputs';
+import { InfoCheckbox, NumberInput, Select, TextInput } from '@waldiez/components/inputs';
 import { CodeExecutionAgentConfigTabViewProps } from '@waldiez/components/nodes/agent/modal/tabs/codeExecution/types';
 
 export const CodeExecutionAgentConfigTabView = (props: CodeExecutionAgentConfigTabViewProps) => {
@@ -30,16 +30,15 @@ export const CodeExecutionAgentConfigTabView = (props: CodeExecutionAgentConfigT
         })) ?? ([] as { label: string; value: string }[]));
   return (
     <div className="agent-panel agent-codeExecution-panel">
-      <label className="checkbox-label codeExecution-checkbox">
-        <div>No Code Execution</div>
-        <input
-          type="checkbox"
-          defaultChecked={data.codeExecutionConfig === false}
-          onChange={onUseCodeExecutionChange}
-          data-testid={`agent-code-execution-toggle-${id}`}
-        />
-        <div className="checkbox"></div>
-      </label>
+      <InfoCheckbox
+        label={'Use Code Execution'}
+        info={
+          'Whether the agent is capable of executing code. If set to True,  the user can select the directory to execute the code and whether to use docker (recommended).'
+        }
+        checked={data.codeExecutionConfig !== false}
+        onChange={onUseCodeExecutionChange}
+        dataTestId={`agent-code-execution-toggle-${id}`}
+      />
       {data.codeExecutionConfig !== false && (
         <div className="agent-node-codeExecution-options">
           <TextInput
@@ -79,16 +78,18 @@ export const CodeExecutionAgentConfigTabView = (props: CodeExecutionAgentConfigT
             labelInfo="Maximum time in seconds to wait for code execution. If set to 0, no timeout will be used."
             dataTestId={`agent-code-execution-timeout-${id}`}
           />
-          <label className="checkbox-label codeExecution-use-docker-checkbox">
-            <div> Use docker</div>
-            <input
-              type="checkbox"
-              checked={data.codeExecutionConfig?.useDocker === true}
-              onChange={onCodeExecutionUseDockerChange}
-              data-testid={`agent-code-execution-use-docker-${id}`}
-            />
-            <div className="checkbox"></div>
-          </label>
+          <div className="margin-top-10 margin-bottom-10">
+            <label className="checkbox-label codeExecution-use-docker-checkbox">
+              <div> Use docker</div>
+              <input
+                type="checkbox"
+                checked={data.codeExecutionConfig?.useDocker === true}
+                onChange={onCodeExecutionUseDockerChange}
+                data-testid={`agent-code-execution-use-docker-${id}`}
+              />
+              <div className="checkbox"></div>
+            </label>
+          </div>
           {!data.codeExecutionConfig?.useDocker && skills.length > 0 && (
             <div className="codeExecution-functions">
               <div className="agent-node-functions">

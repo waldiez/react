@@ -1,4 +1,4 @@
-import { Editor, Select } from '@waldiez/components/inputs';
+import { Editor, InfoLabel, Select } from '@waldiez/components/inputs';
 import { GroupManagerSpeakersTransitionView } from '@waldiez/components/nodes/agent/modal/tabs/groupManager/view/speakersTransition';
 import { GroupManagerSpeakersTabViewProps } from '@waldiez/components/nodes/agent/modal/tabs/groupManager/view/types';
 import { WaldiezGroupManagerSpeakerSelectionMethodOption } from '@waldiez/types';
@@ -110,7 +110,45 @@ export const GroupManagerSpeakersTabView = (props: GroupManagerSpeakersTabViewPr
           onTransitionsTargetsChange={onTransitionsTargetsChange}
         />
       )}
-      <label htmlFor={`manager-speaker-selection-method-${id}`}>Speaker Selection Method:</label>
+      <InfoLabel
+        label="Speaker Selection Method:"
+        info={() => (
+          <>
+            The method for selecting the next speaker. Default is "auto". Could be any of the following:
+            <ul>
+              <li>
+                <strong>"Auto"</strong>: the next speaker is selected automatically by LLM.
+              </li>
+              <li>
+                <strong>"Manual"</strong>: the next speaker is selected manually by user input.
+              </li>
+              <li>
+                <strong>"Random"</strong>: the next speaker is selected randomly.
+              </li>
+              <li>
+                <strong>"Round Robin"</strong>: the next speaker is selected in a round robin fashion, i.e.,
+                iterating in the same order as provided in agents.
+              </li>
+              <li>
+                <strong>"Custom Method"</strong>: A customized speaker selection function (Callable): the
+                function will be called to select the next speaker. The function should take the last speaker
+                and the group chat as input and return one of the following:
+                <ul>
+                  <li>an Agent class, it must be one of the agents in the group chat.</li>
+                  <li>
+                    a string from ['auto', 'manual', 'random', 'round_robin'] to select a default method to
+                    use.
+                  </li>
+                  <li>None, which would terminate the conversation gracefully.</li>
+                </ul>
+              </li>
+            </ul>
+          </>
+        )}
+      />
+      <label className="hidden" htmlFor={`manager-speaker-selection-method-${id}`}>
+        Speaker Selection Method:
+      </label>
       <Select
         options={speakerSelectionOptions}
         value={{

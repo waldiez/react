@@ -1,4 +1,4 @@
-import { Editor, Select, StringList } from '@waldiez/components/inputs';
+import { Editor, InfoLabel, Select, StringList } from '@waldiez/components/inputs';
 import { TerminationAgentConfigTabViewProps } from '@waldiez/components/nodes/agent/modal/tabs/termination/types';
 
 export const TerminationAgentConfigTabView = (props: TerminationAgentConfigTabViewProps) => {
@@ -19,7 +19,13 @@ export const TerminationAgentConfigTabView = (props: TerminationAgentConfigTabVi
       : DEFAULT_IS_TERMINATION_MESSAGE_METHOD_CONTENT;
   return (
     <>
-      <label htmlFor={`termination-type-${id}`}>Termination Type:</label>
+      <InfoLabel
+        label="Termination:"
+        info="After receiving each message, the agent will send a reply to the sender unless the termination condition is met. A termination condition can be a keyword or a custom method."
+      />
+      <label className="hidden" htmlFor={`termination-type-${id}`}>
+        Termination Type:
+      </label>
       <Select
         options={terminationTypeOptions}
         value={{

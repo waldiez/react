@@ -1,4 +1,4 @@
-import { InfoCheckbox, NumberInput, Select, TextInput } from '@waldiez/components/inputs';
+import { InfoCheckbox, InfoLabel, NumberInput, Select, TextInput } from '@waldiez/components/inputs';
 import { BasicAgentConfigTabViewProps } from '@waldiez/components/nodes/agent/modal/tabs/basic/types';
 import { WaldiezAgentHumanInputMode } from '@waldiez/types';
 
@@ -47,7 +47,34 @@ export const BasicAgentConfigTabView = (props: BasicAgentConfigTabViewProps) => 
         onChange={onSystemMessageChange}
         data-testid={`agent-system-message-input-${id}`}
       />
-      <label htmlFor={`agent-human-input-mode-select-${id}`}>Human Input mode:</label>
+      <InfoLabel
+        label="Human Input mode:"
+        info={() => (
+          <div>
+            Whether to ask for human inputs every time a message is received. <br />
+            Possible values are: <br />
+            <ul>
+              <li>
+                <b>Always:</b> the agent prompts for human input every time a message is received. Under this
+                mode, the conversation stops when the human input is "exit", or when is_termination_msg is
+                True and there is no human input.
+              </li>
+              <li>
+                <b>Terminate:</b> the agent only prompts for human input only when a termination message is
+                received or the number of auto reply reaches the max_consecutive_auto_reply.
+              </li>
+              <li>
+                <b>Never:</b> the agent will never prompt for human input. Under this mode, the conversation
+                stops when the number of auto reply reaches the max_consecutive_auto_reply or when
+                is_termination_msg is True.
+              </li>
+            </ul>
+          </div>
+        )}
+      />
+      <label className="hidden" htmlFor={`agent-human-input-mode-select-${id}`}>
+        Human Input mode:
+      </label>
       <Select
         options={inputMethodOptions}
         value={{
@@ -68,7 +95,7 @@ export const BasicAgentConfigTabView = (props: BasicAgentConfigTabViewProps) => 
         setNullOnLower={false}
         onLowerLabel="No auto reply"
         onUpperLabel="Unset"
-        labelInfo="Maximum number of consecutive auto replies. If set to zero, no auto reply will be generated."
+        labelInfo="The maximum number of consecutive auto replies (i.e., when no code execution or llm-based reply is generated). Default is None (no limit provided). When set to 0, no auto reply will be generated."
         dataTestId={`agent-max-consecutive-auto-reply-input-${id}`}
       />
       <TextInput

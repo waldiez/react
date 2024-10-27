@@ -74,7 +74,9 @@ export const RagUserAgentConfigTabRetrieveConfigView = (
       <div className="flex-column">
         <InfoLabel
           label="Collection Name:"
-          info={'The name of the collection. If not provided, a default name `autogen-docs` will be used.'}
+          info={
+            'The name of the collection to be used in the vector database. If not provided, a default name `autogen-docs` will be used.'
+          }
         />
         <input
           type="text"

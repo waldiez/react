@@ -7,10 +7,10 @@ export const CodeExecutionAgentConfigTab = (props: CodeExecutionAgentConfigTabPr
   const onUseCodeExecutionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onDataChange({
       codeExecutionConfig: event.target.checked
-        ? false
-        : {
+        ? {
             ...data.codeExecutionConfig
           }
+        : false
     });
   };
   const onCodeExecutionWorkDirChange = (event: React.ChangeEvent<HTMLInputElement>) => {
