@@ -29,7 +29,7 @@ describe('WaldiezAgentNode Code Execution Tab', () => {
     goToCodeExecutionTab();
     const toggle = screen.getByTestId(`agent-code-execution-toggle-${agentId}`);
     expect(toggle).toBeInTheDocument();
-    expect(toggle).toBeChecked(); // checked: No code execution
+    expect(toggle).not.toBeChecked(); // no code execution
     submitAgentChanges();
   });
   it('It toggles the code execution', () => {
@@ -40,11 +40,11 @@ describe('WaldiezAgentNode Code Execution Tab', () => {
     goToCodeExecutionTab();
     const toggle = screen.getByTestId(`agent-code-execution-toggle-${agentId}`);
     expect(toggle).toBeInTheDocument();
-    expect(toggle).not.toBeChecked();
-    fireEvent.click(toggle);
     expect(toggle).toBeChecked();
     fireEvent.click(toggle);
     expect(toggle).not.toBeChecked();
+    fireEvent.click(toggle);
+    expect(toggle).toBeChecked();
     submitAgentChanges();
   });
   it('It updates the working directory', async () => {

@@ -82,7 +82,7 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
             />
           </TabItem>
           {isManager && (
-            <TabItem label="Manager" id={`wf-${flowId}-agent-groupManager-${id}`}>
+            <TabItem label="Group Chat" id={`wf-${flowId}-agent-groupManager-${id}`}>
               <GroupManagerConfigNodeTab
                 flowId={flowId}
                 id={id}

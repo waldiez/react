@@ -16,7 +16,14 @@ export const NestedChatsAgentConfigTabMessagesView = (props: NestedChatsAgentCon
     onNestedChatRecipientMovedDown
   } = props;
   return (
-    <>
+    <div className="nested-chat-messages margin-top-10">
+      <div className="info margin-bottom-10">
+        <b>Messages:</b> Specifies which nested chat will be triggered. The final message is returned to the
+        main chat. <br />
+        <b>Agent's Reply:</b> Indicates the recipient of the trigger message. If selected, it is the second in
+        the order. For example, if "User =&gt; Assistant" with the box ticked, the message is sent to the
+        Assistant; otherwise, it is sent to the user.
+      </div>
       <label className="nested-chat-messages-label">Messages:</label>
       <div className="nested-chats-add-message">
         <div className="nested-chat-recipients">
@@ -122,6 +129,6 @@ export const NestedChatsAgentConfigTabMessagesView = (props: NestedChatsAgentCon
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };

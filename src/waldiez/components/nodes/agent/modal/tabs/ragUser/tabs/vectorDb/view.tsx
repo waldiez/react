@@ -33,10 +33,10 @@ export const RagUserAgentConfigTabVectorDbView = (props: RagUserAgentConfigTabVe
           <div>
             The model for embedding. <br />
             The defaults are: <br />
-            Chroma: all-MiniLM-L6-v2; <br />
-            Pgvector: all-MiniLM-L6-v2; <br />
-            MongoDB: all-MiniLM-L6-v2; <br />
-            Qdrant: BAAI/bge-small-en-v1.5.
+            <b>Chroma:</b> all-MiniLM-L6-v2; <br />
+            <b>Pgvector:</b> all-MiniLM-L6-v2; <br />
+            <b>MongoDB:</b> all-MiniLM-L6-v2; <br />
+            <b>Qdrant:</b> BAAI/bge-small-en-v1.5.
           </div>
         )}
       />
@@ -59,7 +59,9 @@ export const RagUserAgentConfigTabVectorDbView = (props: RagUserAgentConfigTabVe
             <>
               <InfoCheckbox
                 label="Use Local Storage "
-                info={'Use local storage for the vector db. Default is True if use_memory is False.'}
+                info={
+                  'Use local storage for the vector db. Default is: True if "Use Memory Storage" is False.'
+                }
                 checked={retrieveConfig.dbConfig.useLocalStorage}
                 onChange={onQdrantUseLocalStorageChange}
                 dataTestId={`rag-vector-db-use-local-storage-${id}`}
@@ -94,7 +96,9 @@ export const RagUserAgentConfigTabVectorDbView = (props: RagUserAgentConfigTabVe
         <>
           <InfoCheckbox
             label="Use Persistent Storage "
-            info={'Use persistent storage for the vector db. Default is False.'}
+            info={
+              'Use persistent storage for the vector db (i.e., whether to store data after closing the session). Default is False.'
+            }
             checked={retrieveConfig.dbConfig.useLocalStorage}
             onChange={onChromaUseLocalStorageChange}
             dataTestId={`rag-vector-db-use-local-storage-${id}`}

@@ -48,8 +48,8 @@ export const RagUserAgentConfigTabTextSplitView = (props: RagUserAgentConfigTabT
           label="Chunk Mode:"
           info={
             'The chunk mode for the retrieve chat. ' +
-            'Possible values are "multi_lines" and "one_line". ' +
-            'If not provided, a default mode `multi_lines` will be used.'
+            'Possible values are "Multi Lines" and "One Line". ' +
+            'If not provided, a default mode "Multi Lines" will be used.'
           }
         />
         <label className="hidden" htmlFor={`rag-chunk-mode-${id}`}>

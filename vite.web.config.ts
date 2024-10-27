@@ -1,12 +1,12 @@
 import react from '@vitejs/plugin-react';
+import 'dotenv/config';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import 'dotenv/config';
 
 /* additional config for building a static site (and not a library) */
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
-  const base = process.env['BASE_URL'] || "./";
+  const base = process.env['BASE_URL'] || './';
   const publicDir = command === 'build' ? resolve(__dirname, 'public', 'logo') : resolve(__dirname, 'public');
   return {
     publicDir,
@@ -31,5 +31,5 @@ export default defineConfig(({ command }) => {
       }
     },
     plugins: [react()]
-  }
+  };
 });

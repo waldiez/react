@@ -6,6 +6,10 @@ export const GroupAgentConfigTabView = (props: GroupAgentConfigTabViewProps) => 
     props;
   return (
     <div className="agent-panel agent-group-panel">
+      <div className="info margin-top-20 margin-bottom-10">
+        Whether this agent will become member of a group chat. If a manager agent is selected, the current
+        agent is placed inside the group manager box.
+      </div>
       {!currentGroup ? (
         <div className="agent-panel-select-group">
           <label className="hidden" htmlFor={`agent-select-group-${id}`}>
