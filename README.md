@@ -5,7 +5,7 @@
 ## Requirements
 
 - Node.js
-- bun@1.1.31
+- bun@1.1.33
 
 ## Libraries
 
@@ -163,4 +163,4 @@ startApp();
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/waldiez/react/blob/main/LICENSE) file for details.
