@@ -93,7 +93,7 @@ describe('WaldiezNodeSkill', () => {
             data: skillData
           })
         ],
-        'test.waldieSkill'
+        'test.waldiezSkill'
       )
     ]);
     expect(HTMLDialogElement.prototype.close).toHaveBeenCalled();

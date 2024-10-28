@@ -39,6 +39,7 @@ export default defineConfig(({ command }) => ({
           'react-icons/fa6': 'reactIconsFa6',
           'react-icons/ai': 'reactIconsAi',
           'react-icons/gi': 'reactIconsGi',
+          'react-icons/go': 'reactIconsGo',
           'react-icons/md': 'reactIconsMd',
           '@monaco-editor/react': 'react$1',
           react: 'react',

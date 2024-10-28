@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.8
+
+- Import/export: Add missing 'z' to 'WaldiezModel', 'WaldiezSkill', 'WaldiezAgent'
+- Dependency updates
+
 ## v0.1.7
 
 - Updated info tooltips and views

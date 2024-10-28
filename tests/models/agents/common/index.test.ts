@@ -3,32 +3,32 @@ import { commonDataJson } from './data';
 import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 
 describe('WaldiezSourceAgentCommonData', () => {
-  const waldieAgentCommonData: WaldiezSourceAgentCommonData = new WaldiezSourceAgentCommonData();
+  const waldiezAgentCommonData: WaldiezSourceAgentCommonData = new WaldiezSourceAgentCommonData();
   it('should have the correct default values', () => {
-    expect(waldieAgentCommonData.name).toEqual('Agent');
-    expect(waldieAgentCommonData.systemMessage).toBeNull();
-    expect(waldieAgentCommonData.humanInputMode).toEqual('ALWAYS');
-    expect(waldieAgentCommonData.description).toEqual('An agent');
-    expect(waldieAgentCommonData.codeExecutionConfig).toBeFalsy();
-    expect(waldieAgentCommonData.agentDefaultAutoReply).toBeNull();
-    expect(waldieAgentCommonData.maxConsecutiveAutoReply).toBeNull();
-    expect(waldieAgentCommonData.termination).toEqual({
+    expect(waldiezAgentCommonData.name).toEqual('Agent');
+    expect(waldiezAgentCommonData.systemMessage).toBeNull();
+    expect(waldiezAgentCommonData.humanInputMode).toEqual('ALWAYS');
+    expect(waldiezAgentCommonData.description).toEqual('An agent');
+    expect(waldiezAgentCommonData.codeExecutionConfig).toBeFalsy();
+    expect(waldiezAgentCommonData.agentDefaultAutoReply).toBeNull();
+    expect(waldiezAgentCommonData.maxConsecutiveAutoReply).toBeNull();
+    expect(waldiezAgentCommonData.termination).toEqual({
       type: 'none',
       keywords: [],
       criterion: null,
       methodContent: null
     });
-    expect(waldieAgentCommonData.teachability).toEqual({
+    expect(waldiezAgentCommonData.teachability).toEqual({
       enabled: false,
       verbosity: 0,
       resetDb: false,
       recallThreshold: 0,
       maxMumRetrievals: 0
     });
-    expect(waldieAgentCommonData.modelIds).toEqual([]);
-    expect(waldieAgentCommonData.skills).toEqual([]);
-    expect(waldieAgentCommonData.tags).toEqual([]);
-    expect(waldieAgentCommonData.requirements).toEqual([]);
+    expect(waldiezAgentCommonData.modelIds).toEqual([]);
+    expect(waldiezAgentCommonData.skills).toEqual([]);
+    expect(waldiezAgentCommonData.tags).toEqual([]);
+    expect(waldiezAgentCommonData.requirements).toEqual([]);
   });
 
   it('should import agent data from json', () => {
