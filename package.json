@@ -2,7 +2,7 @@
     "name": "@waldiez/react",
     "private": false,
     "license": "MIT",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "type": "module",
     "main": "./dist/@waldiez.umd.cjs",
     "module": "./dist/@waldiez.js",
