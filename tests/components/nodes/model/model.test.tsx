@@ -109,7 +109,7 @@ describe('WaldiezModelNode', () => {
             data: modelData
           })
         ],
-        'test.waldieModel'
+        'test.waldiezModel'
       )
     ]);
   });

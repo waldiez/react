@@ -17,7 +17,7 @@ export const getImportExportView: (
         id={`file-upload-${itemTypeLower}-${flowId}-${itemId}`}
         data-testid={`file-upload-${itemTypeLower}-${flowId}-${itemId}`}
         type="file"
-        accept={`.waldie${itemTypeCapitalized}`}
+        accept={`.waldiez${itemTypeCapitalized}`}
         onChange={onImport}
         className="hidden"
       />
@@ -57,7 +57,7 @@ export const exportItem = (
     const itemTypeCapitalized = itemType.charAt(0).toUpperCase() + itemType.slice(1);
     const itemString = JSON.stringify(item, null, 2);
     const blob = new Blob([itemString], { type: 'application/json' });
-    openDownloadLink(blob, `${name}.waldie${itemTypeCapitalized}`);
+    openDownloadLink(blob, `${name}.waldiez${itemTypeCapitalized}`);
   }
 };
 

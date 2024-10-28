@@ -49,7 +49,7 @@ describe('WaldiezAgentNode', () => {
       name: 'User',
       data: { ...(agentData as any) }
     };
-    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldieAgent')]);
+    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
     vi.advanceTimersByTime(100);
     expect(labelView).toHaveTextContent('User');
     submitAgentChanges();
@@ -67,7 +67,7 @@ describe('WaldiezAgentNode', () => {
       name: 'Assistant',
       data: { ...(agentData as any) }
     };
-    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldieAgent')]);
+    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
     expect(labelView).toHaveTextContent('Assistant');
     submitAgentChanges();
   });
@@ -84,7 +84,7 @@ describe('WaldiezAgentNode', () => {
       name: 'Manager',
       data: { ...(agentData as any) }
     };
-    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldieAgent')]);
+    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
     expect(labelView).toHaveTextContent('Manager');
     submitAgentChanges();
   });
@@ -102,7 +102,7 @@ describe('WaldiezAgentNode', () => {
       name: 'Rag User',
       data: { ...(agentData as any) }
     };
-    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldieAgent')]);
+    await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
     expect(labelView).toHaveTextContent('RAG User');
     submitAgentChanges();
   });
