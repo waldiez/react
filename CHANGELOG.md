@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.9
+
+- Fix #31: "Group chat: enable clear history not toggled"
+- Minor styling changes
+- Update dependencies
+
 ## v0.1.8
 
 - Import/export: Add missing 'z' to 'WaldiezModel', 'WaldiezSkill', 'WaldiezAgent'
