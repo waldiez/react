@@ -39,7 +39,7 @@ export const GroupManagerConfigTabView = (props: GroupManagerConfigTabViewProps)
       </div>
       <InfoCheckbox
         label="Enable clear history"
-        checked={data.enableClearHistory === false}
+        checked={data.enableClearHistory === true}
         info="Enable the possibility to clear history of messages for agents manually by providing 'clear history' phrase in user prompt."
         onChange={onEnableClearHistoryChange}
         dataTestId={`manager-enable-clear-history-checkbox-${id}`}
