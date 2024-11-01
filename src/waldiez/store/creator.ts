@@ -257,7 +257,7 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
             ['edges', '*', 'data', 'position'],
             ['viewport', 'x'],
             ['viewport', 'y']
-          ];
+          ]; // we must test this, we might have false positives
 
           const equal = !diffs.some(
             diff =>
