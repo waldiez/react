@@ -10,6 +10,7 @@ import {
 } from '@xyflow/react';
 
 import { KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { WaldiezFlowProps } from '@waldiez/components/flow/types';
 import { WaldiezFlowView } from '@waldiez/components/flow/view';
@@ -26,6 +27,20 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
   const darkTheme = isDarkMode(flowId, storageId);
   const [isDark, setIsDark] = useState<boolean>(darkTheme);
   const [isModalOpen, setModalOpen] = useState(false);
+  useHotkeys(
+    'ctrl+z',
+    () => {
+      console.log('undo');
+    },
+    { scopes: flowId }
+  );
+  useHotkeys(
+    'shift+ctrl+z',
+    () => {
+      console.log('redo');
+    },
+    { scopes: flowId }
+  );
   useEffect(() => {
     store.showNodes('agent');
     setDarkMode(flowId, storageId, isDarkMode(flowId, storageId));
