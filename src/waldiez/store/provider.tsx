@@ -31,6 +31,7 @@ export function WaldiezProvider({
   const updatedAt = props.updatedAt;
   const storageId = props.storageId;
   const onUpload = props.onUpload ?? null;
+  const rfInstance = props.rfInstance;
   if (!storeRef.current) {
     storeRef.current = createWaldiezStore({
       flowId,
@@ -43,6 +44,7 @@ export function WaldiezProvider({
       updatedAt,
       nodes,
       edges,
+      rfInstance,
       onUpload
     });
   }

@@ -1,5 +1,3 @@
-import { ReactFlowInstance } from '@xyflow/react';
-
 import { WaldiezState } from '@waldiez/types';
 
 /**
@@ -7,7 +5,7 @@ import { WaldiezState } from '@waldiez/types';
  * @param store - WaldiezState
  * @returns WaldiezState
  */
-export const selector = (store: WaldiezState & { rfInstance: ReactFlowInstance | null }) => ({
+export const selector = (store: WaldiezState) => ({
   flowId: store.flowId,
   nodes: store.nodes,
   edges: store.edges,

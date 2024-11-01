@@ -14,19 +14,14 @@ import {
 import { EdgesStore } from '@waldiez/store/edges';
 import { FlowStore } from '@waldiez/store/flow';
 import { AgentsStore, ModelsStore, NodesStore, SkillsStore } from '@waldiez/store/nodes';
-import { WaldiezState } from '@waldiez/store/types';
-import { WaldiezProps } from '@waldiez/types';
+import { WaldiezState, WaldiezStoreProps } from '@waldiez/types';
 
 /**
  * Create a Waldiez Store
  * @param initialProps - WaldiezProps to initialize the store if needed
  * @returns WaldiezState
  */
-export const createWaldiezStore = (
-  props?: WaldiezProps & {
-    rfInstance?: ReactFlowInstance | null;
-  }
-) => {
+export const createWaldiezStore = (props?: WaldiezStoreProps) => {
   const {
     flowId = `wf-${nanoid()}`,
     edges = [],
@@ -38,14 +33,14 @@ export const createWaldiezStore = (
     createdAt = new Date().toISOString(),
     updatedAt = new Date().toISOString(),
     viewport = { zoom: 1, x: 50, y: 50 },
-    onUpload = null,
-    rfInstance = null
+    onUpload = null
   } = props || {};
   let { storageId } = props || {};
   if (!storageId) {
     storageId = flowId;
   }
-  return createStore<WaldiezState & { rfInstance?: ReactFlowInstance | null }>()((set, get) => ({
+  const rfInstance = props?.rfInstance;
+  return createStore<WaldiezState>()((set, get) => ({
     rfInstance,
     flowId,
     storageId,
@@ -85,7 +80,7 @@ export const createWaldiezStore = (
     updateEdgeType: (edgeId: string, edgeType: 'chat' | 'nested' | 'group' | 'hidden') => {
       EdgesStore.updateEdgeType(edgeId, edgeType, get, set);
     },
-    updateEdgePath(id, agentType) {
+    updateEdgePath(id: string, agentType: WaldiezAgentNodeType) {
       EdgesStore.updateEdgePath(id, agentType, get, set);
     },
     getEdgeSourceAgent(edge: Edge) {

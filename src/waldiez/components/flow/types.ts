@@ -1,4 +1,4 @@
-import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance, Viewport } from '@xyflow/react';
+import { Edge, EdgeChange, Node, NodeChange, Viewport } from '@xyflow/react';
 
 import { WaldiezNodeType } from '@waldiez/models';
 import { WaldiezState } from '@waldiez/store';
@@ -23,9 +23,7 @@ export type WaldiezFlowViewProps = {
   flowId: string;
   storageId: string;
   darkMode: boolean;
-  store: WaldiezState & {
-    rfInstance: ReactFlowInstance | null;
-  };
+  store: WaldiezState;
   selectedNodeType: WaldiezNodeType;
   includeRunButton: boolean;
   // flowModalVisible: boolean;

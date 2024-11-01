@@ -49,7 +49,7 @@ export class ModelsStore {
     const model = get().nodes.find(node => node.id === newNode.id);
     return model as WaldiezModelNode;
   };
-  static getClonedModel = (modelId: string, rfInstance: ReactFlowInstance | null, get: typeOfGet) => {
+  static getClonedModel = (modelId: string, rfInstance: ReactFlowInstance | undefined, get: typeOfGet) => {
     const model = get().nodes.find(node => node.id === modelId);
     if (!model) {
       throw new Error(`Model with id ${modelId} not found`);
@@ -113,7 +113,7 @@ export class ModelsStore {
 
   static getNodesAfterModelDeletion = (
     modelId: string,
-    rfInstance: ReactFlowInstance | null,
+    rfInstance: ReactFlowInstance | undefined,
     get: typeOfGet
   ) => {
     const newModelNodes = get().nodes.filter(node => node.type === 'model' && node.id !== modelId);

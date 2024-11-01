@@ -7,7 +7,7 @@ export type SideBarProps = {
   name: string;
   storageId: string;
   darkMode: boolean;
-  rfInstance: ReactFlowInstance | null;
+  rfInstance?: ReactFlowInstance;
   onThemeToggle: () => void;
   // setDarkMode: (darkMode: boolean) => void;
   getFlow: (hideSecrets?: boolean) => {
