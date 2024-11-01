@@ -16,13 +16,15 @@ import { WaldiezFlowProps } from '@waldiez/components/flow/types';
 import { WaldiezFlowView } from '@waldiez/components/flow/view';
 import { showSnackbar } from '@waldiez/components/snackbar';
 import { WaldiezAgentNodeType, WaldiezNodeType } from '@waldiez/models';
-import { useWaldiezContext } from '@waldiez/store';
+import { useTemporalStore, useWaldiezContext } from '@waldiez/store';
 import { selector } from '@waldiez/store/selector';
 import { isDarkMode, setDarkMode, toggleThemeMode } from '@waldiez/theme';
 
+// eslint-disable-next-line max-lines-per-function
 export const WaldiezFlow = (props: WaldiezFlowProps) => {
   const { flowId, storageId, onRun, onChange, inputPrompt, onUserInput } = props;
   const store = useWaldiezContext(selector);
+  const { undo, redo, futureStates, pastStates } = useTemporalStore(state => state);
   const { screenToFlowPosition, getIntersectingNodes } = useReactFlow();
   const darkTheme = isDarkMode(flowId, storageId);
   const [isDark, setIsDark] = useState<boolean>(darkTheme);
@@ -30,14 +32,18 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
   useHotkeys(
     'ctrl+z',
     () => {
-      console.log('undo');
+      if (pastStates.length > 0) {
+        undo();
+      }
     },
     { scopes: flowId }
   );
   useHotkeys(
     'shift+ctrl+z',
     () => {
-      console.log('redo');
+      if (futureStates.length > 0) {
+        redo();
+      }
     },
     { scopes: flowId }
   );
@@ -227,8 +233,10 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
         return;
       }
       addAgentNode(event, agentType);
-      setSelectedNodeType('agent');
-      store.showNodes('agent');
+      if (selectedNodeType !== 'agent') {
+        setSelectedNodeType('agent');
+        store.showNodes('agent');
+      }
       onFlowChanged();
     },
     [screenToFlowPosition]
