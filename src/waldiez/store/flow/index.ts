@@ -37,7 +37,7 @@ export class FlowStore {
         const order = data.find(d => d.id === edge.id)?.order ?? edge.data?.order ?? -1;
         return {
           ...edge,
-          data: { ...edge.data, order, updatedAt }
+          data: { ...edge.data, order }
         };
       }),
       updatedAt

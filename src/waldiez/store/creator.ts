@@ -245,25 +245,30 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
         equality: (pastState: Partial<WaldiezState>, currentState: Partial<WaldiezState>) => {
           const diffs = diff(pastState, currentState);
           // only check nodes[n].data and edges[n].data
-          // also skip the 'updatedAt' field (if this is the only change)
-          // also skip: edges[n].data.position
+          // if we only have 'updatedAt' changes, we can ignore them
           if (diffs.length === 0) {
             return true;
           }
+          // console.log(diffs);
           const equal = diffs.every(diff => {
-            if (diff.path.includes('updatedAt')) {
+            if (diff.type === 'CREATE' && diff.path.length === 2) {
+              // new node or edge
               return false;
             }
             if (diff.path.includes('nodes') && diff.path.includes('data')) {
               return false;
             }
-            if (diff.path.includes('edges') && diff.path.includes('data') && diff.path.includes('position')) {
+            if (
+              diff.path.includes('edges') &&
+              diff.path.includes('data') &&
+              !diff.path.includes('position')
+            ) {
               return false;
             }
             return true;
           });
           // if (!equal) {
-          //   console.log('diffs', diffs);
+          //   console.log(diffs);
           // }
           return equal;
         },
