@@ -12,7 +12,7 @@
 ```json
 {
     "@monaco-editor/react": "^4.6.0",
-    "@xyflow/react": "^12.3.3",
+    "@xyflow/react": "^12.3.4",
     "nanoid": "^5.0.8",
     "rc-slider": "^11.1.7",
     "react": "^18.3.1",
