@@ -30,7 +30,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
   const [isDark, setIsDark] = useState<boolean>(darkTheme);
   const [isModalOpen, setModalOpen] = useState(false);
   useHotkeys(
-    'ctrl+z',
+    'mod+z',
     () => {
       if (pastStates.length > 0) {
         undo();
@@ -39,7 +39,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
     { scopes: flowId }
   );
   useHotkeys(
-    'shift+ctrl+z',
+    ['shift+mod+z', 'mod+y'],
     () => {
       if (futureStates.length > 0) {
         redo();
