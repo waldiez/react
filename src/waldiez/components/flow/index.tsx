@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import {
   Edge,
   EdgeChange,
@@ -20,7 +21,6 @@ import { useTemporalStore, useWaldiezContext } from '@waldiez/store';
 import { selector } from '@waldiez/store/selector';
 import { isDarkMode, setDarkMode, toggleThemeMode } from '@waldiez/theme';
 
-// eslint-disable-next-line max-lines-per-function
 export const WaldiezFlow = (props: WaldiezFlowProps) => {
   const { flowId, storageId, onRun, onChange, inputPrompt, onUserInput } = props;
   const store = useWaldiezContext(selector);

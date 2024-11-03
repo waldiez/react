@@ -17,6 +17,7 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
   const [isModalOpen, setModalOpen] = useState(false);
   // tmp state to save on submit, discard on cancel
   const [skillData, setSkillData] = useState<WaldiezSkillNodeData>(data);
+  const [isDirty, setIsDirty] = useState(false);
   const updateSkillData = useWaldiezContext(state => state.updateSkillData);
   const cloneSkill = useWaldiezContext(selector => selector.cloneSkill);
   const deleteSkill = useWaldiezContext(selector => selector.deleteSkill);
@@ -25,9 +26,11 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
   const exportSkill = useWaldiezContext(selector => selector.exportSkill);
   const onClose = () => {
     setModalOpen(false);
+    setIsDirty(false);
   };
   const onOpen = () => {
     setModalOpen(true);
+    setIsDirty(false);
   };
   const onClone = () => {
     if (!isModalOpen) {
@@ -36,22 +39,27 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
   };
   const onDelete = () => {
     deleteSkill(id);
+    setIsDirty(false);
   };
   const onCancel = () => {
     setSkillData(data);
     setModalOpen(false);
+    setIsDirty(false);
   };
-  const onSubmit = () => {
+  const onSave = () => {
     updateSkillData(id, skillData);
     const storedSkill = getSkillById(id);
     const storedData = storedSkill?.data;
     if (storedData) {
       setSkillData(storedData as WaldiezSkillNodeData);
     }
-    setModalOpen(false);
+    // setModalOpen(false);
+    // setHasModalOpen(false);
+    setIsDirty(false);
   };
-  const onChange = (data: Partial<WaldiezSkillNodeData>) => {
-    setSkillData({ ...skillData, ...data });
+  const onChange = (partialData: Partial<WaldiezSkillNodeData>) => {
+    setSkillData({ ...skillData, ...partialData });
+    setIsDirty(JSON.stringify({ ...skillData, ...partialData }) !== JSON.stringify(data));
   };
   const onExport = () => {
     exportItem(data.label, 'skill', exportSkill.bind(null, id));
@@ -59,6 +67,7 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
   const onImportLoad = (skill: Node, jsonData: { [key: string]: unknown }) => {
     const newSkill = importSkill(jsonData, id, skill?.position);
     setSkillData({ ...newSkill.data });
+    setIsDirty(JSON.stringify(newSkill.data) !== JSON.stringify(data));
   };
   const onImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     importItem(event, getSkillById.bind(null, id), onImportLoad);
@@ -71,10 +80,11 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
       data={skillData}
       isModalOpen={isModalOpen}
       darkMode={isDark}
+      isDirty={isDirty}
       onOpen={onOpen}
       onClose={onClose}
       onCancel={onCancel}
-      onSubmit={onSubmit}
+      onSave={onSave}
       onDelete={onDelete}
       onClone={onClone}
       onDataChange={onChange}

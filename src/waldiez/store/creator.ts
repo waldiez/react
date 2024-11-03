@@ -244,34 +244,40 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
       {
         equality: (pastState: Partial<WaldiezState>, currentState: Partial<WaldiezState>) => {
           const diffs = diff(pastState, currentState);
-          // Skip updates if certain properties have changed
-          // e.g. we do not want to store dragging events
-          const ignoredPaths = [
-            ['updatedAt'],
-            ['nodes', '*', 'hidden'],
-            ['nodes', '*', 'measured'],
-            ['nodes', '*', 'selected'],
-            ['nodes', '*', 'dragging'],
-            ['nodes', '*', 'position'],
-            ['edges', '*', 'selected'],
-            ['edges', '*', 'data', 'position'],
-            ['viewport', 'x'],
-            ['viewport', 'y']
-          ]; // we must test this, we might have false positives
-
-          const equal = !diffs.some(
-            diff =>
-              !ignoredPaths.some(path =>
-                path.every(
-                  (segment, index) =>
-                    segment === '*' || JSON.stringify(diff.path[index]) === JSON.stringify(segment)
-                )
-              )
-          );
+          // only check nodes[n].data and edges[n].data
+          // also skip the 'updatedAt' field (if this is the only change)
+          // also skip: edges[n].data.position
+          if (diffs.length === 0) {
+            return true;
+          }
+          const equal = diffs.every(diff => {
+            if (diff.path.includes('updatedAt')) {
+              return false;
+            }
+            if (diff.path.includes('nodes') && diff.path.includes('data')) {
+              return false;
+            }
+            if (diff.path.includes('edges') && diff.path.includes('data') && diff.path.includes('position')) {
+              return false;
+            }
+            return true;
+          });
           // if (!equal) {
           //   console.log('diffs', diffs);
           // }
           return equal;
+        },
+        partialize: (state: WaldiezState) => {
+          const { flowId, nodes, edges, name, description, requirements, tags } = state;
+          return {
+            flowId,
+            nodes,
+            edges,
+            name,
+            description,
+            requirements,
+            tags
+          };
         }
       }
     )

@@ -6,10 +6,11 @@ export type WaldiezNodeSkillViewProps = {
   data: WaldiezSkillNodeData;
   isModalOpen: boolean;
   darkMode: boolean;
+  isDirty: boolean;
   onOpen: () => void;
   onClose: () => void;
   onCancel: () => void;
-  onSubmit: () => void;
+  onSave: () => void;
   onDelete: () => void;
   onClone: () => void;
   onDataChange: (data: Partial<WaldiezSkillNodeData>) => void;
