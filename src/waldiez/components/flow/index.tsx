@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import {
   Edge,
   EdgeChange,
@@ -10,22 +11,54 @@ import {
 } from '@xyflow/react';
 
 import { KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { WaldiezFlowProps } from '@waldiez/components/flow/types';
 import { WaldiezFlowView } from '@waldiez/components/flow/view';
 import { showSnackbar } from '@waldiez/components/snackbar';
 import { WaldiezAgentNodeType, WaldiezNodeType } from '@waldiez/models';
-import { useWaldiezContext } from '@waldiez/store';
+import { useTemporalStore, useWaldiezContext } from '@waldiez/store';
 import { selector } from '@waldiez/store/selector';
 import { isDarkMode, setDarkMode, toggleThemeMode } from '@waldiez/theme';
 
 export const WaldiezFlow = (props: WaldiezFlowProps) => {
   const { flowId, storageId, onRun, onChange, inputPrompt, onUserInput } = props;
   const store = useWaldiezContext(selector);
+  const { undo, redo, futureStates, pastStates } = useTemporalStore(state => state);
   const { screenToFlowPosition, getIntersectingNodes } = useReactFlow();
   const darkTheme = isDarkMode(flowId, storageId);
   const [isDark, setIsDark] = useState<boolean>(darkTheme);
   const [isModalOpen, setModalOpen] = useState(false);
+  const isFlowVisible = () => {
+    const rootDiv = document.getElementById(`rf-root-${flowId}`);
+    if (!rootDiv) {
+      return false;
+    }
+    const clientRect = rootDiv.getBoundingClientRect();
+    return clientRect.width > 0 && clientRect.height > 0;
+  };
+  useHotkeys(
+    'mod+z',
+    () => {
+      if (pastStates.length > 0) {
+        if (isFlowVisible()) {
+          undo();
+        }
+      }
+    },
+    { scopes: flowId }
+  );
+  useHotkeys(
+    ['shift+mod+z', 'mod+y'],
+    () => {
+      if (futureStates.length > 0) {
+        if (isFlowVisible()) {
+          redo();
+        }
+      }
+    },
+    { scopes: flowId }
+  );
   useEffect(() => {
     store.showNodes('agent');
     setDarkMode(flowId, storageId, isDarkMode(flowId, storageId));
@@ -212,8 +245,10 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
         return;
       }
       addAgentNode(event, agentType);
-      setSelectedNodeType('agent');
-      store.showNodes('agent');
+      if (selectedNodeType !== 'agent') {
+        setSelectedNodeType('agent');
+        store.showNodes('agent');
+      }
       onFlowChanged();
     },
     [screenToFlowPosition]
@@ -248,7 +283,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
   }) => {
     store.updateFlow(data);
     store.updateFlowOrder(data.orders);
-    setModalOpen(false);
+    // setModalOpen(false);
     onFlowChanged();
   };
   const onNodeDoubleClick = (event: React.MouseEvent, node: Node) => {

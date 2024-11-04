@@ -1,11 +1,11 @@
 // ensure monaco loader files are present in the public folder (public/vs)
 import crypto from 'crypto';
 import fs from 'fs';
-import gunzip from 'gunzip-maybe';
 import https from 'https';
 import path from 'path';
-import tar from 'tar-fs';
+import tar from 'tar-stream';
 import url from 'url';
+import zlib from 'zlib';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,16 +32,30 @@ function checkShaSum(file: string, shaSum: string): Promise<boolean> {
 }
 
 function extractTarFile(file: string, dest: string): Promise<void> {
+  console.info('Extracting tar file...');
   return new Promise((resolve, reject) => {
-    fs.createReadStream(file)
-      .pipe(gunzip())
-      .pipe(tar.extract(dest))
-      .on('finish', () => {
-        resolve();
-      })
-      .on('error', err => {
-        reject(err);
+    const extract = tar.extract();
+    extract.on('entry', (header, stream, next) => {
+      const filePath = path.join(dest, header.name);
+      if (header.type === 'file') {
+        // make sure the directory exists
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
+        stream.pipe(fs.createWriteStream(filePath));
+      } else {
+        fs.mkdirSync(filePath, { recursive: true });
+      }
+      stream.on('end', () => {
+        next();
       });
+      stream.resume();
+    });
+    extract.on('finish', () => {
+      resolve();
+    });
+    extract.on('error', err => {
+      reject(err);
+    });
+    fs.createReadStream(file).pipe(zlib.createGunzip()).pipe(extract);
   });
 }
 
@@ -173,10 +187,15 @@ function ensureMonacoFiles(publicPath: string): Promise<void> {
   });
 }
 
-ensureMonacoFiles(PUBLIC_PATH)
-  .then(() => {
-    console.info('Monaco editor files are up-to-date.');
-  })
-  .catch(err => {
-    throw err;
-  });
+function main() {
+  ensureMonacoFiles(PUBLIC_PATH)
+    .then(() => {
+      console.info('Monaco editor files are up-to-date.');
+      process.exit(0);
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
+main();

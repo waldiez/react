@@ -119,7 +119,6 @@ const renderFlowModal = (edgePositions: number[], goOnExtras: boolean = false) =
               onEditFlow={onEditFlow}
               onThemeToggle={onThemeToggle}
               onImport={onImportFlow}
-              rfInstance={null}
             />
             <div className="react-flow-wrapper">
               <ReactFlow

@@ -6,6 +6,7 @@ export type WaldiezNodeModelViewProps = {
   flowId: string;
   logo: string;
   isOpen: boolean;
+  isDirty: boolean;
   onOpen: () => void;
   setLogo: (logo: string) => void;
   onImport: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +15,6 @@ export type WaldiezNodeModelViewProps = {
   onDataChange: (data: Partial<WaldiezModelNodeData>) => void;
   onDelete: () => void;
   onClone: () => void;
-  onSubmit: () => void;
+  onSave: () => void;
   onCancel: () => void;
 };

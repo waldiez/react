@@ -1,13 +1,20 @@
 import { renderAgent, submitAgentChanges } from '../../common';
 import { agentId, flowId } from '../../data';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 // import userEvent from '@testing-library/user-event';
 import selectEvent from 'react-select-event';
 
+let uploading = false;
 const uploadsHandler = async (files: File[]) => {
-  return files.map(file => file.name);
+  if (uploading) {
+    throw new Error('Already uploading');
+  }
+  uploading = true;
+  const results = files.map(file => file.name);
+  uploading = false;
+  return results;
 };
 
 const goToRetrieveConfigTab = async () => {
@@ -147,6 +154,10 @@ describe('Rag User tab Retrieve Config', () => {
     const removeFileButton = screen.getByTestId('delete-list-entry-rag-doc-0');
     expect(removeFileButton).toBeInTheDocument();
     submitAgentChanges();
+    // await for the upload to finish ? (avoid act warning)
+    await waitFor(() => {
+      expect(uploading).toBe(false);
+    });
   });
   it('should handle invalid file uploads', async () => {
     await goToRetrieveConfigTab();

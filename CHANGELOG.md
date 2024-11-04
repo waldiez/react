@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.1.10
+
+- Added undo/redo functionality
+- Updated: keep modals with more than one tabs open on 'Save'
+- Dependency updates
+- Minor styling changes
+- Minor bugfixes
+
 ## v0.1.9
 
 - Fix #31: "Group chat: enable clear history not toggled"

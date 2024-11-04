@@ -15,6 +15,7 @@ export const WaldiezNodeModelView = (props: WaldiezNodeModelViewProps) => {
     data,
     flowId,
     isOpen,
+    isDirty,
     logo,
     setLogo,
     onOpen,
@@ -24,7 +25,7 @@ export const WaldiezNodeModelView = (props: WaldiezNodeModelViewProps) => {
     onDataChange,
     onDelete,
     onClone,
-    onSubmit,
+    onSave,
     onCancel
   } = props;
   const importExportView = getImportExportView(flowId, modelId, 'model', onImport, onExport);
@@ -75,12 +76,13 @@ export const WaldiezNodeModelView = (props: WaldiezNodeModelViewProps) => {
         modelId={modelId}
         data={data}
         isOpen={isOpen}
+        isDirty={isDirty}
         importExportView={importExportView}
         onLogoChange={setLogo}
         onDataChange={onDataChange}
         onClose={onClose}
         onCancel={onCancel}
-        onSubmit={onSubmit}
+        onSave={onSave}
       />
     </div>
   );

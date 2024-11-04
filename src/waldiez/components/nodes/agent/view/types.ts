@@ -29,6 +29,7 @@ export type WaldiezNodeAgentViewProps = {
   isNodeModalOpen: boolean;
   isEdgeModalOpen: boolean;
   isDarkMode: boolean;
+  isDirty: boolean;
   models: WaldiezModelNode[];
   skills: WaldiezSkillNode[];
   agents: WaldiezAgentNode[];
@@ -54,6 +55,6 @@ export type WaldiezNodeAgentViewProps = {
   onDelete: () => void;
   onEdgeConnection: (connection: Connection) => void;
   onCancel: () => void;
-  onSubmit: (filesToUpload: File[]) => void;
+  onSave: (filesToUpload: File[]) => void;
   onAgentTypeChange: (agentType: WaldiezAgentNodeType) => void;
 };

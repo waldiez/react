@@ -22,6 +22,7 @@ import {
 
 export type WaldiezStoreProps = {
   viewport?: Viewport;
+  rfInstance?: ReactFlowInstance;
   flowId: string;
   name: string;
   description: string;
@@ -45,15 +46,10 @@ export type typeOfSet = {
   ): void;
 };
 
-export type typeOfGet = () => WaldiezState & {
-  rfInstance: ReactFlowInstance | null;
-};
+export type typeOfGet = () => WaldiezState;
 
 export type WaldiezState = WaldiezStoreProps & {
-  rfInstance: ReactFlowInstance | null;
-  get: () => WaldiezStoreProps & {
-    rfInstance: ReactFlowInstance | null;
-  };
+  get: typeOfGet;
   setRfInstance: (instance: ReactFlowInstance) => void;
   // edges
   onEdgesChange: (changes: EdgeChange[]) => void;

@@ -3,6 +3,7 @@ import '@xyflow/react/dist/style.css';
 
 import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { HotkeysProvider } from 'react-hotkeys-hook';
 
 import { nanoid } from 'nanoid';
 
@@ -26,33 +27,35 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
   }, [monacoVsPath]);
   return (
     <ErrorBoundary fallbackRender={fallbackRender}>
-      <ReactFlowProvider>
-        <WaldiezProvider
-          flowId={flowId}
-          viewport={viewport}
-          name={name}
-          description={description}
-          tags={tags}
-          requirements={requirements}
-          storageId={storageId}
-          createdAt={createdAt}
-          updatedAt={updatedAt}
-          nodes={nodes}
-          edges={edges}
-          onUpload={onUpload}
-        >
-          <WaldiezFlow
+      <HotkeysProvider initiallyActiveScopes={[flowId]}>
+        <ReactFlowProvider>
+          <WaldiezProvider
             flowId={flowId}
+            viewport={viewport}
+            name={name}
+            description={description}
+            tags={tags}
+            requirements={requirements}
             storageId={storageId}
-            monacoVsPath={monacoVsPath}
-            onChange={onChange}
-            onRun={onRun}
-            onUserInput={onUserInput}
+            createdAt={createdAt}
+            updatedAt={updatedAt}
+            nodes={nodes}
+            edges={edges}
             onUpload={onUpload}
-            inputPrompt={inputPrompt}
-          />
-        </WaldiezProvider>
-      </ReactFlowProvider>
+          >
+            <WaldiezFlow
+              flowId={flowId}
+              storageId={storageId}
+              monacoVsPath={monacoVsPath}
+              onChange={onChange}
+              onRun={onRun}
+              onUserInput={onUserInput}
+              onUpload={onUpload}
+              inputPrompt={inputPrompt}
+            />
+          </WaldiezProvider>
+        </ReactFlowProvider>
+      </HotkeysProvider>
     </ErrorBoundary>
   );
 };

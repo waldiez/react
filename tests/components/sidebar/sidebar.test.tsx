@@ -18,7 +18,7 @@ const sideBarProps = {
   name,
   storageId,
   darkMode: true,
-  rfInstance: null,
+  rfInstance: undefined,
   onNodeTypeSelected,
   onThemeToggle,
   onEditFlow,

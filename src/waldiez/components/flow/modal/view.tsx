@@ -8,6 +8,7 @@ export const EditFlowModalView = (props: EditFlowModalViewProps) => {
     flowId,
     data,
     isOpen,
+    isDirty,
     onDataChange,
     onCancel,
     onClose,
@@ -55,7 +56,12 @@ export const EditFlowModalView = (props: EditFlowModalViewProps) => {
         <button className="modal-action-cancel" onClick={onCancel} data-testid="edit-flow-cancel-button">
           Cancel
         </button>
-        <button className="modal-action-submit" onClick={onSubmit} data-testid="edit-flow-submit-button">
+        <button
+          className="modal-action-submit"
+          onClick={onSubmit}
+          data-testid="edit-flow-submit-button"
+          disabled={!isDirty}
+        >
           Save
         </button>
       </div>

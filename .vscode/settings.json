@@ -27,6 +27,7 @@
     "lintcache",
     "loglevel",
     "lookpath",
+    "microdiff",
     "msword",
     "nodeid",
     "nodrag",
@@ -36,6 +37,7 @@
     "optimizelegibility",
     "ounospanas",
     "Parens",
+    "partialize",
     "pgvector",
     "posttest",
     "Powervirtualagents",
@@ -61,5 +63,6 @@
     "xyflow",
     "zoomin",
     "zustand"
-  ]
+  ],
+  "files.eol": "\n"
 }

@@ -44,6 +44,8 @@ export default defineConfig(({ command }) => ({
           '@monaco-editor/react': 'react$1',
           react: 'react',
           zustand: 'zustand',
+          zundo: 'zundo',
+          microdiff: 'microdiff',
           'zustand/shallow': 'zustandShallow',
           'zustand/traditional': 'zustandTraditional',
           'react-select': 'reactSelect',

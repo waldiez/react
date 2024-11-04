@@ -51,7 +51,7 @@ export class SkillsStore {
   };
   static getClonedSkill: (
     skill: WaldiezSkillNode,
-    rfInstance: ReactFlowInstance | null,
+    rfInstance: ReactFlowInstance | undefined,
     get: typeOfGet
   ) => WaldiezSkillNode = (skill, rfInstance, get) => {
     const skillsCount = get().nodes.filter(node => node.type === 'skill').length;
@@ -145,7 +145,7 @@ export class SkillsStore {
   static getAgentsAfterSkillDeletion = (
     get: typeOfGet,
     skillId: string,
-    rfInstance: ReactFlowInstance | null
+    rfInstance: ReactFlowInstance | undefined
   ) => {
     const newSkillNodes = get().nodes.filter(node => node.type === 'skill' && node.id !== skillId);
     const newSkillNodesCount = newSkillNodes.length;

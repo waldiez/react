@@ -5,10 +5,11 @@ export type WaldiezSkillNodeModalProps = {
   flowId: string;
   data: WaldiezSkillNodeData;
   isModalOpen: boolean;
+  isDirty: boolean;
   darkMode: boolean;
   onClose: () => void;
   onCancel: () => void;
-  onSubmit: () => void;
+  onSave: () => void;
   onDataChange: (data: Partial<WaldiezSkillNodeData>) => void;
   onImport: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onExport: () => void;
@@ -18,10 +19,11 @@ export type WaldiezSkillNodeModalViewProps = {
   flowId: string;
   data: WaldiezSkillNodeData;
   isModalOpen: boolean;
+  isDirty: boolean;
   darkMode: boolean;
   onClose: () => void;
   onCancel: () => void;
-  onSubmit: () => void;
+  onSave: () => void;
   onSkillLabelChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSkillDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSkillContentChange: (value: string | undefined) => void;
