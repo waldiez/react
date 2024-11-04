@@ -15,6 +15,7 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
   const edge = getEdgeById(edgeId) as WaldiezEdge | null;
   const [edgeType, setEdgeType] = useState<'chat' | 'nested' | 'group' | 'hidden'>(edge?.type ?? 'chat');
   const [edgeData, setEdgeData] = useState<WaldiezEdgeData | undefined>(edge?.data);
+  const [isDirty, setIsDirty] = useState<boolean>(false);
   const sourceAgent = edge ? getEdgeSourceAgent(edge) : null;
   const isRagUser = sourceAgent?.data?.agentType === 'rag_user';
   const onDataChange = (data: Partial<WaldiezEdgeData>) => {
@@ -24,6 +25,7 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
         ...data
       });
     }
+    setIsDirty(JSON.stringify(data) !== JSON.stringify(edgeData));
   };
   const onTypeChange = (
     option: SingleValue<{
@@ -33,10 +35,13 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
   ) => {
     if (option && edge) {
       setEdgeType(option.value);
+      setIsDirty(option.value !== edge.type);
     }
   };
   const onCancel = () => {
     setEdgeData(edge?.data);
+    setEdgeType(edge?.type ?? 'chat');
+    setIsDirty(false);
     onClose();
   };
   const onSubmit = () => {
@@ -48,7 +53,8 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
         updateEdgeType(edgeId, edgeType);
       }
     }
-    onClose();
+    setIsDirty(false);
+    // onClose();
   };
   if (!edgeData || !edge || edgeType === 'hidden') {
     return <></>;
@@ -60,6 +66,7 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
       edgeType={edgeType}
       data={edgeData}
       isOpen={isOpen}
+      isDirty={isDirty}
       darkMode={darkMode}
       sourceIsRagUser={isRagUser}
       onTypeChange={onTypeChange}

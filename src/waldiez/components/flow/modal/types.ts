@@ -27,6 +27,7 @@ export type EditFlowModalViewProps = {
   flowId: string;
   isOpen: boolean;
   data: FlowModalData;
+  isDirty: boolean;
   onCancel: () => void;
   onClose: () => void;
   onDataChange: (data: Partial<FlowModalData>) => void;

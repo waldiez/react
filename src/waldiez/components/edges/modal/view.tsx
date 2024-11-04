@@ -11,6 +11,7 @@ export const WaldiezEdgeModalView = (props: WaldiezEdgeModalViewProps) => {
     edgeId,
     data,
     isOpen,
+    isDirty,
     darkMode,
     edgeType,
     sourceIsRagUser,
@@ -70,7 +71,12 @@ export const WaldiezEdgeModalView = (props: WaldiezEdgeModalViewProps) => {
           <button className="modal-action-cancel" onClick={onCancel} data-testid="modal-cancel-btn">
             Cancel
           </button>
-          <button className="modal-action-submit" onClick={onSubmit} data-testid="modal-submit-btn">
+          <button
+            className="modal-action-submit"
+            onClick={onSubmit}
+            data-testid="modal-submit-btn"
+            disabled={!isDirty}
+          >
             Save
           </button>
         </div>

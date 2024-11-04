@@ -283,7 +283,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
   }) => {
     store.updateFlow(data);
     store.updateFlowOrder(data.orders);
-    setModalOpen(false);
+    // setModalOpen(false);
     onFlowChanged();
   };
   const onNodeDoubleClick = (event: React.MouseEvent, node: Node) => {

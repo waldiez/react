@@ -14,6 +14,7 @@ export type WaldiezEdgeModalViewProps = {
   edgeId: string;
   data: WaldiezEdgeData;
   isOpen: boolean;
+  isDirty: boolean;
   darkMode: boolean;
   sourceIsRagUser: boolean;
   edgeType: 'chat' | 'nested' | 'group' | 'hidden';
