@@ -255,6 +255,13 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
               // new node or edge
               return false;
             }
+            if (
+              diff.path.length === 1 &&
+              typeof diff.path[0] === 'string' &&
+              ['name', 'description', 'tags', 'requirements'].includes(diff.path[0])
+            ) {
+              return false;
+            }
             if (diff.path.includes('nodes') && diff.path.includes('data')) {
               return false;
             }
