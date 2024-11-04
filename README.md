@@ -5,7 +5,7 @@
 ## Requirements
 
 - Node.js
-- bun@1.1.33
+- bun@1.1.34
 
 ## Libraries
 

@@ -3,6 +3,8 @@ import { render } from '@testing-library/react';
 
 import { ReactFlowProvider } from '@xyflow/react';
 
+import { HotkeysProvider } from 'react-hotkeys-hook';
+
 import { WaldiezFlow } from '@waldiez/components/flow';
 import { WaldiezProvider } from '@waldiez/store';
 
@@ -99,29 +101,31 @@ export const renderFlow = (
     });
   }
   render(
-    <ReactFlowProvider>
-      <WaldiezProvider
-        flowId={flowId}
-        storageId={flowId}
-        name="Test Flow"
-        description="Test Description"
-        requirements={['Test Requirement']}
-        tags={['Test Tag']}
-        nodes={nodesToUse}
-        edges={edges}
-        viewport={{ zoom: 1, x: 50, y: 50 }}
-        createdAt={createdAt}
-        updatedAt={updatedAt}
-      >
-        <WaldiezFlow
+    <HotkeysProvider initiallyActiveScopes={[flowId]}>
+      <ReactFlowProvider>
+        <WaldiezProvider
           flowId={flowId}
           storageId={flowId}
-          onChange={onChange}
-          onRun={onRun}
-          onUserInput={onUserInput}
-          inputPrompt={null}
-        />
-      </WaldiezProvider>
-    </ReactFlowProvider>
+          name="Test Flow"
+          description="Test Description"
+          requirements={['Test Requirement']}
+          tags={['Test Tag']}
+          nodes={nodesToUse}
+          edges={edges}
+          viewport={{ zoom: 1, x: 50, y: 50 }}
+          createdAt={createdAt}
+          updatedAt={updatedAt}
+        >
+          <WaldiezFlow
+            flowId={flowId}
+            storageId={flowId}
+            onChange={onChange}
+            onRun={onRun}
+            onUserInput={onUserInput}
+            inputPrompt={null}
+          />
+        </WaldiezProvider>
+      </ReactFlowProvider>
+    </HotkeysProvider>
   );
 };

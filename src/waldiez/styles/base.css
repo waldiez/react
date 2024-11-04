@@ -48,8 +48,8 @@ textarea {
 }
 
 .flow-wrapper button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+  cursor: unset !important;
+  opacity: 0.6;
 }
 
 .flow-wrapper .select {

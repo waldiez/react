@@ -16,7 +16,11 @@ import { WaldiezNodeAgentModalProps } from '@waldiez/components/nodes/agent/moda
 import { exportItem, importItem } from '@waldiez/components/nodes/common';
 import { getImportExportView } from '@waldiez/components/nodes/common';
 import { TabItem, TabItems } from '@waldiez/components/tabs';
-import { WaldiezNodeGroupManagerData, WaldiezNodeRagUserData } from '@waldiez/models';
+import {
+  WaldiezNodeGroupManagerData,
+  WaldiezNodeRagUserData,
+  WaldiezNodeUserOrAssistantData
+} from '@waldiez/models';
 import { useWaldiezContext } from '@waldiez/store';
 
 export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
@@ -28,6 +32,7 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
     skills,
     agents,
     isDarkMode,
+    isDirty,
     canUploadFiles,
     isNodeModalOpen,
     currentGroupManager,
@@ -37,7 +42,7 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
     onAgentTypeChange,
     onCloseNodeModal,
     onCancel,
-    onSubmit
+    onSave
   } = props;
   const isManager = data.agentType === 'manager';
   const isRagUser = data.agentType === 'rag_user';
@@ -45,12 +50,12 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
   const exportAgent = useWaldiezContext(selector => selector.exportAgent);
   const importAgent = useWaldiezContext(selector => selector.importAgent);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
-  const _onSubmit = () => {
-    onSubmit(filesToUpload);
+  const onSubmit = () => {
+    onSave(filesToUpload);
   };
   const groupManagers = agents.filter(agent => agent.data.agentType === 'manager');
   const connectionsCount = agentConnections.target.edges.length + agentConnections.source.edges.length;
-  const showNestedChatsTab = !isManager && connectionsCount > 0;
+  const showNestedChatsTab = !isManager || connectionsCount === 0;
   const onImportLoad = (agent: Node, jsonData: { [key: string]: unknown }) => {
     const newAgent = importAgent(jsonData, id, true, agent?.position);
     onDataChange(newAgent.data, false);
@@ -152,7 +157,7 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
             <TabItem label="Nested chats" id={`wf-${flowId}-agent-nestedChats-${id}`}>
               <NestedChatsAgentConfigTab
                 id={id}
-                data={data}
+                data={data as WaldiezNodeUserOrAssistantData}
                 onDataChange={onDataChange}
                 agentConnections={agentConnections}
               />
@@ -163,7 +168,12 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
           <button className="modal-action-cancel" onClick={onCancel} data-testid={`cancel-agent-data-${id}`}>
             Cancel
           </button>
-          <button className="modal-action-submit" onClick={_onSubmit} data-testid={`submit-agent-data-${id}`}>
+          <button
+            className="modal-action-submit"
+            onClick={onSubmit}
+            data-testid={`submit-agent-data-${id}`}
+            disabled={!isDirty}
+          >
             Save
           </button>
         </div>

@@ -7,10 +7,11 @@ export const WaldiezSkillNodeModal = (props: WaldiezSkillNodeModalProps) => {
     flowId,
     data,
     isModalOpen,
+    isDirty,
     darkMode,
     onClose,
     onCancel,
-    onSubmit,
+    onSave,
     onDataChange,
     onImport,
     onExport
@@ -48,9 +49,10 @@ export const WaldiezSkillNodeModal = (props: WaldiezSkillNodeModalProps) => {
       data={data}
       isModalOpen={isModalOpen}
       darkMode={darkMode}
+      isDirty={isDirty}
       onClose={onClose}
       onCancel={onCancel}
-      onSubmit={onSubmit}
+      onSave={onSave}
       onSkillLabelChange={onSkillLabelChange}
       onSkillDescriptionChange={onSkillDescriptionChange}
       onSkillContentChange={onSkillContentChange}

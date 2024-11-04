@@ -10,7 +10,7 @@ import {
   getSkillNodes,
   updatedAt
 } from './data';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { Edge, Node, ReactFlowProvider } from '@xyflow/react';
 
@@ -79,39 +79,41 @@ export const renderAgent = (
     flowNodes.push(...nodes);
     flowEdges.push(...edges);
   }
-  render(
-    <ReactFlowProvider>
-      <WaldiezProvider
-        flowId={flowId}
-        storageId="test-storage"
-        name="flow name"
-        description="flow description"
-        requirements={[]}
-        tags={[]}
-        nodes={flowNodes}
-        edges={flowEdges}
-        createdAt={createdAt}
-        updatedAt={updatedAt}
-        onUpload={uploadsHandler}
-      >
-        <WaldiezNodeAgent
-          id={agentId}
-          type={'agent' as any}
-          data={{
-            ...agentNode.data,
-            agentType: type as any,
-            ...(dataOverrides as any)
-          }}
-          dragging={false}
-          zIndex={1}
-          isConnectable={true}
-          positionAbsoluteX={0}
-          positionAbsoluteY={0}
-          {...nodeOverrides}
-        />
-      </WaldiezProvider>
-    </ReactFlowProvider>
-  );
+  act(() => {
+    render(
+      <ReactFlowProvider>
+        <WaldiezProvider
+          flowId={flowId}
+          storageId="test-storage"
+          name="flow name"
+          description="flow description"
+          requirements={[]}
+          tags={[]}
+          nodes={flowNodes}
+          edges={flowEdges}
+          createdAt={createdAt}
+          updatedAt={updatedAt}
+          onUpload={uploadsHandler}
+        >
+          <WaldiezNodeAgent
+            id={agentId}
+            type={'agent' as any}
+            data={{
+              ...agentNode.data,
+              agentType: type as any,
+              ...(dataOverrides as any)
+            }}
+            dragging={false}
+            zIndex={1}
+            isConnectable={true}
+            positionAbsoluteX={0}
+            positionAbsoluteY={0}
+            {...nodeOverrides}
+          />
+        </WaldiezProvider>
+      </ReactFlowProvider>
+    );
+  });
   const agentElement = screen.getByTestId(`agent-node-${agentId}-view`);
   expect(agentElement).toBeInTheDocument();
   if (openModal) {

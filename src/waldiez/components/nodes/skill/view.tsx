@@ -15,10 +15,11 @@ export const WaldiezNodeSkillView = (props: WaldiezNodeSkillViewProps) => {
     data,
     isModalOpen,
     darkMode,
+    isDirty,
     onOpen,
     onClose,
     onCancel,
-    onSubmit,
+    onSave,
     onDelete,
     onClone,
     onDataChange,
@@ -74,9 +75,10 @@ export const WaldiezNodeSkillView = (props: WaldiezNodeSkillViewProps) => {
         data={data}
         isModalOpen={isModalOpen}
         darkMode={darkMode}
+        isDirty={isDirty}
         onClose={onClose}
         onCancel={onCancel}
-        onSubmit={onSubmit}
+        onSave={onSave}
         onDataChange={onDataChange}
         onImport={onImport}
         onExport={onExport}

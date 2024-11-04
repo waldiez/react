@@ -12,6 +12,7 @@ export type WaldiezNodeAgentModalProps = {
   id: string;
   isNodeModalOpen: boolean;
   isDarkMode: boolean;
+  isDirty: boolean;
   canUploadFiles: boolean;
   currentGroupManager: WaldiezAgentNode | null;
   data: WaldiezAgentNodeData;
@@ -33,5 +34,5 @@ export type WaldiezNodeAgentModalProps = {
   onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
   onCloseNodeModal: () => void;
   onCancel: () => void;
-  onSubmit: (filesToUpload: File[]) => void;
+  onSave: (filesToUpload: File[]) => void;
 };

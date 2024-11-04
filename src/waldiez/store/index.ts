@@ -1,3 +1,5 @@
+import type { TemporalState } from 'zundo';
+
 import { createContext, useContext } from 'react';
 
 import { shallow } from 'zustand/shallow';
@@ -22,3 +24,10 @@ export function useWaldiezContext<T>(selector: (state: WaldiezState) => T): T {
   }
   return useStoreWithEqualityFn(store, selector, shallow);
 }
+export const useTemporalStore = <T>(selector: (state: TemporalState<Partial<WaldiezState>>) => T) => {
+  const store = useContext(WaldiezContext);
+  if (!store) {
+    throw new Error('Missing WaldiezContext.Provider in the tree');
+  }
+  return useStoreWithEqualityFn(store.temporal, selector, shallow);
+};

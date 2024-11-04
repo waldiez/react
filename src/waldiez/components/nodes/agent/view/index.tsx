@@ -12,6 +12,7 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentViewProps) => {
     id,
     flowId,
     data,
+    isDirty,
     parentId,
     edge,
     isNodeModalOpen,
@@ -32,7 +33,7 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentViewProps) => {
     onAgentTypeChange,
     onCloseNodeModal,
     onCancel,
-    onSubmit,
+    onSave,
     onClone,
     onDelete
   } = props;
@@ -89,6 +90,7 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentViewProps) => {
           flowId={flowId}
           id={id}
           data={data}
+          isDirty={isDirty}
           models={models}
           skills={skills}
           agents={agents}
@@ -102,7 +104,7 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentViewProps) => {
           onAgentTypeChange={onAgentTypeChange}
           onCloseNodeModal={onCloseNodeModal}
           onCancel={onCancel}
-          onSubmit={onSubmit}
+          onSave={onSave}
         />
       )}
 

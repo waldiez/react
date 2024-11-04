@@ -5,6 +5,8 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { ReactFlowProvider } from '@xyflow/react';
 
+import { HotkeysProvider } from 'react-hotkeys-hook';
+
 import { WaldiezFlow } from '@waldiez/components/flow';
 import { WaldiezProvider } from '@waldiez/store';
 import * as theme from '@waldiez/theme';
@@ -21,30 +23,32 @@ const renderComponent = (
   const nodesToUse = noAgents ? [] : singleAgent ? [agentNodes[0]] : nodes;
   const edgesToUse = singleAgent ? [] : edges;
   render(
-    <ReactFlowProvider>
-      <WaldiezProvider
-        flowId={flowId}
-        storageId={flowId}
-        name="Test Flow"
-        description="Test Description"
-        requirements={['Test Requirement']}
-        tags={['Test Tag']}
-        nodes={nodesToUse}
-        edges={edgesToUse}
-        viewport={{ zoom: 1, x: 50, y: 50 }}
-        createdAt={createdAt}
-        updatedAt={updatedAt}
-      >
-        <WaldiezFlow
+    <HotkeysProvider initiallyActiveScopes={[flowId]}>
+      <ReactFlowProvider>
+        <WaldiezProvider
           flowId={flowId}
           storageId={flowId}
-          onChange={onChange}
-          onRun={onRun}
-          onUserInput={onUserInput}
-          inputPrompt={includeUserInput ? userInput : null}
-        />
-      </WaldiezProvider>
-    </ReactFlowProvider>
+          name="Test Flow"
+          description="Test Description"
+          requirements={['Test Requirement']}
+          tags={['Test Tag']}
+          nodes={nodesToUse}
+          edges={edgesToUse}
+          viewport={{ zoom: 1, x: 50, y: 50 }}
+          createdAt={createdAt}
+          updatedAt={updatedAt}
+        >
+          <WaldiezFlow
+            flowId={flowId}
+            storageId={flowId}
+            onChange={onChange}
+            onRun={onRun}
+            onUserInput={onUserInput}
+            inputPrompt={includeUserInput ? userInput : null}
+          />
+        </WaldiezProvider>
+      </ReactFlowProvider>
+    </HotkeysProvider>
   );
 };
 

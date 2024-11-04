@@ -37,9 +37,8 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
   const flowId = useWaldiezContext(s => s.flowId);
   const storageId = useWaldiezContext(s => s.storageId);
   // tmp state, persist on submit, discard on cancel
-  const [agentData, setAgentData] = useState<WaldiezAgentNodeData>({
-    ...data
-  });
+  const [agentData, setAgentData] = useState<WaldiezAgentNodeData>({ ...data });
+  const [isDirty, setIsDirty] = useState(false);
   const [isNodeModalOpen, setNodeModalOpen] = useState(false);
   const [isEdgeModalOpen, setEdgeModalOpen] = useState(false);
   const [edge, setEdge] = useState<WaldiezEdge | null>(null);
@@ -83,6 +82,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
   };
   const setManagerState = (partialData: Partial<WaldiezAgentNodeData>) => {
     setAgentData({ ...agentData, ...partialData, nestedChats: [] });
+    setIsDirty(JSON.stringify({ ...agentData, ...partialData }) !== JSON.stringify(data));
   };
   const setNoManagerState = (partialData: Partial<WaldiezAgentNodeData>) => {
     const newData = partialData as WaldiezNodeUserOrAssistantData;
@@ -90,7 +90,9 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
     if (newData.nestedChats) {
       nestedChats = newData.nestedChats;
     }
-    setAgentData({ ...agentData, ...newData, nestedChats });
+    const dataToSet = { ...agentData, ...newData, nestedChats };
+    setAgentData(dataToSet);
+    setIsDirty(JSON.stringify(dataToSet) !== JSON.stringify(data));
   };
 
   const setAgentState = (partialData: Partial<WaldiezAgentNodeData>, persist: boolean = false) => {
@@ -102,6 +104,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
     }
     if (persist === true) {
       updateAgentData(id, partialData);
+      setIsDirty(false);
     }
   };
   const toRagUser = () => {
@@ -136,6 +139,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
     } else {
       toUser();
     }
+    setIsDirty(data.agentType !== agentType);
   };
   const onClone = () => {
     cloneAgent(id);
@@ -154,34 +158,15 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
       updateEdgePath(edge.id, newAgentType);
     });
   };
-  const onChangeToRagUser = (currentAgentData: WaldiezAgentNodeData) => {
-    // make sure data.retrieveConfig (WaldiezRageUserRetrieveConfig) is set
-    const ragData = currentAgentData as { [key: string]: any };
-    ragData.agentType = 'rag_user';
-    if (!ragData.retrieveConfig) {
-      ragData.retrieveConfig = defaultRetrieveConfig;
-    }
-  };
-  const onChangeToNoRagUser = (currentAgentData: WaldiezAgentNodeData) => {
-    // remove retrieveConfig if it exists
-    const noRagData = currentAgentData as { [key: string]: any };
-    noRagData.agentType = 'user';
-    if (noRagData.retrieveConfig) {
-      delete noRagData.retrieveConfig;
-    }
-  };
-  const handleAgentTypeChange = (newAgentType: WaldiezAgentNodeType) => {
-    const agent = getAgentById(id);
-    if (!agent) {
-      return;
-    }
+  const handleAgentTypeChange = (dataToSubmit: { [key: string]: any }) => {
+    const newAgentType = dataToSubmit.agentType as WaldiezAgentNodeType;
     updateAgentConnections(newAgentType);
-    const currentAgentData = agent.data as WaldiezAgentNodeData;
-    if (newAgentType === 'rag_user') {
-      onChangeToRagUser(currentAgentData);
-    } else {
-      onChangeToNoRagUser(currentAgentData);
+    if (newAgentType === 'rag_user' && !dataToSubmit.retrieveConfig) {
+      dataToSubmit.retrieveConfig = defaultRetrieveConfig;
+    } else if (newAgentType === 'user' && dataToSubmit.retrieveConfig) {
+      delete dataToSubmit.retrieveConfig;
     }
+    return dataToSubmit;
   };
   const postSubmit = () => {
     const storedAgent = getAgentById(id);
@@ -190,12 +175,13 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
     }
     if (storedAgent.data) {
       setAgentData({ ...(storedAgent.data as WaldiezAgentNodeData) });
+      setIsDirty(false);
     }
-    setNodeModalOpen(false);
+    // setNodeModalOpen(false);
   };
-  const doSubmit = (dataToSubmit: { [key: string]: any }) => {
+  const submit = (dataToSubmit: { [key: string]: any }) => {
     if (dataToSubmit.agentType !== data.agentType) {
-      handleAgentTypeChange(dataToSubmit.agentType);
+      dataToSubmit = handleAgentTypeChange(dataToSubmit);
     }
     updateAgentData(id, dataToSubmit);
     handleGroupChange();
@@ -224,7 +210,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
       changeGroup(id, currentGroupManager.id);
     }
   };
-  const onSubmit = (filesToUpload: File[]) => {
+  const onSave = (filesToUpload: File[]) => {
     const dataToSubmit = { ...agentData } as { [key: string]: any };
     if (agentData.agentType === 'rag_user' && filesToUpload.length > 0 && uploadHandler) {
       uploadHandler(filesToUpload).then(filePaths => {
@@ -238,10 +224,10 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
           }
         }
         dataToSubmit.retrieveConfig.docsPath = newDocsPath;
-        doSubmit(dataToSubmit);
+        submit(dataToSubmit);
       });
     } else {
-      doSubmit(dataToSubmit);
+      submit(dataToSubmit);
     }
   };
   const onCancel = () => {
@@ -266,6 +252,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
       id={id}
       flowId={flowId}
       data={agentData}
+      isDirty={isDirty}
       skills={skills}
       models={models}
       agents={agents}
@@ -287,7 +274,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
       onAgentTypeChange={onAgentTypeChange}
       onClone={onClone}
       onDelete={onDelete}
-      onSubmit={onSubmit}
+      onSave={onSave}
       onCancel={onCancel}
     />
   );

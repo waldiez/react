@@ -1,7 +1,7 @@
 import { Node, ReactFlowInstance } from '@xyflow/react';
 
 const calculateNewNodePosition = (
-  rfInstance: ReactFlowInstance | null,
+  rfInstance: ReactFlowInstance | undefined,
   flowWrapper: HTMLElement,
   currentNodesCount: number,
   entriesDistance: number
@@ -20,7 +20,7 @@ const calculateNewNodePosition = (
 export const getNewNodePosition = (
   currentNodesCount: number,
   flowId: string,
-  rfInstance: ReactFlowInstance | null,
+  rfInstance?: ReactFlowInstance,
   entriesDistance: number = 240
 ) => {
   const flowRoot = document.getElementById(`rf-root-${flowId}`);
@@ -36,7 +36,7 @@ export const getNewNodePosition = (
   return calculateNewNodePosition(rfInstance, flowWrapper as HTMLElement, currentNodesCount, entriesDistance);
 };
 
-export const setViewPortTopLeft = (rfInstance: ReactFlowInstance | null) => {
+export const setViewPortTopLeft = (rfInstance?: ReactFlowInstance) => {
   if (rfInstance) {
     const zoom = rfInstance.getZoom();
     rfInstance.setViewport({
@@ -51,7 +51,7 @@ export const reArrangeNodes = (
   nodes: Node[],
   flowId: string,
   nodeType: 'model' | 'skill',
-  rfInstance: ReactFlowInstance | null
+  rfInstance?: ReactFlowInstance
 ) => {
   let nodesAdded = 0;
   const newNodes: Node[] = [];

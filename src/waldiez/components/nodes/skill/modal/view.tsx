@@ -10,9 +10,10 @@ export const WaldiezSkillNodeModalView = (props: WaldiezSkillNodeModalViewProps)
     data,
     isModalOpen,
     darkMode,
+    isDirty,
     onClose,
     onCancel,
-    onSubmit,
+    onSave,
     onSkillLabelChange,
     onSkillDescriptionChange,
     onSkillContentChange,
@@ -62,8 +63,9 @@ export const WaldiezSkillNodeModalView = (props: WaldiezSkillNodeModalViewProps)
         </button>
         <button
           className="modal-action-submit"
-          onClick={onSubmit}
+          onClick={onSave}
           data-testid={`modal-submit-btn-${skillId}`}
+          disabled={!isDirty}
         >
           Save
         </button>

@@ -21,20 +21,17 @@ export const FlowModal = (props: EditFlowModalProps) => {
   // tmp state (to save onSubmit, discard onCancel)
   const [sortedEdgesState, setSortedEdgesState] = useState<WaldiezEdge[]>(sortedEdges);
   const [remainingEdgesState, setRemainingEdgeState] = useState<WaldiezEdge[]>(remainingEdges);
+  // const isDataDirty = JSON.stringify(flowData) !== JSON.stringify({ name, description, requirements, tags });
+  // const isEdgesDirty = JSON.stringify(sortedEdgesState) !== JSON.stringify(sortedEdges);
   useEffect(() => {
-    setFlowData({ name, description, requirements, tags });
-  }, [name, description, requirements, tags, isOpen]);
-  useEffect(() => {
-    const [sortedEdges, remainingEdges] = getFlowEdges();
-    setSortedEdgesState(sortedEdges);
-    setRemainingEdgeState(remainingEdges);
-  }, [isOpen]);
+    reset();
+  }, [isOpen, data]);
   // submit/cancel/close
   const onSubmitChanges = () => {
     const edgeOrders = sortedEdgesState
       .map((edge, index) => ({
         id: edge.id,
-        order: index + 1
+        order: index
       }))
       .concat(
         remainingEdgesState.map(edge => ({
@@ -50,8 +47,9 @@ export const FlowModal = (props: EditFlowModalProps) => {
   };
   const reset = () => {
     setFlowData({ name, description, requirements, tags });
-    setSortedEdgesState(sortedEdges);
-    setRemainingEdgeState(remainingEdges);
+    const [storedSortedEdges, storedRemainingEdges] = getFlowEdges();
+    setSortedEdgesState(storedSortedEdges);
+    setRemainingEdgeState(storedRemainingEdges);
   };
   const onDiscardChanges = () => {
     reset();
@@ -87,11 +85,11 @@ export const FlowModal = (props: EditFlowModalProps) => {
       return;
     }
     const lastOrder = getNewEdgeOrder();
-    selectedNewEdge.data = {
-      ...selectedNewEdge.data,
-      order: lastOrder
-    } as any;
-    setSortedEdgesState([...sortedEdgesState, selectedNewEdge]);
+    const newSelectedEdge = {
+      ...selectedNewEdge,
+      data: { ...selectedNewEdge.data, order: lastOrder } as any
+    };
+    setSortedEdgesState([...sortedEdgesState, newSelectedEdge]);
     setRemainingEdgeState(remainingEdgesState.filter(e => e.id !== selectedNewEdge.id));
     setSelectedNewEdge(null);
   };
@@ -105,9 +103,9 @@ export const FlowModal = (props: EditFlowModalProps) => {
       return;
     }
     // set the order to -1
-    edge.data = { ...edge.data, order: -1 } as any;
+    // edge.data = { ...edge.data, order: -1 } as any;
     setSortedEdgesState(sortedEdgesState.filter(e => e.id !== edge.id));
-    setRemainingEdgeState([...remainingEdgesState, edge]);
+    setRemainingEdgeState([...remainingEdgesState, { ...edge, data: { ...edge.data, order: -1 } as any }]);
   };
   const onMoveEdgeUp = (index: number) => {
     // it should be in the 'sorted' list

@@ -8,8 +8,18 @@ import { WaldiezNodeModelModalProps } from '@waldiez/components/nodes/model/moda
 import { TabItem, TabItems } from '@waldiez/components/tabs';
 
 export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
-  const { modelId, data, isOpen, importExportView, onDataChange, onLogoChange, onClose, onSubmit, onCancel } =
-    props;
+  const {
+    modelId,
+    data,
+    isOpen,
+    isDirty,
+    importExportView,
+    onDataChange,
+    onLogoChange,
+    onClose,
+    onSave,
+    onCancel
+  } = props;
   return (
     <Modal
       beforeTitle={importExportView}
@@ -45,8 +55,9 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
           </button>
           <button
             className="modal-action-submit"
-            onClick={onSubmit}
+            onClick={onSave}
             data-testid={`modal-submit-btn-${modelId}`}
+            disabled={!isDirty}
           >
             Save
           </button>
