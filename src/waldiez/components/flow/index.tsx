@@ -29,11 +29,21 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
   const darkTheme = isDarkMode(flowId, storageId);
   const [isDark, setIsDark] = useState<boolean>(darkTheme);
   const [isModalOpen, setModalOpen] = useState(false);
+  const isFlowVisible = () => {
+    const rootDiv = document.getElementById(`rf-root-${flowId}`);
+    if (!rootDiv) {
+      return false;
+    }
+    const clientRect = rootDiv.getBoundingClientRect();
+    return clientRect.width > 0 && clientRect.height > 0;
+  };
   useHotkeys(
     'mod+z',
     () => {
       if (pastStates.length > 0) {
-        undo();
+        if (isFlowVisible()) {
+          undo();
+        }
       }
     },
     { scopes: flowId }
@@ -42,7 +52,9 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
     ['shift+mod+z', 'mod+y'],
     () => {
       if (futureStates.length > 0) {
-        redo();
+        if (isFlowVisible()) {
+          redo();
+        }
       }
     },
     { scopes: flowId }
