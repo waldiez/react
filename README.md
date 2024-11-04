@@ -13,6 +13,7 @@
 {
     "@monaco-editor/react": "^4.6.0",
     "@xyflow/react": "^12.3.4",
+    "microdiff": "^1.4.0",
     "nanoid": "^5.0.8",
     "rc-slider": "^11.1.7",
     "react": "^18.3.1",
@@ -20,6 +21,7 @@
     "react-error-boundary": "^4.1.2",
     "react-icons": "^5.3.0",
     "react-select": "^5.8.2",
+    "zundo": "^2.2.0",
     "zustand": "^5.0.1"
 }
 ```
