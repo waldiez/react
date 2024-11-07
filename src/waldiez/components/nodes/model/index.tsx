@@ -32,10 +32,6 @@ export const WaldiezNodeModel = ({ id, data }: NodeProps<WaldiezModelNode>) => {
     cloneModel(id);
     setIsDirty(false);
   };
-  const onCloseModal = () => {
-    setIsOpen(false);
-    setIsDirty(false);
-  };
   const onImportLoad = (model: Node, jsonData: { [key: string]: unknown }) => {
     const nodeModel = importModel(jsonData, id, model?.position);
     setModelData({ ...nodeModel.data });
@@ -83,7 +79,7 @@ export const WaldiezNodeModel = ({ id, data }: NodeProps<WaldiezModelNode>) => {
       onDelete={onDelete}
       onImport={onImport}
       onExport={onExport}
-      onClose={onCloseModal}
+      onClose={onCancel}
       onCancel={onCancel}
       onSave={onSave}
     />
