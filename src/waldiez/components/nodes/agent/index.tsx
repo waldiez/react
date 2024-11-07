@@ -147,9 +147,6 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
   const onDelete = () => {
     deleteAgent(id);
   };
-  const onCloseNodeModal = () => {
-    setNodeModalOpen(false);
-  };
   const updateAgentConnections = (newAgentType: WaldiezAgentNodeType) => {
     const agentConnections = getAgentConnections(id, {
       sourcesOnly: true
@@ -233,6 +230,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
   const onCancel = () => {
     const storedAgent = getAgentById(id);
     if (!storedAgent) {
+      setNodeModalOpen(false);
       return;
     }
     if (storedAgent.data) {
@@ -268,7 +266,7 @@ export const WaldiezNodeAgent = ({ id, data, parentId }: NodeProps<WaldiezAgentN
       onDataChange={setAgentState}
       onOpenNodeModal={onOpenNodeModal}
       onOpenEdgeModal={onOpenEdgeModal}
-      onCloseNodeModal={onCloseNodeModal}
+      onCloseNodeModal={onCancel}
       onCloseEdgeModal={onCloseEdgeModal}
       onEdgeConnection={onEdgeConnection}
       onAgentTypeChange={onAgentTypeChange}

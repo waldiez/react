@@ -24,10 +24,6 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
   const getSkillById = useWaldiezContext(selector => selector.getSkillById);
   const importSkill = useWaldiezContext(selector => selector.importSkill);
   const exportSkill = useWaldiezContext(selector => selector.exportSkill);
-  const onClose = () => {
-    setModalOpen(false);
-    setIsDirty(false);
-  };
   const onOpen = () => {
     setModalOpen(true);
     setIsDirty(false);
@@ -82,7 +78,7 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
       darkMode={isDark}
       isDirty={isDirty}
       onOpen={onOpen}
-      onClose={onClose}
+      onClose={onCancel}
       onCancel={onCancel}
       onSave={onSave}
       onDelete={onDelete}

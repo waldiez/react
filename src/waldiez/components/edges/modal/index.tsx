@@ -73,7 +73,7 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
       onDataChange={onDataChange}
       onCancel={onCancel}
       onSubmit={onSubmit}
-      onClose={onClose}
+      onClose={onCancel}
     />
   );
 };
