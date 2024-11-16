@@ -1,7 +1,7 @@
 import { MultiValue } from '@waldiez/components/inputs';
 import { WaldiezAgentNodeData, WaldiezSkillNode } from '@waldiez/models';
 
-export type CodeExecutionAgentConfigTabProps = {
+export type WaldiezAgentCodeExecutionProps = {
   id: string;
   data: WaldiezAgentNodeData;
   skills: WaldiezSkillNode[];

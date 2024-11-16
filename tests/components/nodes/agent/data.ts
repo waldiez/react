@@ -147,7 +147,7 @@ export const getConnectedAgents = (areGroupMembers: boolean = false) => {
       y: 0
     });
     if (areGroupMembers) {
-      agent.parentId = agentId;
+      agent.data.parentId = agentId;
     }
     agent.id = `agent-${i}`;
     nodes.push({ ...agent });

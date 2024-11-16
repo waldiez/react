@@ -24,15 +24,19 @@ export const importAgent: (data: any, agentId?: string, skipLinks?: boolean) => 
   switch (agentType) {
     case 'user':
       agent = WaldiezSourceUserProxy.fromJSON(agentData, 'user').asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
     case 'assistant':
       agent = WaldiezSourceAssistant.fromJSON(agentData, 'assistant').asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
     case 'manager':
       agent = WaldiezSourceGroupManager.fromJSON(agentData).asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
     case 'rag_user':
       agent = WaldiezSourceRagUser.fromJSON(agentData).asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
   }
 };

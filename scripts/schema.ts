@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 const repositoryUrl = packageJson.repository.url.replace('.git', '');
 const schemaId = `${repositoryUrl}/tree/v${packageJson.version}/schema.json`;
 const config = {
-  tsconfig: 'tsconfig.app.json',
+  tsconfig: 'tsconfig.docs.json',
   type: 'WaldiezFlow',
   expose: 'export' as 'all' | 'none' | 'export',
   jsDoc: 'extended' as 'none' | 'extended' | 'basic',

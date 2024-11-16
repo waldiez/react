@@ -1,8 +1,7 @@
-import React from 'react';
-
 import { TabItemProps } from '@waldiez/components/tabs/types';
 
-export const TabItem: React.FC<TabItemProps> = ({ id, label, children }) => {
+export const TabItem = (props: TabItemProps) => {
+  const { id, label, children } = props;
   return (
     <div
       className="tab-panel"
@@ -15,5 +14,3 @@ export const TabItem: React.FC<TabItemProps> = ({ id, label, children }) => {
     </div>
   );
 };
-
-export default TabItem;

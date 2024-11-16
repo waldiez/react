@@ -31,9 +31,8 @@ describe('Skills tab', () => {
     const agentName = screen.getByTestId(`agent-name-${agentId}-0`);
     expect(agentName).toBeInTheDocument();
     expect(agentName).toHaveTextContent('User');
-    submitAgentChanges();
   });
-  it('should allow to remove the agent skills', async () => {
+  it('should allow removing agent skills', async () => {
     renderAgent('user', {
       openModal: true,
       dataOverrides: skillOverrides,
@@ -49,7 +48,7 @@ describe('Skills tab', () => {
     expect(agentName).toBeNull();
     submitAgentChanges();
   });
-  it('should allow to add agent skills', async () => {
+  it('should allow adding agent skills', async () => {
     renderAgent('user', {
       openModal: true,
       dataOverrides: skillOverrides,

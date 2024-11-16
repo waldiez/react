@@ -6,6 +6,11 @@
   border-radius: 4px;
 }
 
+.flow-wrapper.dark .info {
+  background-color: #20558f;
+  color: #cce5ff;
+}
+
 .flow-wrapper .success {
   color: #155724;
   background-color: #d4edda;

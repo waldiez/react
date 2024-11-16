@@ -42,16 +42,17 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
             nodes={nodes}
             edges={edges}
             onUpload={onUpload}
+            onChange={onChange}
           >
             <WaldiezFlow
               flowId={flowId}
               storageId={storageId}
               monacoVsPath={monacoVsPath}
+              inputPrompt={inputPrompt}
+              onUpload={onUpload}
               onChange={onChange}
               onRun={onRun}
               onUserInput={onUserInput}
-              onUpload={onUpload}
-              inputPrompt={inputPrompt}
             />
           </WaldiezProvider>
         </ReactFlowProvider>
@@ -71,7 +72,7 @@ const fallbackRender = (props: errorRenderProps) => {
   // resetErrorBoundary();
   return (
     <div className="error-boundary" data-testid="error-boundary">
-      <p>Something went wrong:</p>
+      <p>Something went wrong :(</p>
       <pre className="error">{error.message}</pre>
     </div>
   );

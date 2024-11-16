@@ -36,7 +36,8 @@ describe('WaldiezSourceUserProxyOrAssistant', () => {
     tags: [],
     requirements: [],
     createdAt,
-    updatedAt
+    updatedAt,
+    parentId: null
   };
 
   const agent = new WaldiezSourceUserProxyOrAssistant('agent-id', agentData);
@@ -82,7 +83,7 @@ describe('WaldiezSourceUserProxyOrAssistant', () => {
   it('should import an agent from JSON', () => {
     const agent = WaldiezSourceUserProxyOrAssistant.fromJSON(agentJson, 'assistant');
     expect(agent).toBeInstanceOf(WaldiezSourceUserProxyOrAssistant);
-    expect(agent.data.name).toBe('Agent');
+    expect(agent.data.name).toBe(agentJson.name);
     expect(agent.data.agentType).toBe('assistant');
     expect(agent.data.createdAt).toBe(createdAt);
   });

@@ -1,6 +1,6 @@
 import { renderAgent, submitAgentChanges } from './common';
 import { agentId, flowId, getAgentData } from './data';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
@@ -38,72 +38,75 @@ describe('WaldiezAgentNode', () => {
   });
   it('should import a user agent', async () => {
     renderAgent('assistant', { openModal: true });
-    const labelView = screen.getByTestId(`agent-header-label-${agentId}`);
-    expect(labelView).toHaveTextContent('Assistant');
+    const labelViewInput = screen.getByTestId(`agent-name-input-${agentId}`);
+    expect(labelViewInput).toHaveValue('Assistant');
     const agentData = getAgentData('user');
     const importInput = screen.getByTestId(`file-upload-agent-${flowId}-${agentId}`);
     const importData = {
       id: agentId,
       type: 'agent',
       agentType: 'user',
-      name: 'User',
       data: { ...(agentData as any) }
     };
     await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
-    vi.advanceTimersByTime(100);
-    expect(labelView).toHaveTextContent('User');
+    await waitFor(() => {
+      expect(labelViewInput).toHaveValue('User');
+    });
     submitAgentChanges();
   });
   it('should import an assistant agent', async () => {
     renderAgent('user', { openModal: true });
-    const labelView = screen.getByTestId(`agent-header-label-${agentId}`);
-    expect(labelView).toHaveTextContent('User');
+    const labelViewInput = screen.getByTestId(`agent-name-input-${agentId}`);
+    expect(labelViewInput).toHaveValue('User');
     const agentData = getAgentData('assistant');
     const importInput = screen.getByTestId(`file-upload-agent-${flowId}-${agentId}`);
     const importData = {
       id: agentId,
       type: 'agent',
       agentType: 'assistant',
-      name: 'Assistant',
       data: { ...(agentData as any) }
     };
     await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
-    expect(labelView).toHaveTextContent('Assistant');
+    await waitFor(() => {
+      expect(labelViewInput).toHaveValue('Assistant');
+    });
     submitAgentChanges();
   });
   it('should import a manager agent', async () => {
     renderAgent('assistant', { openModal: true });
-    const labelView = screen.getByTestId(`agent-header-label-${agentId}`);
-    expect(labelView).toHaveTextContent('Assistant');
+    const labelViewInput = screen.getByTestId(`agent-name-input-${agentId}`);
+    expect(labelViewInput).toHaveValue('Assistant');
     const agentData = getAgentData('manager');
     const importInput = screen.getByTestId(`file-upload-agent-${flowId}-${agentId}`);
     const importData = {
       id: agentId,
       type: 'agent',
       agentType: 'manager',
-      name: 'Manager',
       data: { ...(agentData as any) }
     };
     await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
-    expect(labelView).toHaveTextContent('Manager');
+    await waitFor(() => {
+      expect(labelViewInput).toHaveValue('Manager');
+    });
     submitAgentChanges();
   });
 
   it('should import a rag user agent', async () => {
     renderAgent('user', { openModal: true });
-    const labelView = screen.getByTestId(`agent-header-label-${agentId}`);
-    expect(labelView).toHaveTextContent('User');
+    const labelViewInput = screen.getByTestId(`agent-name-input-${agentId}`);
+    expect(labelViewInput).toHaveValue('User');
     const agentData = getAgentData('rag_user');
     const importInput = screen.getByTestId(`file-upload-agent-${flowId}-${agentId}`);
     const importData = {
       id: agentId,
       type: 'agent',
       agentType: 'rag_user',
-      name: 'Rag User',
       data: { ...(agentData as any) }
     };
     await userEvent.upload(importInput, [new File([JSON.stringify(importData)], 'test.waldiezAgent')]);
-    expect(labelView).toHaveTextContent('RAG User');
+    await waitFor(() => {
+      expect(labelViewInput).toHaveValue('RAG User');
+    });
     submitAgentChanges();
   });
   it('should export a user agent', () => {

@@ -5,8 +5,6 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-// import selectEvent from 'react-select-event';
-
 const goToGroupsTab = () => {
   // Click on the groups tab
   const groupsTab = screen.getByTestId(`tab-id-wf-${flowId}-agent-group-${agentId}`);
@@ -22,7 +20,7 @@ describe('Groups tab', () => {
   it('should display the agent groups', async () => {
     renderAgent('user', {
       openModal: true,
-      nodeOverrides: groupOverrides,
+      dataOverrides: groupOverrides,
       includeGroups: true
     });
     goToGroupsTab();
@@ -34,7 +32,7 @@ describe('Groups tab', () => {
   it('should allow the agent to leave the group', async () => {
     renderAgent('user', {
       openModal: true,
-      nodeOverrides: groupOverrides,
+      dataOverrides: groupOverrides,
       includeGroups: true
     });
     goToGroupsTab();
@@ -77,7 +75,7 @@ describe('Groups tab', () => {
   it('should allow changing the agent group', async () => {
     renderAgent('user', {
       openModal: true,
-      nodeOverrides: groupOverrides,
+      dataOverrides: groupOverrides,
       includeGroups: true
     });
     goToGroupsTab();

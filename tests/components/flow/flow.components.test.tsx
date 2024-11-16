@@ -25,7 +25,6 @@ describe('WaldiezFlow Nodes and Edges', () => {
     expect(screen.getByTestId(groupMemberId)).toBeTruthy();
     const removeButton = screen.queryByTitle('Remove member'); // svg title
     expect(removeButton).toBeTruthy();
-    // await userEvent.click(removeButton as HTMLElement);
     fireEvent.click(removeButton as HTMLElement);
     vi.advanceTimersByTime(500);
     expect(screen.queryByTestId(groupMemberId)).toBeNull();
@@ -76,18 +75,18 @@ describe('WaldiezFlow Nodes and Edges', () => {
     const linkedSkillNameView = screen.getByTestId('agent-agent-0-linked-skill-0');
     expect(linkedSkillNameView.textContent).toBe('Skill Node 0');
   });
-  it("should update an agent's system message", async () => {
+  it("should update an agent's description", async () => {
     act(() => {
       renderFlow();
     });
-    const systemMessage = screen.getByTestId('agent-system-message-agent-0');
-    fireEvent.change(systemMessage, {
+    const description = screen.getByTestId('agent-description-agent-0');
+    fireEvent.change(description, {
       target: {
-        value: 'Updated System Message'
+        value: 'Updated Description'
       }
     });
-    const systemMessageUpdated = screen.getByTestId('agent-system-message-agent-0') as HTMLTextAreaElement;
-    expect(systemMessageUpdated.value).toBe('Updated System Message');
+    const descriptionUpdated = screen.getByTestId('agent-description-agent-0') as HTMLTextAreaElement;
+    expect(descriptionUpdated.value).toBe('Updated Description');
   });
   it('should connect two agents with an edge', async () => {
     act(() => {

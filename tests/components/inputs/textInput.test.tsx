@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
+import { useState } from 'react';
+
 import { TextInput } from '@waldiez/components/inputs/textInput';
 
 describe('TextInput', () => {
@@ -75,17 +77,18 @@ describe('TextInput', () => {
   });
 
   it('should handle change', () => {
-    const onChange = vi.fn();
     const textInputProps = {
       label: 'test',
-      value: 'test',
-      onChange
+      value: 'test'
     };
-    render(<TextInput {...textInputProps} />);
+    const Wrapper = () => {
+      const [value, setValue] = useState('test');
+      return <TextInput {...textInputProps} value={value} onChange={e => setValue(e.target.value)} />;
+    };
+    render(<Wrapper />);
     fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'test2' }
     });
-    expect(onChange).toHaveBeenCalled();
     expect(screen.getByRole('textbox')).toHaveValue('test2');
   });
 

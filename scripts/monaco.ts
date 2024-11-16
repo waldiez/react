@@ -190,7 +190,7 @@ function ensureMonacoFiles(publicPath: string): Promise<void> {
 function main() {
   ensureMonacoFiles(PUBLIC_PATH)
     .then(() => {
-      console.info('Monaco editor files are up-to-date.');
+      // console.info('Monaco editor files are up-to-date.');
       process.exit(0);
     })
     .catch(err => {

@@ -115,6 +115,7 @@ export const renderFlow = (
           viewport={{ zoom: 1, x: 50, y: 50 }}
           createdAt={createdAt}
           updatedAt={updatedAt}
+          onChange={onChange}
         >
           <WaldiezFlow
             flowId={flowId}

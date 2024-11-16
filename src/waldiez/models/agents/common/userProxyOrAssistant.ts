@@ -67,12 +67,8 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
     }
     return id;
   };
-  static getAgentName = (
-    agentType: 'user' | 'assistant',
-    name: string | null,
-    json: Record<string, unknown>
-  ): string => {
-    let agentName = `${agentType.charAt(0).toUpperCase()}${agentType.slice(1)}`;
+  static getAgentName = (name: string | null, json: Record<string, unknown>): string | null => {
+    let agentName = null;
     if (name && typeof name === 'string') {
       agentName = name;
     } else if ('name' in json && typeof json.name === 'string') {
@@ -96,6 +92,14 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
     }
     return agentType as 'user' | 'assistant';
   };
+  static getAgentDescription = (agentType: 'user' | 'assistant', json: Record<string, unknown>): string => {
+    const fallback = `A ${agentType === 'user' ? '' : 'n'} agent`;
+    let description = fallback;
+    if ('description' in json && typeof json.description === 'string') {
+      description = json.description;
+    }
+    return description;
+  };
   static fromJSON = (
     json: unknown,
     agentType: WaldiezAgentNodeType,
@@ -111,16 +115,20 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
     const rest = { ...jsonObject };
     const id = WaldiezSourceUserProxyOrAssistant.getId(rest);
     const agentNodeType = WaldiezSourceUserProxyOrAssistant.getAgentType(jsonObject, agentType);
-    const agentName = WaldiezSourceUserProxyOrAssistant.getAgentName(agentNodeType, name, jsonObject);
+    const agentName = WaldiezSourceUserProxyOrAssistant.getAgentName(name, jsonObject);
+    const agentDescription = WaldiezSourceUserProxyOrAssistant.getAgentDescription(agentNodeType, jsonObject);
     let data: IWaldiezSourceUserProxyOrAssistantData;
-    if ('data' in jsonObject && typeof jsonObject.data === 'object') {
+    if ('data' in jsonObject && typeof jsonObject.data === 'object' && jsonObject.data) {
       delete rest.data;
-      data = WaldiezSourceUserProxyOrAssistantData.fromJSON(
-        jsonObject.data as Record<string, unknown>,
-        agentNodeType,
-        name
-      );
+      const jsonObjectData = jsonObject.data as Record<string, unknown>;
+      if (!('description' in jsonObjectData)) {
+        jsonObjectData.description = agentDescription;
+      }
+      data = WaldiezSourceUserProxyOrAssistantData.fromJSON(jsonObjectData, agentNodeType, agentName);
     } else {
+      if (!('description' in jsonObject)) {
+        jsonObject.description = agentDescription;
+      }
       data = WaldiezSourceUserProxyOrAssistantData.fromJSON(jsonObject, agentNodeType, agentName);
     }
     return new WaldiezSourceUserProxyOrAssistant(id, data, rest);
@@ -165,6 +173,7 @@ export class WaldiezSourceUserProxyOrAssistantData
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
+    parentId: string | null = null,
     nestedChats: WaldiezAgentNestedChat[] = []
   ) {
     super(
@@ -183,7 +192,8 @@ export class WaldiezSourceUserProxyOrAssistantData
       tags,
       requirements,
       createdAt,
-      updatedAt
+      updatedAt,
+      parentId
     );
     this.nestedChats = nestedChats;
     this.agentType = agentType;
@@ -226,6 +236,7 @@ export class WaldiezSourceUserProxyOrAssistantData
       commonData.requirements,
       commonData.createdAt,
       commonData.updatedAt,
+      commonData.parentId,
       nestedChats
     );
   };

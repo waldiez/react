@@ -142,6 +142,9 @@
         "data": {
           "type": "object",
           "properties": {
+            "parentId": {
+              "type": ["string", "null"]
+            },
             "systemMessage": {
               "type": ["string", "null"]
             },
@@ -183,6 +186,7 @@
             }
           },
           "required": [
+            "parentId",
             "systemMessage",
             "humanInputMode",
             "codeExecutionConfig",
@@ -424,6 +428,9 @@
         "data": {
           "type": "object",
           "properties": {
+            "parentId": {
+              "type": ["string", "null"]
+            },
             "systemMessage": {
               "type": ["string", "null"]
             },
@@ -465,6 +472,7 @@
             }
           },
           "required": [
+            "parentId",
             "systemMessage",
             "humanInputMode",
             "codeExecutionConfig",
@@ -534,6 +542,9 @@
         "data": {
           "type": "object",
           "properties": {
+            "parentId": {
+              "type": ["string", "null"]
+            },
             "systemMessage": {
               "type": ["string", "null"]
             },
@@ -584,6 +595,7 @@
             }
           },
           "required": [
+            "parentId",
             "systemMessage",
             "humanInputMode",
             "codeExecutionConfig",

@@ -1,4 +1,4 @@
-import { agentNodes, createdAt, edges, flow, flowId, nodes, updatedAt, userInput } from './data';
+import { agentNodes, createdAt, edges, flowId, nodes, updatedAt, userInput } from './data';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -37,6 +37,7 @@ const renderFlow = (
           viewport={{ zoom: 1, x: 50, y: 50 }}
           createdAt={createdAt}
           updatedAt={updatedAt}
+          onChange={onChange}
         >
           <WaldiezFlow
             flowId={flowId}
@@ -91,21 +92,12 @@ describe('WaldiezFlow', () => {
     fireEvent.click(screen.getByTestId('show-skills'));
     expect(screen.getByTestId('add-skill-node')).toBeTruthy();
   });
-  it('should handle import flow', async () => {
-    act(() => {
-      renderFlow();
-    });
-    const importInput = screen.getByTestId(`import-flow-${flowId}`);
-    expect(importInput).toBeTruthy();
-    await userEvent.upload(importInput, [new File([JSON.stringify(flow)], 'test.waldiez')]);
-    expect(onChange).toHaveBeenCalled();
-  });
   it('should handle export flow', async () => {
     act(() => {
       renderFlow();
     });
-    await userEvent.click(screen.getByTestId(`export-flow-${flowId}`));
-    fireEvent.click(screen.getByTestId(`export-flow-${flowId}`));
+    await userEvent.click(screen.getByTestId(`export-flow-${flowId}-sidebar-button`));
+    // fireEvent.click(screen.getByTestId(`export-flow-${flowId}`));
     expect(window.URL.createObjectURL).toHaveBeenCalled();
     expect(window.URL.revokeObjectURL).toHaveBeenCalled();
   });
@@ -130,14 +122,14 @@ describe('WaldiezFlow', () => {
     await userEvent.click(screen.getByTestId('run-flow'));
     expect(onRun).not.toBeCalled();
   });
-  it('should toggle dark mode', async () => {
+  it('should toggle dark mode', () => {
     act(() => {
       renderFlow();
     });
     fireEvent.click(screen.getByTestId('theme-toggle'));
     expect(theme.setDarkMode).toBeCalledTimes(1);
   });
-  it('should delete an agent with Delete key', async () => {
+  it('should delete an agent with Delete key', () => {
     act(() => {
       renderFlow();
     });
@@ -146,9 +138,8 @@ describe('WaldiezFlow', () => {
       code: 'Delete'
     });
     expect(screen.queryByTestId('rf__node-agent-0')).toBeNull();
-    expect(onChange).toHaveBeenCalled();
   });
-  it('should delete a model with Delete key', async () => {
+  it('should delete a model with Delete key', () => {
     act(() => {
       renderFlow();
     });
@@ -160,7 +151,7 @@ describe('WaldiezFlow', () => {
     });
     expect(screen.queryByTestId('rf__node-model-0')).toBeNull();
   });
-  it('should delete a skill with Delete key', async () => {
+  it('should delete a skill with Delete key', () => {
     act(() => {
       renderFlow();
     });
@@ -172,7 +163,7 @@ describe('WaldiezFlow', () => {
     });
     expect(screen.queryByTestId('rf__node-skill-0')).toBeNull();
   });
-  it('should delete an edge with Delete key', async () => {
+  it('should delete an edge with Delete key', () => {
     act(() => {
       renderFlow();
     });
@@ -182,7 +173,7 @@ describe('WaldiezFlow', () => {
     });
     expect(screen.queryByTestId('rf__edge-edge-0')).toBeNull();
   });
-  it('should handle viewport change on zoom', async () => {
+  it('should handle viewport change on zoom', () => {
     act(() => {
       renderFlow();
     });

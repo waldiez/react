@@ -124,7 +124,6 @@ agentNodes.push({
     x: 100 * (edgesCount + 1),
     y: 100 * (edgesCount + 1)
   },
-  parentId: `agent-${edgesCount}`,
   data: {
     label: 'Agent Node',
     agentType: 'assistant',
@@ -139,7 +138,8 @@ agentNodes.push({
       methodContent: null
     } as WaldiezAgentTerminationMessageCheck,
     createdAt,
-    updatedAt
+    updatedAt,
+    parentId: `agent-${edgesCount}`
   }
 });
 export { agentNodes };

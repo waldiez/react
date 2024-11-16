@@ -1,10 +1,10 @@
-import { createdAt, flowId, modelData, modelId, storedModels, updatedAt } from './data';
+import { apiTypeOptions, createdAt, flowId, modelData, modelId, storedModels, updatedAt } from './data';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-import { WaldiezNodeModel, apiTypeOptions } from '@waldiez/components';
+import { WaldiezNodeModel } from '@waldiez/components';
 import { WaldiezModelAPIType } from '@waldiez/models';
 import { WaldiezProvider } from '@waldiez/store';
 

@@ -1,29 +1,42 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SideBar } from '@waldiez/components/sidebar';
+import { SideBarProps } from '@waldiez/components/sidebar/types';
+import { WaldiezProvider } from '@waldiez/store';
 
-const onNodeTypeSelected = vi.fn();
-const onThemeToggle = vi.fn();
-const onEditFlow = vi.fn();
-const onImport = vi.fn();
-const getFlow = vi.fn();
 const flowId = 'test';
-const name = 'test-flow';
 const storageId = 'test-storage';
+const createdAt = new Date().toISOString();
+const updatedAt = new Date().toISOString();
+const onTypeShownChange = vi.fn();
+const onThemeToggle = vi.fn();
 
-const sideBarProps = {
-  flowId,
-  name,
-  storageId,
+const sideBarProps: SideBarProps = {
   darkMode: true,
-  rfInstance: undefined,
-  onNodeTypeSelected,
+  typeShown: 'agent',
   onThemeToggle,
-  onEditFlow,
-  onImport,
-  getFlow
+  onTypeShownChange
+};
+
+const renderSidebar = (props: SideBarProps = sideBarProps) => {
+  render(
+    <WaldiezProvider
+      flowId={flowId}
+      storageId={storageId}
+      name="Test Flow"
+      description="Test Description"
+      requirements={['Test Requirement']}
+      tags={['Test Tag']}
+      nodes={[]}
+      edges={[]}
+      viewport={{ zoom: 1, x: 50, y: 50 }}
+      createdAt={createdAt}
+      updatedAt={updatedAt}
+    >
+      <SideBar {...props} />
+    </WaldiezProvider>
+  );
 };
 
 describe('SideBar', () => {
@@ -48,90 +61,89 @@ describe('SideBar', () => {
   });
 
   it('should render successfully', () => {
-    const { baseElement } = render(<SideBar {...sideBarProps} />);
-    expect(baseElement).toBeTruthy();
+    renderSidebar();
+    const sidebar = screen.getByTestId(`sidebar-${flowId}`);
+    expect(sidebar).toBeTruthy();
+    expect(sidebar).not.toHaveClass('sidebar collapsed');
   });
 
   it('should render with isCollapsed', () => {
-    const sideBarPropsCollapsed = {
-      ...sideBarProps,
-      isCollapsed: true
-    };
-    const { baseElement } = render(<SideBar {...sideBarPropsCollapsed} />);
-    expect(baseElement).toBeTruthy();
+    getItemSpy.mockReturnValue(`{"${storageId}":"true"}`);
+    renderSidebar();
+    const sidebar = screen.getByTestId(`sidebar-${flowId}`);
+    expect(sidebar).toBeTruthy();
+    expect(sidebar).toHaveClass('sidebar collapsed', { exact: true });
   });
 
   it('should call onEditFlow', () => {
-    render(<SideBar {...sideBarProps} />);
-    fireEvent.click(screen.getByTestId('edit-flow'));
-    expect(onEditFlow).toBeCalledTimes(1);
+    renderSidebar();
+    expect(HTMLDialogElement.prototype.showModal).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByTestId(`edit-flow-${flowId}-sidebar-button`));
+    expect(HTMLDialogElement.prototype.showModal).toBeCalledTimes(1);
   });
 
   it('should call onThemeToggle', () => {
-    render(<SideBar {...sideBarProps} />);
+    renderSidebar();
     fireEvent.click(screen.getByTestId('theme-toggle'));
     expect(onThemeToggle).toBeCalledTimes(1);
   });
 
   it('should call onImportFlow', async () => {
-    const onImportLocal = vi.fn();
-    const sideBarPropsWithImport = {
-      ...sideBarProps,
-      onImport: onImportLocal
-    };
-    render(<SideBar {...sideBarPropsWithImport} />);
-    const importInput = screen.getByTestId('import-flow-test');
-    await userEvent.upload(importInput, [new File([JSON.stringify({})], 'test.waldiez')]);
-    expect(onImportLocal).toBeCalledTimes(1);
+    renderSidebar();
+    expect(HTMLDialogElement.prototype.showModal).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByTestId(`import-flow-${flowId}-sidebar-button`));
+    expect(HTMLDialogElement.prototype.showModal).toBeCalledTimes(1);
   });
 
   it('should call onExportFlow', () => {
-    render(<SideBar {...sideBarProps} />);
-    fireEvent.click(screen.getByTestId('export-flow-test'));
+    renderSidebar();
+    expect(HTMLAnchorElement.prototype.click).toBeCalledTimes(0);
+    fireEvent.click(screen.getByTestId(`export-flow-${flowId}-sidebar-button`));
+    expect(HTMLAnchorElement.prototype.click).toBeCalledTimes(1);
   });
 
   it('should call onNodeTypeSelected with agent', () => {
-    const onNodeTypeSelectedLocal = vi.fn();
+    const onTypeShownChangeLocal = vi.fn();
     const sideBarPropsWithNodeType = {
       ...sideBarProps,
-      onNodeTypeSelected: onNodeTypeSelectedLocal
+      onTypeShownChange: onTypeShownChangeLocal
     };
-    render(<SideBar {...sideBarPropsWithNodeType} />);
+    renderSidebar(sideBarPropsWithNodeType);
     fireEvent.click(screen.getByTestId('show-agents'));
-    expect(onNodeTypeSelectedLocal).toBeCalledTimes(1);
+    expect(onTypeShownChangeLocal).toBeCalledTimes(1);
   });
 
   it('should call onNodeTypeSelected with model', () => {
-    const onNodeTypeSelectedLocal = vi.fn();
+    const onTypeShownChangeLocal = vi.fn();
     const sideBarPropsWithNodeType = {
       ...sideBarProps,
-      onNodeTypeSelected: onNodeTypeSelectedLocal
+      onTypeShownChange: onTypeShownChangeLocal
     };
-    render(<SideBar {...sideBarPropsWithNodeType} />);
+    renderSidebar(sideBarPropsWithNodeType);
     fireEvent.click(screen.getByTestId('show-models'));
-    expect(onNodeTypeSelectedLocal).toBeCalledTimes(1);
+    expect(onTypeShownChangeLocal).toBeCalledTimes(1);
   });
 
   it('should call onNodeTypeSelected with skill', () => {
-    const onNodeTypeSelectedLocal = vi.fn();
+    const onTypeShownChangeLocal = vi.fn();
     const sideBarPropsWithNodeType = {
       ...sideBarProps,
-      onNodeTypeSelected: onNodeTypeSelectedLocal
+      onTypeShownChange: onTypeShownChangeLocal
     };
-    render(<SideBar {...sideBarPropsWithNodeType} />);
+    renderSidebar(sideBarPropsWithNodeType);
     fireEvent.click(screen.getByTestId('show-skills'));
-    expect(onNodeTypeSelectedLocal).toBeCalledTimes(1);
+    expect(onTypeShownChangeLocal).toBeCalledTimes(1);
   });
 
   it('should use initial isCollapsed state', () => {
     getItemSpy.mockReturnValueOnce('{"test":true}');
-    render(<SideBar {...sideBarProps} />);
+    renderSidebar();
     expect(getItemSpy).toBeCalledWith('waldiez_sidebar');
   });
 
   it('should handle invalid storage value', () => {
     getItemSpy.mockReturnValueOnce('invalid');
-    render(<SideBar {...sideBarProps} />);
+    renderSidebar();
     expect(getItemSpy).toBeCalledWith('waldiez_sidebar');
     expect(getItemSpy).toBeCalledTimes(2);
     expect(localStorage.getItem('waldiez_sidebar')).toBeUndefined();
@@ -139,48 +151,32 @@ describe('SideBar', () => {
 
   it('should store isCollapsed state', () => {
     getItemSpy
-      .mockReturnValueOnce('{"test-storage":"true"}')
-      .mockReturnValueOnce('{"test-storage":"true"}')
+      .mockReturnValueOnce(`{"${storageId}":"false"}`)
+      .mockReturnValueOnce(`{"${storageId}":"false"}`)
       .mockReturnValueOnce(null) // for lock
-      .mockReturnValueOnce('{"test-storage":"true"}');
+      .mockReturnValueOnce(`{"${storageId}":"false"}`);
 
-    const rootDiv = document.createElement('div');
-    rootDiv.id = 'rf-root-test';
-    const sidebar = document.createElement('div');
-    sidebar.classList.add('sidebar');
-    rootDiv.appendChild(sidebar);
-    document.body.appendChild(rootDiv);
-    render(<SideBar {...sideBarProps} />);
+    renderSidebar();
     fireEvent.click(screen.getByTestId('sidebar-toggle'));
     expect(setItemSpy).toBeCalledTimes(2);
-    expect(setItemSpy).toBeCalledWith('waldiez_sidebar', '{"test-storage":"false"}');
-    vi.advanceTimersByTime(300);
-    document.body.removeChild(rootDiv);
+    expect(setItemSpy).toBeCalledWith('waldiez_sidebar', `{"${storageId}":"true"}`);
   });
 
   it('should store isCollapsed state with invalid storage value', () => {
     getItemSpy
-      .mockReturnValueOnce('{"test-storage":"true"}')
-      .mockReturnValueOnce('{"test-storage":"true"}')
+      .mockReturnValueOnce(`{"${storageId}":"true"}`)
+      .mockReturnValueOnce(`{"${storageId}":"true"}`)
       .mockReturnValueOnce(null) // for lock
       .mockReturnValueOnce('invalid');
 
-    const rootDiv = document.createElement('div');
-    rootDiv.id = 'rf-root-test';
-    document.body.appendChild(rootDiv);
-    render(<SideBar {...sideBarProps} />);
+    renderSidebar();
     fireEvent.click(screen.getByTestId('sidebar-toggle'));
     expect(setItemSpy).toBeCalledTimes(2);
-    expect(setItemSpy).toBeCalledWith('waldiez_sidebar', '{"test-storage":"false"}');
-    vi.advanceTimersByTime(300);
-    document.body.removeChild(rootDiv);
+    expect(setItemSpy).toBeCalledWith('waldiez_sidebar', `{"${storageId}":"false"}`);
   });
 
   it('should handle drag start', () => {
-    const rootDiv = document.createElement('div');
-    rootDiv.id = 'rf-root-test-flow';
-    document.body.appendChild(rootDiv);
-    render(<SideBar {...sideBarProps} />);
+    renderSidebar();
     fireEvent.dragStart(screen.getByTestId('user-dnd'), {
       dataTransfer: { setData: vi.fn() }
     });
@@ -190,6 +186,5 @@ describe('SideBar', () => {
     fireEvent.dragStart(screen.getByTestId('manager-dnd'), {
       dataTransfer: { setData: vi.fn() }
     });
-    document.body.removeChild(rootDiv);
   });
 });

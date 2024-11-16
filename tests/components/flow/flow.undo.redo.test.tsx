@@ -14,12 +14,12 @@ const undoAction = async (user: UserEvent) => {
   expect(cloneDiv).toBeTruthy();
   fireEvent.click(cloneDiv as HTMLElement);
   vi.advanceTimersByTime(50);
-  const clonedAgentView = screen.queryByText('Node 0 (copy)');
-  expect(clonedAgentView).toBeTruthy();
+  const clonedAgentView = screen.queryAllByText('Node 0 (copy)');
+  expect(clonedAgentView.length).toBeGreaterThanOrEqual(1);
   await user.keyboard('{Control>}z{/Control}');
   vi.advanceTimersByTime(50);
-  const clonedAgentViewAfterUndo = screen.queryByText('Node 0 (copy)');
-  expect(clonedAgentViewAfterUndo).toBeNull();
+  const clonedAgentViewAfterUndo = screen.queryAllByText('Node 0 (copy)');
+  expect(clonedAgentViewAfterUndo).toHaveLength(0);
 };
 
 describe('Flow Undo Redo', () => {
@@ -27,11 +27,11 @@ describe('Flow Undo Redo', () => {
   it('should undo an action', async () => {
     await undoAction(user);
   });
-  it('should redo an action using ctrl+y', async () => {
+  it('should redo an action', async () => {
     await undoAction(user);
     await user.keyboard('{Control>}y{/Control}');
     vi.advanceTimersByTime(50);
-    const clonedAgentViewAfterRedo = screen.queryByText('Node 0 (copy)');
-    expect(clonedAgentViewAfterRedo).toBeTruthy();
+    const clonedAgentViewAfterRedo = screen.queryAllByText('Node 0 (copy)');
+    expect(clonedAgentViewAfterRedo.length).toBeGreaterThanOrEqual(1);
   });
 });

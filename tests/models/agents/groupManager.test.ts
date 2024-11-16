@@ -9,7 +9,7 @@ import {
 } from '@waldiez/models/types/agents/groupManager';
 
 describe('WaldiezSourceGroupManager', () => {
-  const waldieSourceGroupManagerData: WaldiezSourceGroupManagerData = {
+  const waldiezSourceGroupManagerData: WaldiezSourceGroupManagerData = {
     name: 'Group Manager',
     agentType: 'manager',
     systemMessage: null,
@@ -53,10 +53,11 @@ describe('WaldiezSourceGroupManager', () => {
     tags: [],
     requirements: [],
     createdAt,
-    updatedAt
+    updatedAt,
+    parentId: null
   };
 
-  const manager = new WaldiezSourceGroupManager('manager-id', waldieSourceGroupManagerData);
+  const manager = new WaldiezSourceGroupManager('manager-id', waldiezSourceGroupManagerData);
 
   const managerNode = manager.asNode();
 
@@ -92,7 +93,7 @@ describe('WaldiezSourceGroupManager', () => {
 
   it('should import manager data from json', () => {
     const managerData = WaldiezSourceGroupManagerData.fromJSON(groupManagerJson);
-    expect(managerData).toEqual(waldieSourceGroupManagerData);
+    expect(managerData).toEqual(waldiezSourceGroupManagerData);
   });
 
   it('should create a manager with default values', () => {
@@ -150,7 +151,7 @@ describe('WaldiezSourceGroupManager', () => {
   it('should create a manager node with position in json', () => {
     const managerNodeWithPosition = new WaldiezSourceGroupManager(
       'manager-id',
-      waldieSourceGroupManagerData,
+      waldiezSourceGroupManagerData,
       {
         position: { x: 15, y: 25 }
       }

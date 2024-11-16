@@ -1,12 +1,15 @@
-// import { ModelsStore, SkillsStore } from '../nodes';
+import { Edge, Node, Viewport } from '@xyflow/react';
+
 import { nanoid } from 'nanoid';
 
 import { WaldiezEdge, WaldiezNodeType } from '@waldiez/models';
 import { EdgesStore } from '@waldiez/store/edges';
 import { exportFlow } from '@waldiez/store/exporting';
-import { importFlow } from '@waldiez/store/importing';
+import { loadFlow } from '@waldiez/store/importing';
 import { reArrangeNodes, setViewPortTopLeft } from '@waldiez/store/nodes/common';
-import { typeOfGet, typeOfSet } from '@waldiez/store/types';
+import { ModelsStore } from '@waldiez/store/nodes/models';
+import { SkillsStore } from '@waldiez/store/nodes/skills';
+import { ImportedFlow, ThingsToImport, typeOfGet, typeOfSet } from '@waldiez/store/types';
 
 export class FlowStore {
   static updateFlow: (
@@ -63,37 +66,132 @@ export class FlowStore {
     const sortedEdgesUsed = usedEdges.sort((a, b) => (a.data?.order ?? 0) - (b.data?.order ?? 0));
     return [sortedEdgesUsed, remainingEdges];
   };
+  static mergeTags: (currentTags: string[], newTags: string[]) => string[] = (currentTags, newTags) => {
+    return Array.from(new Set([...currentTags, ...newTags]));
+  };
+  static mergeRequirements: (currentRequirements: string[], newRequirements: string[]) => string[] = (
+    currentRequirements,
+    newRequirements
+  ) => {
+    return Array.from(new Set([...currentRequirements, ...newRequirements]));
+  };
+  static mergeEdges: (currentNodes: Node[], currentEdges: Edge[], newEdges: Edge[]) => Edge[] = (
+    currentNodes,
+    currentEdges,
+    newEdges
+  ) => {
+    const isEmpty = currentNodes.length === 0 && currentEdges.length === 0;
+    if (isEmpty) {
+      return newEdges.map(edge => {
+        const animated = edge.type === 'nested';
+        const hidden = edge.type === 'hidden';
+        return { ...edge, animated, hidden };
+      });
+    }
+    const unorderedEdges = newEdges.map(edge => {
+      return { ...edge, data: { ...edge.data, order: -1 } } as Edge;
+    });
+    const nonDuplicateEdges = unorderedEdges.filter(
+      edge => !currentEdges.find(currentEdge => currentEdge.id === edge.id)
+    );
+    return [...currentEdges, ...nonDuplicateEdges].map(edge => {
+      const animated = edge.type === 'nested';
+      const hidden = edge.type === 'hidden';
+      return { ...edge, animated, hidden };
+    });
+  };
+  static mergeNodes: (currentNodes: Node[], newNodes: Node[], typeShown: WaldiezNodeType) => Node[] = (
+    currentNodes,
+    newNodes,
+    typeShown
+  ) => {
+    const nonDuplicateNodes = newNodes.filter(
+      node => !currentNodes.find(currentNode => currentNode.id === node.id)
+    );
+    return [...currentNodes, ...nonDuplicateNodes].map(node => {
+      if (node.type === typeShown) {
+        return { ...node, hidden: false };
+      }
+      return { ...node, hidden: true };
+    });
+  };
+  static mergeFlowName = (
+    currentName: string,
+    newName: string,
+    currentNodes: Node[],
+    currentEdges: Edge[]
+  ) => {
+    if (currentNodes.length === 0 && currentEdges.length === 0) {
+      return newName;
+    }
+    return currentName;
+  };
+  static mergeFlowDescription = (
+    currentDescription: string,
+    newDescription: string,
+    currentNodes: Node[],
+    currentEdges: Edge[]
+  ) => {
+    if (currentNodes.length === 0 && currentEdges.length === 0) {
+      return newDescription;
+    }
+    return currentDescription;
+  };
   static importFlow: (
-    flow: unknown,
-    createdAt: string,
-    updatedAt: string,
+    items: ThingsToImport,
+    flowData: ImportedFlow,
     typeShown: WaldiezNodeType,
+    currentViewport: Viewport | undefined,
     get: typeOfGet,
     set: typeOfSet
-  ) => void = (flow, createdAt, updatedAt, typeShown, get, set) => {
-    const { nodes, edges, viewport, name, description, tags, requirements, storageId } = importFlow(flow);
+  ) => void = (items, flowData, typeShown, currentViewport, get, set) => {
+    const {
+      storageId,
+      name: currentName,
+      description: currentDescription,
+      tags: currentTags,
+      requirements: currentRequirements,
+      nodes: currentNodes,
+      edges: currentEdges,
+      rfInstance
+    } = get();
+    const currentFlow: ImportedFlow = {
+      name: currentName,
+      description: currentDescription,
+      tags: currentTags,
+      requirements: currentRequirements,
+      nodes: currentNodes,
+      edges: currentEdges
+    };
+    const { name, createdAt, description, tags, requirements, nodes, edges } = loadFlow(
+      items,
+      currentFlow,
+      flowData,
+      typeShown
+    );
+    const viewport = rfInstance?.getViewport() ?? currentViewport ?? { x: 0, y: 0, zoom: 1 };
     set({
       viewport,
       name,
       description,
       tags,
       requirements,
-      storageId,
-      createdAt,
-      updatedAt,
-      nodes: nodes.map(node => {
-        if (node.type === typeShown) {
-          return { ...node, hidden: false };
-        }
-        return { ...node, hidden: true };
-      }),
-      edges: edges.map(edge => {
-        const animated = edge.type === 'nested';
-        const hidden = edge.type === 'hidden';
-        return { ...edge, animated, hidden };
-      })
+      storageId: storageId ?? `wf-${nanoid()}`,
+      createdAt: createdAt ?? new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      nodes,
+      edges
     });
     EdgesStore.resetEdgePositions(get, set);
+    ModelsStore.reArrangeModels(get, set);
+    SkillsStore.reArrangeSkills(get, set);
+    rfInstance?.fitView({
+      minZoom: viewport?.zoom,
+      maxZoom: viewport?.zoom,
+      includeHiddenNodes: true,
+      padding: 0.2,
+      duration: 100
+    });
   };
   static exportFlow: (hideSecrets: boolean, get: typeOfGet) => { [key: string]: unknown } = (
     hideSecrets,
@@ -154,8 +252,4 @@ export class FlowStore {
       set({ viewport });
     }
   }
-  // static reArrangeNodes(get: typeOfGet, set: typeOfSet) {
-  //     ModelsStore.reArrangeModels(get, set);
-  //     return SkillsStore.reArrangeSkills(get, set);
-  // }
 }

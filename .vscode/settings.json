@@ -1,7 +1,16 @@
 {
-  "npm.packageManager": "bun",
+  "npm.packageManager": "yarn",
   "typescript.suggest.completeJSDocs": false,
   "javascript.suggest.completeJSDocs": false,
+  "[typescript]": {
+    "editor.tabSize": 2
+  },
+  "[typescriptreact]": {
+    "editor.tabSize": 2
+  },
+  "[css]": {
+    "editor.tabSize": 2
+  },
   "cSpell.words": [
     "autogen",
     "autohiding",
@@ -12,6 +21,7 @@
     "combobox",
     "compat",
     "csstree",
+    "dropzone",
     "errorboundary",
     "flowrenderer",
     "fontawesome",

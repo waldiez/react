@@ -43,6 +43,7 @@ export class WaldiezSourceAssistantData
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
+    parentId: string | null = null,
     nestedChats: WaldiezAgentNestedChat[] = []
   ) {
     super(
@@ -62,6 +63,7 @@ export class WaldiezSourceAssistantData
       requirements,
       createdAt,
       updatedAt,
+      parentId,
       nestedChats
     );
     this.agentType = 'assistant';
@@ -89,6 +91,7 @@ export class WaldiezSourceAssistantData
       data.requirements,
       data.createdAt,
       data.updatedAt,
+      data.parentId,
       data.nestedChats
     );
   };

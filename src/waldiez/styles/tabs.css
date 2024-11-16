@@ -20,8 +20,9 @@
 }
 
 .flow-wrapper .tab-list li {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
   display: block;
-  margin-bottom: -2px;
 }
 
 .flow-wrapper .tab-btn {

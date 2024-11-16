@@ -16,7 +16,11 @@ export const selector = (store: WaldiezState) => ({
   viewport: store.viewport,
   rfInstance: store.rfInstance,
   get: store.get,
+  getRfInstance: store.getRfInstance,
   setRfInstance: store.setRfInstance,
+  getViewport: store.getViewport,
+  // edges
+  getEdges: store.getEdges,
   onEdgesChange: store.onEdgesChange,
   onEdgeDoubleClick: store.onEdgeDoubleClick,
   addEdge: store.addEdge,
@@ -27,6 +31,7 @@ export const selector = (store: WaldiezState) => ({
   updateEdgeData: store.updateEdgeData,
   getEdgeSourceAgent: store.getEdgeSourceAgent,
   // nodes
+  getNodes: store.getNodes,
   onNodesChange: store.onNodesChange,
   onNodeDoubleClick: store.onNodeDoubleClick,
   showNodes: store.showNodes,
@@ -65,12 +70,14 @@ export const selector = (store: WaldiezState) => ({
   importAgent: store.importAgent,
   exportAgent: store.exportAgent,
   // flow
+  getFlowInfo: store.getFlowInfo,
   updateFlow: store.updateFlow,
   updateFlowOrder: store.updateFlowOrder,
   getFlowEdges: store.getFlowEdges,
   importFlow: store.importFlow,
   exportFlow: store.exportFlow,
   onViewportChange: store.onViewportChange,
-  //
-  onUpload: store.onUpload
+  onUpload: store.onUpload,
+  onChange: store.onChange,
+  onFlowChanged: store.onFlowChanged
 });

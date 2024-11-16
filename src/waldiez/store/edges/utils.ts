@@ -2,16 +2,24 @@ import { Edge, MarkerType, Node } from '@xyflow/react';
 
 import { nanoid } from 'nanoid';
 
-import { WaldiezAgentNodeType, WaldiezSourceEdge, WaldiezSourceEdgeData } from '@waldiez/models';
+import {
+  WaldiezAgentNodeType,
+  WaldiezEdgeType,
+  WaldiezSourceEdge,
+  WaldiezSourceEdgeData
+} from '@waldiez/models';
 import { AGENT_COLORS } from '@waldiez/theme';
 
-export const edgeCommonStyle = (color: string) => ({
-  markerEnd: {
-    type: MarkerType.ArrowClosed,
-    color,
-    width: 10,
-    height: 10
-  },
+export const edgeCommonStyle = (edgeType: WaldiezEdgeType, color: string) => ({
+  markerEnd:
+    edgeType !== 'nested'
+      ? {
+          type: MarkerType.ArrowClosed,
+          color,
+          width: 10,
+          height: 10
+        }
+      : undefined,
   style: {
     stroke: color,
     strokeWidth: 3
@@ -38,10 +46,17 @@ const getNewEdgeName = (sourceNode: Node, targetNode: Node) => {
   const edgeName = `${sourceLabel} => ${targetLabel}`;
   return edgeName;
 };
-const getNewChatType = (sourceNode: Node, targetNode: Node, hidden: boolean) => {
+const getNewChatType: (sourceNode: Node, targetNode: Node, hidden: boolean) => WaldiezEdgeType = (
+  sourceNode,
+  targetNode,
+  hidden
+) => {
+  if (hidden) {
+    return 'hidden' as WaldiezEdgeType;
+  }
   const agentType = sourceNode.data.agentType as WaldiezAgentNodeType;
-  let chatType = agentType === 'manager' ? 'group' : 'chat';
-  if (hidden || targetNode.parentId) {
+  let chatType: WaldiezEdgeType = agentType === 'manager' ? 'group' : 'chat';
+  if (targetNode.data.parentId) {
     chatType = 'hidden';
   }
   return chatType;
@@ -73,69 +88,39 @@ export const getNewEdge = (
     type: chatType,
     animated: false,
     selected: true,
-    ...edgeCommonStyle(color)
+    ...edgeCommonStyle(chatType, color)
   };
 };
+
+const getNewChatsOfType = (allEdges: Edge[], type: string) => {
+  const edgesOfType = allEdges.filter(edge => edge.type === type);
+  const edgesOfTypeBySource: { [source: string]: Edge[] } = {};
+  edgesOfType.forEach(edge => {
+    if (!edgesOfTypeBySource[edge.source]) {
+      edgesOfTypeBySource[edge.source] = [];
+    }
+    edgesOfTypeBySource[edge.source].push(edge);
+  });
+  return edgesOfType.map((edge, index) => {
+    return {
+      ...edge,
+      data: { ...edge.data, position: index + 1 }
+    };
+  });
+};
+
 export const getNewChatEdges = (allEdges: Edge[]) => {
-  const chatEdges = allEdges.filter(edge => edge.type === 'chat');
-  const chatEdgesBySource: { [source: string]: Edge[] } = {};
-  chatEdges.forEach(edge => {
-    if (!chatEdgesBySource[edge.source]) {
-      chatEdgesBySource[edge.source] = [];
-    }
-    chatEdgesBySource[edge.source].push(edge);
-  });
-  return chatEdges.map((edge, index) => {
-    return {
-      ...edge,
-      data: { ...edge.data, position: index + 1 }
-    };
-  });
+  return getNewChatsOfType(allEdges, 'chat');
 };
+
 export const getNewNestedEdges = (allEdges: Edge[]) => {
-  const nestedEdges = allEdges.filter(edge => edge.type === 'nested');
-  const nestedEdgesBySource: { [source: string]: Edge[] } = {};
-  nestedEdges.forEach(edge => {
-    if (!nestedEdgesBySource[edge.source]) {
-      nestedEdgesBySource[edge.source] = [];
-    }
-    nestedEdgesBySource[edge.source].push(edge);
-  });
-  return nestedEdges.map(edge => {
-    return {
-      ...edge,
-      data: {
-        ...edge.data,
-        position: nestedEdgesBySource[edge.source].indexOf(edge) + 1
-      }
-    };
-  });
+  return getNewChatsOfType(allEdges, 'nested');
 };
+
 export const getNewGroupEdges = (allEdges: Edge[]) => {
-  const groupEdges = allEdges.filter(edge => edge.type === 'group');
-  const groupEdgesBySource: { [source: string]: Edge[] } = {};
-  groupEdges.forEach(edge => {
-    if (!groupEdgesBySource[edge.source]) {
-      groupEdgesBySource[edge.source] = [];
-    }
-    groupEdgesBySource[edge.source].push(edge);
-  });
-  return groupEdges.map(edge => {
-    return {
-      ...edge,
-      data: {
-        ...edge.data,
-        position: groupEdgesBySource[edge.source].indexOf(edge) + 1
-      }
-    };
-  });
+  return getNewChatsOfType(allEdges, 'group');
 };
+
 export const getNewHiddenEdges = (allEdges: Edge[]) => {
-  const hiddenEdges = allEdges.filter(edge => edge.type === 'hidden');
-  return hiddenEdges.map((edge, index) => {
-    return {
-      ...edge,
-      data: { ...edge.data, position: index + 1 }
-    };
-  });
+  return getNewChatsOfType(allEdges, 'hidden');
 };

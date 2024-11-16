@@ -49,10 +49,10 @@ const selectTransitionsSpeakerRepetition = async (transitionMode: boolean = true
   if (!transitionMode) {
     const speakerRepetitionModeSelect = screen.getByLabelText('Speaker repetition mode:');
     selectEvent.openMenu(speakerRepetitionModeSelect);
-    await selectEvent.select(speakerRepetitionModeSelect, 'Disabled (Use transitions)');
+    await selectEvent.select(speakerRepetitionModeSelect, 'Use transition rules');
     fireEvent.change(speakerRepetitionModeSelect, {
       target: {
-        label: 'Disabled (Use transitions)',
+        label: 'Use transition rules',
         value: 'disabled'
       }
     });

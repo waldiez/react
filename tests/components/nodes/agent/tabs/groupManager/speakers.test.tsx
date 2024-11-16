@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-import { DEFAULT_CUSTOM_SPEAKER_SELECTION_CONTENT } from '@waldiez/components/nodes/agent/modal/tabs/groupManager/view/speakers';
+import { DEFAULT_CUSTOM_SPEAKER_SELECTION_CONTENT } from '@waldiez/components/nodes/agent/modal/tabs/groupManager';
 
 const goToGroupManagerTab = () => {
   // Click on the Group Manager tab
@@ -62,10 +62,10 @@ describe('Group Manager speakers tab', () => {
     goToSpeakersTab();
     const speakerRepetitionModeSelect = screen.getByLabelText('Speaker repetition mode:');
     selectEvent.openMenu(speakerRepetitionModeSelect);
-    await selectEvent.select(speakerRepetitionModeSelect, 'Custom');
+    await selectEvent.select(speakerRepetitionModeSelect, 'Specific agents');
     fireEvent.change(speakerRepetitionModeSelect, {
       target: {
-        label: 'Custom',
+        label: 'Specific agents',
         value: 'custom'
       }
     });

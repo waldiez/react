@@ -11,7 +11,13 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-    "types": ["bun-types"],
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom",
+      "@vitest/browser/providers/playwright",
+      "vitest/globals"
+    ],
 
     /* Linting */
     "strict": true,

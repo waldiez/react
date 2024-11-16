@@ -1,6 +1,7 @@
 import { Node, NodeChange, applyNodeChanges } from '@xyflow/react';
 
 import { typeOfGet, typeOfSet } from '@waldiez/store/types';
+import { getFlowRoot } from '@waldiez/utils';
 
 export { AgentsStore } from '@waldiez/store/nodes/agents';
 export { ModelsStore } from '@waldiez/store/nodes/models';
@@ -22,17 +23,7 @@ export class NodesStore {
     flowId,
     node
   ) => {
-    // if (node.hidden) {
-    //     set({
-    //         nodes: get().nodes.map(n => {
-    //             if (n.id === node.id) {
-    //                 return { ...n, hidden: false };
-    //             }
-    //             return n;
-    //         })
-    //     });
-    // }
-    const flowRoot = document.getElementById(`rf-root-${flowId}`);
+    const flowRoot = getFlowRoot(flowId);
     if (flowRoot) {
       const openModalBtn = flowRoot.querySelector(`#open-node-modal-${node.id}`) as HTMLButtonElement;
       if (openModalBtn) {

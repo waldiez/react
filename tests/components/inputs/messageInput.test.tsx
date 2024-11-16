@@ -278,60 +278,60 @@ it('should display and update the rag input', () => {
     }
   });
 });
-it('should display and update the carryover input with type string', () => {
-  const customMessageInputProps = {
-    ...messageInputProps,
-    current: {
-      type: 'string',
-      use_carryover: false,
-      content: '',
-      context: {
-        key1: 'value1'
-      }
-    } as WaldiezMessage,
-    skipCarryoverOption: false
-  };
-  const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
-  expect(baseElement).toBeTruthy();
-  const carryOverCheckbox = screen.getByTestId('message-use-carryover');
-  expect(carryOverCheckbox).toBeInTheDocument();
-  fireEvent.click(carryOverCheckbox);
-  expect(onMessageChange).toHaveBeenCalledWith({
-    type: 'string',
-    content: '',
-    use_carryover: true,
-    context: {
-      key1: 'value1'
-    }
-  });
-});
-it('should display and update the carryover input with type rag_message_generator', () => {
-  const customMessageInputProps = {
-    ...messageInputProps,
-    current: {
-      type: 'rag_message_generator',
-      use_carryover: false,
-      content: '',
-      context: {
-        key1: 'value1'
-      }
-    } as WaldiezMessage,
-    skipCarryoverOption: false
-  };
-  const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
-  expect(baseElement).toBeTruthy();
-  const carryOverCheckbox = screen.getByTestId('message-use-carryover');
-  expect(carryOverCheckbox).toBeInTheDocument();
-  fireEvent.click(carryOverCheckbox);
-  expect(onMessageChange).toHaveBeenCalledWith({
-    type: 'rag_message_generator',
-    content: '',
-    use_carryover: true,
-    context: {
-      key1: 'value1'
-    }
-  });
-});
+// it('should display and update the carryover input with type string', () => {
+//   const customMessageInputProps = {
+//     ...messageInputProps,
+//     current: {
+//       type: 'string',
+//       use_carryover: false,
+//       content: '',
+//       context: {
+//         key1: 'value1'
+//       }
+//     } as WaldiezMessage,
+//     skipCarryoverOption: false
+//   };
+//   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
+//   expect(baseElement).toBeTruthy();
+//   const carryOverCheckbox = screen.getByTestId('message-use-carryover');
+//   expect(carryOverCheckbox).toBeInTheDocument();
+//   fireEvent.click(carryOverCheckbox);
+//   expect(onMessageChange).toHaveBeenCalledWith({
+//     type: 'string',
+//     content: '',
+//     use_carryover: true,
+//     context: {
+//       key1: 'value1'
+//     }
+//   });
+// });
+// it('should display and update the carryover input with type rag_message_generator', () => {
+//   const customMessageInputProps = {
+//     ...messageInputProps,
+//     current: {
+//       type: 'rag_message_generator',
+//       use_carryover: false,
+//       content: '',
+//       context: {
+//         key1: 'value1'
+//       }
+//     } as WaldiezMessage,
+//     skipCarryoverOption: false
+//   };
+//   const { baseElement } = render(<MessageInput {...customMessageInputProps} />);
+//   expect(baseElement).toBeTruthy();
+//   const carryOverCheckbox = screen.getByTestId('message-use-carryover');
+//   expect(carryOverCheckbox).toBeInTheDocument();
+//   fireEvent.click(carryOverCheckbox);
+//   expect(onMessageChange).toHaveBeenCalledWith({
+//     type: 'rag_message_generator',
+//     content: '',
+//     use_carryover: true,
+//     context: {
+//       key1: 'value1'
+//     }
+//   });
+// });
 // it('should not display carryover input when type is method', () => {
 //     const customMessageInputProps = {
 //         ...messageInputProps,

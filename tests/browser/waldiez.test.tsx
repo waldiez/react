@@ -15,7 +15,7 @@ describe('All', () => {
     await expect.element(models).toBeInTheDocument();
     await expect.element(skills).toBeInTheDocument();
     expect(screen).toMatchSnapshot();
-    await sleep(1000);
+    await sleep(100);
     await userEvent.click(models);
     await sleep(1000);
     // click on add model

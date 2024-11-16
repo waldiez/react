@@ -113,4 +113,24 @@ describe('Modal', () => {
     fireEvent.click(minimizeButton);
     expect(maximizeButton).toBeTruthy();
   });
+
+  it('should prevent close if unsaved changes', () => {
+    const onClose = vi.fn();
+    const modalProps = {
+      title: 'test',
+      isOpen: true,
+      onClose,
+      children: 'test',
+      preventCloseIfUnsavedChanges: true,
+      hasUnsavedChanges: true
+    };
+    render(<Modal {...modalProps} />);
+    const closeButton = screen.getByTitle('Close');
+    expect(closeButton).toBeTruthy();
+    fireEvent.click(closeButton);
+    const dontCloseButton = screen.getByText("Don't Close");
+    expect(dontCloseButton).toBeTruthy();
+    fireEvent.click(dontCloseButton);
+    expect(onClose).not.toHaveBeenCalled();
+  });
 });

@@ -25,6 +25,10 @@ export const getFlowNodes = (data: { [key: string]: unknown }) => {
       ) {
         const node = element as Node;
         node.data = {};
+        // backwards compat (if parentId was in `Node` and not in `Node.data`)
+        if (element.type === 'agent' && 'parentId' in element && typeof element.parentId === 'string') {
+          node.data.parentId = element.parentId;
+        }
         nodes.push(node);
       }
     });
@@ -45,7 +49,7 @@ export const getFlowAgents = (nodes: Node[], edges: Edge[], data: { [key: string
 };
 
 export const getNodeData = (
-  elementNodeData: any,
+  elementNode: any,
   nodeType: 'agent' | 'model' | 'skill',
   name: string,
   description: string,
@@ -59,7 +63,7 @@ export const getNodeData = (
   switch (nodeType) {
     case 'model':
       elementData = WaldiezSourceModelData.fromJSON(
-        elementNodeData.data,
+        elementNode.data,
         name,
         description,
         tags,
@@ -70,7 +74,7 @@ export const getNodeData = (
       break;
     case 'skill':
       elementData = WaldiezSourceSkillData.fromJSON(
-        elementNodeData.data,
+        elementNode.data,
         name,
         description,
         tags,
@@ -80,7 +84,7 @@ export const getNodeData = (
       );
       break;
     case 'agent':
-      elementData = _getAgentNodeData(name, elementNodeData, agentType);
+      elementData = getAgentNodeData(name, elementNode, agentType);
       break;
   }
   return elementData;
@@ -115,7 +119,7 @@ const updateFlowExportedNode = (
     typeof element.data === 'object' &&
     element.data
   ) {
-    const nodeData = getNodeDataToExport(element, flowEdges, nodeType, agentType);
+    const nodeData = getNodeDataToImport(element, flowEdges, nodeType, agentType);
     if (nodeType === 'agent') {
       nodeData.agentType = agentType;
     }
@@ -124,19 +128,16 @@ const updateFlowExportedNode = (
     const node = flowNodes.find(n => n.id === element.id);
     if (node) {
       node.data = { ...nodeData, label: name };
+      if (nodeType === 'agent') {
+        const parentId = getImportedNodeParentId(element, node, flowNodes);
+        node.data.parentId = parentId;
+      }
       node.type = nodeType;
-    } else {
-      flowNodes.push({
-        id: element.id,
-        type: nodeType,
-        data: { ...nodeData, label: name },
-        position: { x: 0, y: 0 }
-      });
     }
   }
 };
 
-const getNodeDataToExport = (
+const getNodeDataToImport = (
   element: any,
   flowEdges: Edge[],
   nodeType: 'agent' | 'model' | 'skill',
@@ -147,6 +148,9 @@ const getNodeDataToExport = (
     nodeType,
     agentType
   );
+  if ('parentId' in element && typeof element.parentId === 'string') {
+    element.data.parentId = element.parentId;
+  }
   const elementNodeData = {
     data: {
       ...element.data,
@@ -189,7 +193,37 @@ const getNodeDataToExport = (
   return nodeData;
 };
 
-const _getAgentNodeData = (name: string, elementNodeData: any, agentType?: WaldiezAgentNodeType) => {
+const getImportedNodeParentId = (element: any, node: Node, flowNodes: Node[]) => {
+  let parentId: string | null = null;
+  // search in: element.parentId, element.data.parentId, node.parentId, node.data.parentId
+  ['parentId', 'data.parentId'].forEach(key => {
+    if (key in element && typeof element[key] === 'string') {
+      parentId = element[key];
+    } else {
+      if (typeof node.parentId === 'string') {
+        parentId = node.parentId;
+      } else if ('parentId' in node.data && typeof node.data.parentId === 'string') {
+        parentId = node.data.parentId;
+      }
+    }
+  });
+  if (node.expandParent) {
+    node.expandParent = undefined;
+  }
+  if (node.extent === 'parent') {
+    node.extent = undefined;
+  }
+  if (parentId) {
+    const parent = flowNodes.find(n => n.id === parentId && n.data.agentType === 'manager');
+    if (!parent) {
+      return null;
+    }
+    return parent.id;
+  }
+  return null;
+};
+
+const getAgentNodeData = (name: string, elementNodeData: any, agentType?: WaldiezAgentNodeType) => {
   let elementData: any;
   switch (agentType) {
     case 'user':

@@ -14,11 +14,14 @@ const main = async () => {
     process.exit(0);
   }
   const videosDir = path.resolve(__dirname, '..', 'tests', 'browser', 'videos');
+  if (!fs.existsSync(videosDir)) {
+    fs.mkdirSync(videosDir, { recursive: true });
+    process.exit(0);
+  }
   const videoFiles = await fs.promises.readdir(videosDir);
   const videoFile = videoFiles.find(file => file.endsWith('.webm'));
   if (!videoFile) {
-    console.error('No video file found');
-    process.exit(1);
+    process.exit(0);
   }
   const videoPath = path.resolve(videosDir, videoFile);
   await fs.promises.copyFile(videoPath, path.resolve(videosDir, 'demo.webm'));
@@ -32,7 +35,7 @@ const main = async () => {
   const dstFile = path.resolve(dotLocal, 'demo.webm');
   await fs.promises.copyFile(path.resolve(videosDir, srcFile), dstFile);
   console.info('Video file copied to .local/demo.webm');
-  await fs.promises.rmdir(videosDir, { recursive: true });
+  await fs.promises.rm(videosDir, { recursive: true });
   if (ffmpeg) {
     const src = 'demo.webm';
     const dst = 'demo.mp4';

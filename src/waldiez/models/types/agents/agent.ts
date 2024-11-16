@@ -37,6 +37,7 @@ export type WaldiezAgentTeachability = {
 export type WaldiezAgentNodeType = 'user' | 'assistant' | 'manager' | 'rag_user';
 
 export type WaldiezAgentCommonData = {
+  parentId: string | null;
   agentType: WaldiezAgentNodeType;
   systemMessage: string | null;
   humanInputMode: WaldiezAgentHumanInputMode;
