@@ -354,17 +354,7 @@
         "triggeredBy": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "isReply": {
-                "type": "boolean"
-              }
-            },
-            "required": ["id", "isReply"],
-            "additionalProperties": false
+            "type": "string"
           }
         },
         "messages": {

@@ -126,6 +126,7 @@ export type WaldiezState = WaldiezStoreProps & {
     options?: {
       sourcesOnly?: boolean;
       targetsOnly?: boolean;
+      skipManagers?: boolean;
     }
   ) => {
     source: {

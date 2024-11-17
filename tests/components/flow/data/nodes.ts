@@ -32,7 +32,7 @@ const agentNodes: Node[] = edges.map((_, index) => {
   const nestedChats = [] as WaldiezAgentNestedChat[];
   if (includeNested && !addedNestedChat) {
     nestedChats.push({
-      triggeredBy: [{ id: 'edge-1', isReply: false }],
+      triggeredBy: ['agent-0'],
       messages: [
         {
           id: 'edge-0',

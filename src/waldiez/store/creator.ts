@@ -121,7 +121,8 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
           nodeId: string,
           options = {
             sourcesOnly: false,
-            targetsOnly: false
+            targetsOnly: false,
+            skipManagers: false
           }
         ) => AgentsStore.getAgentConnections(nodeId, get, options),
         getGroupMembers: (groupId: string) => AgentsStore.getGroupMembers(groupId, get),

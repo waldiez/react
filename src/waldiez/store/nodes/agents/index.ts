@@ -139,23 +139,27 @@ export class AgentsStore {
     }
     EdgesStore.resetEdgePositions(get, set);
   };
-  static getEdgeSourceAgent = (get: typeOfGet, edge: Edge) => {
+  static getEdgeSourceAgent = (get: typeOfGet, edge: Edge, skipManagers: boolean = false) => {
     const sourceNode = get().nodes.find(node => {
       if (node.id !== edge.source) {
         return false;
       }
-      // why exclude manager nodes?
-      return (node as WaldiezAgentNode).data.agentType !== 'manager';
+      if (skipManagers) {
+        return (node as WaldiezAgentNode).data.agentType !== 'manager';
+      }
+      return true;
     });
     return sourceNode as WaldiezAgentNode | undefined;
   };
-  static getEdgeTargetAgent = (get: typeOfGet, edge: Edge) => {
+  static getEdgeTargetAgent = (get: typeOfGet, edge: Edge, skipManagers: boolean = false) => {
     const targetNode = get().nodes.find(node => {
       if (node.id !== edge.target) {
         return false;
       }
-      // why exclude manager nodes?
-      return (node as WaldiezAgentNode).data.agentType !== 'manager';
+      if (skipManagers) {
+        return (node as WaldiezAgentNode).data.agentType !== 'manager';
+      }
+      return true;
     });
     return targetNode as WaldiezAgentNode | undefined;
   };
@@ -164,15 +168,16 @@ export class AgentsStore {
     edge: Edge,
     get: typeOfGet,
     targetsOnly?: boolean,
-    sourcesOnly?: boolean
+    sourcesOnly?: boolean,
+    skipManagers: boolean = false
   ) => {
     let targetNode;
     if (edge.source === nodeId && !targetsOnly) {
-      targetNode = AgentsStore.getEdgeTargetAgent(get, edge);
+      targetNode = AgentsStore.getEdgeTargetAgent(get, edge, skipManagers);
     }
     let sourceNode;
     if (edge.target === nodeId && !sourcesOnly) {
-      sourceNode = AgentsStore.getEdgeSourceAgent(get, edge);
+      sourceNode = AgentsStore.getEdgeSourceAgent(get, edge, skipManagers);
     }
     return { sourceNode, targetNode };
   };
@@ -182,6 +187,7 @@ export class AgentsStore {
     options: {
       sourcesOnly?: boolean;
       targetsOnly?: boolean;
+      skipManagers?: boolean;
     }
   ) => {
     source: {
@@ -193,7 +199,7 @@ export class AgentsStore {
       edges: WaldiezEdge[];
     };
   } = (nodeId, get, options) => {
-    const { sourcesOnly, targetsOnly } = options;
+    const { sourcesOnly, targetsOnly, skipManagers } = options;
     const sourceConnectedNodes = [];
     const sourceConnectionEdges = [];
     const targetConnectedNodes = [];
@@ -204,7 +210,8 @@ export class AgentsStore {
         edge,
         get,
         targetsOnly,
-        sourcesOnly
+        sourcesOnly,
+        skipManagers
       );
       if (sourceNode) {
         sourceConnectedNodes.push(sourceNode);

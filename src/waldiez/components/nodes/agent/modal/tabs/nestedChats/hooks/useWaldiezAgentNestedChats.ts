@@ -1,29 +1,33 @@
 import { useState } from 'react';
 
-import { SingleValue } from '@waldiez/components/inputs';
+import { MultiValue, SingleValue } from '@waldiez/components/inputs';
 import { WaldiezAgentNestedChatsProps } from '@waldiez/components/nodes/agent/modal/tabs/nestedChats/types';
 import { WaldiezAgentNestedChat, WaldiezEdge } from '@waldiez/models';
 
 export const useWaldiezAgentNestedChats = (props: WaldiezAgentNestedChatsProps) => {
   const { data, onDataChange, agentConnections } = props;
-  const [selectedTrigger, setSelectedTrigger] = useState<{
-    id: string;
-    isReply: boolean;
-  } | null>(null);
-  const [selectedRecipient, setSelectedRecipient] = useState<{
-    id: string;
-    isReply: boolean;
-  } | null>(null);
   const chat: WaldiezAgentNestedChat =
     data.nestedChats.length > 0
       ? data.nestedChats[0]
       : ({ triggeredBy: [], messages: [] } as WaldiezAgentNestedChat);
+  const [selectedRecipient, setSelectedRecipient] = useState<{
+    id: string;
+    isReply: boolean;
+  } | null>(null);
+  const [selectedTriggers, setSelectedTriggers] = useState(chat.triggeredBy);
   const sources = agentConnections.source;
   const targets = agentConnections.target;
   const triggerEdges = sources.edges;
   const recipientEdges = targets.edges;
+  const allNodes = sources.nodes.concat(targets.nodes);
   const allEdges = triggerEdges.concat(recipientEdges);
-  const selectOptions = allEdges.map((edge: WaldiezEdge) => {
+  const triggerSelectOptions = allNodes.map(node => {
+    return {
+      label: node.data?.label as string,
+      value: node.id
+    };
+  });
+  const messageSelectOptions = allEdges.map((edge: WaldiezEdge) => {
     return {
       label: edge.data?.label as string,
       value: edge.id
@@ -35,41 +39,6 @@ export const useWaldiezAgentNestedChats = (props: WaldiezAgentNestedChatsProps) 
   };
   const getMessageLabel = (index: number) => {
     return getEdgeLabel(chat.messages[index].id);
-  };
-  const onAddNestedChatTrigger = () => {
-    if (selectedTrigger) {
-      // check if the exact trigger is already registered
-      if (
-        chat.triggeredBy.find(
-          trigger => trigger.id === selectedTrigger.id && trigger.isReply === selectedTrigger.isReply
-        )
-      ) {
-        console.log('trigger already exists');
-        return;
-      }
-      const newChat = {
-        triggeredBy: [
-          ...chat.triggeredBy,
-          {
-            id: selectedTrigger.id,
-            isReply: selectedTrigger.isReply
-          }
-        ],
-        messages: []
-      } as WaldiezAgentNestedChat;
-      onDataChange({
-        nestedChats: [newChat]
-      });
-    }
-  };
-  const onRemoveNestedChatTrigger = (index: number) => {
-    const newChat = {
-      triggeredBy: chat.triggeredBy.filter((_, i) => i !== index),
-      messages: []
-    } as WaldiezAgentNestedChat;
-    onDataChange({
-      nestedChats: [newChat]
-    });
   };
   const onAddNestedChatConnection = () => {
     if (selectedRecipient) {
@@ -132,23 +101,19 @@ export const useWaldiezAgentNestedChats = (props: WaldiezAgentNestedChatsProps) 
       nestedChats: [newChat]
     });
   };
-  const onSelectedTriggerChange = (option: SingleValue<{ label: string; value: string }> | null) => {
-    if (option && option.value) {
-      setSelectedTrigger({
-        id: option.value,
-        isReply: selectedTrigger?.isReply || false
-      });
+  const onSelectedTriggersChange = (options: MultiValue<{ label: string; value: string }> | null) => {
+    if (options) {
+      setSelectedTriggers(options.map(option => option.value));
     } else {
-      setSelectedTrigger(null);
+      setSelectedTriggers([]);
     }
-  };
-  const onSelectedTriggerIsReplyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (selectedTrigger) {
-      setSelectedTrigger({
-        id: selectedTrigger.id,
-        isReply: event.target.checked
-      });
-    }
+    const newChat = {
+      messages: options ? chat.messages : [],
+      triggeredBy: options ? options.map(option => option.value) : []
+    } as WaldiezAgentNestedChat;
+    onDataChange({
+      nestedChats: [newChat]
+    });
   };
   const onSelectedRecipientChange = (option: SingleValue<{ label: string; value: string }> | null) => {
     if (option && option.value) {
@@ -170,15 +135,13 @@ export const useWaldiezAgentNestedChats = (props: WaldiezAgentNestedChatsProps) 
   };
   return {
     chat,
-    selectOptions,
-    selectedTrigger,
+    triggerSelectOptions,
+    messageSelectOptions,
+    selectedTriggers,
     selectedRecipient,
-    onSelectedTriggerChange,
-    onSelectedTriggerIsReplyChange,
+    onSelectedTriggersChange,
     onSelectedRecipientChange,
     onSelectedRecipientIsReplyChange,
-    onAddNestedChatTrigger,
-    onRemoveNestedChatTrigger,
     onAddNestedChatConnection,
     onRemoveRecipient,
     onNestedChatRecipientMovedUp,

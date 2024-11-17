@@ -71,12 +71,7 @@ const exportAgentNestedChats = (agent: WaldiezAgentNode, skipLinks: boolean) => 
   if (!skipLinks && agent.data.agentType !== 'manager') {
     const nestedChats = agent.data.nestedChats.map(nestedChat => {
       return {
-        triggeredBy: nestedChat.triggeredBy.map(triggeredBy => {
-          return {
-            id: triggeredBy.id,
-            isReply: triggeredBy.isReply
-          };
-        }),
+        triggeredBy: nestedChat.triggeredBy,
         messages: nestedChat.messages.map(message => {
           return {
             id: message.id,

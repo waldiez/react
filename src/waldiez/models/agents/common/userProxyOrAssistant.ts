@@ -141,7 +141,7 @@ export class WaldiezSourceUserProxyOrAssistantData
 {
   agentType: 'user' | 'assistant';
   nestedChats: {
-    triggeredBy: { id: string; isReply: boolean }[];
+    triggeredBy: string[];
     messages: { id: string; isReply: boolean }[];
   }[];
 
@@ -198,6 +198,36 @@ export class WaldiezSourceUserProxyOrAssistantData
     this.nestedChats = nestedChats;
     this.agentType = agentType;
   }
+  static loadNestedChats = (nestedChats: any[]): WaldiezAgentNestedChat[] => {
+    // old version: [{ triggeredBy: [{id: string, isReply: boolean}], messages: [{ id: string, isReply: boolean }] }]
+    // new version: [{ triggeredBy: string[], messages: [{ id: string, isReply: boolean }] }]
+    // in the old version, the id is the id of the chat (not the agent :( )
+    // in the new version, the id is the id of the agent (that can trigger the nested chat)
+    // we need the new version here (and maybe handle the compatibility in a previous step)
+    const chats: WaldiezAgentNestedChat[] = [];
+    for (const chat of nestedChats) {
+      let triggeredBy = [];
+      if ('triggeredBy' in chat && Array.isArray(chat.triggeredBy)) {
+        triggeredBy = chat.triggeredBy.filter((trigger: any) => {
+          return typeof trigger === 'string';
+        });
+      }
+      let messages = [];
+      if ('messages' in chat && Array.isArray(chat.messages)) {
+        messages = chat.messages.filter((message: any) => {
+          return (
+            typeof message === 'object' &&
+            'id' in message &&
+            typeof message.id === 'string' &&
+            'isReply' in message &&
+            typeof message.isReply === 'boolean'
+          );
+        });
+      }
+      chats.push({ triggeredBy, messages });
+    }
+    return chats;
+  };
   static fromJSON = (
     data: unknown,
     agentType: WaldiezAgentNodeType,
@@ -209,15 +239,7 @@ export class WaldiezSourceUserProxyOrAssistantData
     const commonData = WaldiezSourceAgentCommonData.fromJSON(data, agentType, name);
     let nestedChats: WaldiezAgentNestedChat[] = [];
     if ('nestedChats' in data && Array.isArray(data.nestedChats)) {
-      nestedChats = data.nestedChats.filter(
-        nc =>
-          typeof nc === 'object' &&
-          nc &&
-          'triggeredBy' in nc &&
-          Array.isArray(nc.triggeredBy) &&
-          'messages' in nc &&
-          Array.isArray(nc.messages)
-      ) as WaldiezAgentNestedChat[];
+      nestedChats = WaldiezSourceUserProxyOrAssistantData.loadNestedChats(data.nestedChats);
     }
     return new WaldiezSourceUserProxyOrAssistantData(
       commonData.name,

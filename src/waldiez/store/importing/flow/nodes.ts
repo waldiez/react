@@ -119,7 +119,7 @@ const updateFlowExportedNode = (
     typeof element.data === 'object' &&
     element.data
   ) {
-    const nodeData = getNodeDataToImport(element, flowEdges, nodeType, agentType);
+    const nodeData = getNodeDataToImport(element, flowEdges, flowNodes, nodeType, agentType);
     if (nodeType === 'agent') {
       nodeData.agentType = agentType;
     }
@@ -140,6 +140,7 @@ const updateFlowExportedNode = (
 const getNodeDataToImport = (
   element: any,
   flowEdges: Edge[],
+  flowNodes: Node[],
   nodeType: 'agent' | 'model' | 'skill',
   agentType?: WaldiezAgentNodeType
 ) => {
@@ -179,7 +180,7 @@ const getNodeDataToImport = (
   );
   if (nodeType === 'agent' && agentType !== 'manager') {
     // if the nestedChat.messages[].id have ids not in the edges, remove the message.
-    elementData.nestedChats = getAgentNestedChats(elementData, flowEdges);
+    elementData.nestedChats = getAgentNestedChats(elementData, flowEdges, flowNodes);
   }
   const nodeData = {
     ...elementData,

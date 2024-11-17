@@ -133,7 +133,7 @@ describe('WaldiezSourceUserProxyOrAssistant', () => {
       ...agentJson,
       nestedChats: [
         {
-          triggeredBy: [{ id: 'triggered-by-id', isReply: false }],
+          triggeredBy: ['triggered-by-id'],
           messages: [{ id: 'message-id', isReply: false }]
         }
       ]

@@ -5,14 +5,14 @@ import { describe, expect, it } from 'vitest';
 
 import selectEvent from 'react-select-event';
 
-const goToNestedChatsTab = (isReply: boolean) => {
+const goToNestedChatsTab = () => {
   renderAgent('user', {
     openModal: true,
     includeNestedChats: true,
     dataOverrides: {
       nestedChats: [
         {
-          triggeredBy: [{ id: 'test-edge0', isReply }],
+          triggeredBy: ['test-agent0'],
           messages: [{ id: 'test-edge-1', isReply: true }]
         }
       ]
@@ -26,49 +26,23 @@ const goToNestedChatsTab = (isReply: boolean) => {
 
 describe('Nested Chats tab triggers', () => {
   it('should add a new trigger', async () => {
-    goToNestedChatsTab(false);
-    const selectTrigger = screen.getByLabelText('Trigger');
+    goToNestedChatsTab();
+    const selectTrigger = screen.getByLabelText('Triggers');
     expect(selectTrigger).toBeInTheDocument();
     selectEvent.openMenu(selectTrigger);
-    await selectEvent.select(selectTrigger, `${agentId} to agent-2`);
+    await selectEvent.select(selectTrigger, ['Agent 0', 'Agent 1']);
     fireEvent.change(selectTrigger, {
-      target: {
-        label: `${agentId} to agent-2`,
-        value: 'test-edge2'
-      }
+      target: [
+        {
+          label: 'Agent 0',
+          value: 'test-agent0'
+        },
+        {
+          label: 'Agent 1',
+          value: 'test-agent1'
+        }
+      ]
     });
-    const addTriggerButton = screen.getByTestId(`new-nested-chat-add-button-${agentId}`);
-    expect(addTriggerButton).toBeInTheDocument();
-    fireEvent.click(addTriggerButton);
-    expect(screen.getByTestId('remove-nested-chat-trigger-1')).toBeInTheDocument();
-    submitAgentChanges();
-  });
-  it('should add a new trigger with agent reply', async () => {
-    goToNestedChatsTab(true);
-    const selectTrigger = screen.getByLabelText('Trigger');
-    expect(selectTrigger).toBeInTheDocument();
-    selectEvent.openMenu(selectTrigger);
-    await selectEvent.select(selectTrigger, `${agentId} to agent-2`);
-    const agentReplyCheckbox = screen.getByTestId(`new-nested-chat-trigger-is-agent-reply-${agentId}`);
-    expect(agentReplyCheckbox).toBeInTheDocument();
-    fireEvent.click(agentReplyCheckbox);
-    fireEvent.change(selectTrigger, {
-      target: {
-        label: `${agentId} to agent-2`,
-        value: 'test-edge2'
-      }
-    });
-    const addTriggerButton = screen.getByTestId(`new-nested-chat-add-button-${agentId}`);
-    expect(addTriggerButton).toBeInTheDocument();
-    fireEvent.click(addTriggerButton);
-    expect(screen.getByTestId('remove-nested-chat-trigger-1')).toBeInTheDocument();
-    submitAgentChanges();
-  });
-  it('should remove a trigger', async () => {
-    goToNestedChatsTab(false);
-    const removeTriggerButton = screen.getByTestId('remove-nested-chat-trigger-0');
-    expect(removeTriggerButton).toBeInTheDocument();
-    fireEvent.click(removeTriggerButton);
     submitAgentChanges();
   });
 });

@@ -7,15 +7,13 @@ export const WaldiezAgentNestedChats = (props: WaldiezAgentNestedChatsProps) => 
   const { id } = props;
   const {
     chat,
-    selectOptions,
-    selectedTrigger,
+    triggerSelectOptions,
+    messageSelectOptions,
+    selectedTriggers,
     selectedRecipient,
-    onSelectedTriggerChange,
-    onSelectedTriggerIsReplyChange,
+    onSelectedTriggersChange,
     onSelectedRecipientChange,
     onSelectedRecipientIsReplyChange,
-    onAddNestedChatTrigger,
-    onRemoveNestedChatTrigger,
     onAddNestedChatConnection,
     onRemoveRecipient,
     onNestedChatRecipientMovedUp,
@@ -27,14 +25,9 @@ export const WaldiezAgentNestedChats = (props: WaldiezAgentNestedChatsProps) => 
     <div className="agent-panel agent-nestedChats-panel margin-top--10">
       <WaldiezAgentNestedChatsTriggers
         id={id}
-        chat={chat}
-        selectedTrigger={selectedTrigger}
-        onSelectedTriggerChange={onSelectedTriggerChange}
-        onSelectedTriggerIsReplyChange={onSelectedTriggerIsReplyChange}
-        onAddNestedChatTrigger={onAddNestedChatTrigger}
-        onRemoveNestedChatTrigger={onRemoveNestedChatTrigger}
-        getEdgeLabel={getEdgeLabel}
-        selectOptions={selectOptions}
+        selectedTriggers={selectedTriggers}
+        onSelectedTriggersChange={onSelectedTriggersChange}
+        selectOptions={triggerSelectOptions}
       />
       {chat.triggeredBy.length > 0 && (
         <>
@@ -42,7 +35,7 @@ export const WaldiezAgentNestedChats = (props: WaldiezAgentNestedChatsProps) => 
           <WaldiezAgentNestedChatsMessages
             id={id}
             chat={chat}
-            selectOptions={selectOptions}
+            selectOptions={messageSelectOptions}
             selectedRecipient={selectedRecipient}
             onSelectedRecipientChange={onSelectedRecipientChange}
             onSelectedRecipientIsReplyChange={onSelectedRecipientIsReplyChange}

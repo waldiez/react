@@ -94,7 +94,8 @@ export class EdgesStore {
             return {
               ...nestedChat,
               messages: nestedChat.messages.filter(message => message.id !== edgeId),
-              triggeredBy: nestedChat.triggeredBy.filter(connection => connection.id !== edgeId)
+              // also check if the edge sources (agent's triggeredBy) are still valid
+              triggeredBy: nestedChat.triggeredBy
             };
           })
         }
