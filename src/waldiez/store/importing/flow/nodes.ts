@@ -144,7 +144,7 @@ const getNodeDataToImport = (
   nodeType: 'agent' | 'model' | 'skill',
   agentType?: WaldiezAgentNodeType
 ) => {
-  const { name, description, tags, requirements, createdAt, updatedAt } = getNodeMeta(
+  const { id, name, description, tags, requirements, createdAt, updatedAt } = getNodeMeta(
     element,
     nodeType,
     agentType
@@ -167,6 +167,14 @@ const getNodeDataToImport = (
   if (nodeType === 'agent') {
     elementNodeData.agentType = agentType;
   }
+  if (nodeType === 'agent' && agentType !== 'manager' && id) {
+    (elementNodeData.data as any).nestedChats = getAgentNestedChats(
+      id,
+      elementNodeData,
+      flowEdges,
+      flowNodes
+    );
+  }
   const elementData = getNodeData(
     elementNodeData,
     nodeType,
@@ -178,10 +186,6 @@ const getNodeDataToImport = (
     updatedAt,
     agentType
   );
-  if (nodeType === 'agent' && agentType !== 'manager') {
-    // if the nestedChat.messages[].id have ids not in the edges, remove the message.
-    elementData.nestedChats = getAgentNestedChats(elementData, flowEdges, flowNodes);
-  }
   const nodeData = {
     ...elementData,
     name,

@@ -12,7 +12,7 @@ export const WaldiezAgentNestedChatsTriggers = (props: {
   const { id, selectOptions, selectedTriggers, onSelectedTriggersChange } = props;
   const currentTriggers = selectedTriggers.map(trigger => {
     const option = selectOptions.find(option => option.value === trigger);
-    return { label: option?.label || '', value: trigger };
+    return { label: option?.label || 'Unknown', value: trigger };
   });
   return (
     <div className="nested-chat-triggers margin-top-20">

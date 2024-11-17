@@ -3,31 +3,36 @@ import { Edge, Node } from '@xyflow/react';
 import { WaldiezAgentNestedChat } from '@waldiez/models';
 
 export const getAgentNestedChats: (
+  agentId: string,
   elementData: any,
   flowEdges: Edge[],
   flowNodes: Node[]
-) => WaldiezAgentNestedChat[] = (elementData: any, flowEdges: Edge[], flowNodes: Node[]) => {
+) => WaldiezAgentNestedChat[] = (agentId, elementData, flowEdges, flowNodes) => {
   const newNestedChats: WaldiezAgentNestedChat[] = [];
   if ('nestedChats' in elementData && Array.isArray(elementData.nestedChats)) {
-    const nestedChats = elementData.nestedChats;
-    for (const chat of nestedChats) {
-      const triggeredBy = getNestedChatTriggeredBy(chat, flowEdges, flowNodes);
+    for (const chat of elementData.nestedChats) {
+      const triggeredBy = getNestedChatTriggeredBy(agentId, chat, flowEdges, flowNodes);
       const messages = getNestedChatMessages(chat, flowEdges);
       if (triggeredBy.length > 0 || messages.length > 0) {
         newNestedChats.push({ triggeredBy, messages });
       }
     }
+  } else {
+    if ('data' in elementData && typeof elementData.data === 'object' && elementData.data) {
+      return getAgentNestedChats(agentId, elementData.data, flowEdges, flowNodes);
+    }
   }
   return newNestedChats;
 };
-const getNestedChatTriggeredBy: (chat: any, flowEdges: Edge[], flowNodes: Node[]) => string[] = (
+const getNestedChatTriggeredBy: (
+  agentId: string,
   chat: any,
   flowEdges: Edge[],
   flowNodes: Node[]
-) => {
+) => string[] = (agentId: string, chat: any, flowEdges: Edge[], flowNodes: Node[]) => {
   // old version: [{ triggeredBy: [{id: string, isReply: boolean}], messages: [{ id: string, isReply: boolean }] }]
   // new version: [{ triggeredBy: string[], messages: [{ id: string, isReply: boolean }] }]
-  // in the old version, the id is the id of the Edge
+  // in the old version, the id is the id of the Edge (agents connection)
   // in the new version, the id is the id of the Node (the agent that can trigger the nested chat)
   // let's try to handle both versions here
   const triggeredBy = [];
@@ -51,10 +56,13 @@ const getNestedChatTriggeredBy: (chat: any, flowEdges: Edge[], flowNodes: Node[]
           const isReply = trigger.isReply;
           /* eslint-disable max-depth */
           if (edge) {
-            const agentId = isReply ? edge.source : edge.target;
-            const agent = flowNodes.find(n => n.type === 'agent' && n.id === agentId);
+            let triggerId = isReply ? edge.source : edge.target;
+            if (triggerId === agentId) {
+              triggerId = isReply ? edge.target : edge.source;
+            }
+            const agent = flowNodes.find(n => n.type === 'agent' && n.id === triggerId);
             if (agent) {
-              triggeredBy.push(agentId);
+              triggeredBy.push(triggerId);
             }
           }
         }
