@@ -1,10 +1,9 @@
-import { nanoid } from 'nanoid';
-
 import { WaldiezModelNode, WaldiezSourceModel, WaldiezSourceModelData } from '@waldiez/models';
 import { getNodeMeta } from '@waldiez/store/importing/common';
+import { getId } from '@waldiez/utils';
 
 export const importModel: (data: any, modelId?: string) => WaldiezModelNode = (data, modelId) => {
-  let id = 'wm-' + nanoid();
+  let id = 'wm-' + getId();
   if (modelId && typeof modelId === 'string') {
     id = modelId;
   }

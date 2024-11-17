@@ -1,7 +1,5 @@
 import { Edge, MarkerType, Node } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNodeType,
   WaldiezEdgeType,
@@ -9,6 +7,7 @@ import {
   WaldiezSourceEdgeData
 } from '@waldiez/models';
 import { AGENT_COLORS } from '@waldiez/theme';
+import { getId } from '@waldiez/utils';
 
 export const edgeCommonStyle = (edgeType: WaldiezEdgeType, color: string) => ({
   markerEnd:
@@ -77,7 +76,7 @@ export const getNewEdge = (
   edgeData.position = positionGetter(chatType);
   const color = AGENT_COLORS[agentType];
   const newEdge = new WaldiezSourceEdge({
-    id: `we-${nanoid()}`,
+    id: `we-${getId()}`,
     source,
     target,
     data: edgeData,

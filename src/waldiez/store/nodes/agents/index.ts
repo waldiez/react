@@ -1,7 +1,5 @@
 import { Edge } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNode,
   WaldiezAgentNodeData,
@@ -15,6 +13,7 @@ import { exportAgent } from '@waldiez/store/exporting';
 import { importAgent } from '@waldiez/store/importing';
 import { getAgentNode } from '@waldiez/store/nodes/agents/utils';
 import { typeOfGet, typeOfSet } from '@waldiez/store/types';
+import { getId } from '@waldiez/utils';
 
 export class AgentsStore {
   static getAgents: (get: typeOfGet) => WaldiezAgentNode[] = get => {
@@ -59,7 +58,7 @@ export class AgentsStore {
       throw new Error(`Agent with id ${agentId} not found`);
     }
     const newNode = {
-      id: `wa-${nanoid()}`,
+      id: `wa-${getId()}`,
       data: { ...agent.data, label: `${agent.data.label} (copy)` },
       position: {
         x: agent.position.x + (agent.width ?? 100) + 40,
@@ -246,7 +245,7 @@ export class AgentsStore {
   ) => {
     // add an edge with source the parent and target the member
     const newEdge = new WaldiezSourceEdge({
-      id: `we-${nanoid()}`,
+      id: `we-${getId()}`,
       source: groupId,
       target: memberId,
       data: new WaldiezSourceEdgeData(groupId, memberId),

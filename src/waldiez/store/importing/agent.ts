@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNode,
   WaldiezAgentNodeType,
@@ -11,6 +9,7 @@ import {
   WaldiezSourceRagUser,
   WaldiezSourceUserProxy
 } from '@waldiez/models';
+import { getId } from '@waldiez/utils';
 
 export const importAgent: (data: any, agentId?: string, skipLinks?: boolean) => WaldiezAgentNode = (
   data,
@@ -83,7 +82,7 @@ const removeManagerLinks: (agent: WaldiezNodeGroupManager) => WaldiezNodeGroupMa
 };
 
 const getAgentId = (data: any, agentId?: string) => {
-  let id = 'wa-' + nanoid();
+  let id = 'wa-' + getId();
   if (!agentId || typeof agentId !== 'string') {
     if (data && typeof data === 'object' && 'id' in data && typeof data.id === 'string') {
       id = data.id;

@@ -1,7 +1,5 @@
 import { Node, XYPosition } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 import {
   IWaldiezSourceUserProxyOrAssistant,
@@ -16,6 +14,7 @@ import {
   WaldiezNodeUserProxyOrAssistant,
   WaldiezNodeUserProxyOrAssistantData
 } from '@waldiez/models/types';
+import { getId } from '@waldiez/utils';
 
 export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProxyOrAssistant {
   id: string;
@@ -60,7 +59,7 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
     } as Node<WaldiezNodeUserProxyOrAssistantData, 'agent'>;
   }
   static getId = (json: Record<string, unknown>): string => {
-    let id = `wa-${nanoid()}`;
+    let id = `wa-${getId()}`;
     if ('id' in json && typeof json.id === 'string') {
       id = json.id;
       delete json.id;
@@ -107,7 +106,7 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
   ): WaldiezSourceUserProxyOrAssistant => {
     if (!json || typeof json !== 'object') {
       return new WaldiezSourceUserProxyOrAssistant(
-        'wa-' + nanoid(),
+        'wa-' + getId(),
         new WaldiezSourceUserProxyOrAssistantData(name ?? 'Agent', agentType as 'user' | 'assistant')
       );
     }

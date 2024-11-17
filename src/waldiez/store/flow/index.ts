@@ -1,7 +1,5 @@
 import { Edge, Node, Viewport } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import { WaldiezEdge, WaldiezNodeType } from '@waldiez/models';
 import { EdgesStore } from '@waldiez/store/edges';
 import { exportFlow } from '@waldiez/store/exporting';
@@ -10,6 +8,7 @@ import { reArrangeNodes, setViewPortTopLeft } from '@waldiez/store/nodes/common'
 import { ModelsStore } from '@waldiez/store/nodes/models';
 import { SkillsStore } from '@waldiez/store/nodes/skills';
 import { ImportedFlow, ThingsToImport, typeOfGet, typeOfSet } from '@waldiez/store/types';
+import { getId } from '@waldiez/utils';
 
 export class FlowStore {
   static updateFlow: (
@@ -176,7 +175,7 @@ export class FlowStore {
       description,
       tags,
       requirements,
-      storageId: storageId ?? `wf-${nanoid()}`,
+      storageId: storageId ?? `wf-${getId()}`,
       createdAt: createdAt ?? new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       nodes,
@@ -220,7 +219,7 @@ export class FlowStore {
         description,
         tags,
         requirements,
-        storageId: storageId ?? `wf-${nanoid()}`,
+        storageId: storageId ?? `wf-${getId()}`,
         createdAt: createdAt ?? new Date().toISOString(),
         updatedAt: updatedAt ?? new Date().toISOString()
       },

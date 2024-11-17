@@ -5,8 +5,6 @@ import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance, XYPosition } fro
 
 import { createStore } from 'zustand';
 
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNodeData,
   WaldiezAgentNodeType,
@@ -18,6 +16,7 @@ import { EdgesStore } from '@waldiez/store/edges';
 import { FlowStore } from '@waldiez/store/flow';
 import { AgentsStore, ModelsStore, NodesStore, SkillsStore } from '@waldiez/store/nodes';
 import { ImportedFlow, ThingsToImport, WaldiezState, WaldiezStoreProps } from '@waldiez/types';
+import { getId } from '@waldiez/utils';
 
 /**
  * Create a Waldiez Store
@@ -26,7 +25,7 @@ import { ImportedFlow, ThingsToImport, WaldiezState, WaldiezStoreProps } from '@
  */
 export const createWaldiezStore = (props?: WaldiezStoreProps) => {
   const {
-    flowId = `wf-${nanoid()}`,
+    flowId = `wf-${getId()}`,
     edges = [],
     nodes = [],
     name = 'Untitled Flow',
