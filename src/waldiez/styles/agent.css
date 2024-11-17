@@ -251,22 +251,6 @@
   background-color: #222;
 }
 
-/* .react-flow__resize-control.line.left {
-  border-left-width: 0;
-}
-
-.react-flow__resize-control.line.right {
-  border-right-width: 0;
-}
-
-.react-flow__resize-control.line.top {
-  border-top-width: 0;
-}
-
-.react-flow__resize-control.line.bottom {
-  border-bottom-width: 0;
-} */
-
 .flow-wrapper .agent-node.user {
   border-color: var(--user-agent-color);
 }

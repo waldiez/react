@@ -103,30 +103,6 @@
   margin-right: 10px;
 }
 
-/* .flow-wrapper.light.flow-main .sidebar ul li {
-  border-bottom: 1px solid #eee;
-} */
-
-/* .flow-wrapper.light .flow-main .sidebar .sidebar-header {
-  border-bottom: 1px solid #eee;
-}
-
-.flow-wrapper.dark .flow-main .sidebar .sidebar-header {
-  border-bottom: 1px solid #222;
-} */
-
-/* .flow-wrapper.dark .flow-main .sidebar ul li {
-  border-bottom: 1px solid #222;
-} */
-
-/* .flow-wrapper.light .flow-main .sidebar ul li:hover {
-  background-color: #f0f0f0;
-}
-
-.flow-wrapper.dark .flow-main .sidebar ul li:hover {
-  background-color: #222;
-} */
-
 .flow-wrapper .flow-main .sidebar .dnd-description {
   margin: 10px;
   font-size: small;
