@@ -36,6 +36,7 @@ export const WaldiezNodeAgent = (props: WaldiezNodeAgentProps) => {
             minWidth={206}
             minHeight={206}
             handleStyle={{ color: AGENT_COLORS[agentType] }}
+            handleClassName={agentType}
           />
           <WaldiezNodeAgentHeader id={id} data={data} onOpenNodeModal={onOpenNodeModal} />
           <WaldiezNodeAgentBody id={id} data={data} isModalOpen={isModalOpen} />
