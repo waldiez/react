@@ -207,6 +207,7 @@ const getImportedNodeParentId = (element: any, node: Node, flowNodes: Node[]) =>
     } else {
       if (typeof node.parentId === 'string') {
         parentId = node.parentId;
+        node.parentId = undefined;
       } else if ('parentId' in node.data && typeof node.data.parentId === 'string') {
         parentId = node.data.parentId;
       }
@@ -219,7 +220,7 @@ const getImportedNodeParentId = (element: any, node: Node, flowNodes: Node[]) =>
     node.extent = undefined;
   }
   if (parentId) {
-    const parent = flowNodes.find(n => n.id === parentId && n.data.agentType === 'manager');
+    const parent = flowNodes.find(n => n.id === parentId) as any;
     if (!parent) {
       return null;
     }
@@ -230,6 +231,9 @@ const getImportedNodeParentId = (element: any, node: Node, flowNodes: Node[]) =>
 
 const getAgentNodeData = (name: string, elementNodeData: any, agentType?: WaldiezAgentNodeType) => {
   let elementData: any;
+  if ('parentId' in elementNodeData && typeof elementNodeData.parentId === 'string') {
+    elementNodeData.data.parentId = elementNodeData.parentId;
+  }
   switch (agentType) {
     case 'user':
       elementData = WaldiezSourceUserProxyData.fromJSON(elementNodeData.data, agentType, name);
