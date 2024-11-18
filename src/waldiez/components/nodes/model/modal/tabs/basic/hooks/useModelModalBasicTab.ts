@@ -30,7 +30,7 @@ export const useModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps)
   };
 
   const isBaseUrlEditable = (apiType: WaldiezModelAPIType) => {
-    return ['other', 'nim', 'azure'].includes(apiType);
+    return ['other', 'azure'].includes(apiType);
   };
   const apiTypeOptions: { label: string; value: WaldiezModelAPIType }[] = [
     { label: 'OpenAI', value: 'openai' },
@@ -62,8 +62,8 @@ export const useModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps)
     mistral: 'https://api.mistral.ai/v1',
     groq: 'https://api.groq.com/openai/v1',
     together: 'https://api.together.xyz/v1',
+    nim: 'https://integrate.api.nvidia.com/v1',
     azure: '',
-    nim: '',
     other: ''
   };
   const onLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
