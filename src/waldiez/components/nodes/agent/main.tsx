@@ -13,6 +13,7 @@ export const WaldiezNodeAgent = (props: WaldiezNodeAgentProps) => {
   const { id, data } = props;
   const {
     edge,
+    flowId,
     isNodeModalOpen,
     isEdgeModalOpen,
     onOpenNodeModal,
@@ -39,7 +40,7 @@ export const WaldiezNodeAgent = (props: WaldiezNodeAgentProps) => {
             handleClassName={agentType}
           />
           <WaldiezNodeAgentHeader id={id} data={data} onOpenNodeModal={onOpenNodeModal} />
-          <WaldiezNodeAgentBody id={id} data={data} isModalOpen={isModalOpen} />
+          <WaldiezNodeAgentBody flowId={flowId} id={id} data={data} isModalOpen={isModalOpen} />
           <WaldiezNodeAgentFooter id={id} data={data} isModalOpen={isModalOpen} />
           <Handle
             type="target"

@@ -35,12 +35,19 @@ export const useWaldiezNodeAgentModal = (
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
   const isDark = isDarkMode(flowId, storageId ?? flowId);
   const [isDirty, setIsDirty] = useState(false);
+  const updateDescriptionTextArea = (value: string) => {
+    const agentDescriptionElement = document.getElementById(`flow-${flowId}-agent-description-${id}`);
+    if (agentDescriptionElement) {
+      (agentDescriptionElement as HTMLTextAreaElement).value = value;
+    }
+  };
   useEffect(() => {
     setAgentData({ ...data });
   }, [data, isOpen]);
   const postSubmit = () => {
     const storedAgent = getAgentById(id);
     if (!storedAgent) {
+      updateDescriptionTextArea(agentData.description);
       setIsDirty(false);
       return;
     }
@@ -48,6 +55,7 @@ export const useWaldiezNodeAgentModal = (
       setAgentData({ ...(storedAgent.data as WaldiezAgentNodeData) });
       setIsDirty(false);
     }
+    updateDescriptionTextArea(storedAgent.data.description);
     onFlowChanged();
     // setNodeModalOpen(false);
   };

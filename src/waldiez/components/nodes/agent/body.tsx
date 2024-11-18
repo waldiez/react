@@ -8,13 +8,14 @@ import { useWaldiezContext } from '@waldiez/store';
 import { LOGOS } from '@waldiez/theme';
 
 type WaldiezNodeAgentBodyProps = {
+  flowId: string;
   id: string;
   data: WaldiezAgentNodeData;
   isModalOpen: boolean;
 };
 
 export const WaldiezNodeAgentBody = (props: WaldiezNodeAgentBodyProps) => {
-  const { id, data } = props;
+  const { id, flowId, data } = props;
   const agentType = data.agentType;
   const agentModelsView = getAgentModelsView(id, data);
   const agentSkillsView = getAgentSkillsView(id, data);
@@ -54,6 +55,7 @@ export const WaldiezNodeAgentBody = (props: WaldiezNodeAgentBodyProps) => {
             rows={2}
             defaultValue={data.description}
             onChange={onDescriptionChange}
+            id={`flow-${flowId}-agent-description-${id}`}
             data-testid={`agent-description-${id}`}
           />
         </div>

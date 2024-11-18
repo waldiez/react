@@ -8,6 +8,7 @@ import { useWaldiezContext } from '@waldiez/store';
 export const useWaldiezNodeAgent = () => {
   const getEdgeById = useWaldiezContext(s => s.getEdgeById);
   const addEdge = useWaldiezContext(s => s.addEdge);
+  const flowId = useWaldiezContext(s => s.flowId);
   const [isNodeModalOpen, setIsNodeModalOpen] = useState(false);
   const [isEdgeModalOpen, setIsEdgeModalOpen] = useState(false);
   const [edge, setEdge] = useState<WaldiezEdge | null>(null);
@@ -41,6 +42,7 @@ export const useWaldiezNodeAgent = () => {
     }
   };
   return {
+    flowId,
     edge,
     isNodeModalOpen,
     isEdgeModalOpen,
