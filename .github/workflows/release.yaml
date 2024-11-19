@@ -51,4 +51,4 @@ jobs:
           if: steps.create_release.outputs.id
           env:
             NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          run: yarn npm publish --tag ${{ github.ref_name }}
+          run: npm publish
