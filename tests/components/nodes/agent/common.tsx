@@ -126,5 +126,6 @@ export const renderAgent = (
 export const submitAgentChanges = () => {
   const submitButton = screen.getByTestId(`submit-agent-data-${agentId}`);
   expect(submitButton).toBeInTheDocument();
+  expect(submitButton).toBeEnabled();
   fireEvent.click(submitButton);
 };

@@ -100,6 +100,7 @@ const defaultConfig = eslintTs.config({
     ],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-namespace': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     '@stylistic/no-explicit-any': 'off',
     '@stylistic/no-trailing-spaces': 'off',
@@ -118,16 +119,12 @@ const defaultConfig = eslintTs.config({
     eqeqeq: 'error',
     'prefer-arrow-callback': 'error',
     'tsdoc/syntax': 'warn',
-    complexity: ['error', 20],
+    complexity: ['error', 16],
     'max-depth': ['error', 4],
     'max-nested-callbacks': ['error', 4],
     'max-statements': ['error', 11, { ignoreTopLevelFunctions: true }],
     'max-lines': ['error', { max: 400, skipBlankLines: true, skipComments: true }],
-    'max-lines-per-function': [
-      'error',
-      // one function could be a whole React.FC, let's be lenient
-      { max: 300, skipBlankLines: true, skipComments: true }
-    ]
+    'max-lines-per-function': ['error', { max: 300, skipBlankLines: true, skipComments: true }]
   }
 });
 
@@ -139,9 +136,18 @@ export default [
   // overrides
   ...defaultConfig.map(config => ({
     ...config,
+    files: ['src/waldiez/store/**/*.ts'],
+    rules: {
+      ...config.rules,
+      'max-statements': ['error', 20, { ignoreTopLevelFunctions: true }]
+    }
+  })),
+  ...defaultConfig.map(config => ({
+    ...config,
     files: ['tests/**/*.{ts,tsx}', 'src/waldiez/models/**/*.ts'],
     rules: {
       ...config.rules,
+      complexity: ['error', 20],
       'max-statements': ['error', 20, { ignoreTopLevelFunctions: true }]
     }
   }))

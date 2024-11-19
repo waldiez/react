@@ -30,7 +30,6 @@ describe('WaldiezAgentNode Code Execution Tab', () => {
     const toggle = screen.getByTestId(`agent-code-execution-toggle-${agentId}`);
     expect(toggle).toBeInTheDocument();
     expect(toggle).not.toBeChecked(); // no code execution
-    submitAgentChanges();
   });
   it('It toggles the code execution', () => {
     renderAgent('user', {

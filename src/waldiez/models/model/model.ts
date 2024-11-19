@@ -1,7 +1,5 @@
 import { XYPosition } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import { WaldiezSourceModelData } from '@waldiez/models/model/data';
 import {
   IWaldiezSourceModel,
@@ -9,6 +7,7 @@ import {
   WaldiezModelNode,
   WaldiezModelNodeData
 } from '@waldiez/models/types';
+import { getId } from '@waldiez/utils';
 
 export class WaldiezSourceModel implements IWaldiezSourceModel {
   id: string;
@@ -51,7 +50,7 @@ export class WaldiezSourceModel implements IWaldiezSourceModel {
 
   static fromJSON = (json: unknown): WaldiezSourceModel => {
     if (!json || typeof json !== 'object') {
-      return new WaldiezSourceModel('wm-' + nanoid(), new WaldiezSourceModelData());
+      return new WaldiezSourceModel('wm-' + getId(), new WaldiezSourceModelData());
     }
     const jsonObject = json as Record<string, unknown>;
     const id = WaldiezSourceModel.getId(jsonObject);
@@ -77,7 +76,7 @@ export class WaldiezSourceModel implements IWaldiezSourceModel {
   };
 
   private static getId(json: Record<string, unknown>): string {
-    let id = `wm-${nanoid()}`;
+    let id = `wm-${getId()}`;
     if ('id' in json && typeof json.id === 'string') {
       id = json.id;
     }

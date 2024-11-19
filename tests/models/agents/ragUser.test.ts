@@ -7,7 +7,7 @@ import { defaultRetrieveConfig } from '@waldiez/models/agents/ragUser/retrieveCo
 import { WaldiezNodeRagUser, WaldiezNodeRagUserData } from '@waldiez/models/types/agents/ragUser';
 
 describe('WaldiezSourceRagUser', () => {
-  const waldieSourceRagUserData: WaldiezSourceRagUserData = {
+  const waldiezSourceRagUserData: WaldiezSourceRagUserData = {
     name: 'Rag User',
     agentType: 'rag_user',
     systemMessage: null,
@@ -36,10 +36,11 @@ describe('WaldiezSourceRagUser', () => {
     tags: [],
     requirements: [],
     createdAt,
-    updatedAt
+    updatedAt,
+    parentId: null
   };
 
-  const ragUser = new WaldiezSourceRagUser('rag-user-id', waldieSourceRagUserData);
+  const ragUser = new WaldiezSourceRagUser('rag-user-id', waldiezSourceRagUserData);
   const ragUserNode = ragUser.asNode();
 
   it('should create a new Rag User', () => {
@@ -143,7 +144,7 @@ describe('WaldiezSourceRagUser', () => {
 
   it('should import rag user data from json', () => {
     const ragUserData = WaldiezSourceRagUserData.fromJSON(ragUserJson);
-    expect(ragUserData).toEqual(waldieSourceRagUserData);
+    expect(ragUserData).toEqual(waldiezSourceRagUserData);
   });
 
   it('should create a rag user with default values', () => {
@@ -171,7 +172,7 @@ describe('WaldiezSourceRagUser', () => {
   });
 
   it('should create a rag user node with position in json', () => {
-    const ragUserWithPosition = new WaldiezSourceRagUser('rag-user-id', waldieSourceRagUserData, {
+    const ragUserWithPosition = new WaldiezSourceRagUser('rag-user-id', waldiezSourceRagUserData, {
       position: { x: 10, y: 10 }
     }).asNode();
     expect(ragUserWithPosition.position).toEqual({ x: 10, y: 10 });

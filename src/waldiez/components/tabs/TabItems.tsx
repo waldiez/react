@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
-import TabItem from '@waldiez/components/tabs/TabItem';
+import { TabItem } from '@waldiez/components/tabs/TabItem';
 import { TabItemProps, TabItemsProps } from '@waldiez/components/tabs/types';
 
 export const TabItems = (props: TabItemsProps) => {

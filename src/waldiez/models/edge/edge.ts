@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 import { WaldiezSourceEdgeData } from '@waldiez/models/edge/data';
 import {
   IWaldiezSourceEdge,
@@ -8,6 +6,7 @@ import {
   WaldiezEdgeData,
   WaldiezEdgeDataCommon
 } from '@waldiez/models/types';
+import { getId } from '@waldiez/utils';
 
 export class WaldiezSourceEdge implements IWaldiezSourceEdge {
   id: string;
@@ -70,7 +69,7 @@ export class WaldiezSourceEdge implements IWaldiezSourceEdge {
     };
   }
   private static getId(data: Record<string, unknown>): string {
-    let id = `we-${nanoid()}`;
+    let id = `we-${getId()}`;
     if ('id' in data && typeof data.id === 'string') {
       id = data.id;
     }
@@ -106,7 +105,7 @@ export class WaldiezSourceEdge implements IWaldiezSourceEdge {
   static fromJSON(json: unknown, position: number | null = null): WaldiezSourceEdge {
     if (!json || typeof json !== 'object') {
       return new WaldiezSourceEdge({
-        id: `we-${nanoid()}`,
+        id: `we-${getId()}`,
         source: 'source',
         target: 'target',
         data: new WaldiezSourceEdgeData(),

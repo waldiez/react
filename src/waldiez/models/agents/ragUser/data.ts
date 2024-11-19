@@ -33,6 +33,7 @@ export class WaldiezSourceRagUserData
   requirements: string[];
   createdAt: string;
   updatedAt: string;
+  parentId: string | null;
   nestedChats: WaldiezAgentNestedChat[];
   retrieveConfig: WaldiezRageUserRetrieveConfig;
 
@@ -63,6 +64,7 @@ export class WaldiezSourceRagUserData
     skills: WaldiezAgentLinkedSkill[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
+    parentId: string | null = null,
     nestedChats: WaldiezAgentNestedChat[] = [],
     retrieveConfig: WaldiezRageUserRetrieveConfig = defaultRetrieveConfig
   ) {
@@ -82,7 +84,8 @@ export class WaldiezSourceRagUserData
       tags,
       requirements,
       createdAt,
-      updatedAt
+      updatedAt,
+      parentId
     );
     this.name = name;
     this.systemMessage = systemMessage;
@@ -102,6 +105,7 @@ export class WaldiezSourceRagUserData
     this.retrieveConfig = retrieveConfig;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.parentId = parentId;
   }
 
   static fromJSON = (json: unknown, name: string | null = null): WaldiezSourceRagUserData => {

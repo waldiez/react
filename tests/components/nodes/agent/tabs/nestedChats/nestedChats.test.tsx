@@ -15,7 +15,7 @@ describe('Nested Chats tab main', () => {
       dataOverrides: {
         nestedChats: [
           {
-            triggeredBy: [{ id: 'test-edge0', isReply: false }],
+            triggeredBy: ['test-agent0'],
             messages: [{ id: 'test-edge-1', isReply: true }]
           }
         ]

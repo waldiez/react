@@ -6,6 +6,8 @@ import { getFlowEdges } from '@waldiez/store/importing/flow/edges';
 import { getFlowAgents, getFlowExportedNodes, getFlowNodes } from '@waldiez/store/importing/flow/nodes';
 import { getFlowViewPort } from '@waldiez/store/importing/flow/viewport';
 
+export { loadFlow } from '@waldiez/store/importing/flow/load';
+
 const emptyFlow = {
   id: undefined,
   storageId: undefined,
@@ -31,6 +33,18 @@ const emptyFlow = {
 };
 
 export const importFlow = (thing: any) => {
+  if (typeof thing === 'string') {
+    try {
+      thing = JSON.parse(thing);
+    } catch (_) {
+      console.error('Invalid flow data');
+      return emptyFlow;
+    }
+  }
+  if (!thing || typeof thing !== 'object' || !('type' in thing) || thing.type !== 'flow') {
+    console.error('Invalid flow data');
+    return emptyFlow;
+  }
   let json = thing as {
     [key: string]: unknown;
   };

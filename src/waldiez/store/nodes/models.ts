@@ -1,7 +1,5 @@
 import { Node, ReactFlowInstance } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNode,
   WaldiezModelNode,
@@ -13,6 +11,7 @@ import { exportModel } from '@waldiez/store/exporting';
 import { importModel } from '@waldiez/store/importing';
 import { getNewNodePosition, reArrangeNodes, setViewPortTopLeft } from '@waldiez/store/nodes/common';
 import { typeOfGet, typeOfSet } from '@waldiez/store/types';
+import { getId } from '@waldiez/utils';
 
 export class ModelsStore {
   static getModels: (get: typeOfGet) => WaldiezModelNode[] = get => {
@@ -31,7 +30,7 @@ export class ModelsStore {
     const flowId = get().flowId;
     const rfInstance = get().rfInstance;
     const position = getNewNodePosition(modelCount, flowId, rfInstance);
-    const newNode: WaldiezModelNode = new WaldiezSourceModel(`wm-${nanoid()}`, new WaldiezSourceModelData(), {
+    const newNode: WaldiezModelNode = new WaldiezSourceModel(`wm-${getId()}`, new WaldiezSourceModelData(), {
       position
     }).asNode();
     set({
@@ -58,7 +57,7 @@ export class ModelsStore {
     const modelCount = existingModels.length;
     const flowId = get().flowId;
     const position = getNewNodePosition(modelCount, flowId, rfInstance);
-    return new WaldiezSourceModel(`wm-${nanoid()}`, new WaldiezSourceModelData(), {
+    return new WaldiezSourceModel(`wm-${getId()}`, new WaldiezSourceModelData(), {
       position,
       data: model.data
     }).asNode();

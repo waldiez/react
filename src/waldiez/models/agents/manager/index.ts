@@ -1,7 +1,5 @@
 import { XYPosition } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import { WaldiezSourceGroupManagerData } from '@waldiez/models/agents/manager/data';
 import {
   IWaldiezSourceGroupManager,
@@ -9,6 +7,7 @@ import {
   WaldiezNodeGroupManager,
   WaldiezNodeGroupManagerData
 } from '@waldiez/models/types/';
+import { getId } from '@waldiez/utils';
 
 export class WaldiezSourceGroupManager implements IWaldiezSourceGroupManager {
   id: string;
@@ -51,7 +50,7 @@ export class WaldiezSourceGroupManager implements IWaldiezSourceGroupManager {
       jsonObject = {};
     }
     // const jsonObject = json as Record<string, unknown>;
-    let id = `wm-${nanoid()}`;
+    let id = `wm-${getId()}`;
     if ('id' in jsonObject && typeof jsonObject.id === 'string') {
       id = jsonObject.id;
     }

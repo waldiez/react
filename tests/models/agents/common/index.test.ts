@@ -168,6 +168,16 @@ describe('WaldiezSourceAgentCommonData', () => {
       { id: 'skillId2', executorId: 'executorId2' }
     ]);
   });
+
+  it('should import agent data with parentId', () => {
+    const commonDataJsonWithParentId = {
+      ...commonDataJson,
+      parentId: 'parentId'
+    };
+    const importedAgent = WaldiezSourceAgentCommonData.fromJSON(commonDataJsonWithParentId, 'user');
+    expect(importedAgent.parentId).toEqual('parentId');
+  });
+
   it('should import agent data from json with label instead of name', () => {
     const commonDataJsonWithLabel = {
       ...commonDataJson,

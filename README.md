@@ -5,14 +5,14 @@
 ## Requirements
 
 - Node.js
-- bun@1.1.34
+- yarn@4.5.1
 
 ## Libraries
 
 ```json
 {
     "@monaco-editor/react": "^4.6.0",
-    "@xyflow/react": "^12.3.4",
+    "@xyflow/react": "^12.3.5",
     "microdiff": "^1.4.0",
     "nanoid": "^5.0.8",
     "rc-slider": "^11.1.7",
@@ -20,8 +20,8 @@
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.1.2",
     "react-icons": "^5.3.0",
-    "react-select": "^5.8.2",
-    "zundo": "^2.2.0",
+    "react-select": "^5.8.3",
+    "zundo": "^2.3.0",
     "zustand": "^5.0.1"
 }
 ```
@@ -130,17 +130,24 @@ const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
 /**
  * Other props:
  *  we can use:
- * `{ import importFlow } from '@waldiez';`
+ *  `import { importFlow } from '@waldiez';`
+ *  const flowJson = JSON.parse(flowJsonString);
+ *  const flow = importFlow(flowJson);
  *  to import a flow from a waldiez/json file
  *  then we can pass the additional props:
- *    - edges: Edge[];  initial edges to render
- *    - nodes: Node[];  initial nodes to render
- *    - name: string;
- *    - description: string;
- *    - tags: string[];
- *    - requirements: string[];
- *    - createdAt?: string;
- *    - updatedAt?: string;
+ *    - edges: Edge[];  // initial edges to render (flow.edges)
+ *    - nodes: Node[];  // initial nodes to render (flow.nodes)
+ *    - name: string;  // flow name (flow.name)
+ *    - description: string; // flow description (flow.description)
+ *    - tags: string[];  // flow tags (flow.tags)
+ *    - requirements: string[];  // flow requirements (flow.requirements)
+ *    - createdAt?: string;  // flow createdAt (flow.createdAt)
+ *    - updatedAt?: string;  // flow updatedAt (flow.updatedAt)
+ *    - viewport: Viewport;  // initial viewport (flow.viewport)
+ *    - flowId: string;  // a specific id for the flow
+ *    - storageId: string;  // storage id to use for getting/setting
+ *             the theme mode (light/dark) and
+ *             the sidebar state (open/closed)
  */
 
 const startApp = () => {

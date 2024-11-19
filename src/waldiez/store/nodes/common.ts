@@ -1,5 +1,7 @@
 import { Node, ReactFlowInstance } from '@xyflow/react';
 
+import { getFlowRoot } from '@waldiez/utils';
+
 const calculateNewNodePosition = (
   rfInstance: ReactFlowInstance | undefined,
   flowWrapper: HTMLElement,
@@ -23,7 +25,7 @@ export const getNewNodePosition = (
   rfInstance?: ReactFlowInstance,
   entriesDistance: number = 240
 ) => {
-  const flowRoot = document.getElementById(`rf-root-${flowId}`);
+  const flowRoot = getFlowRoot(flowId);
   if (!flowRoot) {
     return { x: 0, y: 0 };
   }

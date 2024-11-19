@@ -9,7 +9,7 @@ import {
 } from '@waldiez/models/types/agents/userProxyOrAssistant';
 
 describe('WaldiezSourceUserProxy', () => {
-  const waldieSourceUserProxyData: WaldiezSourceUserProxyData = {
+  const waldiezSourceUserProxyData: WaldiezSourceUserProxyData = {
     name: 'User',
     nestedChats: [],
     agentType: 'user',
@@ -37,10 +37,11 @@ describe('WaldiezSourceUserProxy', () => {
     tags: [],
     requirements: [],
     createdAt,
-    updatedAt
+    updatedAt,
+    parentId: null
   };
 
-  const userProxy = new WaldiezSourceUserProxy('test-id', waldieSourceUserProxyData);
+  const userProxy = new WaldiezSourceUserProxy('test-id', waldiezSourceUserProxyData);
   const userProxyNode = userProxy.asNode();
 
   it('should create a new User Proxy', () => {
@@ -75,6 +76,6 @@ describe('WaldiezSourceUserProxy', () => {
 
   it('should import user proxy data from json', () => {
     const userProxyData = WaldiezSourceUserProxyData.fromJSON(userProxyJson, 'user');
-    expect(userProxyData).toEqual(waldieSourceUserProxyData);
+    expect(userProxyData).toEqual(waldiezSourceUserProxyData);
   });
 });

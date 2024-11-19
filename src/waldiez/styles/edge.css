@@ -1,10 +1,24 @@
+.flow-wrapper .agent-edge-box {
+  pointer-events: all;
+  display: flex;
+  align-items: stretch;
+  resize: both;
+  overflow: auto;
+  width: 100px;
+  height: 100px;
+  min-width: 120px;
+  min-height: 120px;
+  z-index: 10000;
+}
+
 .flow-wrapper .agent-edge-view {
   font-size: small;
   font-weight: 500;
   border-radius: 4px;
-  padding: 4px;
-  width: 80px;
-  height: 80px;
+  padding: 8px;
+  min-width: 100px;
+  min-height: 80px;
+  width: calc(100% - 8px);
   display: flex;
   flex-direction: column;
 }
@@ -19,28 +33,22 @@
   background-color: #222;
 }
 
-.flow-wrapper .agent-edge-view .edge-data {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.flow-wrapper .agent-edge-view .edge-data .edge-header {
+.flow-wrapper .agent-edge-view .edge-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.flow-wrapper .agent-edge-view .edge-body {
+  flex: 1;
   margin-bottom: 8px;
 }
 
-.flow-wrapper .agent-edge-view .edge-data .edge-data-label,
-.flow-wrapper .agent-edge-view .edge-data .edge-label {
-  width: auto;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
+.flow-wrapper .agent-edge-view .edge-body textarea {
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  resize: none;
 }
 
 .flow-wrapper .agent-edge-view .group {

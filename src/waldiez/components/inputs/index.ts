@@ -7,4 +7,5 @@ export { TextInput } from '@waldiez/components/inputs/textInput';
 export { Select } from '@waldiez/components/inputs/select';
 export { MessageInput } from '@waldiez/components/inputs/messageInput';
 export { NumberInput } from '@waldiez/components/inputs/numberInput';
+export { DropZone } from '@waldiez/components/inputs/dropZone';
 export type * from '@waldiez/components/inputs/types';

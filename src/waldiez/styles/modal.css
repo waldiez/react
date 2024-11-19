@@ -158,6 +158,10 @@
   background-color: transparent;
 }
 
+.flow-wrapper .modal-header-export-button {
+  margin-left: 20px;
+}
+
 .flow-wrapper.light .modal-content {
   background-color: white;
   color: #000 !important;
@@ -166,4 +170,16 @@
 .flow-wrapper.dark .modal-content {
   background-color: #333;
   color: #fff !important;
+}
+
+.flow-wrapper .modal-confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.flow-wrapper .modal-confirmation-actions {
+  display: flex;
+  justify-content: space-between;
 }

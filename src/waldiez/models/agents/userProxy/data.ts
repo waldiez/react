@@ -43,7 +43,8 @@ export class WaldiezSourceUserProxyData
     tags: string[] = [],
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
-    updatedAt: string = new Date().toISOString()
+    updatedAt: string = new Date().toISOString(),
+    parentId: string | null = null
   ) {
     super(
       name,
@@ -62,6 +63,7 @@ export class WaldiezSourceUserProxyData
       requirements,
       createdAt,
       updatedAt,
+      parentId,
       nestedChats
     );
     this.agentType = 'user';
@@ -89,7 +91,8 @@ export class WaldiezSourceUserProxyData
       data.tags,
       data.requirements,
       data.createdAt,
-      data.updatedAt
+      data.updatedAt,
+      data.parentId
     );
   };
 }

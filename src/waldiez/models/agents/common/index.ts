@@ -28,6 +28,7 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
   requirements: string[];
   createdAt: string;
   updatedAt: string;
+  parentId: string | null;
   constructor(
     name: string = 'Agent',
     agentType: WaldiezAgentNodeType = 'user',
@@ -55,7 +56,8 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
     tags: string[] = [],
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
-    updatedAt: string = new Date().toISOString()
+    updatedAt: string = new Date().toISOString(),
+    parentId: string | null = null
   ) {
     this.name = name;
     this.agentType = agentType;
@@ -74,6 +76,7 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
     this.agentType = agentType;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.parentId = parentId;
   }
   static fromJSON = (
     json: unknown,
@@ -99,6 +102,7 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
     const requirements = WaldiezSourceAgentCommonData.getRequirements(data);
     const createdAt = WaldiezSourceAgentCommonData.getCreatedAt(data);
     const updatedAt = WaldiezSourceAgentCommonData.getUpdatedAt(data);
+    const parentId = WaldiezSourceAgentCommonData.getParentId(data);
     return new WaldiezSourceAgentCommonData(
       agentName,
       agentType,
@@ -115,7 +119,8 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
       tags,
       requirements,
       createdAt,
-      updatedAt
+      updatedAt,
+      parentId
     );
   };
   private static getSystemMessage = (data: Record<string, unknown>): string | null => {
@@ -248,5 +253,11 @@ export class WaldiezSourceAgentCommonData implements IWaldiezSourceAgentCommonDa
       updatedAt = data.updatedAt;
     }
     return updatedAt;
+  };
+  private static getParentId = (data: Record<string, unknown>): string | null => {
+    if ('parentId' in data && typeof data.parentId === 'string') {
+      return data.parentId;
+    }
+    return null;
   };
 }

@@ -30,16 +30,48 @@ export const exportAgent = (agent: WaldiezAgentNode, skipLinks: boolean = false)
   return json;
 };
 
+export const exportAgentData = (agent: WaldiezAgentNode, skipLinks: boolean) => {
+  const data = {
+    systemMessage: agent.data.systemMessage,
+    humanInputMode: agent.data.humanInputMode,
+    codeExecutionConfig: agent.data.codeExecutionConfig,
+    agentDefaultAutoReply: agent.data.agentDefaultAutoReply,
+    maxConsecutiveAutoReply: agent.data.maxConsecutiveAutoReply,
+    termination: agent.data.termination,
+    teachability: agent.data.teachability,
+    modelIds: agent.data.modelIds,
+    skills: agent.data.skills,
+    parentId: agent.data.parentId
+  } as { [key: string]: unknown };
+  if (skipLinks) {
+    data.parentId = null;
+    data.modelIds = [];
+    data.skills = [];
+    if (agent.data.codeExecutionConfig) {
+      (data.codeExecutionConfig as { [key: string]: unknown }).functions = [];
+    }
+  }
+  data.nestedChats = exportAgentNestedChats(agent, skipLinks);
+  if (agent.data.agentType === 'manager') {
+    const managerData = exportManagerData(agent as WaldiezNodeGroupManager, skipLinks);
+    data.maxRound = managerData.maxRound;
+    data.adminName = managerData.adminName;
+    data.enableClearHistory = managerData.enableClearHistory;
+    data.sendIntroductions = managerData.sendIntroductions;
+    data.speakers = managerData.speakers;
+  }
+  if (agent.data.agentType === 'rag_user') {
+    const ragUserData = exportRagUserData(agent as WaldiezNodeRagUser, skipLinks);
+    data.retrieveConfig = ragUserData;
+  }
+  return data;
+};
+
 const exportAgentNestedChats = (agent: WaldiezAgentNode, skipLinks: boolean) => {
   if (!skipLinks && agent.data.agentType !== 'manager') {
     const nestedChats = agent.data.nestedChats.map(nestedChat => {
       return {
-        triggeredBy: nestedChat.triggeredBy.map(triggeredBy => {
-          return {
-            id: triggeredBy.id,
-            isReply: triggeredBy.isReply
-          };
-        }),
+        triggeredBy: nestedChat.triggeredBy,
         messages: nestedChat.messages.map(message => {
           return {
             id: message.id,
@@ -87,42 +119,6 @@ const exportManagerData = (agent: WaldiezNodeGroupManager, skipLinks: boolean) =
     sendIntroductions,
     speakers
   };
-};
-
-/* eslint-disable max-statements */
-export const exportAgentData = (agent: WaldiezAgentNode, skipLinks: boolean) => {
-  const data = {
-    systemMessage: agent.data.systemMessage,
-    humanInputMode: agent.data.humanInputMode,
-    codeExecutionConfig: agent.data.codeExecutionConfig,
-    agentDefaultAutoReply: agent.data.agentDefaultAutoReply,
-    maxConsecutiveAutoReply: agent.data.maxConsecutiveAutoReply,
-    termination: agent.data.termination,
-    teachability: agent.data.teachability,
-    modelIds: agent.data.modelIds,
-    skills: agent.data.skills
-  } as { [key: string]: unknown };
-  if (skipLinks) {
-    data.modelIds = [];
-    data.skills = [];
-    if (agent.data.codeExecutionConfig) {
-      (data.codeExecutionConfig as { [key: string]: unknown }).functions = [];
-    }
-  }
-  data.nestedChats = exportAgentNestedChats(agent, skipLinks);
-  if (agent.data.agentType === 'manager') {
-    const managerData = exportManagerData(agent as WaldiezNodeGroupManager, skipLinks);
-    data.maxRound = managerData.maxRound;
-    data.adminName = managerData.adminName;
-    data.enableClearHistory = managerData.enableClearHistory;
-    data.sendIntroductions = managerData.sendIntroductions;
-    data.speakers = managerData.speakers;
-  }
-  if (agent.data.agentType === 'rag_user') {
-    const ragUserData = exportRagUserData(agent as WaldiezNodeRagUser, skipLinks);
-    data.retrieveConfig = ragUserData;
-  }
-  return data;
 };
 /* eslint-disable complexity */
 const exportRagUserData = (agent: WaldiezNodeRagUser, skipLinks: boolean) => {

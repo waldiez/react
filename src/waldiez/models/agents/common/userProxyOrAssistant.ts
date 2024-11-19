@@ -1,7 +1,5 @@
 import { Node, XYPosition } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 import {
   IWaldiezSourceUserProxyOrAssistant,
@@ -16,6 +14,7 @@ import {
   WaldiezNodeUserProxyOrAssistant,
   WaldiezNodeUserProxyOrAssistantData
 } from '@waldiez/models/types';
+import { getId } from '@waldiez/utils';
 
 export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProxyOrAssistant {
   id: string;
@@ -60,19 +59,15 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
     } as Node<WaldiezNodeUserProxyOrAssistantData, 'agent'>;
   }
   static getId = (json: Record<string, unknown>): string => {
-    let id = `wa-${nanoid()}`;
+    let id = `wa-${getId()}`;
     if ('id' in json && typeof json.id === 'string') {
       id = json.id;
       delete json.id;
     }
     return id;
   };
-  static getAgentName = (
-    agentType: 'user' | 'assistant',
-    name: string | null,
-    json: Record<string, unknown>
-  ): string => {
-    let agentName = `${agentType.charAt(0).toUpperCase()}${agentType.slice(1)}`;
+  static getAgentName = (name: string | null, json: Record<string, unknown>): string | null => {
+    let agentName = null;
     if (name && typeof name === 'string') {
       agentName = name;
     } else if ('name' in json && typeof json.name === 'string') {
@@ -96,6 +91,14 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
     }
     return agentType as 'user' | 'assistant';
   };
+  static getAgentDescription = (agentType: 'user' | 'assistant', json: Record<string, unknown>): string => {
+    const fallback = `A ${agentType === 'user' ? '' : 'n'} agent`;
+    let description = fallback;
+    if ('description' in json && typeof json.description === 'string') {
+      description = json.description;
+    }
+    return description;
+  };
   static fromJSON = (
     json: unknown,
     agentType: WaldiezAgentNodeType,
@@ -103,7 +106,7 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
   ): WaldiezSourceUserProxyOrAssistant => {
     if (!json || typeof json !== 'object') {
       return new WaldiezSourceUserProxyOrAssistant(
-        'wa-' + nanoid(),
+        'wa-' + getId(),
         new WaldiezSourceUserProxyOrAssistantData(name ?? 'Agent', agentType as 'user' | 'assistant')
       );
     }
@@ -111,16 +114,20 @@ export class WaldiezSourceUserProxyOrAssistant implements IWaldiezSourceUserProx
     const rest = { ...jsonObject };
     const id = WaldiezSourceUserProxyOrAssistant.getId(rest);
     const agentNodeType = WaldiezSourceUserProxyOrAssistant.getAgentType(jsonObject, agentType);
-    const agentName = WaldiezSourceUserProxyOrAssistant.getAgentName(agentNodeType, name, jsonObject);
+    const agentName = WaldiezSourceUserProxyOrAssistant.getAgentName(name, jsonObject);
+    const agentDescription = WaldiezSourceUserProxyOrAssistant.getAgentDescription(agentNodeType, jsonObject);
     let data: IWaldiezSourceUserProxyOrAssistantData;
-    if ('data' in jsonObject && typeof jsonObject.data === 'object') {
+    if ('data' in jsonObject && typeof jsonObject.data === 'object' && jsonObject.data) {
       delete rest.data;
-      data = WaldiezSourceUserProxyOrAssistantData.fromJSON(
-        jsonObject.data as Record<string, unknown>,
-        agentNodeType,
-        name
-      );
+      const jsonObjectData = jsonObject.data as Record<string, unknown>;
+      if (!('description' in jsonObjectData)) {
+        jsonObjectData.description = agentDescription;
+      }
+      data = WaldiezSourceUserProxyOrAssistantData.fromJSON(jsonObjectData, agentNodeType, agentName);
     } else {
+      if (!('description' in jsonObject)) {
+        jsonObject.description = agentDescription;
+      }
       data = WaldiezSourceUserProxyOrAssistantData.fromJSON(jsonObject, agentNodeType, agentName);
     }
     return new WaldiezSourceUserProxyOrAssistant(id, data, rest);
@@ -133,7 +140,7 @@ export class WaldiezSourceUserProxyOrAssistantData
 {
   agentType: 'user' | 'assistant';
   nestedChats: {
-    triggeredBy: { id: string; isReply: boolean }[];
+    triggeredBy: string[];
     messages: { id: string; isReply: boolean }[];
   }[];
 
@@ -165,6 +172,7 @@ export class WaldiezSourceUserProxyOrAssistantData
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
+    parentId: string | null = null,
     nestedChats: WaldiezAgentNestedChat[] = []
   ) {
     super(
@@ -183,11 +191,42 @@ export class WaldiezSourceUserProxyOrAssistantData
       tags,
       requirements,
       createdAt,
-      updatedAt
+      updatedAt,
+      parentId
     );
     this.nestedChats = nestedChats;
     this.agentType = agentType;
   }
+  static loadNestedChats = (nestedChats: any[]): WaldiezAgentNestedChat[] => {
+    // old version: [{ triggeredBy: [{id: string, isReply: boolean}], messages: [{ id: string, isReply: boolean }] }]
+    // new version: [{ triggeredBy: string[], messages: [{ id: string, isReply: boolean }] }]
+    // in the old version, the id is the id of the chat (not the agent :( )
+    // in the new version, the id is the id of the agent (that can trigger the nested chat)
+    // we need the new version here (and maybe handle the compatibility in a previous step)
+    const chats: WaldiezAgentNestedChat[] = [];
+    for (const chat of nestedChats) {
+      let triggeredBy = [];
+      if ('triggeredBy' in chat && Array.isArray(chat.triggeredBy)) {
+        triggeredBy = chat.triggeredBy.filter((trigger: any) => {
+          return typeof trigger === 'string';
+        });
+      }
+      let messages = [];
+      if ('messages' in chat && Array.isArray(chat.messages)) {
+        messages = chat.messages.filter((message: any) => {
+          return (
+            typeof message === 'object' &&
+            'id' in message &&
+            typeof message.id === 'string' &&
+            'isReply' in message &&
+            typeof message.isReply === 'boolean'
+          );
+        });
+      }
+      chats.push({ triggeredBy, messages });
+    }
+    return chats;
+  };
   static fromJSON = (
     data: unknown,
     agentType: WaldiezAgentNodeType,
@@ -199,15 +238,7 @@ export class WaldiezSourceUserProxyOrAssistantData
     const commonData = WaldiezSourceAgentCommonData.fromJSON(data, agentType, name);
     let nestedChats: WaldiezAgentNestedChat[] = [];
     if ('nestedChats' in data && Array.isArray(data.nestedChats)) {
-      nestedChats = data.nestedChats.filter(
-        nc =>
-          typeof nc === 'object' &&
-          nc &&
-          'triggeredBy' in nc &&
-          Array.isArray(nc.triggeredBy) &&
-          'messages' in nc &&
-          Array.isArray(nc.messages)
-      ) as WaldiezAgentNestedChat[];
+      nestedChats = WaldiezSourceUserProxyOrAssistantData.loadNestedChats(data.nestedChats);
     }
     return new WaldiezSourceUserProxyOrAssistantData(
       commonData.name,
@@ -226,6 +257,7 @@ export class WaldiezSourceUserProxyOrAssistantData
       commonData.requirements,
       commonData.createdAt,
       commonData.updatedAt,
+      commonData.parentId,
       nestedChats
     );
   };

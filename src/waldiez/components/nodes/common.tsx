@@ -1,7 +1,5 @@
 import { FaFileExport, FaFileImport } from 'react-icons/fa';
 
-import { WaldiezNode } from '@waldiez/models';
-
 export const getImportExportView: (
   flowId: string,
   itemId: string,
@@ -38,49 +36,4 @@ export const getImportExportView: (
       </button>
     </div>
   );
-};
-const openDownloadLink = (blob: Blob, filename: string) => {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-};
-export const exportItem = (
-  name: string,
-  itemType: 'model' | 'skill' | 'agent',
-  exporter: () => { [key: string]: unknown } | null
-) => {
-  const item = exporter();
-  if (item) {
-    const itemTypeCapitalized = itemType.charAt(0).toUpperCase() + itemType.slice(1);
-    const itemString = JSON.stringify(item, null, 2);
-    const blob = new Blob([itemString], { type: 'application/json' });
-    openDownloadLink(blob, `${name}.waldiez${itemTypeCapitalized}`);
-  }
-};
-
-export const importItem = (
-  event: React.ChangeEvent<HTMLInputElement>,
-  itemGetter: () => WaldiezNode | null,
-  onLoad: (item: WaldiezNode, data: { [key: string]: unknown }) => void
-) => {
-  const file = event.target.files?.[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const item = itemGetter();
-      if (item) {
-        const result = reader.result as string;
-        try {
-          const jsonData = JSON.parse(result);
-          onLoad(item, jsonData);
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    };
-    reader.readAsText(file);
-  }
 };

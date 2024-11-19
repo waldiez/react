@@ -19,6 +19,9 @@ import {
   WaldiezSkillNode,
   WaldiezSkillNodeData
 } from '@waldiez/models';
+import { ImportedFlow, ThingsToImport } from '@waldiez/store/importing/types';
+
+export * from '@waldiez/store/importing/types';
 
 export type WaldiezStoreProps = {
   viewport?: Viewport;
@@ -34,6 +37,16 @@ export type WaldiezStoreProps = {
   edges: Edge[]; // only react flow related (no data)
   nodes: Node[]; // only react flow related (no data)
   onUpload?: ((files: File[]) => Promise<string[]>) | null; // handler for file uploads (send to backend)
+  onChange?: ((content: string) => void) | null; // handler for changes in the flow (send to backend)
+};
+
+export type WaldiezFlowInfo = {
+  flowId: string;
+  storageId: string;
+  name: string;
+  description: string;
+  tags: string[];
+  requirements: string[];
 };
 
 export type typeOfSet = {
@@ -50,8 +63,11 @@ export type typeOfGet = () => WaldiezState;
 
 export type WaldiezState = WaldiezStoreProps & {
   get: typeOfGet;
+  getRfInstance: () => ReactFlowInstance | undefined;
   setRfInstance: (instance: ReactFlowInstance) => void;
+  getViewport: () => Viewport | undefined;
   // edges
+  getEdges: () => Edge[];
   onEdgesChange: (changes: EdgeChange[]) => void;
   onEdgeDoubleClick: (event: any, edge: Edge) => void;
   addEdge: (source: string, target: string, hidden: boolean) => Edge;
@@ -62,6 +78,7 @@ export type WaldiezState = WaldiezStoreProps & {
   updateEdgeData: (id: string, data: Edge['data']) => void;
   getEdgeSourceAgent: (edge: Edge) => WaldiezAgentNode | null;
   // nodes
+  getNodes: () => Node[];
   onNodesChange: OnNodesChange;
   onNodeDoubleClick: (event: any, node: Node) => void;
   showNodes(nodeType: WaldiezNodeType): void;
@@ -109,6 +126,7 @@ export type WaldiezState = WaldiezStoreProps & {
     options?: {
       sourcesOnly?: boolean;
       targetsOnly?: boolean;
+      skipManagers?: boolean;
     }
   ) => {
     source: {
@@ -135,9 +153,9 @@ export type WaldiezState = WaldiezStoreProps & {
   updateFlow: (data: { name: string; description: string; tags: string[]; requirements: string[] }) => void;
   updateFlowOrder: (data: { id: string; order: number }[]) => void;
   getFlowEdges: () => [WaldiezEdge[], WaldiezEdge[]];
-  importFlow: (flow: { [key: string]: unknown }, typeShown: WaldiezNodeType) => void;
-  exportFlow: (hideSecrets: boolean) => { [key: string]: unknown } | null;
+  importFlow: (items: ThingsToImport, flowData: ImportedFlow, typeShown: WaldiezNodeType) => void;
+  exportFlow: (hideSecrets: boolean) => { [key: string]: unknown };
   onViewportChange: (viewport: Viewport, nodeType: WaldiezNodeType) => void;
-  //
-  onUpload: ((files: File[]) => Promise<string[]>) | null;
+  getFlowInfo: () => WaldiezFlowInfo;
+  onFlowChanged: () => { [key: string]: unknown };
 };

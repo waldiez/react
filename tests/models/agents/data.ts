@@ -31,7 +31,8 @@ export const assistantJson = {
   tags: [],
   requirements: [],
   createdAt,
-  updatedAt
+  updatedAt,
+  parentId: null
 };
 export const groupManagerJson = {
   name: 'Group Manager',
@@ -77,7 +78,8 @@ export const groupManagerJson = {
   tags: [],
   requirements: [],
   createdAt,
-  updatedAt
+  updatedAt,
+  parentId: null
 };
 
 export const ragUserJson = {
@@ -109,7 +111,8 @@ export const ragUserJson = {
   tags: [],
   requirements: [],
   createdAt,
-  updatedAt
+  updatedAt,
+  parentId: null
 };
 export const userProxyJson = {
   name: 'User',
@@ -139,7 +142,8 @@ export const userProxyJson = {
   tags: [],
   requirements: [],
   createdAt,
-  updatedAt
+  updatedAt,
+  parentId: null
 };
 export const agentJson = {
   name: 'Agent',
@@ -169,5 +173,6 @@ export const agentJson = {
   tags: [],
   requirements: [],
   createdAt,
-  updatedAt
+  updatedAt,
+  parentId: null
 };

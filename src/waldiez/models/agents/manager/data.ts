@@ -32,6 +32,7 @@ export class WaldiezSourceGroupManagerData
   requirements: string[];
   createdAt: string;
   updatedAt: string;
+  parentId: string | null;
   // manager specific fields
   maxRound: number | null;
   adminName: string | null;
@@ -67,6 +68,7 @@ export class WaldiezSourceGroupManagerData
     requirements: string[] = [],
     createdAt: string = new Date().toISOString(),
     updatedAt: string = new Date().toISOString(),
+    parentId: string | null = null,
     maxRound: number | null = null,
     adminName: string | null = null,
     speakers: WaldiezGroupManagerSpeakers = {
@@ -97,7 +99,8 @@ export class WaldiezSourceGroupManagerData
       tags,
       requirements,
       createdAt,
-      updatedAt
+      updatedAt,
+      parentId
     );
     this.name = name;
     this.systemMessage = systemMessage;
@@ -114,6 +117,7 @@ export class WaldiezSourceGroupManagerData
     this.requirements = requirements;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.parentId = parentId;
     this.maxRound = maxRound;
     this.adminName = adminName;
     this.speakers = speakers;
@@ -189,6 +193,7 @@ export class WaldiezSourceGroupManagerData
       inherited.requirements,
       inherited.createdAt,
       inherited.updatedAt,
+      inherited.parentId,
       maxRound,
       adminName,
       speakers,

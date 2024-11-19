@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNode,
   WaldiezAgentNodeType,
@@ -11,6 +9,7 @@ import {
   WaldiezSourceRagUser,
   WaldiezSourceUserProxy
 } from '@waldiez/models';
+import { getId } from '@waldiez/utils';
 
 export const importAgent: (data: any, agentId?: string, skipLinks?: boolean) => WaldiezAgentNode = (
   data,
@@ -24,15 +23,19 @@ export const importAgent: (data: any, agentId?: string, skipLinks?: boolean) => 
   switch (agentType) {
     case 'user':
       agent = WaldiezSourceUserProxy.fromJSON(agentData, 'user').asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
     case 'assistant':
       agent = WaldiezSourceAssistant.fromJSON(agentData, 'assistant').asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
     case 'manager':
       agent = WaldiezSourceGroupManager.fromJSON(agentData).asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
     case 'rag_user':
       agent = WaldiezSourceRagUser.fromJSON(agentData).asNode();
+      agent.data.parentId = null;
       return skipLinks ? removeLinks(agent) : agent;
   }
 };
@@ -79,7 +82,7 @@ const removeManagerLinks: (agent: WaldiezNodeGroupManager) => WaldiezNodeGroupMa
 };
 
 const getAgentId = (data: any, agentId?: string) => {
-  let id = 'wa-' + nanoid();
+  let id = 'wa-' + getId();
   if (!agentId || typeof agentId !== 'string') {
     if (data && typeof data === 'object' && 'id' in data && typeof data.id === 'string') {
       id = data.id;

@@ -14,7 +14,7 @@ const isProd = import.meta.env.PROD;
  */
 const onChange = null;
 // const onChange = (flowJson: any) => {
-//     console.info(JSON.stringify(JSON.parse(flowJson), null, 2));
+//   console.info(JSON.stringify(JSON.parse(flowJson), null, 2));
 // };
 
 /**
@@ -100,8 +100,8 @@ const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
 /**
  * Other props:
  *  we can use:
- * `{ import importFlow } from '@waldiez';`
- *  to import a flow from a waldiez/json file
+ * `import { importFlow } from '@waldiez';`
+ *  to import an existing flow from a waldiez/json file
  *  then we can pass the additional props:
  *    - edges: Edge[];  initial edges to render
  *    - nodes: Node[];  initial nodes to render

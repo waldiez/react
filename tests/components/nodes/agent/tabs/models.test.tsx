@@ -24,12 +24,11 @@ describe('Models tab', () => {
       includeModels: true
     });
     goToModelsTab();
-    const modelSelect = screen.getByLabelText('Models:');
+    const modelSelect = screen.getByLabelText('Models to link to agent:');
     expect(modelSelect).toBeInTheDocument();
     const modelsPanel = screen.getByTestId('agent-models-panel');
     expect(modelsPanel).toBeInTheDocument();
     expect(modelsPanel.querySelector('.w-select__multi-value__label')).toHaveTextContent('test model1');
-    submitAgentChanges();
   });
   it('should allow changing the agent models', async () => {
     renderAgent('user', {
@@ -38,7 +37,7 @@ describe('Models tab', () => {
       includeModels: true
     });
     goToModelsTab();
-    const modelSelect = screen.getByLabelText('Models:');
+    const modelSelect = screen.getByLabelText('Models to link to agent:');
     expect(modelSelect).toBeInTheDocument();
     selectEvent.openMenu(modelSelect);
     // the ones below give:
@@ -68,7 +67,7 @@ describe('Models tab', () => {
       includeModels: true
     });
     goToModelsTab();
-    const modelSelect = screen.getByLabelText('Models:');
+    const modelSelect = screen.getByLabelText('Models to link to agent:');
     expect(modelSelect).toBeInTheDocument();
     selectEvent.openMenu(modelSelect);
     await selectEvent.select(modelSelect, ['test model1']);

@@ -1,6 +1,6 @@
 import { Edge, Node } from '@xyflow/react';
 
-import { WaldiezAgentNodeType, WaldiezSourceEdgeData } from '@waldiez/models';
+import { WaldiezAgentNodeType, WaldiezEdgeType, WaldiezSourceEdgeData } from '@waldiez/models';
 import { edgeCommonStyle } from '@waldiez/store/edges/utils';
 import { AGENT_COLORS } from '@waldiez/theme';
 
@@ -29,13 +29,18 @@ export const getFlowChats = (edges: Edge[], nodes: Node[], data: { [key: string]
   return flowChats;
 };
 
-const _getEdgeType = (
+const _getEdgeType: (
+  element: any,
+  edge: Edge,
+  edgeData: WaldiezSourceEdgeData,
+  sourceAgentType: WaldiezAgentNodeType
+) => WaldiezEdgeType = (
   element: any,
   edge: Edge,
   edgeData: WaldiezSourceEdgeData,
   sourceAgentType: WaldiezAgentNodeType
 ) => {
-  let edgeType = 'chat';
+  let edgeType: WaldiezEdgeType = 'chat';
   if ('type' in element && typeof element.type === 'string' && VALID_CHAT_TYPES.includes(element.type)) {
     edgeType = element.type;
   }
@@ -47,9 +52,9 @@ const _getEdgeType = (
     chatType = 'group';
   }
   if (!VALID_CHAT_TYPES.includes(chatType)) {
-    return 'chat';
+    chatType = 'chat';
   }
-  return chatType;
+  return chatType as WaldiezEdgeType;
 };
 
 const _updateFlowEdge = (element: any, index: number, sourceNode: Node, edge: Edge) => {
@@ -59,7 +64,7 @@ const _updateFlowEdge = (element: any, index: number, sourceNode: Node, edge: Ed
   const color = AGENT_COLORS[sourceAgentType];
   edge.type = chatType;
   edge.animated = chatType === 'nested';
-  const { markerEnd, style } = edgeCommonStyle(color);
+  const { markerEnd, style } = edgeCommonStyle(chatType, color);
   edge.style = style;
   edge.markerEnd = markerEnd;
   edge.data = {

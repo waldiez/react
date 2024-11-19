@@ -1,6 +1,5 @@
 import { WaldiezModelNodeData } from '@waldiez/models';
 
-export * from '@waldiez/components/nodes/model/modal/tabs/types';
 export type WaldiezNodeModelModalProps = {
   modelId: string;
   data: WaldiezModelNodeData;

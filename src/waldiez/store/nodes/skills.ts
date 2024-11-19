@@ -1,7 +1,5 @@
 import { Node, ReactFlowInstance, XYPosition } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNode,
   WaldiezSkillNode,
@@ -13,6 +11,7 @@ import { exportSkill } from '@waldiez/store/exporting';
 import { importSkill } from '@waldiez/store/importing';
 import { getNewNodePosition, reArrangeNodes, setViewPortTopLeft } from '@waldiez/store/nodes/common';
 import { typeOfGet, typeOfSet } from '@waldiez/store/types';
+import { getId } from '@waldiez/utils';
 
 export class SkillsStore {
   static getSkills: (get: typeOfGet) => WaldiezSkillNode[] = get => {
@@ -31,7 +30,7 @@ export class SkillsStore {
     const rfInstance = get().rfInstance;
     const skillCount = existingSkills.length;
     const position = getNewNodePosition(skillCount, flowId, rfInstance);
-    const newNode: WaldiezSkillNode = new WaldiezSourceSkill(`ws-${nanoid()}`, new WaldiezSourceSkillData(), {
+    const newNode: WaldiezSkillNode = new WaldiezSourceSkill(`ws-${getId()}`, new WaldiezSourceSkillData(), {
       position
     }).asNode();
     set({
@@ -57,7 +56,7 @@ export class SkillsStore {
     const skillsCount = get().nodes.filter(node => node.type === 'skill').length;
     const flowId = get().flowId;
     const position = getNewNodePosition(skillsCount, flowId, rfInstance);
-    const clonedSkill = new WaldiezSourceSkill(`ws-${nanoid()}`, new WaldiezSourceSkillData(), {
+    const clonedSkill = new WaldiezSourceSkill(`ws-${getId()}`, new WaldiezSourceSkillData(), {
       position,
       data: { ...skill.data }
     }).asNode();

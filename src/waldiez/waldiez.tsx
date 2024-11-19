@@ -5,8 +5,6 @@ import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { HotkeysProvider } from 'react-hotkeys-hook';
 
-import { nanoid } from 'nanoid';
-
 import 'rc-slider/assets/index.css';
 
 import { loader } from '@monaco-editor/react';
@@ -15,6 +13,7 @@ import { WaldiezFlow } from '@waldiez/components';
 import { WaldiezProvider } from '@waldiez/store';
 import '@waldiez/styles/index.css';
 import { WaldiezProps } from '@waldiez/types';
+import { getId } from '@waldiez/utils';
 
 export const Waldiez = (props: Partial<WaldiezProps>) => {
   const { flowId, storageId, createdAt, updatedAt, name, description, tags, requirements, nodes, edges } =
@@ -42,16 +41,17 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
             nodes={nodes}
             edges={edges}
             onUpload={onUpload}
+            onChange={onChange}
           >
             <WaldiezFlow
               flowId={flowId}
               storageId={storageId}
               monacoVsPath={monacoVsPath}
+              inputPrompt={inputPrompt}
+              onUpload={onUpload}
               onChange={onChange}
               onRun={onRun}
               onUserInput={onUserInput}
-              onUpload={onUpload}
-              inputPrompt={inputPrompt}
             />
           </WaldiezProvider>
         </ReactFlowProvider>
@@ -71,15 +71,15 @@ const fallbackRender = (props: errorRenderProps) => {
   // resetErrorBoundary();
   return (
     <div className="error-boundary" data-testid="error-boundary">
-      <p>Something went wrong:</p>
+      <p>Something went wrong :(</p>
       <pre className="error">{error.message}</pre>
     </div>
   );
 };
 
 const getInitialProps = (props: Partial<WaldiezProps>) => {
-  const flowId: string = props.flowId ?? `wf-${nanoid()}`;
-  const storageId: string = props.storageId ?? `wf-storage-${nanoid()}`;
+  const flowId: string = props.flowId ?? `wf-${getId()}`;
+  const storageId: string = props.storageId ?? `wf-storage-${getId()}`;
   const createdAt: string = props.createdAt ?? new Date().toISOString();
   const updatedAt: string = props.updatedAt ?? new Date().toISOString();
   const name: string = props.name ?? 'Untitled';

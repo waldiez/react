@@ -1,7 +1,5 @@
 import { XYPosition } from '@xyflow/react';
 
-import { nanoid } from 'nanoid';
-
 import { WaldiezSourceSkillData } from '@waldiez/models/skill/data';
 import {
   IWaldiezSourceSkill,
@@ -9,6 +7,7 @@ import {
   WaldiezSkillNode,
   WaldiezSkillNodeData
 } from '@waldiez/models/types';
+import { getId } from '@waldiez/utils';
 
 export class WaldiezSourceSkill implements IWaldiezSourceSkill {
   id: string;
@@ -51,7 +50,7 @@ export class WaldiezSourceSkill implements IWaldiezSourceSkill {
 
   static fromJSON(json: unknown): WaldiezSourceSkill {
     if (!json || typeof json !== 'object') {
-      return new WaldiezSourceSkill('ws-' + nanoid(), new WaldiezSourceSkillData());
+      return new WaldiezSourceSkill('ws-' + getId(), new WaldiezSourceSkillData());
     }
     const jsonObject = json as Record<string, unknown>;
     const id = WaldiezSourceSkill.getId(jsonObject);
@@ -75,7 +74,7 @@ export class WaldiezSourceSkill implements IWaldiezSourceSkill {
     return new WaldiezSourceSkill(id, skillData, rest);
   }
   static getId(json: Record<string, unknown>): string {
-    let id = `ws-${nanoid()}`;
+    let id = `ws-${getId()}`;
     if ('id' in json && typeof json.id === 'string') {
       id = json.id;
     }

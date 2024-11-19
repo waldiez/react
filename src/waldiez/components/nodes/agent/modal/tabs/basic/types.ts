@@ -1,20 +1,8 @@
-import { SingleValue } from '@waldiez/components/inputs';
-import { WaldiezAgentHumanInputMode, WaldiezAgentNodeData, WaldiezAgentNodeType } from '@waldiez/models';
+import { WaldiezAgentNodeData } from '@waldiez/models';
 
-export type BasicAgentConfigTabProps = {
+export type WaldiezAgentBasicProps = {
   id: string;
   data: WaldiezAgentNodeData;
-  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
-  onAgentTypeChange: (agentType: WaldiezAgentNodeType) => void;
-};
-export type BasicAgentConfigTabViewProps = {
-  id: string;
-  data: WaldiezAgentNodeData;
-  onRagChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onDescriptionChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onSystemMessageChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onHumanInputModeChange: (option: SingleValue<{ label: string; value: WaldiezAgentHumanInputMode }>) => void;
-  onMaxConsecutiveAutoReplyChange: (value: number | null) => void;
-  onAgentDefaultAutoReplyChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onDataChange: (data: Partial<WaldiezAgentNodeData>) => void;
+  onAgentTypeChange: (agentType: 'user' | 'rag_user') => void;
 };

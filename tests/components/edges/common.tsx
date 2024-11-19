@@ -1,13 +1,17 @@
 import { createdAt, edgeData, edgeId, edgeProps, flowId, nodes, updatedAt } from './data';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import { Edge, EdgeChange, ReactFlow, ReactFlowProvider, applyEdgeChanges } from '@xyflow/react';
+import { ReactFlow, ReactFlowProvider, applyEdgeChanges } from '@xyflow/react';
 
 import { edgeTypes, nodeTypes } from '@waldiez/components';
 import { WaldiezEdgeType } from '@waldiez/models';
 import { WaldiezProvider } from '@waldiez/store';
 
-export const renderEdge = (edgeType: WaldiezEdgeType, dataOverrides: { [key: string]: any } = {}) => {
+export const renderEdge = (
+  edgeType: WaldiezEdgeType,
+  dataOverrides: { [key: string]: any } = {},
+  openModal: boolean = true
+) => {
   const edges = [
     {
       id: edgeId,
@@ -28,39 +32,43 @@ export const renderEdge = (edgeType: WaldiezEdgeType, dataOverrides: { [key: str
       data: {}
     }
   ];
-  const onEdgesChange = (changes: EdgeChange<Edge>[]) => {
-    applyEdgeChanges(changes, edges);
-  };
-  render(
-    <WaldiezProvider
-      flowId={flowId}
-      storageId="test-storage"
-      name="flow name"
-      description="flow description"
-      requirements={[]}
-      tags={[]}
-      nodes={nodes}
-      edges={edges}
-      createdAt={createdAt}
-      updatedAt={updatedAt}
-    >
+
+  act(() => {
+    render(
       <ReactFlowProvider>
-        <div id={`rf-root-${flowId}`}>
-          <ReactFlow
-            id={flowId}
-            nodesDraggable={false}
-            nodes={nodes}
-            edges={edges}
-            edgeTypes={edgeTypes}
-            nodeTypes={nodeTypes}
-            onEdgesChange={onEdgesChange}
-          />
-        </div>
+        <WaldiezProvider
+          flowId={flowId}
+          storageId="test-storage"
+          name="flow name"
+          description="flow description"
+          requirements={[]}
+          tags={[]}
+          nodes={nodes}
+          edges={edges}
+          createdAt={createdAt}
+          updatedAt={updatedAt}
+        >
+          <div id={`rf-root-${flowId}`}>
+            <ReactFlow
+              id={flowId}
+              nodesDraggable={false}
+              nodes={nodes}
+              edges={edges}
+              edgeTypes={edgeTypes}
+              nodeTypes={nodeTypes}
+              onEdgesChange={changes => applyEdgeChanges(changes, edges)}
+            />
+          </div>
+        </WaldiezProvider>
       </ReactFlowProvider>
-    </WaldiezProvider>
-  );
-  if (edgeType !== 'hidden') {
+    );
+  });
+  if (openModal && edgeType !== 'hidden') {
     fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
-    expect(screen.getByTestId('modal-close-btn')).not.toBeNull();
+    // `edge-modal-${edgeId}`
+    const dialog = screen.getByTestId(`edge-modal-${edgeId}`);
+    expect(dialog).not.toBeNull();
+    const closeBtn = dialog.querySelector('.modal-close-btn');
+    expect(closeBtn).not.toBeNull();
   }
 };

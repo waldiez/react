@@ -1,10 +1,9 @@
-import { nanoid } from 'nanoid';
-
 import { WaldiezSkillNode, WaldiezSourceSkill, WaldiezSourceSkillData } from '@waldiez/models';
 import { getNodeMeta } from '@waldiez/store/importing/common';
+import { getId } from '@waldiez/utils';
 
 export const importSkill: (data: any, skillId: string) => WaldiezSkillNode = (data, skillId) => {
-  let id = 'ws-' + nanoid();
+  let id = 'ws-' + getId();
   if (skillId && typeof skillId === 'string') {
     id = skillId;
   }

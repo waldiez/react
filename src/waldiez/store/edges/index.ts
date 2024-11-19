@@ -16,6 +16,7 @@ import {
 } from '@waldiez/store/edges/utils';
 import { AGENT_COLORS } from '@waldiez/theme';
 import { typeOfGet, typeOfSet } from '@waldiez/types';
+import { getFlowRoot } from '@waldiez/utils';
 
 export class EdgesStore {
   static onEdgesChange: (changes: EdgeChange[], get: typeOfGet, set: typeOfSet) => void = (
@@ -30,7 +31,7 @@ export class EdgesStore {
     });
   };
   static onEdgeDoubleClick: (flowId: string, edge: Edge) => void = (flowId, edge) => {
-    const flowRoot = document.getElementById(`rf-root-${flowId}`);
+    const flowRoot = getFlowRoot(flowId);
     if (flowRoot) {
       const srcModalBtn = flowRoot.querySelector(`#open-edge-modal-node-${edge.source}`) as HTMLButtonElement;
       if (srcModalBtn) {
@@ -93,7 +94,8 @@ export class EdgesStore {
             return {
               ...nestedChat,
               messages: nestedChat.messages.filter(message => message.id !== edgeId),
-              triggeredBy: nestedChat.triggeredBy.filter(connection => connection.id !== edgeId)
+              // also check if the edge sources (agent's triggeredBy) are still valid
+              triggeredBy: nestedChat.triggeredBy
             };
           })
         }
@@ -145,35 +147,42 @@ export class EdgesStore {
     const newNestedEdges = getNewNestedEdges(newEdges);
     const newGroupEdges = getNewGroupEdges(newEdges);
     const newHiddenEdges = getNewHiddenEdges(newEdges);
+    // ensure no dupe ids
+    const allEdges = [...newChatEdges, ...newNestedEdges, ...newGroupEdges, ...newHiddenEdges];
+    const edgeIds = allEdges.map(edge => edge.id);
+    const uniqueEdgeIds = Array.from(new Set(edgeIds));
+    const uniqueEdges = allEdges.filter(edge => uniqueEdgeIds.includes(edge.id));
     set({
-      edges: [...newChatEdges, ...newNestedEdges, ...newGroupEdges, ...newHiddenEdges],
+      edges: uniqueEdges,
       updatedAt: new Date().toISOString()
     });
     EdgesStore.updateNestedEdges(get, set);
   };
   static updateNestedEdges: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
-    const agentNodes = get().nodes.filter(
-      node => node.data.agentType === 'user' || node.data.agentType === 'assistant'
-    );
+    const agentNodes = get().nodes.filter(node => node.type === 'agent' && node.data.agentType !== 'manager');
     const nestedEdges: Edge[] = [];
+    const nestedEdgeIds: string[] = [];
     agentNodes.forEach(agentNode => {
-      const nestedChats = (agentNode.data as WaldiezNodeUserProxyOrAssistantData).nestedChats;
+      const nestedChats = (agentNode.data as WaldiezNodeUserProxyOrAssistantData).nestedChats ?? [];
       nestedChats.forEach(nestedChat => {
         const messages = nestedChat.messages;
-        messages.forEach((message, index) => {
+        let edgeIndex = 0;
+        messages.forEach(message => {
           const edge = get().edges.find(edge => edge.id === message.id);
-          if (edge) {
+          // only if nested chat
+          // and if not already added (in case a message is registered both as a reply and not)
+          if (edge && edge.type === 'nested' && !nestedEdgeIds.includes(edge.id)) {
             nestedEdges.push({
               ...edge,
-              data: { ...edge.data, position: index + 1 }
+              data: { ...edge.data, position: edgeIndex + 1 }
             });
+            nestedEdgeIds.push(edge.id);
+            edgeIndex++;
           }
         });
       });
     });
-    const otherEdges = get().edges.filter(
-      edge => nestedEdges.findIndex(nestedEdge => nestedEdge.id === edge.id) === -1
-    );
+    const otherEdges = get().edges.filter(edge => !nestedEdgeIds.includes(edge.id));
     set({
       edges: [...otherEdges, ...nestedEdges],
       updatedAt: new Date().toISOString()
@@ -199,7 +208,7 @@ export class EdgesStore {
             hidden: false,
             order: -1,
             animated: edgeType === 'nested',
-            ...edgeCommonStyle(color)
+            ...edgeCommonStyle(edgeType, color)
           };
         }
         return edge;
@@ -214,8 +223,13 @@ export class EdgesStore {
     get: typeOfGet,
     set: typeOfSet
   ) => void = (edgeId, agentType, get, set) => {
+    const currentEdge = get().edges.find(edge => edge.id === edgeId);
+    if (!currentEdge) {
+      return;
+    }
+    const edgeType = currentEdge.type as 'chat' | 'nested' | 'group' | 'hidden';
     const color = AGENT_COLORS[agentType];
-    const { style, markerEnd } = edgeCommonStyle(color);
+    const { style, markerEnd } = edgeCommonStyle(edgeType, color);
     set({
       edges: get().edges.map(edge => {
         if (edge.id === edgeId) {

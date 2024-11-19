@@ -24,7 +24,8 @@ labels: bug
 ## Environment
 
 - Versions:
-  - Bun/Node.js version:
+  - @waldiez/react version:
+  - Node.js version:
   - TypeScript version:
   - ... Other related packages versions ...
 - OS:

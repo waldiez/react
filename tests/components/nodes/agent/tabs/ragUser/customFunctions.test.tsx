@@ -15,34 +15,29 @@ const goToCustomFunctionsTab = async () => {
   fireEvent.click(customFunctionsTab);
 };
 
-const goToSubTab = (functionName: string) => {
-  const subTab = screen.getByTestId(
-    `tab-id-wf-${flowId}-agent-ragUser-${agentId}-customFunctions-${functionName}`
-  );
-  fireEvent.click(subTab);
-  const useCustomCheckbox = screen.getByTestId(`rag-use-custom-${functionName}`);
-  expect(useCustomCheckbox).toBeInTheDocument();
-  fireEvent.click(useCustomCheckbox);
+const expandCollapsible = (tabId: string) => {
+  const collapsible = screen.getByTestId(`${flowId}-rag-use-custom-${tabId}`) as HTMLDivElement;
+  const collapsibleHeader = collapsible.querySelector('.collapsible-header') as HTMLDivElement;
+  fireEvent.click(collapsibleHeader);
 };
 
 describe('Rag User tab Custom Functions', () => {
   it('should render the Rag User tab Custom Functions', async () => {
     await goToCustomFunctionsTab();
-    const customFunctionsTab = screen.getByTestId(
-      `tab-id-wf-${flowId}-agent-ragUser-${agentId}-customFunctions-embedding`
-    );
-    expect(customFunctionsTab).toBeInTheDocument();
   });
-  it('should change the use custom embedding function', async () => {
+  it('should change the use custom embedding setting', async () => {
     await goToCustomFunctionsTab();
-    const useCustomEmbeddingCheckbox = screen.getByTestId('rag-use-custom-embedding') as HTMLInputElement;
-    expect(useCustomEmbeddingCheckbox).toBeInTheDocument();
-    fireEvent.click(useCustomEmbeddingCheckbox);
-    submitAgentChanges();
+    expect(screen.queryByTestId(`${flowId}-rag-use-custom-embedding-checkbox`)).not.toBeInTheDocument();
+    expandCollapsible('embedding');
+    expect(screen.queryByTestId(`${flowId}-rag-use-custom-embedding-checkbox`)).toBeInTheDocument();
   });
   it('should change the embedding function content', async () => {
     await goToCustomFunctionsTab();
-    goToSubTab('embedding');
+    expandCollapsible('embedding');
+    const useCustomEmbeddingCheckbox = screen.queryByTestId(
+      `${flowId}-rag-use-custom-embedding-checkbox`
+    ) as HTMLInputElement;
+    fireEvent.click(useCustomEmbeddingCheckbox);
     const editor = screen.getByTestId('mocked-monaco-editor');
     expect(editor).toBeInTheDocument();
     fireEvent.change(editor, {
@@ -52,20 +47,19 @@ describe('Rag User tab Custom Functions', () => {
     });
     submitAgentChanges();
   });
-  it('should change the use custom token count function', async () => {
+  it('should change the use custom token count setting', async () => {
     await goToCustomFunctionsTab();
-    const tokenCountSubTab = screen.getByTestId(
-      `tab-id-wf-${flowId}-agent-ragUser-${agentId}-customFunctions-tokenCount`
-    );
-    fireEvent.click(tokenCountSubTab);
-    const useCustomTokenCountCheckbox = screen.getByTestId('rag-use-custom-tokenCount') as HTMLInputElement;
-    expect(useCustomTokenCountCheckbox).toBeInTheDocument();
-    fireEvent.click(useCustomTokenCountCheckbox);
-    submitAgentChanges();
+    expect(screen.queryByTestId(`${flowId}-rag-use-custom-tokenCount-checkbox`)).not.toBeInTheDocument();
+    expandCollapsible('tokenCount');
+    expect(screen.queryByTestId(`${flowId}-rag-use-custom-tokenCount-checkbox`)).toBeInTheDocument();
   });
   it('should change the token count function content', async () => {
     await goToCustomFunctionsTab();
-    goToSubTab('tokenCount');
+    expandCollapsible('tokenCount');
+    const useCustomTokenCountCheckbox = screen.queryByTestId(
+      `${flowId}-rag-use-custom-tokenCount-checkbox`
+    ) as HTMLInputElement;
+    fireEvent.click(useCustomTokenCountCheckbox);
     const editor = screen.getByTestId('mocked-monaco-editor');
     expect(editor).toBeInTheDocument();
     fireEvent.change(editor, {
@@ -75,20 +69,19 @@ describe('Rag User tab Custom Functions', () => {
     });
     submitAgentChanges();
   });
-  it('should change the use custom text split function', async () => {
+  it('should change the use custom text split setting', async () => {
     await goToCustomFunctionsTab();
-    const textSplitSubTab = screen.getByTestId(
-      `tab-id-wf-${flowId}-agent-ragUser-${agentId}-customFunctions-textSplit`
-    );
-    fireEvent.click(textSplitSubTab);
-    const useCustomTextSplitCheckbox = screen.getByTestId('rag-use-custom-textSplit') as HTMLInputElement;
-    expect(useCustomTextSplitCheckbox).toBeInTheDocument();
-    fireEvent.click(useCustomTextSplitCheckbox);
-    submitAgentChanges();
+    expect(screen.queryByTestId(`${flowId}-rag-use-custom-textSplit-checkbox`)).not.toBeInTheDocument();
+    expandCollapsible('textSplit');
+    expect(screen.queryByTestId(`${flowId}-rag-use-custom-textSplit-checkbox`)).toBeInTheDocument();
   });
   it('should change the text split function content', async () => {
     await goToCustomFunctionsTab();
-    goToSubTab('textSplit');
+    expandCollapsible('textSplit');
+    const useCustomTextSplitCheckbox = screen.queryByTestId(
+      `${flowId}-rag-use-custom-textSplit-checkbox`
+    ) as HTMLInputElement;
+    fireEvent.click(useCustomTextSplitCheckbox);
     const editor = screen.getByTestId('mocked-monaco-editor');
     expect(editor).toBeInTheDocument();
     fireEvent.change(editor, {

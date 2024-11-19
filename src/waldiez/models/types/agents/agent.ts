@@ -12,7 +12,7 @@ export type WaldiezAgentCodeExecutionConfig = WaldiezAgentCodeExecutionConfigDic
 export type WaldiezAgentTypeTerminationTypeOption = 'none' | 'keyword' | 'method';
 export type WaldiezAgentTerminationCriterionOption = 'found' | 'ending' | 'exact';
 export type WaldiezAgentNestedChat = {
-  triggeredBy: { id: string; isReply: boolean }[];
+  triggeredBy: string[];
   messages: { id: string; isReply: boolean }[];
 };
 export type WaldiezAgentTerminationMessageCheck = {
@@ -37,6 +37,7 @@ export type WaldiezAgentTeachability = {
 export type WaldiezAgentNodeType = 'user' | 'assistant' | 'manager' | 'rag_user';
 
 export type WaldiezAgentCommonData = {
+  parentId: string | null;
   agentType: WaldiezAgentNodeType;
   systemMessage: string | null;
   humanInputMode: WaldiezAgentHumanInputMode;

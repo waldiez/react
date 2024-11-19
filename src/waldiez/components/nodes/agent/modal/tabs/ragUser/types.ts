@@ -1,12 +1,12 @@
 import { WaldiezAgentNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
 
-export type RagUserAgentConfigTabProps = {
+export type WaldiezAgentRagUserProps = {
   id: string;
   flowId: string;
-  darkMode: boolean;
-  uploadEnabled: boolean;
-  filesToUpload: File[];
-  setFilesToUpload: (files: File[]) => void;
   data: WaldiezNodeRagUserData;
-  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
+  isDarkMode: boolean;
+  uploadsEnabled: boolean;
+  filesToUpload: File[];
+  onDataChange: (partialData: Partial<WaldiezAgentNodeData>) => void;
+  onFilesToUploadChange: (files: File[]) => void;
 };

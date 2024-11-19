@@ -32,7 +32,7 @@ const agentNodes: Node[] = edges.map((_, index) => {
   const nestedChats = [] as WaldiezAgentNestedChat[];
   if (includeNested && !addedNestedChat) {
     nestedChats.push({
-      triggeredBy: [{ id: 'edge-1', isReply: false }],
+      triggeredBy: ['agent-0'],
       messages: [
         {
           id: 'edge-0',
@@ -124,7 +124,6 @@ agentNodes.push({
     x: 100 * (edgesCount + 1),
     y: 100 * (edgesCount + 1)
   },
-  parentId: `agent-${edgesCount}`,
   data: {
     label: 'Agent Node',
     agentType: 'assistant',
@@ -139,7 +138,8 @@ agentNodes.push({
       methodContent: null
     } as WaldiezAgentTerminationMessageCheck,
     createdAt,
-    updatedAt
+    updatedAt,
+    parentId: `agent-${edgesCount}`
   }
 });
 export { agentNodes };

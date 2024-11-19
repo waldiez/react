@@ -12,7 +12,7 @@ const goToNestedChatsTab = (isReply: boolean, skipMessages: boolean = false) => 
     dataOverrides: {
       nestedChats: [
         {
-          triggeredBy: [{ id: 'test-edge0', isReply: false }],
+          triggeredBy: ['test-agent0'],
           messages: skipMessages ? [] : [{ id: 'test-edge-1', isReply }]
         }
       ]

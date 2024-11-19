@@ -9,7 +9,7 @@ import {
 } from '@waldiez/models/types/agents/userProxyOrAssistant';
 
 describe('WaldiezSourceAssistant', () => {
-  const waldieSourceAssistantData: WaldiezSourceAssistantData = {
+  const waldiezSourceAssistantData: WaldiezSourceAssistantData = {
     name: 'Assistant',
     nestedChats: [],
     agentType: 'assistant',
@@ -37,10 +37,11 @@ describe('WaldiezSourceAssistant', () => {
     tags: [],
     requirements: [],
     createdAt,
-    updatedAt
+    updatedAt,
+    parentId: null
   };
 
-  const assistant = new WaldiezSourceAssistant('test-id', waldieSourceAssistantData);
+  const assistant = new WaldiezSourceAssistant('test-id', waldiezSourceAssistantData);
   const assistantNode = assistant.asNode();
 
   it('should create a new assistant', () => {

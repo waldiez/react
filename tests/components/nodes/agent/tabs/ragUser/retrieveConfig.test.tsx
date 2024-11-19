@@ -79,10 +79,11 @@ describe('Rag User tab Retrieve Config', () => {
     const addDocsPathButton = screen.getByTestId('add-list-entry-rag-doc-button');
     expect(addDocsPathButton).toBeInTheDocument();
     fireEvent.click(addDocsPathButton);
+    submitAgentChanges();
     const deleteDocsPathButton = screen.getByTestId('delete-list-entry-rag-doc-0');
     expect(deleteDocsPathButton).toBeInTheDocument();
     fireEvent.click(deleteDocsPathButton);
-    submitAgentChanges();
+    // submitAgentChanges();
   });
   it('should change a docs path', async () => {
     await goToRetrieveConfigTab();
@@ -191,7 +192,6 @@ describe('Rag User tab Retrieve Config', () => {
     await goToRetrieveConfigTab();
     const dropZone = screen.getByText('Drop files here or click to upload');
     fireEvent.click(dropZone);
-    submitAgentChanges();
   });
   it('should remove an uploaded file', async () => {
     await goToRetrieveConfigTab();

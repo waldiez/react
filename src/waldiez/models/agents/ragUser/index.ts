@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 import { WaldiezSourceAgentCommonData } from '@waldiez/models/agents/common';
 import { WaldiezSourceRagUserData } from '@waldiez/models/agents/ragUser/data';
 import {
@@ -8,6 +6,7 @@ import {
   WaldiezNodeRagUser,
   WaldiezNodeRagUserData
 } from '@waldiez/models/types/';
+import { getId } from '@waldiez/utils';
 
 export class WaldiezSourceRagUser extends WaldiezSourceAgentCommonData implements IWaldiezSourceRagUser {
   id: string;
@@ -69,7 +68,7 @@ export class WaldiezSourceRagUser extends WaldiezSourceAgentCommonData implement
     if (!json || typeof json !== 'object') {
       jsonObject = {};
     }
-    let id = `wm-${nanoid()}`;
+    let id = `wm-${getId()}`;
     if ('id' in jsonObject && typeof jsonObject.id === 'string') {
       id = jsonObject.id;
     }

@@ -3,7 +3,9 @@
 @import url('./agent.css');
 @import url('./checkbox.css');
 @import url('./console.css');
+@import url('./collapsible.css');
 @import url('./dict.css');
+@import url('./dropzone.css');
 @import url('./editor.css');
 @import url('./edge.css');
 @import url('./flow.css');
@@ -20,3 +22,4 @@
 @import url('./snackbar.css');
 @import url('./tabs.css');
 @import url('./tooltip.css');
+@import url('./wizard.css');

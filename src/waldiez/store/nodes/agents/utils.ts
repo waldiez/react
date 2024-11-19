@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 import {
   WaldiezAgentNodeType,
   WaldiezSourceAssistant,
@@ -11,9 +9,10 @@ import {
   WaldiezSourceUserProxy,
   WaldiezSourceUserProxyData
 } from '@waldiez/models';
+import { getId } from '@waldiez/utils';
 
 export const getAgentNode = (agentType: WaldiezAgentNodeType, position: { x: number; y: number }) => {
-  const nodeId = `wa-${nanoid()}`;
+  const nodeId = `wa-${getId()}`;
   switch (agentType) {
     case 'user':
       return new WaldiezSourceUserProxy(nodeId, new WaldiezSourceUserProxyData(), {
