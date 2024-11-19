@@ -67,9 +67,8 @@ jobs:
       - name: Build docs
         run: yarn docs
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          include-hidden-files: true
           name: docs
           path: './out/docs'
 
