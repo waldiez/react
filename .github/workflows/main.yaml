@@ -69,7 +69,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: github-pages
+          include-hidden-files: true
+          name: docs
           path: './out/docs'
 
   deploy-docs:
@@ -83,4 +84,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: docs
   
