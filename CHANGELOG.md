@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.11
+
+- A lot
+- Changed package manager from bun to yarn.
+- Added two new components: wizard, collapsible.
+- Changed importing flows (use of wizard)
+- Changed three-level tabs on RAG's custom functions.
+- Updated nested chat trigger model and config
+- Changed node resizing
+- Added edge resizing
+- Minor bugfixes
+- Dependency updates
+
 ## v0.1.10
 
 - Added undo/redo functionality
