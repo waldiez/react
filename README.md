@@ -29,7 +29,8 @@
 ## Usage
 
 ```tsx
-import { Waldiez } from '@waldiez';
+// npm|yarn|pnpm|bun|whatever add|install @waldiez/react
+import { Waldiez } from '@waldiez/react';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -130,7 +131,7 @@ const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
 /**
  * Other props:
  *  we can use:
- *  `import { importFlow } from '@waldiez';`
+ *  `import { importFlow } from '@waldiez/react';`
  *  const flowJson = JSON.parse(flowJsonString);
  *  const flow = importFlow(flowJson);
  *  to import a flow from a waldiez/json file
