@@ -104,6 +104,7 @@ export class AgentsStore {
       updatedAt
     });
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
   };
   static deleteAgent: (agentId: string, get: typeOfGet, set: typeOfSet) => void = (agentId, get, set) => {
     // if the agent is a group manager, remove the members' parentId
@@ -137,6 +138,7 @@ export class AgentsStore {
       });
     }
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
   };
   static getEdgeSourceAgent = (get: typeOfGet, edge: Edge, skipManagers: boolean = false) => {
     const sourceNode = get().nodes.find(node => {
@@ -265,6 +267,7 @@ export class AgentsStore {
       updatedAt: new Date().toISOString()
     });
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
   };
   static removeGroupMember: (groupId: string, memberId: string, get: typeOfGet, set: typeOfSet) => void = (
     groupId,
@@ -291,6 +294,7 @@ export class AgentsStore {
       updatedAt: new Date().toISOString()
     });
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
   };
   static setAgentGroup: (
     agentId: string,

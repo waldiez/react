@@ -117,6 +117,7 @@ export class EdgesStore {
       updatedAt: new Date().toISOString()
     });
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
   };
   static updateEdgeData: (edgeId: string, data: Edge['data'], get: typeOfGet, set: typeOfSet) => void = (
     edgeId,
@@ -134,6 +135,7 @@ export class EdgesStore {
       updatedAt: new Date().toISOString()
     });
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
   };
   static resetEdgePositions: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
     const edges = get().edges as WaldiezEdge[];
@@ -157,6 +159,25 @@ export class EdgesStore {
       updatedAt: new Date().toISOString()
     });
     EdgesStore.updateNestedEdges(get, set);
+  };
+  static resetEdgeOrders: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
+    // if the edge.data.order is < 0, leave it as is
+    // else start counting from 1 (not 0)
+    const edges = get().edges as WaldiezEdge[];
+    const newEdges = edges.map((edge, index) => {
+      let edgeOrder = edge.data?.order;
+      if (edgeOrder === undefined) {
+        edgeOrder = -1;
+      }
+      return {
+        ...edge,
+        data: { ...edge.data, order: edgeOrder < 0 ? edgeOrder : index + 1 }
+      };
+    });
+    set({
+      edges: newEdges,
+      updatedAt: new Date().toISOString()
+    });
   };
   static updateNestedEdges: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
     const agentNodes = get().nodes.filter(node => node.type === 'agent' && node.data.agentType !== 'manager');
@@ -216,6 +237,7 @@ export class EdgesStore {
       updatedAt: new Date().toISOString()
     });
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
   };
   static updateEdgePath: (
     edgeId: string,

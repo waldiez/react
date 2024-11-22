@@ -182,6 +182,7 @@ export class FlowStore {
       edges
     });
     EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
     ModelsStore.reArrangeModels(get, set);
     SkillsStore.reArrangeSkills(get, set);
     rfInstance?.fitView({

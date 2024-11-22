@@ -38,7 +38,7 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
     const edgeOrders = sortedEdgesState
       .map((edge, index) => ({
         id: edge.id,
-        order: index
+        order: index + 1
       }))
       .concat(
         remainingEdgesState.map(edge => ({
