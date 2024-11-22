@@ -1,7 +1,7 @@
 {
     "name": "@waldiez/react",
     "license": "MIT",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "type": "module",
     "main": "./dist/@waldiez.umd.cjs",
     "module": "./dist/@waldiez.js",
