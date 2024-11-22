@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.12
+
+- Fixed a bug with edge orders not displaying correctly
+
 ## v0.1.11
 
 - A lot

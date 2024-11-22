@@ -13,7 +13,7 @@ Ensure you have the following installed:
 
 ### Installation
 
-1. Fork the repository.
+1. Fork the repository (prefer the dev branch)
 2. Clone your forked repository:
 
     ```shell
