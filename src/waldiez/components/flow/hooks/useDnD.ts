@@ -8,7 +8,7 @@ import { useWaldiezContext } from '@waldiez/store';
 export const useDnD = (onNewAgent: () => void) => {
   const { screenToFlowPosition, getIntersectingNodes } = useReactFlow();
   const addAgent = useWaldiezContext(selector => selector.addAgent);
-  // const addEdge = useWaldiezContext(selector => selector.addEdge);
+  const addEdge = useWaldiezContext(selector => selector.addEdge);
   const reselectNode = useWaldiezContext(selector => selector.reselectNode);
   const setAgentGroup = useWaldiezContext(selector => selector.setAgentGroup);
   const getIntersectingManager = (intersectingNodes: Node[]) => {
@@ -82,7 +82,7 @@ export const useDnD = (onNewAgent: () => void) => {
     return newNode;
   };
   const addParentNodeEdge = (parent: Node, newNode: Node) => {
-    // addEdge(parent.id, newNode.id, true);
+    addEdge(parent.id, newNode.id, true);
     setTimeout(() => {
       setAgentGroup(newNode.id, parent.id);
     }, 0);
