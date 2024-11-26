@@ -30,6 +30,7 @@
 
 ```tsx
 // npm|yarn|pnpm|bun|whatever add|install @waldiez/react
+import '@waldiez/react/dist/@waldiez.css';
 import { Waldiez } from '@waldiez/react';
 
 import React from 'react';
