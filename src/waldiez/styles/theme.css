@@ -10,6 +10,14 @@
   color-scheme: dark;
 }
 
+.flow-wrapper.dark * {
+  scrollbar-color: #ccc #333;
+}
+
+.flow-wrapper.light * {
+  scrollbar-color: #333 #fefefe;
+}
+
 .flow-wrapper input:disabled {
   opacity: 0.8;
 }

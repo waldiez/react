@@ -42,20 +42,24 @@ export const WaldiezNodeAgent = (props: WaldiezNodeAgentProps) => {
           <WaldiezNodeAgentHeader id={id} data={data} onOpenNodeModal={onOpenNodeModal} />
           <WaldiezNodeAgentBody flowId={flowId} id={id} data={data} isModalOpen={isModalOpen} />
           <WaldiezNodeAgentFooter id={id} data={data} isModalOpen={isModalOpen} />
-          <Handle
-            type="target"
-            position={Position.Left}
-            onConnect={onEdgeConnection}
-            data-testid={`agent-node-${id}-target`}
-          />
-          <Handle
-            type="source"
-            position={Position.Right}
-            onConnect={onEdgeConnection}
-            data-testid={`agent-node-${id}-source`}
-          />
         </div>
       )}
+      <Handle
+        className={data.parentId ? 'hidden' : ''}
+        type="target"
+        position={Position.Left}
+        onConnect={onEdgeConnection}
+        data-testid={`agent-node-${id}-target`}
+        id={`agent-handle-${id}-target`}
+      />
+      <Handle
+        className={data.parentId ? 'hidden' : ''}
+        type="source"
+        position={Position.Right}
+        onConnect={onEdgeConnection}
+        data-testid={`agent-node-${id}-source`}
+        id={`agent-handle-${id}-source`}
+      />
       <button
         id={`open-node-modal-${id}`}
         data-testid={`open-node-modal-${id}`}

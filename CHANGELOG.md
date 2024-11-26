@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+## v0.1.13
+
+- Fixed `Couldn’t create edge for source/target handle id: null...`, with group member nodes
+- Added scrollbar styling
+- Updated yarn to 4.5.3
+- Dependency updates
+
 ## v0.1.12
 
 - Fixed a bug with edge orders not displaying correctly
