@@ -57,7 +57,7 @@ const _getEdgeType: (
   return chatType as WaldiezEdgeType;
 };
 
-const _updateFlowEdge = (element: any, index: number, sourceNode: Node, edge: Edge) => {
+const _updateFlowEdge = (element: any, index: number, sourceNode: Node, targetNode: Node, edge: Edge) => {
   const edgeData = WaldiezSourceEdgeData.fromJSON(element.data, index);
   const sourceAgentType = sourceNode.data.agentType as WaldiezAgentNodeType;
   const chatType = _getEdgeType(element, edge, edgeData, sourceAgentType);
@@ -67,6 +67,9 @@ const _updateFlowEdge = (element: any, index: number, sourceNode: Node, edge: Ed
   const { markerEnd, style } = edgeCommonStyle(chatType, color);
   edge.style = style;
   edge.markerEnd = markerEnd;
+  if (edge.type === 'group' && targetNode.data.parentId && targetNode.data.parentId === sourceNode.id) {
+    edge.type = 'hidden';
+  }
   edge.data = {
     ...edgeData,
     label: edgeData.name,
@@ -88,5 +91,5 @@ const _getFlowChat = (nodes: Node[], edges: Edge[], element: any, index: number)
   if (!targetNode || !(targetNode.type === 'agent')) {
     return undefined;
   }
-  return _updateFlowEdge(element, index, sourceNode, edge);
+  return _updateFlowEdge(element, index, sourceNode, targetNode, edge);
 };

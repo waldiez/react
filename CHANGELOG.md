@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## v0.1.14
+
+- Fixed an issue regarding edges between a group manager and group members.
+- Dependency updates
+
 ## v0.1.13
 
 - Fixed `Couldn’t create edge for source/target handle id: null...`, with group member nodes
