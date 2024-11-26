@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Dependency updates
+
 ## v0.1.14
 
 - Fixed an issue regarding edges between a group manager and group members.
