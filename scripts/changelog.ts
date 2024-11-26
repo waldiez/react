@@ -18,7 +18,7 @@ let changes = '';
 for (const line of lines) {
   if (line.startsWith(`## v${tag}`)) {
     found = true;
-  } else if (line.startsWith('## ')) {
+  } else if (line.startsWith('## ') && found) {
     break;
   } else if (found) {
     changes += line + '\n';
