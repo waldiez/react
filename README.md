@@ -5,7 +5,7 @@
 ## Requirements
 
 - Node.js
-- yarn@4.5.1
+- yarn@4.5.3
 
 ## Libraries
 
