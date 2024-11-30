@@ -41,6 +41,15 @@ describe('WaldiezEdgeChat', () => {
     fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
   });
+  it('should not open the edge modal if there is already an open dialog', () => {
+    renderEdge('chat', { order: 2 }, false);
+    expect(HTMLDialogElement.prototype.showModal).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
+    expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
+    (HTMLDialogElement.prototype.showModal as jest.Mock).mockClear();
+    fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
+    expect(HTMLDialogElement.prototype.showModal).not.toHaveBeenCalled();
+  });
   it('should change the tab in the modal', () => {
     renderEdge('chat', { order: 3 }, false);
     fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));

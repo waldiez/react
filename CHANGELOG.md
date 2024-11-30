@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
+## v0.1.15
+
 - Dependency updates
+- Fixed an issue to prevent multiple open dialogs
 
 ## v0.1.14
 
