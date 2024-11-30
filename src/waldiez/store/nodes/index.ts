@@ -26,7 +26,6 @@ export class NodesStore {
     // first, make sure there is no `<dialog .. open>` in the flow
     const openDialogs = document.querySelectorAll('dialog[open]');
     if (openDialogs.length > 0) {
-      console.log('openDialogs', Array.from(openDialogs));
       return;
     }
     const flowRoot = getFlowRoot(flowId);
