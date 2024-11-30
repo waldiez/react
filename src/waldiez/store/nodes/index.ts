@@ -23,6 +23,12 @@ export class NodesStore {
     flowId,
     node
   ) => {
+    // first, make sure there is no `<dialog .. open>` in the flow
+    const openDialogs = document.querySelectorAll('dialog[open]');
+    if (openDialogs.length > 0) {
+      console.log('openDialogs', Array.from(openDialogs));
+      return;
+    }
     const flowRoot = getFlowRoot(flowId);
     if (flowRoot) {
       const openModalBtn = flowRoot.querySelector(`#open-node-modal-${node.id}`) as HTMLButtonElement;

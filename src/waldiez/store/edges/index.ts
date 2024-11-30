@@ -31,6 +31,11 @@ export class EdgesStore {
     });
   };
   static onEdgeDoubleClick: (flowId: string, edge: Edge) => void = (flowId, edge) => {
+    // first, make sure there is no `<dialog .. open>` in the flow
+    const openDialogs = document.querySelectorAll('dialog[open]');
+    if (openDialogs.length > 0) {
+      return;
+    }
     const flowRoot = getFlowRoot(flowId);
     if (flowRoot) {
       const srcModalBtn = flowRoot.querySelector(`#open-edge-modal-node-${edge.source}`) as HTMLButtonElement;
