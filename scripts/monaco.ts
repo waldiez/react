@@ -1,6 +1,6 @@
 // ensure monaco loader files are present in the public folder (public/vs)
 import crypto from 'crypto';
-import fs from 'fs';
+import fs from 'fs-extra';
 import https from 'https';
 import path from 'path';
 import tar from 'tar-stream';
@@ -59,16 +59,29 @@ function extractTarFile(file: string, dest: string): Promise<void> {
   });
 }
 
-function keepOnlyMinVs(dir: string): void {
+function keepOnlyMinVs(dir: string): Promise<void> {
   const packageDir = path.join(dir, 'package');
   const minVsDir = path.join(packageDir, 'min', 'vs');
   const destDir = path.join(dir, 'vs');
   if (fs.existsSync(minVsDir)) {
     if (fs.existsSync(destDir)) {
-      fs.rmSync(destDir, { recursive: true });
+      fs.rmSync(destDir, { recursive: true, force: true });
     }
     fs.renameSync(minVsDir, destDir);
-    fs.rmSync(packageDir, { recursive: true });
+    return new Promise((resolve, reject) => {
+      // fs.rmSync gives Error: ENOTEMPTY: directory not empty
+      // fs.rmSync(packageDir, { recursive: true, force: true, maxRetries: 3 });
+      fs.promises
+        .rm(packageDir, { recursive: true })
+        .then(() => {
+          resolve();
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  } else {
+    return Promise.resolve();
   }
 }
 
@@ -95,6 +108,40 @@ function findLatestVersion(): Promise<[string, string, string]> {
   });
 }
 
+// eslint-disable-next-line max-statements
+function removeUnneededFiles(dir: string): void {
+  // only keep python for language, remove
+  const rootDir = path.join(dir, 'vs');
+  const basicLanguagesDir = path.join(rootDir, 'basic-languages');
+  const basicLanguages = fs.readdirSync(basicLanguagesDir);
+  for (const language of basicLanguages) {
+    if (language !== 'python') {
+      fs.rmSync(path.join(basicLanguagesDir, language), {
+        recursive: true,
+        force: true
+      });
+    }
+  }
+  const rootFiles = fs.readdirSync(rootDir);
+  for (const entry of rootFiles) {
+    // remove all files except loader.js, keep folders
+    if (entry === 'loader.js') {
+      continue;
+    }
+    const entryPath = path.join(rootDir, entry);
+    const stat = fs.statSync(entryPath);
+    if (stat.isFile()) {
+      fs.rmSync(entryPath, { force: true });
+    }
+    if (entry === 'language' && stat.isDirectory()) {
+      fs.rmSync(path.join(rootDir, 'language'), {
+        recursive: true,
+        force: true
+      });
+    }
+  }
+}
+
 function handleDownload(
   tempDir: string,
   tempFile: string,
@@ -107,12 +154,19 @@ function handleDownload(
         if (isValid) {
           extractTarFile(tempFile, publicPath)
             .then(() => {
-              keepOnlyMinVs(publicPath);
-              fs.unlinkSync(tempFile);
-              fs.rmSync(tempDir, {
-                recursive: true
-              });
-              resolve();
+              keepOnlyMinVs(publicPath)
+                .then(() => {
+                  removeUnneededFiles(publicPath);
+                  fs.unlinkSync(tempFile);
+                  fs.rmSync(tempDir, {
+                    recursive: true,
+                    force: true
+                  });
+                  resolve();
+                })
+                .catch(err => {
+                  reject(err);
+                });
             })
             .catch(err => {
               reject(err);
