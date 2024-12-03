@@ -80,7 +80,7 @@ export default defineConfig(({ command }) => ({
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
-      reporter: ['lcov', 'text', 'json', 'html'],
+      reporter: ['lcov', 'text', 'text-summary', 'html'],
       include: ['src/**/*'],
       exclude: ['**/types.ts'],
       ignoreEmptyLines: true,
