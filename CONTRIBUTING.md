@@ -9,7 +9,7 @@ This project is a React application managed using yarn. To contribute, follow th
 Ensure you have the following installed:
 
 - Node.js (version 20.x or later)
-- yarn@4.5.1
+- yarn@4.5.3
 
 ### Installation
 

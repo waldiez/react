@@ -20,6 +20,7 @@
     "CODEOWNERS",
     "combobox",
     "compat",
+    "coverallsapp",
     "csstree",
     "dropzone",
     "errorboundary",

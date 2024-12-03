@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## v0.1.16
+
+- Dependency updates
+- Removed unnecessary console logs
+
 ## v0.1.15
 
 - Dependency updates
