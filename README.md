@@ -2,7 +2,17 @@
 
 ![CI Build](https://github.com/waldiez/react/actions/workflows/main.yaml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/waldiez/react/badge.svg)](https://coveralls.io/github/waldiez/react) [![npm version](https://badge.fury.io/js/@waldiez%2Freact.svg)](https://badge.fury.io/js/@waldiez%2Freact)
 
-## Requirements
+## Installation from npm registry
+
+```bash
+# any of the following
+npm install @waldiez/react
+yarn add @waldiez/react
+pnpm add @waldiez/react
+bun add @waldiez/react
+```
+
+## Requirements for development
 
 - Node.js
 - yarn@4.5.3
@@ -22,7 +32,7 @@
     "react-icons": "^5.3.0",
     "react-select": "^5.8.3",
     "zundo": "^2.3.0",
-    "zustand": "^5.0.1"
+    "zustand": "^5.0.2"
 }
 ```
 
