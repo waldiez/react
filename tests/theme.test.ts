@@ -19,6 +19,8 @@ describe('theme', () => {
     getItemSpy.mockClear();
     setItemSpy.mockClear();
     removeItemSpy.mockClear();
+    document.body.classList.remove('waldiez-light');
+    document.body.classList.remove('waldiez-dark');
   });
 
   it('should return storage value', () => {
@@ -94,5 +96,14 @@ describe('theme', () => {
     document.body.appendChild(flowRoot);
     expect(isDarkMode('test', 'test')).toBe(true);
     document.body.removeChild(flowRoot);
+  });
+
+  it('should use the body class if set', () => {
+    document.body.classList.add('waldiez-dark');
+    expect(isDarkMode('test', 'test')).toBe(true);
+    document.body.classList.remove('waldiez-dark');
+    document.body.classList.add('waldiez-light');
+    expect(isDarkMode('test', 'test')).toBe(false);
+    document.body.classList.remove('waldiez-light');
   });
 });
