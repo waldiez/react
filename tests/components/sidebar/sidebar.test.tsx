@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SideBar } from '@waldiez/components/sidebar';
 import { SideBarProps } from '@waldiez/components/sidebar/types';
 import { WaldiezProvider } from '@waldiez/store';
+import { isSidebarCollapsed } from '@waldiez/utils/storage';
 
 const flowId = 'test';
 const storageId = 'test-storage';
@@ -58,6 +59,8 @@ describe('SideBar', () => {
     removeItemSpy.mockClear();
     vi.resetAllMocks();
     vi.useRealTimers();
+    document.body.classList.remove('waldiez-sidebar-collapsed');
+    document.body.classList.remove('waldiez-sidebar-expanded');
   });
 
   it('should render successfully', () => {
@@ -73,6 +76,18 @@ describe('SideBar', () => {
     const sidebar = screen.getByTestId(`sidebar-${flowId}`);
     expect(sidebar).toBeTruthy();
     expect(sidebar).toHaveClass('sidebar collapsed', { exact: true });
+  });
+
+  it('should get the state of the sidebar from the body class', () => {
+    document.body.classList.add('waldiez-sidebar-collapsed');
+    expect(getItemSpy).toBeCalledTimes(0);
+    expect(isSidebarCollapsed(storageId)).toBe(true);
+    document.body.classList.remove('waldiez-sidebar-collapsed');
+    document.body.classList.add('waldiez-sidebar-expanded');
+    expect(isSidebarCollapsed(storageId)).toBe(false);
+    document.body.classList.remove('waldiez-sidebar-expanded');
+    getItemSpy.mockReturnValueOnce(`{"${storageId}":"true"}`);
+    expect(isSidebarCollapsed(storageId)).toBe(true);
   });
 
   it('should call onEditFlow', () => {

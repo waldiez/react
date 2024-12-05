@@ -1,7 +1,7 @@
 import diff from 'microdiff';
 import { temporal } from 'zundo';
 
-import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance, XYPosition } from '@xyflow/react';
+import { Connection, Edge, EdgeChange, Node, NodeChange, ReactFlowInstance, XYPosition } from '@xyflow/react';
 
 import { createStore } from 'zustand';
 
@@ -87,6 +87,8 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
         updateEdgePath: (id: string, agentType: WaldiezAgentNodeType) =>
           EdgesStore.updateEdgePath(id, agentType, get, set),
         getEdgeSourceAgent: (edge: Edge) => EdgesStore.getEdgeSourceAgent(edge, get),
+        onReconnect: (oldEdge: Edge, newConnection: Connection) =>
+          EdgesStore.onReconnect(oldEdge, newConnection, get, set),
         // nodes
         getNodes: () => get().nodes,
         onNodesChange: (changes: NodeChange<Node>[]) => NodesStore.onNodesChange(changes, get, set),

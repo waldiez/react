@@ -6,9 +6,14 @@ const __THEME_STORAGE_KEY = 'waldiez_theme';
  * Check if the current mode is dark
  * @returns boolean
  **/
+// eslint-disable-next-line max-statements
 export const isDarkMode = (flowId: string, storageId: string) => {
   // first check if the theme is set in local storage
   // in storage: {waldiez_theme: {storageId: 'dark/light'}}
+  const fromBodyClass = classInBody();
+  if (typeof fromBodyClass === 'boolean') {
+    return fromBodyClass;
+  }
   const fromLocalStorage = themeInLocalStorage(storageId);
   if (typeof fromLocalStorage === 'boolean') {
     return fromLocalStorage;
@@ -42,6 +47,7 @@ export const setDarkMode = (flowId: string, storageId: string, dark: boolean) =>
     themes[storageId] = dark ? 'dark' : 'light';
     window.localStorage.setItem(__THEME_STORAGE_KEY, JSON.stringify(themes));
     updateFlowDivClass(flowId, dark);
+    updateBodyClass(dark);
     setTimeout(() => {
       window.localStorage.removeItem(lockFile);
     }, 200);
@@ -86,6 +92,16 @@ const updateFlowDivClass = (flowId: string, dark: boolean) => {
   }
 };
 
+const updateBodyClass = (dark: boolean) => {
+  if (dark) {
+    document.body.classList.add('waldiez-dark');
+    document.body.classList.remove('waldiez-light');
+  } else {
+    document.body.classList.add('waldiez-light');
+    document.body.classList.remove('waldiez-dark');
+  }
+};
+
 const themeInLocalStorage = (storageId: string) => {
   const theme = window.localStorage.getItem(__THEME_STORAGE_KEY);
   if (theme) {
@@ -119,6 +135,16 @@ const themeInRootDiv = (flowId: string) => {
     if (flowRoot.classList.contains('light')) {
       return false;
     }
+  }
+  return null;
+};
+
+const classInBody = () => {
+  if (document.body.classList.contains('waldiez-dark')) {
+    return true;
+  }
+  if (document.body.classList.contains('waldiez-light')) {
+    return false;
   }
   return null;
 };

@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## v0.1.17
+
+- Added node reconnection feature
+- Styling and theme/sidebar state updates
+- Dependency updates
+
 ## v0.1.16
 
 - Dependency updates
