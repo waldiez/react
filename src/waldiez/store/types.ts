@@ -1,4 +1,5 @@
 import {
+  Connection,
   Edge,
   EdgeChange,
   Node,
@@ -77,6 +78,7 @@ export type WaldiezState = WaldiezStoreProps & {
   updateEdgePath: (id: string, agentType: WaldiezAgentNodeType) => void;
   updateEdgeData: (id: string, data: Edge['data']) => void;
   getEdgeSourceAgent: (edge: Edge) => WaldiezAgentNode | null;
+  onReconnect: (oldEdge: Edge, newConnection: Connection) => void;
   // nodes
   getNodes: () => Node[];
   onNodesChange: OnNodesChange;

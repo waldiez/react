@@ -30,6 +30,7 @@ export const selector = (store: WaldiezState) => ({
   updateEdgePath: store.updateEdgePath,
   updateEdgeData: store.updateEdgeData,
   getEdgeSourceAgent: store.getEdgeSourceAgent,
+  onReconnect: store.onReconnect,
   // nodes
   getNodes: store.getNodes,
   onNodesChange: store.onNodesChange,

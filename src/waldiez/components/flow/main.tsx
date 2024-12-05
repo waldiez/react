@@ -80,7 +80,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
             onKeyDown={onKeyDown}
             onNodeDoubleClick={onNodeDoubleClick}
             onEdgeDoubleClick={onEdgeDoubleClick}
-            // onReconnect={store.onReconnect}
+            onReconnect={store.onReconnect}
             colorMode={colorMode}
             elevateNodesOnSelect={true}
             elevateEdgesOnSelect={true}

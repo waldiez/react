@@ -1,4 +1,4 @@
-import { Edge, EdgeChange, applyEdgeChanges } from '@xyflow/react';
+import { Connection, Edge, EdgeChange, applyEdgeChanges } from '@xyflow/react';
 
 import {
   WaldiezAgentNode,
@@ -267,4 +267,83 @@ export class EdgesStore {
       updatedAt: new Date().toISOString()
     });
   };
+
+  static onReconnect: (oldEdge: Edge, newConnection: Connection, get: typeOfGet, set: typeOfSet) => void = (
+    oldEdge,
+    newConnection,
+    get,
+    set
+  ) => {
+    const { oldSourceNode, oldTargetNode, newSourceNode, newTargetNode, color } = getReconnectNodesAndColor(
+      oldEdge,
+      newConnection,
+      get
+    );
+    if (!oldSourceNode || !oldTargetNode || !newSourceNode || !newTargetNode) {
+      console.error('Not all nodes found');
+      return;
+    }
+    if (oldSourceNode.id === newSourceNode.id && oldTargetNode.id === newTargetNode.id) {
+      return;
+    }
+    if (!color) {
+      console.error('Color not found');
+      return false;
+    }
+    set({
+      edges: [
+        ...get().edges.map(edge => {
+          if (edge.id !== oldEdge.id) {
+            return edge;
+          }
+          return {
+            ...oldEdge,
+            source: newConnection.source,
+            target: newConnection.target,
+            ...edgeCommonStyle(oldEdge.type as 'chat' | 'nested' | 'group' | 'hidden', color)
+          };
+        })
+      ],
+      updatedAt: new Date().toISOString()
+    });
+    EdgesStore.resetEdgePositions(get, set);
+    EdgesStore.resetEdgeOrders(get, set);
+  };
 }
+
+const getReconnectNodesAndColor = (
+  oldEdge: Edge,
+  newConnection: Connection,
+  get: typeOfGet
+): {
+  oldSourceNode: WaldiezAgentNode | undefined;
+  oldTargetNode: WaldiezAgentNode | undefined;
+  newSourceNode: WaldiezAgentNode | undefined;
+  newTargetNode: WaldiezAgentNode | undefined;
+  color: string | undefined;
+} => {
+  let oldSourceNode: WaldiezAgentNode | undefined;
+  let oldTargetNode: WaldiezAgentNode | undefined;
+  let newSourceNode: WaldiezAgentNode | undefined;
+  let newTargetNode: WaldiezAgentNode | undefined;
+  let color: string | undefined;
+  for (const node of get().nodes) {
+    if (node.id === oldEdge.source) {
+      oldSourceNode = node as WaldiezAgentNode;
+    }
+    if (node.id === oldEdge.target) {
+      oldTargetNode = node as WaldiezAgentNode;
+    }
+    if (node.id === newConnection.source) {
+      newSourceNode = node as WaldiezAgentNode;
+      color = AGENT_COLORS[newSourceNode.data.agentType];
+    }
+    if (node.id === newConnection.target) {
+      newTargetNode = node as WaldiezAgentNode;
+    }
+    if (oldSourceNode && oldTargetNode && newSourceNode && newTargetNode) {
+      break;
+    }
+  }
+  return { oldSourceNode, oldTargetNode, newSourceNode, newTargetNode, color };
+};
