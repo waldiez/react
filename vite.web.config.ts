@@ -20,7 +20,10 @@ export default defineConfig(({ command }) => {
           manualChunks: {
             react: ['react'],
             'react-dom': ['react-dom'],
-            'xyflow-react': ['@xyflow/react']
+            'xyflow-react': ['@xyflow/react'],
+            'react-select': ['react-select'],
+            'monaco-editor': ['@monaco-editor/react'],
+            'react-icons': ['react-icons'],
           }
         }
       }
