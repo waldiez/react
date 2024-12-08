@@ -28,10 +28,11 @@ export const isSidebarCollapsed = (storageId: string) => {
  * Store the state of the sidebar in local storage.
  * @param storageId - The id of the sidebar
  * @param isCollapsed - The state of the sidebar
+ * @param force - Force the state of the sidebar
  */
-export const setSidebarCollapsed = (storageId: string, isCollapsed: boolean) => {
+export const setSidebarCollapsed = (storageId: string, isCollapsed: boolean, force: boolean = false) => {
   const lockFile = `waldiez_sidebar_${storageId}.lock`;
-  if (!window.localStorage.getItem(lockFile)) {
+  if (!window.localStorage.getItem(lockFile) || force) {
     window.localStorage.setItem(lockFile, '1');
     setSidebarCollapsedToBody(isCollapsed);
     const sidebars = getStoredSidebarStates();

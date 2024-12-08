@@ -160,7 +160,7 @@ describe('SideBar', () => {
     getItemSpy.mockReturnValueOnce('invalid');
     renderSidebar();
     expect(getItemSpy).toBeCalledWith('waldiez_sidebar');
-    expect(getItemSpy).toBeCalledTimes(2);
+    expect(getItemSpy).toBeCalledTimes(4);
     expect(localStorage.getItem('waldiez_sidebar')).toBeUndefined();
   });
 
@@ -173,7 +173,7 @@ describe('SideBar', () => {
 
     renderSidebar();
     fireEvent.click(screen.getByTestId('sidebar-toggle'));
-    expect(setItemSpy).toBeCalledTimes(2);
+    expect(setItemSpy).toBeCalledTimes(4);
     expect(setItemSpy).toBeCalledWith('waldiez_sidebar', `{"${storageId}":"true"}`);
   });
 
@@ -186,7 +186,7 @@ describe('SideBar', () => {
 
     renderSidebar();
     fireEvent.click(screen.getByTestId('sidebar-toggle'));
-    expect(setItemSpy).toBeCalledTimes(2);
+    expect(setItemSpy).toBeCalledTimes(4);
     expect(setItemSpy).toBeCalledWith('waldiez_sidebar', `{"${storageId}":"false"}`);
   });
 

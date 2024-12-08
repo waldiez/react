@@ -47,7 +47,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
   };
   useEffect(() => {
     showNodes('agent');
-    setDarkMode(flowId, storageId, isDarkMode(flowId, storageId));
+    setDarkMode(flowId, storageId, isDarkMode(flowId, storageId), true);
   }, []);
   const colorMode = isDark ? 'dark' : 'light';
   const rfInstance = store.get().rfInstance;

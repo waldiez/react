@@ -38,10 +38,14 @@ export const isDarkMode = (flowId: string, storageId: string) => {
 
 /**
  * Set the dark mode
+ * @param flowId - The id of the flow
+ * @param storageId - The id of the storage
+ * @param dark - The state of the dark mode
+ * @param force - Force the state of the dark mode
  **/
-export const setDarkMode = (flowId: string, storageId: string, dark: boolean) => {
+export const setDarkMode = (flowId: string, storageId: string, dark: boolean, force: boolean = true) => {
   const lockFile = `${__THEME_STORAGE_KEY}_${storageId}.lock`;
-  if (!window.localStorage.getItem(lockFile)) {
+  if (!window.localStorage.getItem(lockFile) || !force) {
     window.localStorage.setItem(lockFile, '1');
     const themes = getStoredThemes();
     themes[storageId] = dark ? 'dark' : 'light';

@@ -9,7 +9,7 @@ export type WaldiezProviderProps = React.PropsWithChildren<WaldiezStoreProps>;
  * React Context Provider for Waldiez Store
  * @param children - ReactNode
  * @param props - WaldiezProviderProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 export function WaldiezProvider({
   children,
