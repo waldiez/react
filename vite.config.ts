@@ -29,12 +29,36 @@ export default defineConfig(({ command }) => ({
     },
     minify: 'terser',
     rollupOptions: {
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'nanoid',
+        '@xyflow/react',
+        'react-hotkeys-hook',
+        'react-icons/fa',
+        'react-icons/fa6',
+        'react-icons/ai',
+        'react-icons/gi',
+        'react-icons/go',
+        'react-icons/md',
+        '@monaco-editor/react',
+        'zustand',
+        'zundo',
+        'microdiff',
+        'zustand/shallow',
+        'zustand/traditional',
+        'react-select',
+        'rc-slider',
+        'react-error-boundary'
+      ],
       output: {
         exports: 'named',
         globals: {
           'react/jsx-runtime': 'jsxRuntime',
           nanoid: 'nanoid',
           '@xyflow/react': 'XYFlowReact',
+          'react-hotkeys-hook': 'reactHotkeysHook',
           'react-icons/fa': 'reactIconsFa',
           'react-icons/fa6': 'reactIconsFa6',
           'react-icons/ai': 'reactIconsAi',
@@ -52,6 +76,15 @@ export default defineConfig(({ command }) => ({
           'rc-slider': 'rcSlider',
           'react-error-boundary': 'reactErrorBoundary'
         }
+      }
+    },
+    terserOptions: {
+      format: {
+        comments: false
+      },
+      compress: {
+        drop_console: true,
+        drop_debugger: true
       }
     }
   },
