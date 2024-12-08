@@ -23,7 +23,7 @@ export default defineConfig(({ command }) => {
             'xyflow-react': ['@xyflow/react'],
             'react-select': ['react-select'],
             'monaco-editor': ['@monaco-editor/react'],
-            'react-icons': ['react-icons'],
+            'react-icons': ['react-icons']
           }
         }
       }

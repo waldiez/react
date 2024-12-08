@@ -5,12 +5,13 @@ node_modules/
 .yarn/
 dist/
 out/
-tests/browser/vieos/
+tests/browser/videos/
 coverage/
 site/
 dist-ssr
 .local/
-public/vs/
+public/*
+!public/logo/logo.svg
 public/monaco_latest_version
 .idea
 .DS_Store
