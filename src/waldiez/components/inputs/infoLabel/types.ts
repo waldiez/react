@@ -1,4 +1,6 @@
+import React from 'react';
+
 export type InfoLabelProps = {
-  label: string | JSX.Element | (() => JSX.Element | string);
-  info: string | JSX.Element | (() => JSX.Element | string);
+  label: string | React.JSX.Element | (() => React.JSX.Element | string);
+  info: string | React.JSX.Element | (() => React.JSX.Element | string);
 };

@@ -16,7 +16,11 @@ export const useSideBar = (props: SideBarProps) => {
   const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
   const exportFlow = useWaldiezContext(selector => selector.exportFlow);
   useEffect(() => {
-    setIsCollapsed(isSidebarCollapsed(storageId));
+    const IsInitiallyCollapsed = isSidebarCollapsed(storageId);
+    if (isCollapsed !== IsInitiallyCollapsed) {
+      setIsCollapsed(IsInitiallyCollapsed);
+    }
+    setSidebarCollapsed(storageId, IsInitiallyCollapsed, true);
   }, []);
   const onToggle = () => {
     const rootDiv = getFlowRoot(flowId, true)!;

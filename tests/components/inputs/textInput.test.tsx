@@ -17,7 +17,7 @@ describe('TextInput', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render with label as JSX.Element', () => {
+  it('should render with label as React.JSX.Element', () => {
     const onChange = vi.fn();
     const textInputProps = {
       label: <div>test</div>,
@@ -40,7 +40,7 @@ describe('TextInput', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render with info as JSX.Element', () => {
+  it('should render with info as React.JSX.Element', () => {
     const onChange = vi.fn();
     const textInputProps = {
       label: 'test',
@@ -64,7 +64,7 @@ describe('TextInput', () => {
     expect(screen.getByRole('textbox')).toHaveValue('test');
   });
 
-  it('should render with info as JSX.Element', () => {
+  it('should render with info as React.JSX.Element', () => {
     const onChange = vi.fn();
     const textInputProps = {
       label: 'test',

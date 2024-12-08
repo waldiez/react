@@ -4,7 +4,7 @@ exports[`All > should render Waldiez components 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body
-    class="waldiez-light"
+    class="waldiez-sidebar-expanded waldiez-light"
   >
     
     

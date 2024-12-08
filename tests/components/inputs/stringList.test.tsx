@@ -20,7 +20,7 @@ describe('StringList', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render with viewLabel as JSX.Element', () => {
+  it('should render with viewLabel as React.JSX.Element', () => {
     const onItemAdded = vi.fn();
     const onItemChange = vi.fn();
     const onItemDeleted = vi.fn();

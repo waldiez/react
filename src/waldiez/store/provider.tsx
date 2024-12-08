@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { WaldiezContext, WaldiezStore, createWaldiezStore } from '@waldiez/store';
 import { WaldiezStoreProps } from '@waldiez/types';
@@ -9,7 +9,7 @@ export type WaldiezProviderProps = React.PropsWithChildren<WaldiezStoreProps>;
  * React Context Provider for Waldiez Store
  * @param children - ReactNode
  * @param props - WaldiezProviderProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 export function WaldiezProvider({
   children,
@@ -18,8 +18,8 @@ export function WaldiezProvider({
   storageId: string;
   createdAt: string;
   updatedAt: string;
-}): JSX.Element {
-  const storeRef = useRef<WaldiezStore>();
+}): React.JSX.Element {
+  const storeRef = useRef<WaldiezStore | undefined>(undefined);
   const nodes = props.nodes;
   const edges = props.edges;
   const flowId = props.flowId;

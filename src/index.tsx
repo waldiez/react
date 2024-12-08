@@ -96,7 +96,12 @@ const onUpload = isProd ? null : onUploadDev;
 // PROD:
 //  either served and `VITE_VS_PATH` is set to the path, or
 //  use the default cdn (jsdelivr) that monaco loader uses
-const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
+// make sure the csp allows the cdn
+let vsPath = !isProd ? 'vs' : (import.meta.env.VITE_VS_PATH ?? null);
+if (!vsPath) {
+  // if set to empty string, make it null
+  vsPath = null;
+}
 /**
  * Other props:
  *  we can use:

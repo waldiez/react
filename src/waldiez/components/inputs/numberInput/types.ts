@@ -1,5 +1,7 @@
+import React from 'react';
+
 export type NumberInputProps = {
-  label: string | JSX.Element;
+  label: string | React.JSX.Element;
   value: number | null;
   min: number;
   max: number;
@@ -13,6 +15,6 @@ export type NumberInputProps = {
   step?: number;
   stepDownScale?: number;
   disabled?: boolean;
-  labelInfo?: string | JSX.Element | null;
+  labelInfo?: string | React.JSX.Element | null;
   dataTestId?: string;
 };
