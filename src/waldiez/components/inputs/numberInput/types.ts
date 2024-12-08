@@ -15,6 +15,6 @@ export type NumberInputProps = {
   step?: number;
   stepDownScale?: number;
   disabled?: boolean;
-  labelInfo?: string | JSX.Element | null;
+  labelInfo?: string | React.JSX.Element | null;
   dataTestId?: string;
 };
