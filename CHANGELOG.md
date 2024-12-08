@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## v0.1.18
+
+- Added react 19.0.0 support
+- Fixed an issue with .lock values not allowing the theme or the sidebar state to be initially set
+
 ## v0.1.17
 
 - Added node reconnection feature
