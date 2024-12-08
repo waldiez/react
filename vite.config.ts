@@ -132,7 +132,7 @@ export default defineConfig(({ command }) => ({
       const isReceivedNaNRexExp = /Received NaN for the `(.*)` attribute/;
       // Warning: An update to FlowRenderer inside a test was not wrapped in act(...).
       const isFlowRendererUpdate = log.includes(
-        'Warning: An update to FlowRenderer inside a test was not wrapped'
+        'An update to FlowRenderer inside a test was not wrapped'
       );
       const isReceivedNaN = isReceivedNaNRexExp.test(log);
       const isErrorBoundary = log.includes("Cannot read properties of undefined (reading 'x')");
