@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Dev dependencies update
+
 ## v0.1.18
 
 - Added react 19.0.0 support
