@@ -72,7 +72,7 @@ const _updateFlowEdge = (element: any, index: number, sourceNode: Node, targetNo
   }
   edge.data = {
     ...edgeData,
-    label: edgeData.name,
+    label: `${sourceNode.data.label} => ${targetNode.data.label}`,
     order: chatType === 'nested' ? -1 : edgeData.order
   };
   return { ...edge };

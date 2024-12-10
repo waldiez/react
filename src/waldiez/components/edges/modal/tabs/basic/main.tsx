@@ -12,7 +12,6 @@ export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
     summaryRoleValue,
     summaryRoleLabel,
     currentSelectedChatType,
-    onLabelChange,
     onDescriptionChange,
     onClearHistoryChange,
     onMaxTurnsChange,
@@ -40,13 +39,6 @@ export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
           />
         </div>
       )}
-      <label>Name:</label>
-      <input
-        type="text"
-        defaultValue={data.label}
-        onChange={onLabelChange}
-        data-testid={`edge-${edgeId}-label-input`}
-      />
       <label>Description:</label>
       <textarea
         rows={2}

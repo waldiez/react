@@ -131,9 +131,7 @@ export default defineConfig(({ command }) => ({
       // Warning: Received NaN for the `cy` attribute.
       const isReceivedNaNRexExp = /Received NaN for the `(.*)` attribute/;
       // Warning: An update to FlowRenderer inside a test was not wrapped in act(...).
-      const isFlowRendererUpdate = log.includes(
-        'An update to FlowRenderer inside a test was not wrapped'
-      );
+      const isFlowRendererUpdate = log.includes('An update to FlowRenderer inside a test was not wrapped');
       const isReceivedNaN = isReceivedNaNRexExp.test(log);
       const isErrorBoundary = log.includes("Cannot read properties of undefined (reading 'x')");
       if (type === 'stderr' && (isNotFound || isErrorBoundary || isReceivedNaN || isFlowRendererUpdate)) {

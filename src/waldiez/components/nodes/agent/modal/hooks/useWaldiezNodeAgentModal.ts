@@ -23,6 +23,7 @@ export const useWaldiezNodeAgentModal = (
   const storageId = useWaldiezContext(selector => selector.storageId);
   const getAgentById = useWaldiezContext(selector => selector.getAgentById);
   const updateAgentData = useWaldiezContext(selector => selector.updateAgentData);
+  const updateEdgeData = useWaldiezContext(selector => selector.updateEdgeData);
   const exportAgent = useWaldiezContext(selector => selector.exportAgent);
   const importAgent = useWaldiezContext(selector => selector.importAgent);
   const getAgentConnections = useWaldiezContext(selector => selector.getAgentConnections);
@@ -65,6 +66,9 @@ export const useWaldiezNodeAgentModal = (
     }
     checkGroupChange(dataToSubmit);
     updateAgentData(id, dataToSubmit);
+    if (data.label !== dataToSubmit.label) {
+      updateAgentEdgeLabels();
+    }
     postSubmit();
   };
   const checkGroupChange = (dataToSubmit: { [key: string]: any }) => {
@@ -78,6 +82,37 @@ export const useWaldiezNodeAgentModal = (
         addGroupMember(newParentId, id);
       }
     }
+  };
+  const updateAgentEdgeLabels = () => {
+    // naming: "source" => "target"
+    // depending on the 'agentConnections', update the edge labels
+    const agentConnections = getAgentConnections(id, {
+      sourcesOnly: false,
+      targetsOnly: false,
+      skipManagers: false
+    });
+    const sourceEdges = agentConnections.source.edges;
+    const targetEdges = agentConnections.target.edges;
+    const newLabel = agentData.label;
+    const oldLabel = data.label;
+    sourceEdges.forEach(sourceEdge => {
+      const toSearch = ` => ${oldLabel}`;
+      const toReplace = ` => ${newLabel}`;
+      const labelIndex = sourceEdge.data?.label.indexOf(toSearch);
+      if (typeof labelIndex === 'number' && labelIndex > -1) {
+        const label = sourceEdge.data?.label.replace(toSearch, toReplace);
+        updateEdgeData(sourceEdge.id, { ...sourceEdge.data, label });
+      }
+    });
+    targetEdges.forEach(targetEdge => {
+      const toSearch = `${oldLabel} => `;
+      const toReplace = `${newLabel} => `;
+      const labelIndex = targetEdge.data?.label.indexOf(toSearch);
+      if (typeof labelIndex === 'number' && labelIndex > -1) {
+        const label = targetEdge.data?.label.replace(toSearch, toReplace);
+        updateEdgeData(targetEdge.id, { ...targetEdge.data, label });
+      }
+    });
   };
   const onSave = () => {
     const dataToSubmit = { ...agentData } as { [key: string]: any };
