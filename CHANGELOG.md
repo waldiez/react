@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
+## v0.1.19
+
 - Updated @xyflow/react to 12.3.6
+- Updated edges: make the name/label read-only, auto rename it when the source/target node is renamed
 - Dev dependencies update
 
 ## v0.1.18
