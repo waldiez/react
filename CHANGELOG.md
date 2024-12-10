@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- Updated @xyflow/react to 12.3.6
 - Dev dependencies update
 
 ## v0.1.18
