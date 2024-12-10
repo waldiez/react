@@ -4,12 +4,14 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { useTemporalStore, useWaldiezContext } from '@waldiez/store';
 import { getFlowRoot } from '@waldiez/utils';
 
-export const useKeys = (flowId: string) => {
+export const useKeys = (flowId: string, onSave?: ((flow: string) => void) | null) => {
   const { undo, redo, futureStates, pastStates } = useTemporalStore(state => state);
   const deleteAgent = useWaldiezContext(selector => selector.deleteAgent);
   const deleteEdge = useWaldiezContext(selector => selector.deleteEdge);
   const deleteModel = useWaldiezContext(selector => selector.deleteModel);
   const deleteSkill = useWaldiezContext(selector => selector.deleteSkill);
+  const saveFlow = useWaldiezContext(selector => selector.saveFlow);
+  const listenForSave = typeof onSave === 'function';
   const isFlowVisible = () => {
     // if on jupyter, we might have more than one tabs with a flow
     // let's check if the current flow is visible (i.e. we are in the right tab)
@@ -42,6 +44,18 @@ export const useKeys = (flowId: string) => {
     },
     { scopes: flowId }
   );
+  if (listenForSave) {
+    useHotkeys(
+      'mod+s',
+      event => {
+        if (isFlowVisible()) {
+          event.preventDefault();
+          saveFlow();
+        }
+      },
+      { scopes: flowId }
+    );
+  }
   const onDeleteKey = (event: KeyboardEvent) => {
     const target = event.target;
     const isNode = target instanceof Element && target.classList.contains('react-flow__node');

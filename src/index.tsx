@@ -18,6 +18,17 @@ const onChange = null;
 // };
 
 /**
+ * OnSave
+ * if enabled, add a listener for the key combination (ctrl+s/mod+s)
+ * to save the flow
+ * the flow string is the JSON stringified flow
+ * the action should be handled by the parent component
+ */
+const onSaveDev = (flowString: string) => {
+  console.info('saving', flowString);
+};
+const onSave = isProd ? null : onSaveDev;
+/**
  * UserInput
  */
 // to check/test the user input, use `onUserInput` and `inputPrompt`
@@ -59,6 +70,20 @@ const onRunDev = (flowString: string) => {
   console.info(flowString);
 };
 const onRun = isProd ? null : onRunDev;
+
+/**
+ * OnConvert
+ * adds two buttons to the main panel, to convert the flow to python or jupyter notebook
+ * The action should be handled by the parent component
+ * the flow string is the JSON stringified flow
+ * the `to` parameter is either 'py' or 'ipynb'
+ * the conversion happens in the python part / backend
+ */
+
+const onConvertDev = (_flowString: string, to: 'py' | 'ipynb') => {
+  console.info('converting to', to);
+};
+const onConvert = isProd ? null : onConvertDev;
 
 /**
  * OnUpload
@@ -128,8 +153,10 @@ export const startApp = () => {
         storageId="storage-0"
         inputPrompt={inputPrompt}
         onRun={onRun}
+        onConvert={onConvert}
         onChange={onChange}
         onUpload={onUpload}
+        onSave={onSave}
       />
     </React.StrictMode>
   );

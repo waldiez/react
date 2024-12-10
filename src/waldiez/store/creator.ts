@@ -36,7 +36,8 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
     updatedAt = new Date().toISOString(),
     viewport = { zoom: 1, x: 50, y: 50 },
     onUpload = null,
-    onChange = null
+    onChange = null,
+    onSave = null
   } = props || {};
   let { storageId } = props || {};
   if (!storageId) {
@@ -72,6 +73,7 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
         getViewport: () => get().viewport,
         onUpload,
         onChange,
+        onSave,
         // edges
         getEdges: () => get().edges,
         onEdgesChange: (changes: EdgeChange[]) => EdgesStore.onEdgesChange(changes, get, set),
@@ -183,6 +185,12 @@ export const createWaldiezStore = (props?: WaldiezStoreProps) => {
             onChange(JSON.stringify(flow));
           }
           return flow;
+        },
+        saveFlow: () => {
+          if (typeof onSave === 'function') {
+            const flow = FlowStore.exportFlow(false, get);
+            onSave(JSON.stringify(flow));
+          }
         }
       }),
       {

@@ -18,7 +18,8 @@ import { getId } from '@waldiez/utils';
 export const Waldiez = (props: Partial<WaldiezProps>) => {
   const { flowId, storageId, createdAt, updatedAt, name, description, tags, requirements, nodes, edges } =
     getInitialProps(props);
-  const { viewport, inputPrompt, monacoVsPath, onChange, onRun, onUserInput, onUpload } = props;
+  const { viewport, inputPrompt, monacoVsPath, onChange, onRun, onUserInput, onUpload, onConvert, onSave } =
+    props;
   useEffect(() => {
     if (monacoVsPath) {
       loader.config({ paths: { vs: monacoVsPath } });
@@ -42,6 +43,7 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
             edges={edges}
             onUpload={onUpload}
             onChange={onChange}
+            onSave={onSave}
           >
             <WaldiezFlow
               flowId={flowId}
@@ -52,6 +54,8 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
               onChange={onChange}
               onRun={onRun}
               onUserInput={onUserInput}
+              onConvert={onConvert}
+              onSave={onSave}
             />
           </WaldiezProvider>
         </ReactFlowProvider>

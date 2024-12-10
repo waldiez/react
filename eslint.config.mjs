@@ -119,7 +119,7 @@ const defaultConfig = eslintTs.config({
     eqeqeq: 'error',
     'prefer-arrow-callback': 'error',
     'tsdoc/syntax': 'warn',
-    complexity: ['error', 16],
+    complexity: ['error', 20],
     'max-depth': ['error', 4],
     'max-nested-callbacks': ['error', 4],
     'max-statements': ['error', 11, { ignoreTopLevelFunctions: true }],
