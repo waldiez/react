@@ -4,9 +4,6 @@ import { WaldiezEdgeLlmSummaryMethod, WaldiezEdgeType } from '@waldiez/models';
 
 export const useWaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
   const { data, edgeType, onDataChange } = props;
-  const onLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onDataChange({ label: e.target.value });
-  };
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onDataChange({ description: e.target.value });
   };
@@ -72,8 +69,8 @@ export const useWaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
     }
     return 'System';
   };
-  const summaryMethodLabel = summaryMethodMapping[data.summary.method ?? 'none'];
-  const summaryRoleValue = data?.summary.args?.summary_role ?? 'system';
+  const summaryMethodLabel = summaryMethodMapping[data.summary?.method ?? 'none'];
+  const summaryRoleValue = data.summary?.args?.summary_role ?? 'system';
   const summaryRoleLabel = getEdgeSummaryLabel();
   const chatTypeLabel = edgeTypeOptions.find(option => option.value === edgeType)?.label as string;
   const currentSelectedChatType = {
@@ -88,7 +85,6 @@ export const useWaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
     summaryRoleValue,
     summaryRoleLabel,
     currentSelectedChatType,
-    onLabelChange,
     onDescriptionChange,
     onClearHistoryChange,
     onMaxTurnsChange,

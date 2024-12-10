@@ -13,8 +13,6 @@ describe('WaldiezEdgeModalTab basic', () => {
     const chatTypeSelect = screen.getByLabelText('Chat Type:');
     expect(chatTypeSelect).toBeInTheDocument();
     selectEvent.openMenu(chatTypeSelect);
-    // { label: 'Chat', value: 'chat' },
-    // { label: 'Nested Chat', value: 'nested' }
     await selectEvent.select(chatTypeSelect, 'Nested Chat');
     fireEvent.change(chatTypeSelect, {
       label: 'Nested Chat',
@@ -22,27 +20,23 @@ describe('WaldiezEdgeModalTab basic', () => {
     });
     // no "Message" tab in the modal, "Nested Chat" tab is present
   });
-  it('Updates edge label', () => {
-    renderEdge('chat');
-    const labelInput = screen.getByTestId(`edge-${edgeId}-label-input`) as HTMLInputElement;
-    fireEvent.change(labelInput, { target: { value: 'Updated label' } });
-    expect(labelInput.value).toBe('Updated label');
-  });
   it('discards changes on cancel', () => {
     renderEdge('chat');
-    const labelInput = screen.getByTestId(`edge-${edgeId}-label-input`) as HTMLInputElement;
-    fireEvent.change(labelInput, { target: { value: 'Updated label' } });
+    const labelDescription = screen.getByTestId(`edge-${edgeId}-description-input`) as HTMLTextAreaElement;
+    fireEvent.change(labelDescription, { target: { value: 'Updated description' } });
     const cancelButton = screen.getByTestId('modal-cancel-btn');
     fireEvent.click(cancelButton);
     // open again the modal
     fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
-    const labelInputAfterCancel = screen.getByTestId(`edge-${edgeId}-label-input`) as HTMLInputElement;
-    expect(labelInputAfterCancel.value).toBe('Edge label');
+    const labelDescriptionAfterCancel = screen.getByTestId(
+      `edge-${edgeId}-description-input`
+    ) as HTMLTextAreaElement;
+    expect(labelDescriptionAfterCancel.value).toBe('Edge description');
   });
   it('Stores changes on submit', async () => {
     renderEdge('chat');
-    const labelInput = screen.getByTestId(`edge-${edgeId}-label-input`) as HTMLInputElement;
-    fireEvent.change(labelInput, { target: { value: 'Updated label' } });
+    const labelDescription = screen.getByTestId(`edge-${edgeId}-description-input`) as HTMLTextAreaElement;
+    fireEvent.change(labelDescription, { target: { value: 'Updated description' } });
     const chatTypeSelect = screen.getByLabelText('Chat Type:');
     selectEvent.openMenu(chatTypeSelect);
     await selectEvent.select(chatTypeSelect, 'Nested Chat');
@@ -54,8 +48,10 @@ describe('WaldiezEdgeModalTab basic', () => {
     fireEvent.click(submitButton);
     // open again the modal
     fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
-    const labelInputAfterSubmit = screen.getByTestId(`edge-${edgeId}-label-input`) as HTMLInputElement;
-    expect(labelInputAfterSubmit.value).toBe('Updated label');
+    const labelDescriptionAfterSubmit = screen.getByTestId(
+      `edge-${edgeId}-description-input`
+    ) as HTMLTextAreaElement;
+    expect(labelDescriptionAfterSubmit.value).toBe('Updated description');
   });
   it('Updates edge description', () => {
     renderEdge('chat');
@@ -124,13 +120,5 @@ describe('WaldiezEdgeModalTab basic', () => {
     fireEvent.change(llmSummaryRoleSelect, {
       target: { label: 'Assistant', value: 'assistant' }
     });
-  });
-});
-describe('WaldiezEdgeModalTabGroup', () => {
-  it('updates a group chat label', () => {
-    renderEdge('group');
-    const labelInput = screen.getByTestId(`edge-${edgeId}-label-input`) as HTMLInputElement;
-    fireEvent.change(labelInput, { target: { value: 'Updated label' } });
-    expect(labelInput.value).toBe('Updated label');
   });
 });
