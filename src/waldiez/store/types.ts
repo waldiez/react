@@ -25,8 +25,6 @@ import { ImportedFlow, ThingsToImport } from '@waldiez/store/importing/types';
 export * from '@waldiez/store/importing/types';
 
 export type WaldiezStoreProps = {
-  viewport?: Viewport;
-  rfInstance?: ReactFlowInstance;
   flowId: string;
   name: string;
   description: string;
@@ -37,6 +35,8 @@ export type WaldiezStoreProps = {
   tags: string[];
   edges: Edge[]; // only react flow related (no data)
   nodes: Node[]; // only react flow related (no data)
+  rfInstance?: ReactFlowInstance;
+  viewport?: Viewport;
   onUpload?: ((files: File[]) => Promise<string[]>) | null; // handler for file uploads (send to backend)
   onChange?: ((content: string) => void) | null; // handler for changes in the flow (send to backend)
   onSave?: ((flow: string) => void) | null; // handler for saving the flow (send to backend)
