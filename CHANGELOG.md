@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- Added optional props:
+  - onSave (listens for 'ctrl+s/mod+s' keypress)
+  - onConvert: adds two icons (python,jupyter) to the panel
+- Updated context: Make the flow view re-render if the flowId changes
+- Added typings for 'importFlow'
+- Dev dependencies update
+
 ## v0.1.19
 
 - Updated @xyflow/react to 12.3.6
