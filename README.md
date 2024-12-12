@@ -29,8 +29,9 @@ bun add @waldiez/react
     "react": "^18.3.1 || ^19.0.0",
     "react-dom": "^18.3.1 || ^19.0.0",
     "react-error-boundary": "^4.1.2",
-    "react-icons": "^5.3.0",
-    "react-select": "^5.8.3",
+    "react-hotkeys-hook": "^4.6.1",
+    "react-icons": "^5.4.0",
+    "react-select": "^5.9.0",
     "zundo": "^2.3.0",
     "zustand": "^5.0.2"
 }
