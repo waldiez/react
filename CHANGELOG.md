@@ -2,12 +2,15 @@
 
 ## [Unreleased]
 
+## v0.1.20
+
 - Added optional props:
   - onSave (listens for 'ctrl+s/mod+s' keypress)
   - onConvert: adds two icons (python,jupyter) to the panel
 - Updated context: Make the flow view re-render if the flowId changes
 - Added typings for 'importFlow'
 - Updated react-select to 5.9.0
+- Minor styling changes
 - Dev dependencies update
 
 ## v0.1.19
