@@ -172,7 +172,7 @@ if (!vsPath) {
 /**
  * Other props:
  *  we can use:
- * `import { importFlow } from '@waldiez';`
+ * `import { importFlow } from '@waldiez/react';`
  *  to import an existing flow from a waldiez/json file
  *  then we can pass the additional props:
  *    - edges: Edge[];  initial edges to render
