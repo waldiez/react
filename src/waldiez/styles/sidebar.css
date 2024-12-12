@@ -122,6 +122,7 @@
   border-radius: 5px;
   margin: 4px;
   cursor: grab;
+  -webkit-user-select: none;
   user-select: none;
   display: flex;
   width: 100%;
