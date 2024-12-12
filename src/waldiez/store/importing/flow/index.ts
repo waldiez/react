@@ -1,15 +1,16 @@
-import { Edge, Node, Viewport } from '@xyflow/react';
+import { Edge, Node } from '@xyflow/react';
 
 import { getFlowChats } from '@waldiez/store/importing/chat';
 import { getEntryMeta } from '@waldiez/store/importing/common';
 import { getFlowEdges } from '@waldiez/store/importing/flow/edges';
 import { getFlowAgents, getFlowExportedNodes, getFlowNodes } from '@waldiez/store/importing/flow/nodes';
 import { getFlowViewPort } from '@waldiez/store/importing/flow/viewport';
+import { WaldiezImportProps } from '@waldiez/store/types';
 
 export { loadFlow } from '@waldiez/store/importing/flow/load';
 
-const emptyFlow = {
-  id: undefined,
+const emptyFlow: WaldiezImportProps = {
+  flowId: undefined,
   storageId: undefined,
   nodes: [],
   edges: [],
@@ -18,21 +19,9 @@ const emptyFlow = {
   description: 'A waldiez flow',
   tags: [],
   requirements: []
-} as {
-  id: string | undefined;
-  nodes: Node[];
-  edges: Edge[];
-  viewport: Viewport;
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  storageId?: string;
-  createdAt?: string;
-  updatedAt?: string;
 };
 
-export const importFlow = (thing: any) => {
+export const importFlow: (thing: unknown) => WaldiezImportProps = thing => {
   if (typeof thing === 'string') {
     try {
       thing = JSON.parse(thing);
@@ -70,7 +59,7 @@ export const importFlow = (thing: any) => {
   if (nodes.length === 0) {
     return {
       ...emptyFlow,
-      id,
+      flowId: id,
       name,
       description,
       tags,
@@ -81,7 +70,7 @@ export const importFlow = (thing: any) => {
     };
   }
   return {
-    id,
+    flowId: id,
     nodes,
     edges,
     viewport,

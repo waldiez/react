@@ -29,8 +29,9 @@ bun add @waldiez/react
     "react": "^18.3.1 || ^19.0.0",
     "react-dom": "^18.3.1 || ^19.0.0",
     "react-error-boundary": "^4.1.2",
-    "react-icons": "^5.3.0",
-    "react-select": "^5.8.3",
+    "react-hotkeys-hook": "^4.6.1",
+    "react-icons": "^5.4.0",
+    "react-select": "^5.9.0",
     "zundo": "^2.3.0",
     "zustand": "^5.0.2"
 }
@@ -50,15 +51,25 @@ const isProd = import.meta.env.PROD;
 
 // the actions should be handled by other components
 // that use `Waldiez` as a child component
-
 /**
  *OnChange
  */
 const onChange = null;
 // const onChange = (flowJson: any) => {
-//     console.info(JSON.stringify(JSON.parse(flowJson), null, 2));
+//   console.info(JSON.stringify(JSON.parse(flowJson), null, 2));
 // };
 
+/**
+ * OnSave
+ * if enabled, add a listener for the key combination (ctrl+s/mod+s)
+ * to save the flow
+ * the flow string is the JSON stringified flow
+ * the action should be handled by the parent component
+ */
+const onSaveDev = (flowString: string) => {
+  console.info('saving', flowString);
+};
+const onSave = isProd ? null : onSaveDev;
 /**
  * UserInput
  */
@@ -103,6 +114,20 @@ const onRunDev = (flowString: string) => {
 const onRun = isProd ? null : onRunDev;
 
 /**
+ * OnConvert
+ * adds two buttons to the main panel, to convert the flow to python or jupyter notebook
+ * The action should be handled by the parent component
+ * the flow string is the JSON stringified flow
+ * the `to` parameter is either 'py' or 'ipynb'
+ * the conversion happens in the python part / backend
+ */
+
+const onConvertDev = (_flowString: string, to: 'py' | 'ipynb') => {
+  console.info('converting to', to);
+};
+const onConvert = isProd ? null : onConvertDev;
+
+/**
  * OnUpload
  * on RAG user: adds a dropzone to upload files
  * when triggered, the files are sent to the backend,
@@ -138,28 +163,26 @@ const onUpload = isProd ? null : onUploadDev;
 // PROD:
 //  either served and `VITE_VS_PATH` is set to the path, or
 //  use the default cdn (jsdelivr) that monaco loader uses
-const vsPath = isProd ? (import.meta.env.VS_PATH ?? null) : 'vs';
+// make sure the csp allows the cdn
+let vsPath = !isProd ? 'vs' : (import.meta.env.VITE_VS_PATH ?? null);
+if (!vsPath) {
+  // if set to empty string, make it null
+  vsPath = null;
+}
 /**
  * Other props:
  *  we can use:
- *  `import { importFlow } from '@waldiez/react';`
- *  const flowJson = JSON.parse(flowJsonString);
- *  const flow = importFlow(flowJson);
- *  to import a flow from a waldiez/json file
+ * `import { importFlow } from '@waldiez/react';`
+ *  to import an existing flow from a waldiez/json file
  *  then we can pass the additional props:
- *    - edges: Edge[];  // initial edges to render (flow.edges)
- *    - nodes: Node[];  // initial nodes to render (flow.nodes)
- *    - name: string;  // flow name (flow.name)
- *    - description: string; // flow description (flow.description)
- *    - tags: string[];  // flow tags (flow.tags)
- *    - requirements: string[];  // flow requirements (flow.requirements)
- *    - createdAt?: string;  // flow createdAt (flow.createdAt)
- *    - updatedAt?: string;  // flow updatedAt (flow.updatedAt)
- *    - viewport: Viewport;  // initial viewport (flow.viewport)
- *    - flowId: string;  // a specific id for the flow
- *    - storageId: string;  // storage id to use for getting/setting
- *             the theme mode (light/dark) and
- *             the sidebar state (open/closed)
+ *    - edges: Edge[];  initial edges to render
+ *    - nodes: Node[];  initial nodes to render
+ *    - name: string;
+ *    - description: string;
+ *    - tags: string[];
+ *    - requirements: string[];
+ *    - createdAt?: string;
+ *    - updatedAt?: string;
  */
 
 const startApp = () => {
@@ -172,8 +195,10 @@ const startApp = () => {
         storageId="storage-0"
         inputPrompt={inputPrompt}
         onRun={onRun}
+        onConvert={onConvert}
         onChange={onChange}
         onUpload={onUpload}
+        onSave={onSave}
       />
     </React.StrictMode>
   );

@@ -11,6 +11,8 @@ import { WaldiezProvider } from '@waldiez/store';
 export const onRun = vi.fn();
 export const onChange = vi.fn();
 export const onUserInput = vi.fn();
+export const onConvert = vi.fn();
+export const onSave = vi.fn();
 
 export const assistantDataTransfer = {
   setData: vi.fn(),
@@ -116,6 +118,7 @@ export const renderFlow = (
           createdAt={createdAt}
           updatedAt={updatedAt}
           onChange={onChange}
+          onSave={onSave}
         >
           <WaldiezFlow
             flowId={flowId}
@@ -124,6 +127,8 @@ export const renderFlow = (
             onRun={onRun}
             onUserInput={onUserInput}
             inputPrompt={null}
+            onConvert={onConvert}
+            onSave={onSave}
           />
         </WaldiezProvider>
       </ReactFlowProvider>

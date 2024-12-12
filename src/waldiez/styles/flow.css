@@ -22,6 +22,14 @@
   margin-right: 0.5rem;
 }
 
+.flow-wrapper .editor-nav-action {
+  padding: 10px;
+}
+
+.flow-wrapper .editor-nav-action svg {
+  font-size: 1.3rem;
+}
+
 .flow-wrapper .flow-order-item-wrapper {
   display: flex;
   align-items: center;

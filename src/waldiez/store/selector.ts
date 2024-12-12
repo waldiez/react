@@ -71,6 +71,7 @@ export const selector = (store: WaldiezState) => ({
   importAgent: store.importAgent,
   exportAgent: store.exportAgent,
   // flow
+  saveFlow: store.saveFlow,
   getFlowInfo: store.getFlowInfo,
   updateFlow: store.updateFlow,
   updateFlowOrder: store.updateFlowOrder,
@@ -80,5 +81,6 @@ export const selector = (store: WaldiezState) => ({
   onViewportChange: store.onViewportChange,
   onUpload: store.onUpload,
   onChange: store.onChange,
+  onSave: store.onSave,
   onFlowChanged: store.onFlowChanged
 });

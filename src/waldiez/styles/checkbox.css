@@ -59,9 +59,9 @@
   height: 0.6rem;
   border: solid;
   border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .flow-wrapper .checkbox-label input:indeterminate ~ .checkbox::after {

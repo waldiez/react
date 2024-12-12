@@ -105,21 +105,21 @@ describe('WaldiezFlow', () => {
     act(() => {
       renderFlow();
     });
-    await userEvent.click(screen.getByTestId('run-flow'));
+    await userEvent.click(screen.getByTestId(`run-${flowId}`));
     expect(onRun).toBeCalledTimes(1);
   });
   it('should not call on run if there is no agent node', async () => {
     act(() => {
       renderFlow(true, false, true);
     });
-    await userEvent.click(screen.getByTestId('run-flow'));
+    await userEvent.click(screen.getByTestId(`run-${flowId}`));
     expect(onRun).not.toBeCalled();
   });
   it('should not call on run if there is one agent node', async () => {
     act(() => {
       renderFlow(false, true);
     });
-    await userEvent.click(screen.getByTestId('run-flow'));
+    await userEvent.click(screen.getByTestId(`run-${flowId}`));
     expect(onRun).not.toBeCalled();
   });
   it('should toggle dark mode', () => {

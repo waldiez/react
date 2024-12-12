@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import { WaldiezContext, WaldiezStore, createWaldiezStore } from '@waldiez/store';
 import { WaldiezStoreProps } from '@waldiez/types';
@@ -32,8 +32,9 @@ export function WaldiezProvider({
   const storageId = props.storageId;
   const onUpload = props.onUpload ?? null;
   const onChange = props.onChange ?? null;
+  const onSave = props.onSave ?? null;
   const rfInstance = props.rfInstance;
-  if (!storeRef.current) {
+  const store = useMemo(() => {
     storeRef.current = createWaldiezStore({
       flowId,
       name,
@@ -47,8 +48,10 @@ export function WaldiezProvider({
       edges,
       rfInstance,
       onUpload,
-      onChange
+      onChange,
+      onSave
     });
-  }
-  return <WaldiezContext.Provider value={storeRef.current}>{children}</WaldiezContext.Provider>;
+    return storeRef.current;
+  }, [flowId]);
+  return <WaldiezContext.Provider value={store}>{children}</WaldiezContext.Provider>;
 }

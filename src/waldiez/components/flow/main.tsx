@@ -2,7 +2,9 @@ import { Background, BackgroundVariant, Controls, Panel, ReactFlow } from '@xyfl
 
 import { useEffect, useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
+import { FaPython } from 'react-icons/fa6';
 import { FaCirclePlay } from 'react-icons/fa6';
+import { SiJupyter } from 'react-icons/si';
 
 import { useDnD, useFlowEvents, useKeys, useRun, useTheme } from '@waldiez/components/flow/hooks';
 import { UserInputModal } from '@waldiez/components/flow/modals';
@@ -15,13 +17,14 @@ import { selector } from '@waldiez/store/selector';
 import { isDarkMode, setDarkMode } from '@waldiez/theme';
 
 export const WaldiezFlow = (props: WaldiezFlowProps) => {
-  const { flowId, storageId, onRun: runner, inputPrompt, onUserInput } = props;
+  const { flowId, storageId, onRun: runner, inputPrompt, onUserInput, onConvert, onSave } = props;
   const store = useWaldiezContext(selector);
   const showNodes = useWaldiezContext(selector => selector.showNodes);
   const onFlowChanged = useWaldiezContext(selector => selector.onFlowChanged);
   const includeRunButton = typeof runner === 'function';
+  const includeConvertIcons = typeof onConvert === 'function';
   const { isDark, onThemeToggle } = useTheme(flowId, storageId);
-  const { onKeyDown } = useKeys(flowId);
+  const { onKeyDown } = useKeys(flowId, onSave);
   const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>('agent');
   const {
     onAddNode,
@@ -49,6 +52,14 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
     showNodes('agent');
     setDarkMode(flowId, storageId, isDarkMode(flowId, storageId), true);
   }, []);
+  const convertToPy = () => {
+    const flow = onFlowChanged();
+    onConvert?.(JSON.stringify(flow), 'py');
+  };
+  const convertToIpynb = () => {
+    const flow = onFlowChanged();
+    onConvert?.(JSON.stringify(flow), 'ipynb');
+  };
   const colorMode = isDark ? 'dark' : 'light';
   const rfInstance = store.get().rfInstance;
   const nodes = store.get().nodes;
@@ -108,17 +119,39 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
                 </button>
               </Panel>
             )}
-            {includeRunButton && (
+            {(includeRunButton || includeConvertIcons) && (
               <Panel position="top-right">
                 <div className="editor-nav-actions">
-                  <button
-                    className="editor-nav-action"
-                    onClick={onRun}
-                    title="Run flow"
-                    data-testid="run-flow"
-                  >
-                    <FaCirclePlay />
-                  </button>
+                  {includeConvertIcons && (
+                    <button
+                      className="editor-nav-action to-python"
+                      onClick={convertToPy}
+                      title="Convert to Python"
+                      data-testid={`convert-${flowId}-to-py`}
+                    >
+                      <FaPython />
+                    </button>
+                  )}
+                  {includeConvertIcons && (
+                    <button
+                      className="editor-nav-action to-jupyter"
+                      onClick={convertToIpynb}
+                      title="Convert to Jupyter Notebook"
+                      data-testid={`convert-${flowId}-to-ipynb`}
+                    >
+                      <SiJupyter />
+                    </button>
+                  )}
+                  {includeRunButton && (
+                    <button
+                      className="editor-nav-action"
+                      onClick={onRun}
+                      title="Run flow"
+                      data-testid={`run-${flowId}`}
+                    >
+                      <FaCirclePlay />
+                    </button>
+                  )}
                 </div>
               </Panel>
             )}
