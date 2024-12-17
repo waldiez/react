@@ -26,6 +26,7 @@ export const WaldiezAgentRagUserTextSplit = (props: {
           }
         />
         <input
+          title="Chunk token size"
           type="number"
           value={retrieveConfig.chunkTokenSize ?? ''}
           onChange={onChunkTokenSizeChange}
@@ -41,6 +42,7 @@ export const WaldiezAgentRagUserTextSplit = (props: {
           }
         />
         <input
+          title="Context max tokens"
           type="number"
           value={retrieveConfig.contextMaxTokens ?? ''}
           onChange={onContextMaxTokensChange}

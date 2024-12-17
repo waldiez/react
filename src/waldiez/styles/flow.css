@@ -16,14 +16,17 @@
 .flow-wrapper .add-node {
   display: flex;
   align-items: center;
+  background-color: transparent !important;
 }
 
 .flow-wrapper .add-node svg {
   margin-right: 0.5rem;
+  font-size: 1rem !important;
 }
 
 .flow-wrapper .editor-nav-action {
   padding: 10px;
+  background-color: transparent !important;
 }
 
 .flow-wrapper .editor-nav-action svg {

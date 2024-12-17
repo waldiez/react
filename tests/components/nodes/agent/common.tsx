@@ -117,7 +117,7 @@ export const renderAgent = (
   const agentElement = screen.getByTestId(`agent-node-${agentId}-view`);
   expect(agentElement).toBeInTheDocument();
   if (openModal) {
-    const editButton = screen.getByTestId(`open-node-modal-${agentId}`);
+    const editButton = screen.getByTestId(`open-agent-node-modal-${agentId}`);
     fireEvent.click(editButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
   }

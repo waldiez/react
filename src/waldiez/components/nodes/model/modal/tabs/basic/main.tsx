@@ -28,9 +28,16 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
         Make sure that the model's name is a valid name (based on the provider).
       </div>
       <label>Name:</label>
-      <input type="text" value={label} onChange={onLabelChange} />
+      <input
+        type="text"
+        value={label}
+        onChange={onLabelChange}
+        title="Model name"
+        data-testid="model-name-input"
+      />
       <label>Description:</label>
       <textarea
+        title="Model description"
         rows={2}
         value={description}
         onChange={onDescriptionChange}
@@ -63,6 +70,7 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
           data-testid="model-api-key-input"
         />
         <button
+          type="button"
           className="visibilityWrapperBtn"
           onClick={onApiKeyVisibleChange}
           title="Toggle visibility"
@@ -74,6 +82,7 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
       <InfoLabel label="Base URL:" info="Model's base URL (including version)" />
       {urlIsEditable ? (
         <input
+          title="Model base URL"
           type="text"
           value={baseUrl ?? ''}
           onChange={onBaseUrlChange}
@@ -82,6 +91,7 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
       ) : (
         <input
           type="text"
+          title="Model base URL"
           readOnly
           disabled
           value={readOnlyBaseUrl}

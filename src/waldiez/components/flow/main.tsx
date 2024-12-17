@@ -109,6 +109,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
             {selectedNodeType !== 'agent' && (
               <Panel position="top-left">
                 <button
+                  type="button"
                   className="editor-nav-action add-node currentColor"
                   onClick={onAddNode}
                   title={`Add ${selectedNodeType}`}
@@ -124,6 +125,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
                 <div className="editor-nav-actions">
                   {includeConvertIcons && (
                     <button
+                      type="button"
                       className="editor-nav-action to-python"
                       onClick={convertToPy}
                       title="Convert to Python"
@@ -134,6 +136,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
                   )}
                   {includeConvertIcons && (
                     <button
+                      type="button"
                       className="editor-nav-action to-jupyter"
                       onClick={convertToIpynb}
                       title="Convert to Jupyter Notebook"
@@ -144,6 +147,7 @@ export const WaldiezFlow = (props: WaldiezFlowProps) => {
                   )}
                   {includeRunButton && (
                     <button
+                      type="button"
                       className="editor-nav-action"
                       onClick={onRun}
                       title="Run flow"

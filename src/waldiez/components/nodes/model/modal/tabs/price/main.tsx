@@ -16,6 +16,7 @@ export const WaldiezNodeModelModalPriceTab = (props: WaldiezNodeModelModalPriceT
           <div className="flex-column">
             <label>Prompt price per 1K tokens:</label>
             <input
+              title="Prompt price per 1K tokens"
               type="number"
               min="-1"
               className="number-max-width"
@@ -27,6 +28,7 @@ export const WaldiezNodeModelModalPriceTab = (props: WaldiezNodeModelModalPriceT
           <div className="flex-column">
             <label>Completion price per 1K tokens:</label>
             <input
+              title="Completion price per 1K tokens"
               type="number"
               min="-1"
               className="number-max-width"

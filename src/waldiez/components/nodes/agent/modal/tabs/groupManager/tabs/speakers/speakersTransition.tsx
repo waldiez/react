@@ -75,6 +75,8 @@ export const GroupManagerSpeakersTransition = (props: {
             inputId={`manager-speakers-transition-to-${id}`}
           />
           <button
+            type="button"
+            title="Add"
             className="manager-speakers-add-transition margin-left-10 margin-bottom-10"
             disabled={!transitionSource || transitionTargets.length === 0}
             onClick={onAddTransition}
@@ -96,6 +98,8 @@ export const GroupManagerSpeakersTransition = (props: {
                 </div>
               </div>
               <button
+                type="button"
+                title="Remove"
                 className="margin-left-10"
                 onClick={onRemoveTransition.bind(null, source)}
                 data-testid={`manager-speakers-remove-transition-${id}-${index}`}

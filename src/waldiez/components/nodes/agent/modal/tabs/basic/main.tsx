@@ -35,6 +35,7 @@ export const WaldiezAgentBasic = (props: WaldiezAgentBasicProps) => {
       />
       <label>Description:</label>
       <textarea
+        title="Agent description"
         rows={2}
         value={data.description}
         onChange={onDescriptionChange}
@@ -42,6 +43,7 @@ export const WaldiezAgentBasic = (props: WaldiezAgentBasicProps) => {
       />
       <label>System Message:</label>
       <textarea
+        title="System message"
         rows={2}
         value={data.systemMessage ?? ''}
         onChange={onSystemMessageChange}

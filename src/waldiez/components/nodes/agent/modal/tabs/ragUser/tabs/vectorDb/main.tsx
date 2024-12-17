@@ -34,6 +34,7 @@ export const WaldiezAgentRagUserVectorDb = (props: {
       <InfoLabel label="Embedding Model:" info={getEmbeddingModelInfoView} />
       <input
         type="text"
+        title="Embedding model"
         value={retrieveConfig.dbConfig.model ?? modelNameMapping[retrieveConfig.vectorDb]}
         onChange={onModelChange}
         data-testid={`rag-vector-db-model-${id}`}
@@ -62,6 +63,7 @@ export const WaldiezAgentRagUserVectorDb = (props: {
                 <>
                   <label>Storage Path:</label>
                   <input
+                    title="Storage path"
                     type="text"
                     value={retrieveConfig.dbConfig.localStoragePath ?? ''}
                     onChange={onQdrantLocalStoragePathChange}
@@ -75,6 +77,7 @@ export const WaldiezAgentRagUserVectorDb = (props: {
             <div className="flex-column">
               <label>Connection URL:</label>
               <input
+                title="Connection URL"
                 type="text"
                 value={retrieveConfig.dbConfig.connectionUrl ?? ''}
                 onChange={onDbConfigConnectionUrlChange}
@@ -99,6 +102,7 @@ export const WaldiezAgentRagUserVectorDb = (props: {
             <>
               <label>Storage Path:</label>
               <input
+                title="Storage path"
                 type="text"
                 value={retrieveConfig.dbConfig.localStoragePath ?? ''}
                 onChange={onChromaLocalStoragePathChange}
@@ -121,6 +125,7 @@ export const WaldiezAgentRagUserVectorDb = (props: {
           />
           <input
             type="text"
+            title="Connection URL"
             value={retrieveConfig.dbConfig.connectionUrl ?? ''}
             onChange={onDbConfigConnectionUrlChange}
             data-testid={`rag-vector-db-connection-url-${id}`}

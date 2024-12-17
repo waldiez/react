@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## v0.1.21
+
+- Updated the sidebar view: Toggling, keep bottom icons visible
+- Styling updates
+- Dev Dependency updates
+
 ## v0.1.20
 
 - Added optional props:

@@ -58,10 +58,18 @@ export const EditFlowModal = (props: EditFlowModalProps) => {
         </TabItem>
       </TabItems>
       <div className="modal-actions">
-        <button className="modal-action-cancel" onClick={onCancel} data-testid="edit-flow-cancel-button">
+        <button
+          className="modal-action-cancel"
+          onClick={onCancel}
+          data-testid="edit-flow-cancel-button"
+          type="button"
+          title="Cancel"
+        >
           Cancel
         </button>
         <button
+          type="button"
+          title="Save"
           className="modal-action-submit"
           onClick={onSubmit}
           data-testid="edit-flow-submit-button"

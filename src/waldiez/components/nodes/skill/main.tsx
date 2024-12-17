@@ -28,9 +28,10 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
       <div className="skill-header">
         <div
           role="button"
+          title="Edit"
           className="clickable"
-          id={`open-node-modal-${id}`}
-          data-testid={`open-node-modal-${id}`}
+          id={`open-skill-node-modal-${id}`}
+          data-testid={`open-skill-node-modal-${id}`}
           onClick={onOpen}
         >
           <FaGear />
@@ -48,6 +49,7 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
       <div className="skill-footer" data-testid={`skill-footer-${id}`}>
         <div
           role="button"
+          title="Delete"
           className="clickable"
           id={`delete-node-${id}`}
           data-testid={`delete-node-${id}`}
@@ -57,6 +59,7 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
         </div>
         <div
           role="button"
+          title="Clone"
           className="clickable"
           id={`clone-node-${id}`}
           data-testid={`clone-node-${id}`}

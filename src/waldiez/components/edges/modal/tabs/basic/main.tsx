@@ -43,6 +43,7 @@ export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
       <textarea
         rows={2}
         defaultValue={data.description}
+        placeholder="Enter a description"
         onChange={onDescriptionChange}
         data-testid={`edge-${edgeId}-description-input`}
       />
@@ -109,6 +110,7 @@ export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
             <>
               <InfoLabel label="Summary Prompt:" info="The prompt to be used for the summary generation." />
               <textarea
+                placeholder="Enter the summary prompt"
                 rows={2}
                 defaultValue={data.summary.prompt}
                 onChange={onLlmPromptChange}

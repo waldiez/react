@@ -26,20 +26,56 @@ exports[`All > should render Waldiez components 1`] = `
             data-testid="sidebar-test-flow"
           >
             <div
-              class="sidebar-toggle"
+              class="sidebar-header"
             >
               <div
-                class="sidebar-toggle-button tooltip-container clickable open"
+                class="clickable"
+                data-testid="edit-flow-test-flow-sidebar-button"
+                role="button"
+                title="Edit flow"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 576 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
+                  />
+                </svg>
+                 
+                <span>
+                  Edit flow
+                </span>
+              </div>
+              <div
+                aria-hidden="true"
+                class="sidebar-toggle"
                 data-testid="sidebar-toggle"
                 role="button"
               >
-                <div />
-                <div />
-                <span
-                  class="tooltip"
+                <svg
+                  aria-hidden="true"
+                  class="sidebar-toggle-button tooltip-container clickable"
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 448 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Close sidebar
-                </span>
+                  <title>
+                    Close sidebar
+                  </title>
+                  <path
+                    d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"
+                  />
+                </svg>
               </div>
             </div>
             <div
@@ -47,32 +83,9 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <ul>
                 <li
-                  class="editor-nav-action clickable"
-                  data-testid="edit-flow-test-flow-sidebar-button"
-                  id="edit-flow-test-flow-sidebar-button"
-                  role="button"
-                  title="Edit flow"
-                >
-                  <svg
-                    fill="currentColor"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-width="0"
-                    viewBox="0 0 576 512"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
-                    />
-                  </svg>
-                   Edit flow
-                </li>
-                <li
                   class="clickable"
                   data-node-type="agent"
                   data-testid="show-agents"
-                  role="button"
                 >
                   <svg
                     fill="currentColor"
@@ -87,13 +100,14 @@ exports[`All > should render Waldiez components 1`] = `
                       d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
                     />
                   </svg>
-                  Agents
+                  <span>
+                    Agents
+                  </span>
                 </li>
                 <li
                   class="clickable"
                   data-node-type="model"
                   data-testid="show-models"
-                  role="button"
                 >
                   <svg
                     fill="currentColor"
@@ -110,13 +124,14 @@ exports[`All > should render Waldiez components 1`] = `
                       transform="translate(109 112)"
                     />
                   </svg>
-                  Models
+                  <span>
+                    Models
+                  </span>
                 </li>
                 <li
                   class="clickable"
                   data-node-type="skill"
                   data-testid="show-skills"
-                  role="button"
                 >
                   <svg
                     fill="currentColor"
@@ -131,7 +146,9 @@ exports[`All > should render Waldiez components 1`] = `
                       d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM513.1 518.1l-192 161c-5.2 4.4-13.1.7-13.1-6.1v-62.7c0-2.3 1.1-4.6 2.9-6.1L420.7 512l-109.8-92.2a7.63 7.63 0 0 1-2.9-6.1V351c0-6.8 7.9-10.5 13.1-6.1l192 160.9c3.9 3.2 3.9 9.1 0 12.3zM716 673c0 4.4-3.4 8-7.5 8h-185c-4.1 0-7.5-3.6-7.5-8v-48c0-4.4 3.4-8 7.5-8h185c4.1 0 7.5 3.6 7.5 8v48z"
                     />
                   </svg>
-                  Skills
+                  <span>
+                    Skills
+                  </span>
                 </li>
               </ul>
               <div
@@ -148,6 +165,7 @@ exports[`All > should render Waldiez components 1`] = `
               >
                 <img
                   src="/src/waldiez/assets/user.svg"
+                  title="User Proxy Agent"
                 />
                 User Proxy
               </div>
@@ -158,6 +176,7 @@ exports[`All > should render Waldiez components 1`] = `
               >
                 <img
                   src="/src/waldiez/assets/assistant.svg"
+                  title="Assistant Agent"
                 />
                 Assistant
               </div>
@@ -168,6 +187,7 @@ exports[`All > should render Waldiez components 1`] = `
               >
                 <img
                   src="/src/waldiez/assets/manager.svg"
+                  title="Group Manager Agent"
                 />
                 Group Manager
               </div>
@@ -182,7 +202,6 @@ exports[`All > should render Waldiez components 1`] = `
                 <li
                   class="clickable"
                   data-testid="import-flow-test-flow-sidebar-button"
-                  role="button"
                   title="Import flow"
                 >
                   <svg
@@ -198,12 +217,13 @@ exports[`All > should render Waldiez components 1`] = `
                       d="M128 64c0-35.3 28.7-64 64-64L352 0l0 128c0 17.7 14.3 32 32 32l128 0 0 288c0 35.3-28.7 64-64 64l-256 0c-35.3 0-64-28.7-64-64l0-112 174.1 0-39 39c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l39 39L128 288l0-224zm0 224l0 48L24 336c-13.3 0-24-10.7-24-24s10.7-24 24-24l104 0zM512 128l-128 0L384 0 512 128z"
                     />
                   </svg>
-                   Import
+                  <span>
+                    Import
+                  </span>
                 </li>
                 <li
                   class="clickable"
                   data-testid="export-flow-test-flow-sidebar-button"
-                  role="button"
                   title="Export flow"
                 >
                   <svg
@@ -219,12 +239,13 @@ exports[`All > should render Waldiez components 1`] = `
                       d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 128-168 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l168 0 0 112c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM384 336l0-48 110.1 0-39-39c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l80 80c9.4 9.4 9.4 24.6 0 33.9l-80 80c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l39-39L384 336zm0-208l-128 0L256 0 384 128z"
                     />
                   </svg>
-                   Export
+                  <span>
+                    Export
+                  </span>
                 </li>
                 <li
                   class="clickable"
                   data-testid="theme-toggle"
-                  role="button"
                   title="Toggle theme"
                 >
                   <svg
@@ -240,12 +261,9 @@ exports[`All > should render Waldiez components 1`] = `
                       d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
                     />
                   </svg>
-                  <div
-                    class="clickable"
-                  >
-                    Dark
-                     mode
-                  </div>
+                  <span>
+                    Toggle theme
+                  </span>
                 </li>
               </ul>
             </div>
@@ -510,20 +528,56 @@ exports[`All > should render Waldiez components 1`] = `
           data-testid="sidebar-test-flow"
         >
           <div
-            class="sidebar-toggle"
+            class="sidebar-header"
           >
             <div
-              class="sidebar-toggle-button tooltip-container clickable open"
+              class="clickable"
+              data-testid="edit-flow-test-flow-sidebar-button"
+              role="button"
+              title="Edit flow"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 576 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
+                />
+              </svg>
+               
+              <span>
+                Edit flow
+              </span>
+            </div>
+            <div
+              aria-hidden="true"
+              class="sidebar-toggle"
               data-testid="sidebar-toggle"
               role="button"
             >
-              <div />
-              <div />
-              <span
-                class="tooltip"
+              <svg
+                aria-hidden="true"
+                class="sidebar-toggle-button tooltip-container clickable"
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Close sidebar
-              </span>
+                <title>
+                  Close sidebar
+                </title>
+                <path
+                  d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"
+                />
+              </svg>
             </div>
           </div>
           <div
@@ -531,32 +585,9 @@ exports[`All > should render Waldiez components 1`] = `
           >
             <ul>
               <li
-                class="editor-nav-action clickable"
-                data-testid="edit-flow-test-flow-sidebar-button"
-                id="edit-flow-test-flow-sidebar-button"
-                role="button"
-                title="Edit flow"
-              >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 576 512"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
-                  />
-                </svg>
-                 Edit flow
-              </li>
-              <li
                 class="clickable"
                 data-node-type="agent"
                 data-testid="show-agents"
-                role="button"
               >
                 <svg
                   fill="currentColor"
@@ -571,13 +602,14 @@ exports[`All > should render Waldiez components 1`] = `
                     d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
                   />
                 </svg>
-                Agents
+                <span>
+                  Agents
+                </span>
               </li>
               <li
                 class="clickable"
                 data-node-type="model"
                 data-testid="show-models"
-                role="button"
               >
                 <svg
                   fill="currentColor"
@@ -594,13 +626,14 @@ exports[`All > should render Waldiez components 1`] = `
                     transform="translate(109 112)"
                   />
                 </svg>
-                Models
+                <span>
+                  Models
+                </span>
               </li>
               <li
                 class="clickable"
                 data-node-type="skill"
                 data-testid="show-skills"
-                role="button"
               >
                 <svg
                   fill="currentColor"
@@ -615,7 +648,9 @@ exports[`All > should render Waldiez components 1`] = `
                     d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM513.1 518.1l-192 161c-5.2 4.4-13.1.7-13.1-6.1v-62.7c0-2.3 1.1-4.6 2.9-6.1L420.7 512l-109.8-92.2a7.63 7.63 0 0 1-2.9-6.1V351c0-6.8 7.9-10.5 13.1-6.1l192 160.9c3.9 3.2 3.9 9.1 0 12.3zM716 673c0 4.4-3.4 8-7.5 8h-185c-4.1 0-7.5-3.6-7.5-8v-48c0-4.4 3.4-8 7.5-8h185c4.1 0 7.5 3.6 7.5 8v48z"
                   />
                 </svg>
-                Skills
+                <span>
+                  Skills
+                </span>
               </li>
             </ul>
             <div
@@ -632,6 +667,7 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <img
                 src="/src/waldiez/assets/user.svg"
+                title="User Proxy Agent"
               />
               User Proxy
             </div>
@@ -642,6 +678,7 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <img
                 src="/src/waldiez/assets/assistant.svg"
+                title="Assistant Agent"
               />
               Assistant
             </div>
@@ -652,6 +689,7 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <img
                 src="/src/waldiez/assets/manager.svg"
+                title="Group Manager Agent"
               />
               Group Manager
             </div>
@@ -666,7 +704,6 @@ exports[`All > should render Waldiez components 1`] = `
               <li
                 class="clickable"
                 data-testid="import-flow-test-flow-sidebar-button"
-                role="button"
                 title="Import flow"
               >
                 <svg
@@ -682,12 +719,13 @@ exports[`All > should render Waldiez components 1`] = `
                     d="M128 64c0-35.3 28.7-64 64-64L352 0l0 128c0 17.7 14.3 32 32 32l128 0 0 288c0 35.3-28.7 64-64 64l-256 0c-35.3 0-64-28.7-64-64l0-112 174.1 0-39 39c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l39 39L128 288l0-224zm0 224l0 48L24 336c-13.3 0-24-10.7-24-24s10.7-24 24-24l104 0zM512 128l-128 0L384 0 512 128z"
                   />
                 </svg>
-                 Import
+                <span>
+                  Import
+                </span>
               </li>
               <li
                 class="clickable"
                 data-testid="export-flow-test-flow-sidebar-button"
-                role="button"
                 title="Export flow"
               >
                 <svg
@@ -703,12 +741,13 @@ exports[`All > should render Waldiez components 1`] = `
                     d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 128-168 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l168 0 0 112c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zM384 336l0-48 110.1 0-39-39c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l80 80c9.4 9.4 9.4 24.6 0 33.9l-80 80c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l39-39L384 336zm0-208l-128 0L256 0 384 128z"
                   />
                 </svg>
-                 Export
+                <span>
+                  Export
+                </span>
               </li>
               <li
                 class="clickable"
                 data-testid="theme-toggle"
-                role="button"
                 title="Toggle theme"
               >
                 <svg
@@ -724,12 +763,9 @@ exports[`All > should render Waldiez components 1`] = `
                     d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
                   />
                 </svg>
-                <div
-                  class="clickable"
-                >
-                  Dark
-                   mode
-                </div>
+                <span>
+                  Toggle theme
+                </span>
               </li>
             </ul>
           </div>

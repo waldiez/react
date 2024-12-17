@@ -30,11 +30,11 @@ html,
 body {
   margin: 0;
   padding: 0;
+  min-height: -webkit-fill-available;
+  min-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
   height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
   height: -webkit-fill-available;
   height: var(--app-height);
-  min-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-  min-height: -webkit-fill-available;
   width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
   width: -webkit-fill-available;
   width: var(--app-width);

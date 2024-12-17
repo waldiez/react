@@ -86,6 +86,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
             </div>
             <div className="edge-body">
               <textarea
+                placeholder="Enter a description"
                 value={data.description}
                 rows={1}
                 data-testid={`edge-${id}-description`}
@@ -94,6 +95,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
             </div>
             <div className="edge-footer edge-actions">
               <div
+                title="Delete"
                 role="button"
                 onClick={onDelete}
                 className="delete-edge clickable"
@@ -102,6 +104,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
                 <FaTrashAlt />
               </div>
               <div
+                title="Edit"
                 role="button"
                 className="open-edge-modal clickable"
                 data-testid={`open-edge-modal-${id}`}

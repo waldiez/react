@@ -20,6 +20,7 @@ export const StringList = (props: StringListProps) => {
         {items?.map((item, index) => (
           <div className="list-entry" key={index}>
             <input
+              placeholder="..."
               type="text"
               value={item}
               data-value={item}
@@ -27,6 +28,7 @@ export const StringList = (props: StringListProps) => {
               data-testid={`list-entry-item-${itemsType}-${index}`}
             />
             <button
+              type="button"
               onClick={onDeleteEntry}
               value={item}
               title="Delete"
@@ -39,12 +41,18 @@ export const StringList = (props: StringListProps) => {
       </div>
       <div className="add-list-entry-view">
         <input
+          placeholder="..."
           type="text"
           value={newEntry}
           onChange={onNewEntryChange}
           data-testid={`new-list-entry-${itemsType}-item`}
         />
-        <button onClick={onAddEntry} title="Add" data-testid={`add-list-entry-${itemsType}-button`}>
+        <button
+          type="button"
+          onClick={onAddEntry}
+          title="Add"
+          data-testid={`add-list-entry-${itemsType}-button`}
+        >
           <FaPlus />
         </button>
       </div>

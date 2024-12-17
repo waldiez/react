@@ -50,13 +50,13 @@ describe('WaldiezNodeSkill', () => {
   });
   it('should open modal', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
   });
   it('should close modal', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const closeButton = screen.getByTestId('modal-close-btn');
     fireEvent.click(closeButton);
@@ -64,7 +64,7 @@ describe('WaldiezNodeSkill', () => {
   });
   it('should export skill', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const exportButton = screen.getByTestId(`export-skill-${flowId}-${skillId}`);
     fireEvent.click(exportButton);
@@ -101,7 +101,7 @@ describe('WaldiezNodeSkill', () => {
   it('should use dark theme for editor', () => {
     getItemSpy.mockReturnValue('{"test-storage":"dark"}');
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const editor = screen.getByTestId('mocked-monaco-editor');
     expect(editor).toHaveClass('vs-dark');
@@ -110,7 +110,7 @@ describe('WaldiezNodeSkill', () => {
   it('should use light theme for editor', () => {
     getItemSpy.mockReturnValue('{"test-storage":"light"}');
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const editor = screen.getByTestId('mocked-monaco-editor');
     expect(editor).toHaveClass('vs-light');
@@ -120,7 +120,7 @@ describe('WaldiezNodeSkill', () => {
 describe('WaldiezNodeSkill data', () => {
   it('should update skill label', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const labelInput = screen.getByTestId(`skill-label-input-${skillId}`);
     fireEvent.change(labelInput, { target: { value: 'new label' } });
@@ -128,7 +128,7 @@ describe('WaldiezNodeSkill data', () => {
   });
   it('should update skill description', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const descriptionInput = screen.getByTestId(`skill-description-input-${skillId}`);
     fireEvent.change(descriptionInput, {
@@ -138,7 +138,7 @@ describe('WaldiezNodeSkill data', () => {
   });
   it('should update skill content', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const contentInput = screen.getByTestId('mocked-monaco-editor');
     fireEvent.change(contentInput, { target: { value: 'new content' } });
@@ -146,7 +146,7 @@ describe('WaldiezNodeSkill data', () => {
   });
   it('should add secret', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const secretKeyInput = screen.getByTestId('new-dict-skill-secret-key');
     const secretValueInput = screen.getByTestId('new-dict-skill-secret-value');
@@ -159,14 +159,14 @@ describe('WaldiezNodeSkill data', () => {
   });
   it('should delete secret', () => {
     renderSkillNode(false, true);
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const deleteSecretButton = screen.getByTestId('delete-dict-item-skill-secret-1');
     fireEvent.click(deleteSecretButton);
   });
   it('should update secrets', () => {
     renderSkillNode(false, true);
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     const secretKeyInput = screen.getByTestId('key-input-skill-secret-1');
     fireEvent.change(secretKeyInput, { target: { value: 'new key' } });
@@ -176,7 +176,7 @@ describe('WaldiezNodeSkill data', () => {
   });
   it('should discard changes on cancel', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     // make a change
     const descriptionInput = screen.getByTestId(`skill-description-input-${skillId}`);
@@ -193,7 +193,7 @@ describe('WaldiezNodeSkill data', () => {
   });
   it('should save changes on submit', () => {
     renderSkillNode();
-    const openButton = screen.getByTestId(`open-node-modal-${skillId}`);
+    const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
     fireEvent.click(openButton);
     // make a change
     const descriptionInput = screen.getByTestId(`skill-description-input-${skillId}`);

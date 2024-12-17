@@ -63,6 +63,8 @@ export const EditFlowModalModalTabBasic = (props: EditFlowModalModalTabBasicProp
               <div className="flow-order-item-actions">
                 {index > 0 && sortedEdges.length > 1 && (
                   <button
+                    type="button"
+                    title="Move up"
                     className="flow-order-item-action"
                     data-testid={`move-edge-up-button-${index}`}
                     onClick={onMoveEdgeUp.bind(null, index)}
@@ -72,6 +74,8 @@ export const EditFlowModalModalTabBasic = (props: EditFlowModalModalTabBasicProp
                 )}
                 {index < sortedEdges.length - 1 && (
                   <button
+                    title="Move down"
+                    type="button"
                     className="flow-order-item-action"
                     data-testid={`move-edge-down-button-${index}`}
                     onClick={onMoveEdgeDown.bind(null, index)}
@@ -81,6 +85,8 @@ export const EditFlowModalModalTabBasic = (props: EditFlowModalModalTabBasicProp
                 )}
                 {sortedEdges.length > 1 && (
                   <button
+                    type="button"
+                    title="Remove"
                     className="flow-order-item-action"
                     data-testid={`remove-edge-button-${index}`}
                     onClick={onRemoveEdge.bind(null, edge)}
@@ -118,6 +124,8 @@ export const EditFlowModalModalTabBasic = (props: EditFlowModalModalTabBasicProp
             />
           </div>
           <button
+            type="button"
+            title="Add chat"
             className="flow-order-add-button"
             disabled={!selectedNewEdge}
             onClick={onAddEdge}

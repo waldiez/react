@@ -35,6 +35,7 @@ export const Dict = (props: DictProps) => {
               defaultValue={key}
               onChange={onKeyChange.bind(null, index)}
               data-testid={`key-input-${itemsType}-${index}`}
+              placeholder="Key"
             />
             <input
               type={areValuesSecret ? (visible[key] ? 'text' : 'password') : 'text'}
@@ -42,9 +43,11 @@ export const Dict = (props: DictProps) => {
               defaultValue={value}
               onChange={onValueChange.bind(null, index)}
               data-testid={`value-input-${itemsType}-${index}`}
+              placeholder="Value"
             />
             {areValuesSecret && (
               <button
+                type="button"
                 className="visibilityWrapperBtn"
                 onClick={onVisibilityChange.bind(null, key)}
                 title="Toggle visibility"
@@ -54,6 +57,7 @@ export const Dict = (props: DictProps) => {
               </button>
             )}
             <button
+              type="button"
               onClick={onDeleteEntry.bind(null, key)}
               title="Delete"
               data-testid={`delete-dict-item-${itemsType}-${index}`}
@@ -61,7 +65,12 @@ export const Dict = (props: DictProps) => {
               <FaTrash />
             </button>
             {isDirty(index) && (
-              <button onClick={onSaveEntry} title="Save" data-testid={`save-dict-item-${itemsType}-${index}`}>
+              <button
+                onClick={onSaveEntry}
+                title="Save"
+                data-testid={`save-dict-item-${itemsType}-${index}`}
+                type="button"
+              >
                 <FaSave />
               </button>
             )}
@@ -85,6 +94,7 @@ export const Dict = (props: DictProps) => {
         />
         {areValuesSecret && (
           <button
+            type="button"
             className="visibilityWrapperBtn"
             onClick={onVisibilityChange.bind(null, '_NEW')}
             title="Toggle visibility"
@@ -93,7 +103,7 @@ export const Dict = (props: DictProps) => {
             {visible['_NEW'] ? <FaEyeSlash /> : <FaEye />}
           </button>
         )}
-        <button onClick={onAddEntry} title="Add" data-testid={`add-new-dict-${itemsType}-item`}>
+        <button onClick={onAddEntry} title="Add" data-testid={`add-new-dict-${itemsType}-item`} type="button">
           <FaPlus />
         </button>
       </div>

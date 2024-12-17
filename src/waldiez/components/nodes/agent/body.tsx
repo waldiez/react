@@ -51,6 +51,7 @@ export const WaldiezNodeAgentBody = (props: WaldiezNodeAgentBodyProps) => {
         <div className="flex-column flex-1 agent-description-view">
           <label>Description:</label>
           <textarea
+            title="Agent description"
             className="nodrag nopan"
             rows={2}
             defaultValue={data.description}
@@ -83,7 +84,7 @@ const getAgentModelsView = (id: string, data: WaldiezAgentNodeData) => {
       {agentModelNames.map((name, index) => (
         <div key={name} className="agent-model-preview" data-testid="agent-model-preview">
           <div className={`agent-model-img ${agentWaldiezModelAPITypes[index]}`}>
-            <img src={agentModelLogos[index]} />
+            <img src={agentModelLogos[index]} title={name} alt={name} />
           </div>
           <div className="agent-model-name" data-testid={`agent-${id}-linked-model-${index}`}>
             {name}

@@ -49,6 +49,7 @@ export const NumberInput = (props: NumberInputProps) => {
     } else {
       return (
         <input
+          placeholder={value !== null ? `${value}` : `${onNullValue}`}
           inputMode="decimal"
           type="number"
           min={min}

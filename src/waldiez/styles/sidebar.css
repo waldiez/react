@@ -6,17 +6,28 @@
   min-width: 200px;
   max-width: 200px;
   height: 100%;
-  margin-top: -10px;
+  transition: width 0.3s ease;
+}
+
+.flow-wrapper.light .flow-main .sidebar {
+  border-right: 1px solid #eee;
+}
+
+.flow-wrapper.dark .flow-main .sidebar {
+  border-right: 1px solid #333;
 }
 
 .flow-wrapper .flow-main .sidebar .sidebar-header {
-  padding: 0;
-  padding-left: 10px;
+  padding: 10px 0 0 10px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999999;
 }
 
-.flow-wrapper .flow-main .sidebar .sidebar-header h3 {
-  margin: 0;
-  padding: 0 0 10px;
+.flow-wrapper .flow-main .sidebar .sidebar-header .sidebar-toggle {
+  padding: 10px;
   font-weight: 600;
 }
 
@@ -26,63 +37,20 @@
 
 .flow-wrapper .flow-main .sidebar svg {
   font-size: larger;
+  height: 1rem;
+  vertical-align: -0.2rem;
 }
 
 .flow-wrapper .flow-main .sidebar.collapsed {
-  width: 1px;
-  min-width: 1px;
-  max-width: 1px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
   height: 100%;
-  padding: 0;
-  visibility: hidden;
 }
 
-.flow-wrapper .flow-main .sidebar .sidebar-toggle {
-  position: relative;
-  top: calc(50% - 15px);
-  left: 100%;
-  width: 30px;
-  height: 20px;
-  display: block;
-  border-radius: 50%;
-  z-index: 1;
-  visibility: visible;
-}
-
-.flow-wrapper .flow-main .sidebar.sidebar.collapsed .sidebar-toggle {
-  visibility: visible;
-}
-
-.flow-wrapper .flow-main .sidebar .sidebar-toggle-button {
-  margin: 0;
-  margin-left: 15px;
-  width: 4px;
-  height: 100%;
-  padding: 0 10px;
-  border: none;
-}
-
-.flow-wrapper .flow-main .sidebar .sidebar-toggle-button div {
-  width: 100%;
-  height: 52%;
-}
-
-/* "arrow" to the right */
-.flow-wrapper .flow-main .sidebar .sidebar-toggle-button.closed div:nth-child(1) {
-  transform: translate(0, 10px) rotate(10deg);
-}
-
-.flow-wrapper .flow-main .sidebar .sidebar-toggle-button.closed div:nth-child(2) {
-  transform: translate(0, -10px) rotate(-10deg);
-}
-
-/* "arrow" to the left */
-.flow-wrapper .flow-main .sidebar .sidebar-toggle-button.open:hover div:nth-child(1) {
-  transform: translate(0, 10px) rotate(-15deg);
-}
-
-.flow-wrapper .flow-main .sidebar .sidebar-toggle-button.open:hover div:nth-child(2) {
-  transform: translate(0, -10px) rotate(15deg);
+.flow-wrapper .flow-main .sidebar.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 10px;
 }
 
 .flow-wrapper .flow-main .sidebar ul {
@@ -94,13 +62,20 @@
 
 .flow-wrapper .flow-main .sidebar ul li {
   padding: 10px;
-  display: flex;
-  align-items: center;
   cursor: pointer;
 }
 
 .flow-wrapper .flow-main .sidebar ul li :first-child {
   margin-right: 10px;
+}
+
+.flow-wrapper .flow-main .sidebar .sidebar-footer {
+  margin-bottom: 8px;
+}
+
+.flow-wrapper .flow-main .sidebar.sidebar.collapsed .sidebar-footer ul li :first-child {
+  margin-right: 0;
+  margin-top: -2px;
 }
 
 .flow-wrapper .flow-main .sidebar .dnd-description {
@@ -110,6 +85,10 @@
 
 .flow-wrapper .flow-main .sidebar.sidebar.collapsed ul {
   display: none;
+}
+
+.flow-wrapper .flow-main .sidebar.sidebar.collapsed .sidebar-footer ul {
+  display: unset;
 }
 
 .flow-wrapper .flow-main .sidebar.sidebar.collapsed .dnd-description {

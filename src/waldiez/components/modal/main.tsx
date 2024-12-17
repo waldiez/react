@@ -115,10 +115,20 @@ export const Modal = (props: ModalProps) => {
                 Are you sure you want to close this modal? Any unsaved changes will be lost.
               </h4>
               <div className="modal-actions">
-                <button className="modal-action-cancel" onClick={hideConfirmation}>
+                <button
+                  className="modal-action-cancel"
+                  onClick={hideConfirmation}
+                  type="button"
+                  title="Don't Close"
+                >
                   Don't Close
                 </button>
-                <button className="modal-action-submit" onClick={handleCloseModal}>
+                <button
+                  className="modal-action-submit"
+                  onClick={handleCloseModal}
+                  type="button"
+                  title="Close"
+                >
                   Close
                 </button>
               </div>

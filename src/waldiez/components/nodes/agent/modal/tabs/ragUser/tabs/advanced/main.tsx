@@ -26,6 +26,7 @@ export const WaldiezAgentRagUserAdvanced = (props: {
           info={'The customized prompt for the retrieve chat. Default is None.'}
         />
         <textarea
+          title="Customized prompt"
           rows={2}
           value={retrieveConfig.customizedPrompt ?? ''}
           onChange={onCustomizedPromptChange}
@@ -43,6 +44,7 @@ export const WaldiezAgentRagUserAdvanced = (props: {
         />
         <input
           type="text"
+          title="Customized answer prefix"
           value={retrieveConfig.customizedAnswerPrefix ?? ''}
           onChange={onCustomizedAnswerPrefixChange}
           data-testid={`rag-customized-answer-prefix-${id}`}

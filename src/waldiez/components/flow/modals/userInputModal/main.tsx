@@ -17,7 +17,7 @@ export const UserInputModal = (props: UserInputModalProps) => {
       <div className="modal-body">
         {inputPrompt.previousMessages.length > 0 && (
           <div className="console">
-            <div className="console-messages" id={`rf-${flowId}-user-input-modal-console`}>
+            <div className="console-messages" data-flow-id={flowId}>
               {inputPrompt.previousMessages.map((message, index) => (
                 <div className="console-message" key={index}>
                   {message}
@@ -28,6 +28,7 @@ export const UserInputModal = (props: UserInputModalProps) => {
         )}
         <div className="input-prompt">{inputPrompt.prompt}</div>
         <input
+          placeholder="Type your message here"
           type="text"
           id={`rf-${flowId}-user-input-modal-input`}
           data-testid={`rf-${flowId}-user-input-modal-input`}
@@ -35,6 +36,8 @@ export const UserInputModal = (props: UserInputModalProps) => {
       </div>
       <div className="modal-actions">
         <button
+          type="button"
+          title="Cancel"
           className="modal-action-cancel"
           onClick={onCancel}
           data-testid={`rf-${flowId}-user-input-modal-cancel`}
@@ -42,6 +45,8 @@ export const UserInputModal = (props: UserInputModalProps) => {
           Cancel
         </button>
         <button
+          type="button"
+          title="Submit"
           className="modal-action-submit"
           onClick={onSubmit}
           data-testid={`rf-${flowId}-user-input-modal-submit`}

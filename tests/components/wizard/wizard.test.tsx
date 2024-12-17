@@ -36,7 +36,7 @@ describe('Wizard', () => {
     const nextButton = screen.getByText('Next');
     fireEvent.click(nextButton);
     const step2 = screen.getByTestId('step-id-step2');
-    expect(step2).toHaveAttribute('aria-selected', 'true');
+    expect(step2).toHaveClass('wizard-step--active');
   });
 
   it('should disable back button on first step', () => {

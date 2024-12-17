@@ -83,6 +83,7 @@ export const WaldiezAgentRagUserRetrieveConfig = (props: {
         />
         <input
           type="text"
+          title="Collection name"
           value={retrieveConfig.collectionName ?? ''}
           onChange={onCollectionNameChange}
           data-testid={`rag-retrieve-collection-name-${id}`}
@@ -98,6 +99,7 @@ export const WaldiezAgentRagUserRetrieveConfig = (props: {
           }
         />
         <input
+          title="Number of results"
           type="number"
           value={retrieveConfig.n_results ?? ''}
           onChange={onNResultsChange}
@@ -113,6 +115,7 @@ export const WaldiezAgentRagUserRetrieveConfig = (props: {
           }
         />
         <input
+          title="Distance threshold"
           type="number"
           value={retrieveConfig.distanceThreshold ?? -1}
           onChange={onDistanceThresholdChange}

@@ -34,7 +34,8 @@ describe('TabItems', () => {
     };
     render(<TabItems {...tabItemsProps} />);
     const tab2Button = screen.getByTestId('tab-id-tab2');
+    expect(tab2Button).not.toHaveClass('tab-btn--active');
     fireEvent.click(tab2Button);
-    expect(tab2Button).toHaveAttribute('aria-selected', 'true');
+    expect(tab2Button).toHaveClass('tab-btn--active');
   });
 });

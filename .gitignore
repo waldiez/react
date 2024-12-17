@@ -30,3 +30,4 @@ public/monaco_latest_version
 **/.eslintcache
 **/*db
 **/coverage/
+hint-report/

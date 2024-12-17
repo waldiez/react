@@ -37,6 +37,8 @@ export const LoadFlowStep = (props: LoadFlowStepProps) => {
               data-testid={`import-flow-modal-url-input-${flowId}`}
             />
             <button
+              type="button"
+              title="Load flow from URL"
               className="modal-action-submit"
               onClick={onRemoteUrlSubmit}
               data-testid={`import-flow-modal-url-submit-${flowId}`}
@@ -82,6 +84,8 @@ Once we can `Search the hub`
         data-testid={`import-flow-modal-search-input-${flowId}`}
       />
       <button
+        type="button"
+        title="Search"
         className="modal-action-submit"
         onClick={onSearchSubmit}
         data-testid={`import-flow-modal-search-submit-${flowId}`}
