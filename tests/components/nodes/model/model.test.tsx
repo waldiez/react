@@ -40,7 +40,7 @@ const renderModel = (overrides: { [key: string]: any } = {}, openModal: boolean 
     </WaldiezProvider>
   );
   if (openModal) {
-    const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const modalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(modalButton);
   }
 };
@@ -54,7 +54,7 @@ describe('WaldiezModelNode', () => {
   });
   it("should display the model's modal", () => {
     renderModel();
-    const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const modalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(modalButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
   });
@@ -118,7 +118,7 @@ describe('WaldiezModelNode with branches', () => {
   // handle null values/branches in advanced and price tabs
   it('should handle null temperature', () => {
     renderModel({ temperature: null });
-    const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const modalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(modalButton);
     const modalElement = screen.getByTestId(`model-modal-${modelId}`);
     expect(modalElement).toBeInTheDocument();
@@ -128,7 +128,7 @@ describe('WaldiezModelNode with branches', () => {
   });
   it('should handle null topP', () => {
     renderModel({ topP: null });
-    const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const modalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(modalButton);
     const modalElement = screen.getByTestId(`model-modal-${modelId}`);
     expect(modalElement).toBeInTheDocument();
@@ -139,7 +139,7 @@ describe('WaldiezModelNode with branches', () => {
   });
   it('should handle null maxTokens', () => {
     renderModel({ maxTokens: null });
-    const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const modalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(modalButton);
     const modalElement = screen.getByTestId(`model-modal-${modelId}`);
     expect(modalElement).toBeInTheDocument();
@@ -151,7 +151,7 @@ describe('WaldiezModelNode with branches', () => {
     renderModel({
       price: { promptPricePer1k: null, completionTokenPricePer1k: 0.1 }
     });
-    const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const modalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(modalButton);
     const modalElement = screen.getByTestId(`model-modal-${modelId}`);
     expect(modalElement).toBeInTheDocument();
@@ -163,7 +163,7 @@ describe('WaldiezModelNode with branches', () => {
     renderModel({
       price: { promptPricePer1k: 0.05, completionTokenPricePer1k: null }
     });
-    const modalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const modalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(modalButton);
     const modalElement = screen.getByTestId(`model-modal-${modelId}`);
     expect(modalElement).toBeInTheDocument();

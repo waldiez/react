@@ -39,6 +39,7 @@ export const WaldiezSkillNodeModal = (props: WaldiezSkillNodeModalProps) => {
       <div className="modal-body">
         <InfoLabel label="Name:" info="Make sure a function with the same name is defined in the code." />
         <input
+          title="Name"
           type="text"
           value={data.label}
           data-testid={`skill-label-input-${skillId}`}
@@ -46,6 +47,7 @@ export const WaldiezSkillNodeModal = (props: WaldiezSkillNodeModalProps) => {
         />
         <label>Description:</label>
         <textarea
+          title="Description"
           rows={2}
           value={data.description}
           data-testid={`skill-description-input-${skillId}`}
@@ -65,6 +67,8 @@ export const WaldiezSkillNodeModal = (props: WaldiezSkillNodeModalProps) => {
       </div>
       <div className="modal-actions margin-top-10">
         <button
+          type="button"
+          title="Cancel"
           className="modal-action-cancel"
           onClick={onCancel}
           data-testid={`modal-cancel-btn-${skillId}`}
@@ -72,6 +76,8 @@ export const WaldiezSkillNodeModal = (props: WaldiezSkillNodeModalProps) => {
           Cancel
         </button>
         <button
+          title="Save"
+          type="button"
           className="modal-action-submit"
           onClick={onSave}
           data-testid={`modal-submit-btn-${skillId}`}

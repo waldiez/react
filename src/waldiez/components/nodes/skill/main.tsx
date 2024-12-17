@@ -29,8 +29,8 @@ export const WaldiezNodeSkill = ({ id, data }: NodeProps<WaldiezSkillNode>) => {
         <div
           role="button"
           className="clickable"
-          id={`open-node-modal-${id}`}
-          data-testid={`open-node-modal-${id}`}
+          id={`open-skill-node-modal-${id}`}
+          data-testid={`open-skill-node-modal-${id}`}
           onClick={onOpen}
         >
           <FaGear />

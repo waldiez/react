@@ -13,9 +13,16 @@ const calculateNewNodePosition = (
   // take into account the zoom level
   // to calculate the number of nodes per row
   const canvasWidth = flowWrapperRect.width / zoom;
-  const maxNodesPerRow = Math.floor(canvasWidth / (entriesDistance * 1.1)) - 1;
+  const maxNodesPerRow = Math.floor(canvasWidth / (entriesDistance * 1.1));
   const x = (currentNodesCount % maxNodesPerRow) * entriesDistance;
-  const y = Math.floor(currentNodesCount / maxNodesPerRow) * entriesDistance;
+  let y = Math.floor(currentNodesCount / maxNodesPerRow) * entriesDistance;
+  // if first ROW, add +10 to y to avoid overlapping with the top elements
+  if (y === 0) {
+    y += 10;
+  } else {
+    y -= 5;
+  }
+
   return { x, y };
 };
 

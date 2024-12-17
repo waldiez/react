@@ -30,7 +30,10 @@ export class NodesStore {
     }
     const flowRoot = getFlowRoot(flowId);
     if (flowRoot) {
-      const openModalBtn = flowRoot.querySelector(`#open-node-modal-${node.id}`) as HTMLButtonElement;
+      const nodeType = node.type;
+      const openModalBtn = flowRoot.querySelector(
+        `#open-${nodeType}-node-modal-${node.id}`
+      ) as HTMLButtonElement;
       if (openModalBtn) {
         openModalBtn.click();
       }

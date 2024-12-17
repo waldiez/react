@@ -43,7 +43,7 @@ const renderModel = (overrides: Partial<typeof modelData> = {}) => {
 };
 const renderPricesTab = (overrides: Partial<typeof modelData> = {}) => {
   renderModel(overrides);
-  const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+  const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
   fireEvent.click(openModalButton);
   const priceTabButton = screen.getByTestId(`tab-id-model-config-price-${modelId}`);
   fireEvent.click(priceTabButton);

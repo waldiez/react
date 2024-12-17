@@ -10,14 +10,14 @@ describe('WaldiezAgentNode', () => {
   });
   it("should open a user's modal", () => {
     renderAgent('user');
-    const editButton = screen.getByTestId(`open-node-modal-${agentId}`);
+    const editButton = screen.getByTestId(`open-agent-node-modal-${agentId}`);
     expect(editButton).toBeInTheDocument();
     fireEvent.click(editButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
   });
   it("should not open a user's modal if it's already open", () => {
     renderAgent('user', { openModal: true });
-    const editButton = screen.getByTestId(`open-node-modal-${agentId}`);
+    const editButton = screen.getByTestId(`open-agent-node-modal-${agentId}`);
     expect(editButton).toBeInTheDocument();
     fireEvent.click(editButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
@@ -27,21 +27,21 @@ describe('WaldiezAgentNode', () => {
   });
   it("should open an assistant's modal", () => {
     renderAgent('assistant');
-    const editButton = screen.getByTestId(`open-node-modal-${agentId}`);
+    const editButton = screen.getByTestId(`open-agent-node-modal-${agentId}`);
     expect(editButton).toBeInTheDocument();
     fireEvent.click(editButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
   });
   it("should open a manager's modal", () => {
     renderAgent('manager');
-    const editButton = screen.getByTestId(`open-node-modal-${agentId}`);
+    const editButton = screen.getByTestId(`open-agent-node-modal-${agentId}`);
     expect(editButton).toBeInTheDocument();
     fireEvent.click(editButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
   });
   it("should open a rag user's modal", () => {
     renderAgent('rag_user');
-    const editButton = screen.getByTestId(`open-node-modal-${agentId}`);
+    const editButton = screen.getByTestId(`open-agent-node-modal-${agentId}`);
     expect(editButton).toBeInTheDocument();
     fireEvent.click(editButton);
     expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();

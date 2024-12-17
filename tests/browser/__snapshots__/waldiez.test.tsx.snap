@@ -32,6 +32,7 @@ exports[`All > should render Waldiez components 1`] = `
                 class="sidebar-toggle-button tooltip-container clickable open"
                 data-testid="sidebar-toggle"
                 role="button"
+                title="Close sidebar"
               >
                 <div />
                 <div />
@@ -50,7 +51,6 @@ exports[`All > should render Waldiez components 1`] = `
                   class="editor-nav-action clickable"
                   data-testid="edit-flow-test-flow-sidebar-button"
                   id="edit-flow-test-flow-sidebar-button"
-                  role="button"
                   title="Edit flow"
                 >
                   <svg
@@ -72,7 +72,6 @@ exports[`All > should render Waldiez components 1`] = `
                   class="clickable"
                   data-node-type="agent"
                   data-testid="show-agents"
-                  role="button"
                 >
                   <svg
                     fill="currentColor"
@@ -93,7 +92,6 @@ exports[`All > should render Waldiez components 1`] = `
                   class="clickable"
                   data-node-type="model"
                   data-testid="show-models"
-                  role="button"
                 >
                   <svg
                     fill="currentColor"
@@ -116,7 +114,6 @@ exports[`All > should render Waldiez components 1`] = `
                   class="clickable"
                   data-node-type="skill"
                   data-testid="show-skills"
-                  role="button"
                 >
                   <svg
                     fill="currentColor"
@@ -148,6 +145,7 @@ exports[`All > should render Waldiez components 1`] = `
               >
                 <img
                   src="/src/waldiez/assets/user.svg"
+                  title="User Proxy Agent"
                 />
                 User Proxy
               </div>
@@ -158,6 +156,7 @@ exports[`All > should render Waldiez components 1`] = `
               >
                 <img
                   src="/src/waldiez/assets/assistant.svg"
+                  title="Assistant Agent"
                 />
                 Assistant
               </div>
@@ -168,6 +167,7 @@ exports[`All > should render Waldiez components 1`] = `
               >
                 <img
                   src="/src/waldiez/assets/manager.svg"
+                  title="Group Manager Agent"
                 />
                 Group Manager
               </div>
@@ -182,7 +182,6 @@ exports[`All > should render Waldiez components 1`] = `
                 <li
                   class="clickable"
                   data-testid="import-flow-test-flow-sidebar-button"
-                  role="button"
                   title="Import flow"
                 >
                   <svg
@@ -203,7 +202,6 @@ exports[`All > should render Waldiez components 1`] = `
                 <li
                   class="clickable"
                   data-testid="export-flow-test-flow-sidebar-button"
-                  role="button"
                   title="Export flow"
                 >
                   <svg
@@ -224,7 +222,6 @@ exports[`All > should render Waldiez components 1`] = `
                 <li
                   class="clickable"
                   data-testid="theme-toggle"
-                  role="button"
                   title="Toggle theme"
                 >
                   <svg
@@ -516,6 +513,7 @@ exports[`All > should render Waldiez components 1`] = `
               class="sidebar-toggle-button tooltip-container clickable open"
               data-testid="sidebar-toggle"
               role="button"
+              title="Close sidebar"
             >
               <div />
               <div />
@@ -534,7 +532,6 @@ exports[`All > should render Waldiez components 1`] = `
                 class="editor-nav-action clickable"
                 data-testid="edit-flow-test-flow-sidebar-button"
                 id="edit-flow-test-flow-sidebar-button"
-                role="button"
                 title="Edit flow"
               >
                 <svg
@@ -556,7 +553,6 @@ exports[`All > should render Waldiez components 1`] = `
                 class="clickable"
                 data-node-type="agent"
                 data-testid="show-agents"
-                role="button"
               >
                 <svg
                   fill="currentColor"
@@ -577,7 +573,6 @@ exports[`All > should render Waldiez components 1`] = `
                 class="clickable"
                 data-node-type="model"
                 data-testid="show-models"
-                role="button"
               >
                 <svg
                   fill="currentColor"
@@ -600,7 +595,6 @@ exports[`All > should render Waldiez components 1`] = `
                 class="clickable"
                 data-node-type="skill"
                 data-testid="show-skills"
-                role="button"
               >
                 <svg
                   fill="currentColor"
@@ -632,6 +626,7 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <img
                 src="/src/waldiez/assets/user.svg"
+                title="User Proxy Agent"
               />
               User Proxy
             </div>
@@ -642,6 +637,7 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <img
                 src="/src/waldiez/assets/assistant.svg"
+                title="Assistant Agent"
               />
               Assistant
             </div>
@@ -652,6 +648,7 @@ exports[`All > should render Waldiez components 1`] = `
             >
               <img
                 src="/src/waldiez/assets/manager.svg"
+                title="Group Manager Agent"
               />
               Group Manager
             </div>
@@ -666,7 +663,6 @@ exports[`All > should render Waldiez components 1`] = `
               <li
                 class="clickable"
                 data-testid="import-flow-test-flow-sidebar-button"
-                role="button"
                 title="Import flow"
               >
                 <svg
@@ -687,7 +683,6 @@ exports[`All > should render Waldiez components 1`] = `
               <li
                 class="clickable"
                 data-testid="export-flow-test-flow-sidebar-button"
-                role="button"
                 title="Export flow"
               >
                 <svg
@@ -708,7 +703,6 @@ exports[`All > should render Waldiez components 1`] = `
               <li
                 class="clickable"
                 data-testid="theme-toggle"
-                role="button"
                 title="Toggle theme"
               >
                 <svg

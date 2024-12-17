@@ -51,10 +51,18 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
         />
       </div>
       <div className="modal-actions padding-10">
-        <button className="modal-action-cancel" onClick={onCancel} data-testid={`cancel-agent-data-${id}`}>
+        <button
+          className="modal-action-cancel"
+          onClick={onCancel}
+          data-testid={`cancel-agent-data-${id}`}
+          type="button"
+          title="Cancel"
+        >
           Cancel
         </button>
         <button
+          type="button"
+          title={isDirty ? 'Save' : 'No changes to save'}
           className="modal-action-submit"
           onClick={onSave}
           data-testid={`submit-agent-data-${id}`}

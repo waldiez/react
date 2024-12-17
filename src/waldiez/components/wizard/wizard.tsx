@@ -44,14 +44,14 @@ export const Wizard = (props: WizardProps) => {
   };
   return (
     <div className="wizard">
-      <div className="wizard-steps">
+      <div className="wizard-steps" role="tablist">
         {steps.map((step, index) => {
           const className = currentStep === index ? 'wizard-step--active' : '';
           return (
             <div
+              role="tab"
               key={`wizard-step-${index}`}
               className={`wizard-step ${className}`}
-              aria-selected={currentStep === index}
               data-testid={`step-id-${step.props.id}`}
             >
               {step}
@@ -61,6 +61,8 @@ export const Wizard = (props: WizardProps) => {
       </div>
       <div className="wizard-actions">
         <button
+          type="button"
+          title={currentStep === 0 ? firstBackTitle : 'Back'}
           onClick={goBack}
           data-testid="wizard-back-btn"
           disabled={isBackDisabled}
@@ -69,6 +71,8 @@ export const Wizard = (props: WizardProps) => {
           {currentStep === 0 ? firstBackTitle : 'Back'}
         </button>
         <button
+          type="button"
+          title={steps.length - 1 ? lastNextTitle : 'Next'}
           onClick={goForward}
           disabled={isForwardDisabled}
           data-testid="wizard-next-btn"

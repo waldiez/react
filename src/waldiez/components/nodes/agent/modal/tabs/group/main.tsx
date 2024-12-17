@@ -31,6 +31,8 @@ export const WaldiezAgentGroup = (props: WaldiezAgentGroupProps) => {
             inputId={`agent-select-group-${id}`}
           />
           <button
+            type="button"
+            title="Join group"
             className="agent-panel-select-group-action"
             onClick={onJoinGroup}
             disabled={selectedGroup === null}
@@ -46,6 +48,8 @@ export const WaldiezAgentGroup = (props: WaldiezAgentGroupProps) => {
           </div>
           <div className="agent-panel-group-actions">
             <button
+              title="Leave group"
+              type="button"
               className="agent-panel-group-action"
               onClick={onLeaveGroup}
               data-testid={`leave-group-button-agent-${id}`}

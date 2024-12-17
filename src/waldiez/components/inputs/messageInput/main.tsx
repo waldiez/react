@@ -70,6 +70,7 @@ export const MessageInput = (props: MessageInputProps) => {
       {current.type === 'string' && (
         <div className="full-width">
           <textarea
+            placeholder="Enter the message"
             className="fill-available"
             rows={3}
             defaultValue={current.content ?? ''}
@@ -86,6 +87,7 @@ export const MessageInput = (props: MessageInputProps) => {
           <label>Problem:</label>
           <div className="full-width">
             <textarea
+              placeholder="Enter the problem"
               rows={3}
               className="fill-available"
               defaultValue={current.context.problem ?? ''}

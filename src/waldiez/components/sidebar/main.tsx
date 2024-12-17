@@ -35,6 +35,7 @@ export const SideBar = (props: SideBarProps) => {
           role="button"
           className={`sidebar-toggle-button tooltip-container clickable ${isCollapsed ? 'closed' : 'open'}`}
           data-testid="sidebar-toggle"
+          title={isCollapsed ? 'Open sidebar' : 'Close sidebar'}
           onClick={onToggle}
         >
           <div></div>
@@ -45,7 +46,6 @@ export const SideBar = (props: SideBarProps) => {
       <div className="sidebar-content">
         <ul>
           <li
-            role="button"
             id={`edit-flow-${flowId}-sidebar-button`}
             className="editor-nav-action clickable"
             data-testid={`edit-flow-${flowId}-sidebar-button`}
@@ -54,33 +54,15 @@ export const SideBar = (props: SideBarProps) => {
           >
             <FaEdit /> Edit flow
           </li>
-          <li
-            role="button"
-            className="clickable"
-            data-node-type="agent"
-            data-testid="show-agents"
-            onClick={onShowAgents}
-          >
+          <li className="clickable" data-node-type="agent" data-testid="show-agents" onClick={onShowAgents}>
             <FaRobot />
             Agents
           </li>
-          <li
-            role="button"
-            className="clickable"
-            data-node-type="model"
-            data-testid="show-models"
-            onClick={onShowModels}
-          >
+          <li className="clickable" data-node-type="model" data-testid="show-models" onClick={onShowModels}>
             <AiFillOpenAI />
             Models
           </li>
-          <li
-            role="button"
-            className="clickable"
-            data-node-type="skill"
-            data-testid="show-skills"
-            onClick={onShowSkills}
-          >
+          <li className="clickable" data-node-type="skill" data-testid="show-skills" onClick={onShowSkills}>
             <AiFillCode />
             Skills
           </li>
@@ -89,15 +71,15 @@ export const SideBar = (props: SideBarProps) => {
           <p>Drag n' drop an agent to the canvas to add it to the flow</p>
         </div>
         <div className="dnd-area" data-testid="user-dnd" onDragStart={onUserDragStart} draggable>
-          <img src={AGENT_ICONS.user} />
+          <img src={AGENT_ICONS.user} title="User Proxy Agent" />
           User Proxy
         </div>
         <div className="dnd-area" data-testid="assistant-dnd" onDragStart={onAssistantDragStart} draggable>
-          <img src={AGENT_ICONS.assistant} />
+          <img src={AGENT_ICONS.assistant} title="Assistant Agent" />
           Assistant
         </div>
         <div className="dnd-area" data-testid="manager-dnd" onDragStart={onManagerDragStart} draggable>
-          <img src={AGENT_ICONS.manager} />
+          <img src={AGENT_ICONS.manager} title="Group Manager Agent" />
           Group Manager
         </div>
       </div>
@@ -105,7 +87,6 @@ export const SideBar = (props: SideBarProps) => {
       <div className="sidebar-footer">
         <ul>
           <li
-            role="button"
             className="clickable"
             onClick={onOpenImportModal}
             title="Import flow"
@@ -114,7 +95,6 @@ export const SideBar = (props: SideBarProps) => {
             <FaFileImport /> Import
           </li>
           <li
-            role="button"
             className="clickable"
             onClick={onExport}
             title="Export flow"
@@ -122,13 +102,7 @@ export const SideBar = (props: SideBarProps) => {
           >
             <FaFileExport /> Export
           </li>
-          <li
-            role="button"
-            className="clickable"
-            data-testid="theme-toggle"
-            onClick={onThemeToggle}
-            title="Toggle theme"
-          >
+          <li className="clickable" data-testid="theme-toggle" onClick={onThemeToggle} title="Toggle theme">
             {darkMode ? <FaSun /> : <FaMoon />}
             <div className="clickable">{darkMode ? 'Light' : 'Dark'} mode</div>
           </li>

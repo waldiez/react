@@ -38,6 +38,8 @@ export const WaldiezAgentSkills = (props: WaldiezAgentSkillsProps) => {
               inputId={`select-agent-skill-executor-${id}`}
             />
             <button
+              type="button"
+              title="Add skill"
               disabled={!selectedSkill || !selectedExecutor}
               onClick={onAddSkill}
               data-testid={`add-agent-skill-${id}`}
@@ -65,6 +67,8 @@ export const WaldiezAgentSkills = (props: WaldiezAgentSkillsProps) => {
                         </div>
                       </div>
                       <button
+                        type="button"
+                        title="Remove skill"
                         onClick={onRemoveSkill.bind(null, index)}
                         data-testid={`remove-agent-skill-${id}-${index}`}
                       >

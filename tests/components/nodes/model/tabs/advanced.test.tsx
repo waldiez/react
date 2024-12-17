@@ -44,7 +44,7 @@ const renderModel = (overrides: Partial<typeof modelData> = {}) => {
 
 const renderAdvancedTab = (overrides: Partial<typeof modelData> = {}) => {
   renderModel(overrides);
-  const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+  const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
   fireEvent.click(openModalButton);
   const advancedTabButton = screen.getByTestId(`tab-id-model-config-advanced-${modelId}`);
   fireEvent.click(advancedTabButton);

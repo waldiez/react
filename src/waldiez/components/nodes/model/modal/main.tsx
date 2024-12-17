@@ -49,6 +49,8 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
         </TabItems>
         <div className="modal-actions">
           <button
+            type="button"
+            title="Cancel"
             className="modal-action-cancel"
             onClick={onCancel}
             data-testid={`modal-cancel-btn-${modelId}`}
@@ -56,6 +58,8 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
             Cancel
           </button>
           <button
+            type="button"
+            title="Save"
             className="modal-action-submit"
             onClick={onSave}
             data-testid={`modal-submit-btn-${modelId}`}

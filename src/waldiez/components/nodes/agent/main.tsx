@@ -61,12 +61,16 @@ export const WaldiezNodeAgent = (props: WaldiezNodeAgentProps) => {
         id={`agent-handle-${id}-source`}
       />
       <button
-        id={`open-node-modal-${id}`}
-        data-testid={`open-node-modal-${id}`}
+        title="Open Node Modal"
+        type="button"
+        id={`open-agent-node-modal-${id}`}
+        data-testid={`open-agent-node-modal-${id}`}
         className="hidden"
         onClick={onOpenNodeModal}
       />
       <button
+        title="Open Edge Modal"
+        type="button"
         id={`open-edge-modal-node-${id}`}
         data-testid={`open-edge-modal-node-${id}`}
         className="hidden"

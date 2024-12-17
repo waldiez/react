@@ -49,14 +49,14 @@ const renderModel = (
 describe('WaldiezNodeModel Modal Base Tab', () => {
   it('should render basic tab', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const basicTab = screen.getByTestId(`panel-model-config-basic-${modelId}`);
     expect(basicTab).toBeInTheDocument();
   });
   it('should render basic tab inputs', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const labelInput = screen.getByDisplayValue(modelData.name);
     expect(labelInput).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should update label input', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const labelInput = screen.getByDisplayValue(modelData.name);
     fireEvent.change(labelInput, { target: { value: 'new label' } });
@@ -77,7 +77,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should update description input', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const descriptionInput = screen.getByTestId('model-description-textarea');
     fireEvent.change(descriptionInput, {
@@ -87,7 +87,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should update api key input', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const apiKeyInput = screen.getByTestId('model-api-key-input');
     fireEvent.change(apiKeyInput, { target: { value: 'new api key' } });
@@ -95,7 +95,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should update base url input', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const baseUrlInput = screen.getByTestId('model-base-url-input');
     fireEvent.change(baseUrlInput, {
@@ -105,21 +105,21 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should render read only base url input', () => {
     renderModel('openai');
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const baseUrlInput = screen.getByTestId('model-base-url-input-read-only');
     expect(baseUrlInput).toBeInTheDocument();
   });
   it('should not update read only base url input', () => {
     renderModel('openai');
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const baseUrlInput = screen.getByTestId('model-base-url-input-read-only');
     expect(baseUrlInput).toHaveValue('https://api.openai.com/v1');
   });
   it('should update api type select', async () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const apiTypeSelect = screen.getByLabelText('Model Type:');
     expect(apiTypeSelect).toBeInTheDocument();
@@ -132,7 +132,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should update readonly base url input on api type change', async () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const baseUrlInput = screen.getByTestId('model-base-url-input');
     expect(baseUrlInput).toBeInTheDocument();
@@ -149,7 +149,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should discard changes on cancel', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const labelInput = screen.getByDisplayValue(modelData.name);
     fireEvent.change(labelInput, { target: { value: 'new label' } });
@@ -163,7 +163,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should submit changes on submit', () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const labelInput = screen.getByDisplayValue(modelData.name);
     fireEvent.change(labelInput, { target: { value: 'new label' } });
@@ -177,7 +177,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
   });
   it('should display expected api type labels', async () => {
     renderModel();
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const apiTypeSelect = screen.getByLabelText('Model Type:');
     expect(apiTypeSelect).toBeInTheDocument();
@@ -205,7 +205,7 @@ describe('WaldiezNodeModel Modal Base Tab', () => {
     // defaultValue={apiKey ?? ''}
     // value={baseUrl ?? ''}
     renderModel('other', null, null);
-    const openModalButton = screen.getByTestId(`open-node-modal-${modelId}`);
+    const openModalButton = screen.getByTestId(`open-model-node-modal-${modelId}`);
     fireEvent.click(openModalButton);
     const apiKeyInput = screen.getByTestId('model-api-key-input');
     expect(apiKeyInput).toHaveValue('');

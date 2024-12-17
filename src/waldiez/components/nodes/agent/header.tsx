@@ -26,7 +26,7 @@ export const WaldiezNodeAgentHeader = (props: {
           {data.label}
         </div>
       </div>
-      <img src={agentSvg} />
+      <img src={agentSvg} title={data.label} alt={data.label} />
     </div>
   );
 };

@@ -6,7 +6,7 @@ export const useUserInputModal = (props: UserInputModalProps) => {
   const { flowId, isOpen, onUserInput, inputPrompt } = props;
   useEffect(() => {
     if (isOpen && inputPrompt.previousMessages.length > 0) {
-      const messagesRoot = document.getElementById(`rf-${flowId}-user-input-modal-console`);
+      const messagesRoot = document.querySelector(`.console-messages[data-flow-id="${flowId}"]`);
       if (messagesRoot) {
         const console = messagesRoot.querySelectorAll('.console-message');
         if (console && console.length > 0) {

@@ -52,6 +52,11 @@
   margin: 0 10px;
 }
 
+.flow-wrapper .rc-slider-handle {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .flow-wrapper.dark .rc-slider-rail {
   background-color: #666;
 }

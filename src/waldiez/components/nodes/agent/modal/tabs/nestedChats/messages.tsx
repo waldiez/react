@@ -75,6 +75,8 @@ export const WaldiezAgentNestedChatsMessages = (props: {
         </label>
         <div className="nested-chat-add-button">
           <button
+            type="button"
+            title="Add"
             className="add-nested-chat"
             disabled={!selectedRecipient || !selectedRecipient.id}
             onClick={onAddNestedChatConnection}
@@ -102,6 +104,8 @@ export const WaldiezAgentNestedChatsMessages = (props: {
                     {chat.messages.length > 1 && index !== 0 && (
                       <div className="nested-chat-reorder">
                         <button
+                          type="button"
+                          title="Move up"
                           onClick={onNestedChatRecipientMovedUp.bind(null, index)}
                           data-testid={`nested-chat-reorder-up-${index}`}
                         >
@@ -112,6 +116,8 @@ export const WaldiezAgentNestedChatsMessages = (props: {
                     {chat.messages.length > 1 && index !== chat.messages.length - 1 && (
                       <div className="nested-chat-reorder">
                         <button
+                          type="button"
+                          title="Move down"
                           onClick={onNestedChatRecipientMovedDown.bind(null, index)}
                           data-testid={`nested-chat-reorder-down-${index}`}
                         >
@@ -121,6 +127,8 @@ export const WaldiezAgentNestedChatsMessages = (props: {
                     )}
                     <div className="nested-chat-remove">
                       <button
+                        type="button"
+                        title="Remove"
                         onClick={onRemoveRecipient.bind(null, index)}
                         data-testid={`remove-nested-chat-recipient-${index}`}
                       >

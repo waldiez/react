@@ -22,6 +22,7 @@ export const TextInput = (props: TextInputProps) => {
     <>
       {labelInfo ? <InfoLabel label={label} info={labelInfo} /> : <label>{label}</label>}
       <input
+        placeholder="..."
         type="text"
         value={value !== null ? value : onNull}
         onChange={handleChange}

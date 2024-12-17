@@ -78,10 +78,18 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
           />
         )}
         <div className="modal-actions padding-10">
-          <button className="modal-action-cancel" onClick={onCancel} data-testid="modal-cancel-btn">
+          <button
+            type="button"
+            title="Cancel"
+            className="modal-action-cancel"
+            onClick={onCancel}
+            data-testid="modal-cancel-btn"
+          >
             Cancel
           </button>
           <button
+            type="button"
+            title={isDirty ? 'Save changes' : 'No changes to save'}
             className="modal-action-submit"
             onClick={onSubmit}
             data-testid="modal-submit-btn"

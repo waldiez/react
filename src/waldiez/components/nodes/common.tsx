@@ -12,6 +12,7 @@ export const getImportExportView: (
   return (
     <div className="modal-header-import-export">
       <input
+        title={`Import ${itemTypeCapitalized}`}
         id={`file-upload-${itemTypeLower}-${flowId}-${itemId}`}
         data-testid={`file-upload-${itemTypeLower}-${flowId}-${itemId}`}
         type="file"
@@ -27,6 +28,7 @@ export const getImportExportView: (
         <FaFileImport />
       </label>
       <button
+        type="button"
         className="modal-header-export-button"
         onClick={onExport}
         title={`Export ${itemTypeCapitalized}`}
