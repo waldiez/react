@@ -31,6 +31,7 @@ export const WaldiezNodeModel = ({ id, data }: NodeProps<WaldiezModelNode>) => {
       <div className="model-header">
         <div
           role="button"
+          title="Edit"
           className="clickable"
           id={`open-model-node-modal-${id}`}
           data-testid={`open-model-node-modal-${id}`}
@@ -52,6 +53,7 @@ export const WaldiezNodeModel = ({ id, data }: NodeProps<WaldiezModelNode>) => {
       <div className="model-footer" data-testid={`model-footer-${id}`}>
         <div
           role="button"
+          title="Delete"
           className="clickable"
           id={`delete-node-${id}`}
           data-testid={`delete-node-${id}`}
@@ -61,6 +63,7 @@ export const WaldiezNodeModel = ({ id, data }: NodeProps<WaldiezModelNode>) => {
         </div>
         <div
           role="button"
+          title="Clone"
           className="clickable"
           id={`clone-node-${id}`}
           data-testid={`clone-node-${id}`}
