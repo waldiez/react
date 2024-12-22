@@ -1,1 +1,1 @@
-export { StringList } from '@waldiez/components/inputs/stringList/main';
+export { StringList } from "@waldiez/components/inputs/stringList/main";

@@ -1,7 +1,9 @@
 {
-  "extends": "./tsconfig.app.json",
-  "compilerOptions": {
-    "types": []
-  },
-  "exclude": ["tests"]
+    "extends": "./tsconfig.app.json",
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "types": []
+    },
+    "exclude": ["tests"]
 }

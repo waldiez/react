@@ -1,1 +1,1 @@
-export { useSkillNodeModal } from '@waldiez/components/nodes/skill/modal/hooks/useSkillNodeModal';
+export { useSkillNodeModal } from "@waldiez/components/nodes/skill/modal/hooks/useSkillNodeModal";

@@ -1,98 +1,107 @@
-import { Collapsible } from '@waldiez/components/collapsible';
-import { Editor, InfoCheckbox } from '@waldiez/components/inputs';
-import { useWaldiezAgentRagUserCustomFunctions } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/customFunctions/hooks';
-import { WaldiezNodeData, WaldiezNodeRagUserData } from '@waldiez/models';
+import { Collapsible } from "@waldiez/components/collapsible";
+import { Editor, InfoCheckbox } from "@waldiez/components/inputs";
+import { useWaldiezAgentRagUserCustomFunctions } from "@waldiez/components/nodes/agent/modal/tabs/ragUser/tabs/customFunctions/hooks";
+import { WaldiezNodeData, WaldiezNodeRagUserData } from "@waldiez/models";
 
 export const WaldiezAgentRagUserCustomFunctions = (props: {
-  id: string;
-  flowId: string;
-  isDarkMode: boolean;
-  data: WaldiezNodeRagUserData;
-  onDataChange: (data: WaldiezNodeData) => void;
+    id: string;
+    flowId: string;
+    isDarkMode: boolean;
+    data: WaldiezNodeRagUserData;
+    onDataChange: (data: WaldiezNodeData) => void;
 }) => {
-  const {
-    onUseCustomEmbeddingChange,
-    onEmbeddingFunctionChange,
-    onUseCustomTokenCountChange,
-    onCustomTokenCountFunctionChange,
-    onUseCustomTextSplitChange,
-    onCustomTextSplitFunctionChange
-  } = useWaldiezAgentRagUserCustomFunctions(props);
-  const { flowId, data, isDarkMode } = props;
-  const { retrieveConfig } = data;
-  return (
-    <div className="waldiez-agent-rag-user-custom-functions">
-      <Collapsible title="Embedding Function" dataTestId={`${flowId}-rag-use-custom-embedding`}>
-        <div className="flex-column" style={{ marginTop: -20, marginBottom: -10 }}>
-          <InfoCheckbox
-            label="Use Custom Embedding Function "
-            info={'If True, will use the custom embedding function. Default is False.'}
-            checked={retrieveConfig.useCustomEmbedding ?? false}
-            onChange={onUseCustomEmbeddingChange}
-            dataTestId={`${flowId}-rag-use-custom-embedding-checkbox`}
-          />
-          {retrieveConfig.useCustomEmbedding && (
-            <>
-              <label>Embedding Function:</label>
-              <div className="margin-top-10">
-                <Editor
-                  darkMode={isDarkMode}
-                  value={retrieveConfig.embeddingFunction ?? DEFAULT_RAG_CUSTOM_EMBEDDING_FUNCTION}
-                  onChange={onEmbeddingFunctionChange}
-                />
-              </div>
-            </>
-          )}
+    const {
+        onUseCustomEmbeddingChange,
+        onEmbeddingFunctionChange,
+        onUseCustomTokenCountChange,
+        onCustomTokenCountFunctionChange,
+        onUseCustomTextSplitChange,
+        onCustomTextSplitFunctionChange,
+    } = useWaldiezAgentRagUserCustomFunctions(props);
+    const { flowId, data, isDarkMode } = props;
+    const { retrieveConfig } = data;
+    return (
+        <div className="waldiez-agent-rag-user-custom-functions">
+            <Collapsible title="Embedding Function" dataTestId={`${flowId}-rag-use-custom-embedding`}>
+                <div className="flex-column" style={{ marginTop: -20, marginBottom: -10 }}>
+                    <InfoCheckbox
+                        label="Use Custom Embedding Function "
+                        info={"If True, will use the custom embedding function. Default is False."}
+                        checked={retrieveConfig.useCustomEmbedding ?? false}
+                        onChange={onUseCustomEmbeddingChange}
+                        dataTestId={`${flowId}-rag-use-custom-embedding-checkbox`}
+                    />
+                    {retrieveConfig.useCustomEmbedding && (
+                        <>
+                            <label>Embedding Function:</label>
+                            <div className="margin-top-10">
+                                <Editor
+                                    darkMode={isDarkMode}
+                                    value={
+                                        retrieveConfig.embeddingFunction ??
+                                        DEFAULT_RAG_CUSTOM_EMBEDDING_FUNCTION
+                                    }
+                                    onChange={onEmbeddingFunctionChange}
+                                />
+                            </div>
+                        </>
+                    )}
+                </div>
+            </Collapsible>
+            <Collapsible title="Token Count" dataTestId={`${flowId}-rag-use-custom-tokenCount`}>
+                <div className="flex-column" style={{ marginTop: -20, marginBottom: -10 }}>
+                    <InfoCheckbox
+                        label="Use Custom Token Count Function "
+                        info={"If True, will use a custom token count function. Default is False."}
+                        checked={retrieveConfig.useCustomTokenCount ?? false}
+                        onChange={onUseCustomTokenCountChange}
+                        dataTestId={`${flowId}-rag-use-custom-tokenCount-checkbox`}
+                    />
+                    {retrieveConfig.useCustomTokenCount && (
+                        <>
+                            <label>Custom Token Count Function:</label>
+                            <div className="margin-top-10">
+                                <Editor
+                                    darkMode={isDarkMode}
+                                    value={
+                                        retrieveConfig.customTokenCountFunction ??
+                                        DEFAULT_RAG_CUSTOM_TOKEN_COUNT_FUNCTION
+                                    }
+                                    onChange={onCustomTokenCountFunctionChange}
+                                />
+                            </div>
+                        </>
+                    )}
+                </div>
+            </Collapsible>
+            <Collapsible title="Text Split" dataTestId={`${flowId}-rag-use-custom-textSplit`}>
+                <div className="flex-column" style={{ marginTop: -20, marginBottom: -10 }}>
+                    <InfoCheckbox
+                        label="Use Custom Text Split Function "
+                        info={"If True, will use a custom text split function. Default is False."}
+                        checked={retrieveConfig.useCustomTextSplit ?? false}
+                        onChange={onUseCustomTextSplitChange}
+                        dataTestId={`${flowId}-rag-use-custom-textSplit-checkbox`}
+                    />
+                    {retrieveConfig.useCustomTextSplit && (
+                        <>
+                            <label>Custom Text Split Function:</label>
+                            <div className="margin-top-10">
+                                <Editor
+                                    darkMode={isDarkMode}
+                                    value={
+                                        retrieveConfig.customTextSplitFunction ??
+                                        DEFAULT_RAG_CUSTOM_TEXT_SPLIT_FUNCTION
+                                    }
+                                    onChange={onCustomTextSplitFunctionChange}
+                                />
+                            </div>
+                        </>
+                    )}
+                </div>
+            </Collapsible>
         </div>
-      </Collapsible>
-      <Collapsible title="Token Count" dataTestId={`${flowId}-rag-use-custom-tokenCount`}>
-        <div className="flex-column" style={{ marginTop: -20, marginBottom: -10 }}>
-          <InfoCheckbox
-            label="Use Custom Token Count Function "
-            info={'If True, will use a custom token count function. Default is False.'}
-            checked={retrieveConfig.useCustomTokenCount ?? false}
-            onChange={onUseCustomTokenCountChange}
-            dataTestId={`${flowId}-rag-use-custom-tokenCount-checkbox`}
-          />
-          {retrieveConfig.useCustomTokenCount && (
-            <>
-              <label>Custom Token Count Function:</label>
-              <div className="margin-top-10">
-                <Editor
-                  darkMode={isDarkMode}
-                  value={retrieveConfig.customTokenCountFunction ?? DEFAULT_RAG_CUSTOM_TOKEN_COUNT_FUNCTION}
-                  onChange={onCustomTokenCountFunctionChange}
-                />
-              </div>
-            </>
-          )}
-        </div>
-      </Collapsible>
-      <Collapsible title="Text Split" dataTestId={`${flowId}-rag-use-custom-textSplit`}>
-        <div className="flex-column" style={{ marginTop: -20, marginBottom: -10 }}>
-          <InfoCheckbox
-            label="Use Custom Text Split Function "
-            info={'If True, will use a custom text split function. Default is False.'}
-            checked={retrieveConfig.useCustomTextSplit ?? false}
-            onChange={onUseCustomTextSplitChange}
-            dataTestId={`${flowId}-rag-use-custom-textSplit-checkbox`}
-          />
-          {retrieveConfig.useCustomTextSplit && (
-            <>
-              <label>Custom Text Split Function:</label>
-              <div className="margin-top-10">
-                <Editor
-                  darkMode={isDarkMode}
-                  value={retrieveConfig.customTextSplitFunction ?? DEFAULT_RAG_CUSTOM_TEXT_SPLIT_FUNCTION}
-                  onChange={onCustomTextSplitFunctionChange}
-                />
-              </div>
-            </>
-          )}
-        </div>
-      </Collapsible>
-    </div>
-  );
+    );
 };
 
 export const DEFAULT_RAG_CUSTOM_EMBEDDING_FUNCTION = `"""Custom embedding function."""

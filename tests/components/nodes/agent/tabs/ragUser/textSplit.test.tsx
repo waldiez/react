@@ -1,71 +1,73 @@
-import { renderAgent, submitAgentChanges } from '../../common';
-import { agentId, flowId } from '../../data';
-import { fireEvent, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { renderAgent, submitAgentChanges } from "../../common";
+import { agentId, flowId } from "../../data";
+import { fireEvent, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 
-import selectEvent from 'react-select-event';
+import selectEvent from "react-select-event";
 
 const goToTextSplitTab = () => {
-  renderAgent('rag_user', {
-    openModal: true
-  });
-  const ragUserTab = screen.getByTestId(`tab-id-wf-${flowId}-agent-ragUser-${agentId}`);
-  fireEvent.click(ragUserTab);
-  const textSplitTab = screen.getByTestId(`tab-id-wf-${flowId}-agent-ragUser-${agentId}-textSplit`);
-  fireEvent.click(textSplitTab);
+    renderAgent("rag_user", {
+        openModal: true,
+    });
+    const ragUserTab = screen.getByTestId(`tab-id-wf-${flowId}-agent-ragUser-${agentId}`);
+    fireEvent.click(ragUserTab);
+    const textSplitTab = screen.getByTestId(`tab-id-wf-${flowId}-agent-ragUser-${agentId}-textSplit`);
+    fireEvent.click(textSplitTab);
 };
 
-describe('Rag User tab Text Split', () => {
-  it('should render the Rag User tab Text Split', () => {
-    goToTextSplitTab();
-    const textSplitTab = screen.getByTestId(`tab-id-wf-${flowId}-agent-ragUser-${agentId}-textSplit`);
-    expect(textSplitTab).toBeInTheDocument();
-  });
-  it('should change the chunk token size', () => {
-    goToTextSplitTab();
-    const chunkTokenSizeInput = screen.getByTestId(`rag-chunk-token-size-${agentId}`) as HTMLInputElement;
-    expect(chunkTokenSizeInput).toBeInTheDocument();
-    fireEvent.change(chunkTokenSizeInput, {
-      target: {
-        value: '100'
-      }
+describe("Rag User tab Text Split", () => {
+    it("should render the Rag User tab Text Split", () => {
+        goToTextSplitTab();
+        const textSplitTab = screen.getByTestId(`tab-id-wf-${flowId}-agent-ragUser-${agentId}-textSplit`);
+        expect(textSplitTab).toBeInTheDocument();
     });
-    submitAgentChanges();
-  });
-  it('should change the context max tokens', async () => {
-    goToTextSplitTab();
-    const contextMaxTokensInput = screen.getByTestId(`rag-context-max-tokens-${agentId}`) as HTMLInputElement;
-    expect(contextMaxTokensInput).toBeInTheDocument();
-    fireEvent.change(contextMaxTokensInput, {
-      target: {
-        value: '200'
-      }
+    it("should change the chunk token size", () => {
+        goToTextSplitTab();
+        const chunkTokenSizeInput = screen.getByTestId(`rag-chunk-token-size-${agentId}`) as HTMLInputElement;
+        expect(chunkTokenSizeInput).toBeInTheDocument();
+        fireEvent.change(chunkTokenSizeInput, {
+            target: {
+                value: "100",
+            },
+        });
+        submitAgentChanges();
     });
-    submitAgentChanges();
-  });
-  it('should change the chunk mode', async () => {
-    goToTextSplitTab();
-    const chunkModeSelect = screen.getByLabelText('Chunk Mode');
-    selectEvent.openMenu(chunkModeSelect);
-    await selectEvent.select(chunkModeSelect, 'One Line');
-    expect(chunkModeSelect).toBeInTheDocument();
-    fireEvent.change(chunkModeSelect, {
-      target: {
-        label: 'One Line',
-        value: 'one_line'
-      }
+    it("should change the context max tokens", async () => {
+        goToTextSplitTab();
+        const contextMaxTokensInput = screen.getByTestId(
+            `rag-context-max-tokens-${agentId}`,
+        ) as HTMLInputElement;
+        expect(contextMaxTokensInput).toBeInTheDocument();
+        fireEvent.change(contextMaxTokensInput, {
+            target: {
+                value: "200",
+            },
+        });
+        submitAgentChanges();
     });
-    submitAgentChanges();
-  });
-  it('should change the must break at empty line', async () => {
-    goToTextSplitTab();
-    const mustBreakAtEmptyLineCheckbox = screen.getByTestId(
-      `rag-must-break-at-empty-line-${agentId}`
-    ) as HTMLInputElement;
-    expect(mustBreakAtEmptyLineCheckbox).toBeInTheDocument();
-    fireEvent.click(mustBreakAtEmptyLineCheckbox);
-    submitAgentChanges();
-  });
+    it("should change the chunk mode", async () => {
+        goToTextSplitTab();
+        const chunkModeSelect = screen.getByLabelText("Chunk Mode");
+        selectEvent.openMenu(chunkModeSelect);
+        await selectEvent.select(chunkModeSelect, "One Line");
+        expect(chunkModeSelect).toBeInTheDocument();
+        fireEvent.change(chunkModeSelect, {
+            target: {
+                label: "One Line",
+                value: "one_line",
+            },
+        });
+        submitAgentChanges();
+    });
+    it("should change the must break at empty line", async () => {
+        goToTextSplitTab();
+        const mustBreakAtEmptyLineCheckbox = screen.getByTestId(
+            `rag-must-break-at-empty-line-${agentId}`,
+        ) as HTMLInputElement;
+        expect(mustBreakAtEmptyLineCheckbox).toBeInTheDocument();
+        fireEvent.click(mustBreakAtEmptyLineCheckbox);
+        submitAgentChanges();
+    });
 });
 
 /*

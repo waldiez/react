@@ -1,1 +1,1 @@
-export { InfoCheckbox } from '@waldiez/components/inputs/infoCheckBox/main';
+export { InfoCheckbox } from "@waldiez/components/inputs/infoCheckBox/main";

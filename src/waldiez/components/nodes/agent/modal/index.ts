@@ -1,1 +1,1 @@
-export { WaldiezNodeAgentModal } from '@waldiez/components/nodes/agent/modal/main';
+export { WaldiezNodeAgentModal } from "@waldiez/components/nodes/agent/modal/main";

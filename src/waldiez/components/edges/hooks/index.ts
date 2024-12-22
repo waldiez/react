@@ -1,1 +1,1 @@
-export { useWaldiezEdge } from '@waldiez/components/edges/hooks/useWaldiezEdge';
+export { useWaldiezEdge } from "@waldiez/components/edges/hooks/useWaldiezEdge";

@@ -1,37 +1,37 @@
 import {
-  GroupManagerConfig,
-  GroupManagerSpeakers
-} from '@waldiez/components/nodes/agent/modal/tabs/groupManager/tabs';
-import { WaldiezAgentGroupManagerProps } from '@waldiez/components/nodes/agent/modal/tabs/groupManager/types';
-import { TabItem, TabItems } from '@waldiez/components/tabs';
-import { WaldiezNodeGroupManagerData } from '@waldiez/models';
+    GroupManagerConfig,
+    GroupManagerSpeakers,
+} from "@waldiez/components/nodes/agent/modal/tabs/groupManager/tabs";
+import { WaldiezAgentGroupManagerProps } from "@waldiez/components/nodes/agent/modal/tabs/groupManager/types";
+import { TabItem, TabItems } from "@waldiez/components/tabs";
+import { WaldiezNodeGroupManagerData } from "@waldiez/models";
 
 export const WaldiezAgentGroupManager = (props: WaldiezAgentGroupManagerProps) => {
-  const { id, flowId, isDarkMode, data, agentConnections, onDataChange } = props;
-  const managerData = data as WaldiezNodeGroupManagerData;
-  const defaultSpeakerSelectionMethodContent =
-    managerData.speakers?.selectionCustomMethod && managerData.speakers?.selectionCustomMethod.length > 1
-      ? managerData.speakers.selectionCustomMethod
-      : DEFAULT_CUSTOM_SPEAKER_SELECTION_CONTENT;
-  return (
-    <div className="agent-panel agent-groupManager-panel margin-bottom-10">
-      <TabItems activeTabIndex={0}>
-        <TabItem id={`wf-${flowId}-agent-groupManager-${id}-config`} label="Config">
-          <GroupManagerConfig id={id} data={managerData} onDataChange={onDataChange} />
-        </TabItem>
-        <TabItem id={`wf-${flowId}-agent-groupManager-${id}-speakers`} label="Speakers">
-          <GroupManagerSpeakers
-            id={id}
-            data={managerData}
-            isDarkMode={isDarkMode}
-            agentConnections={agentConnections}
-            defaultSpeakerSelectionMethodContent={defaultSpeakerSelectionMethodContent}
-            onDataChange={onDataChange}
-          />
-        </TabItem>
-      </TabItems>
-    </div>
-  );
+    const { id, flowId, isDarkMode, data, agentConnections, onDataChange } = props;
+    const managerData = data as WaldiezNodeGroupManagerData;
+    const defaultSpeakerSelectionMethodContent =
+        managerData.speakers?.selectionCustomMethod && managerData.speakers?.selectionCustomMethod.length > 1
+            ? managerData.speakers.selectionCustomMethod
+            : DEFAULT_CUSTOM_SPEAKER_SELECTION_CONTENT;
+    return (
+        <div className="agent-panel agent-groupManager-panel margin-bottom-10">
+            <TabItems activeTabIndex={0}>
+                <TabItem id={`wf-${flowId}-agent-groupManager-${id}-config`} label="Config">
+                    <GroupManagerConfig id={id} data={managerData} onDataChange={onDataChange} />
+                </TabItem>
+                <TabItem id={`wf-${flowId}-agent-groupManager-${id}-speakers`} label="Speakers">
+                    <GroupManagerSpeakers
+                        id={id}
+                        data={managerData}
+                        isDarkMode={isDarkMode}
+                        agentConnections={agentConnections}
+                        defaultSpeakerSelectionMethodContent={defaultSpeakerSelectionMethodContent}
+                        onDataChange={onDataChange}
+                    />
+                </TabItem>
+            </TabItems>
+        </div>
+    );
 };
 
 export const DEFAULT_CUSTOM_SPEAKER_SELECTION_CONTENT = `"""Custom speaker selection function."""

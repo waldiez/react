@@ -1,1 +1,1 @@
-export { WaldiezAgentNestedChats } from '@waldiez/components/nodes/agent/modal/tabs/nestedChats/main';
+export { WaldiezAgentNestedChats } from "@waldiez/components/nodes/agent/modal/tabs/nestedChats/main";

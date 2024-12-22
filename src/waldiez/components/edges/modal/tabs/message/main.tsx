@@ -1,37 +1,37 @@
-import { useWaldiezEdgeMessageTab } from '@waldiez/components/edges/modal/tabs/message/hooks';
-import { WaldiezEdgeMessageTabProps } from '@waldiez/components/edges/modal/tabs/message/types';
-import { MessageInput } from '@waldiez/components/inputs';
+import { useWaldiezEdgeMessageTab } from "@waldiez/components/edges/modal/tabs/message/hooks";
+import { WaldiezEdgeMessageTabProps } from "@waldiez/components/edges/modal/tabs/message/types";
+import { MessageInput } from "@waldiez/components/inputs";
 
 export const WaldiezEdgeMessageTab = (props: WaldiezEdgeMessageTabProps) => {
-  const { edgeId, data, darkMode, skipRagOption } = props;
-  const {
-    onMessageTypeChange,
-    onMessageChange,
-    onAddMessageContextEntry,
-    onRemoveMessageContextEntry,
-    onUpdateMessageContextEntries
-  } = useWaldiezEdgeMessageTab(props);
-  return (
-    <div className="margin-top-10">
-      <MessageInput
-        darkMode={darkMode}
-        current={data.message}
-        skipRagOption={skipRagOption}
-        skipCarryoverOption={false}
-        selectLabel="Message Type:"
-        selectTestId={`select-message-type-${edgeId}`}
-        defaultContent={DEFAULT_METHOD_MESSAGE_CONTENT}
-        notNoneLabel="Message:"
-        notNoneLabelInfo="The message to be used when the chat is initiated."
-        includeContext={true}
-        onTypeChange={onMessageTypeChange}
-        onMessageChange={onMessageChange}
-        onAddContextEntry={onAddMessageContextEntry}
-        onRemoveContextEntry={onRemoveMessageContextEntry}
-        onUpdateContextEntries={onUpdateMessageContextEntries}
-      />
-    </div>
-  );
+    const { edgeId, data, darkMode, skipRagOption } = props;
+    const {
+        onMessageTypeChange,
+        onMessageChange,
+        onAddMessageContextEntry,
+        onRemoveMessageContextEntry,
+        onUpdateMessageContextEntries,
+    } = useWaldiezEdgeMessageTab(props);
+    return (
+        <div className="margin-top-10">
+            <MessageInput
+                darkMode={darkMode}
+                current={data.message}
+                skipRagOption={skipRagOption}
+                skipCarryoverOption={false}
+                selectLabel="Message Type:"
+                selectTestId={`select-message-type-${edgeId}`}
+                defaultContent={DEFAULT_METHOD_MESSAGE_CONTENT}
+                notNoneLabel="Message:"
+                notNoneLabelInfo="The message to be used when the chat is initiated."
+                includeContext={true}
+                onTypeChange={onMessageTypeChange}
+                onMessageChange={onMessageChange}
+                onAddContextEntry={onAddMessageContextEntry}
+                onRemoveContextEntry={onRemoveMessageContextEntry}
+                onUpdateContextEntries={onUpdateMessageContextEntries}
+            />
+        </div>
+    );
 };
 
 const DEFAULT_METHOD_MESSAGE_CONTENT = `"""Custom message function."""

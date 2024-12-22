@@ -1,1 +1,1 @@
-export { useWaldiezNodeModel } from '@waldiez/components/nodes/model/hooks/useWaldiezNodeModel';
+export { useWaldiezNodeModel } from "@waldiez/components/nodes/model/hooks/useWaldiezNodeModel";

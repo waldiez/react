@@ -1,1 +1,1 @@
-export { WaldiezAgentRagUser } from '@waldiez/components/nodes/agent/modal/tabs/ragUser/main';
+export { WaldiezAgentRagUser } from "@waldiez/components/nodes/agent/modal/tabs/ragUser/main";

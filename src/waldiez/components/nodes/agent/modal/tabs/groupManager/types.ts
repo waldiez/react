@@ -1,18 +1,18 @@
-import { WaldiezAgentNode, WaldiezAgentNodeData } from '@waldiez/models';
+import { WaldiezAgentNode, WaldiezAgentNodeData } from "@waldiez/models";
 
 export type WaldiezAgentGroupManagerProps = {
-  id: string;
-  flowId: string;
-  isDarkMode: boolean;
-  data: WaldiezAgentNodeData;
-  agents: WaldiezAgentNode[];
-  agentConnections: {
-    source: {
-      nodes: WaldiezAgentNode[];
+    id: string;
+    flowId: string;
+    isDarkMode: boolean;
+    data: WaldiezAgentNodeData;
+    agents: WaldiezAgentNode[];
+    agentConnections: {
+        source: {
+            nodes: WaldiezAgentNode[];
+        };
+        target: {
+            nodes: WaldiezAgentNode[];
+        };
     };
-    target: {
-      nodes: WaldiezAgentNode[];
-    };
-  };
-  onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
+    onDataChange: (partialData: Partial<WaldiezAgentNodeData>, persist?: boolean) => void;
 };

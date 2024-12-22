@@ -14,26 +14,26 @@ bun add @waldiez/react
 
 ## Requirements for development
 
-- Node.js
-- yarn@4.5.3
+- Node.js (version 20.x or later)
+- bun@1.1.42
 
 ## Libraries
 
 ```json
 {
-    "@monaco-editor/react": "^4.6.0",
-    "@xyflow/react": "^12.3.6",
-    "microdiff": "^1.4.0",
-    "nanoid": "^5.0.9",
-    "rc-slider": "^11.1.7",
-    "react": "^18.3.1 || ^19.0.0",
-    "react-dom": "^18.3.1 || ^19.0.0",
-    "react-error-boundary": "^4.1.2",
-    "react-hotkeys-hook": "^4.6.1",
-    "react-icons": "^5.4.0",
-    "react-select": "^5.9.0",
-    "zundo": "^2.3.0",
-    "zustand": "^5.0.2"
+  "@monaco-editor/react": "^4.6.0",
+  "@xyflow/react": "^12.3.6",
+  "microdiff": "^1.4.0",
+  "nanoid": "^5.0.9",
+  "rc-slider": "^11.1.7",
+  "react": "^18.3.1 || ^19.0.0",
+  "react-dom": "^18.3.1 || ^19.0.0",
+  "react-error-boundary": "^4.1.2",
+  "react-hotkeys-hook": "^4.6.1",
+  "react-icons": "^5.4.0",
+  "react-select": "^5.9.0",
+  "zundo": "^2.3.0",
+  "zustand": "^5.0.2"
 }
 ```
 
@@ -41,11 +41,11 @@ bun add @waldiez/react
 
 ```tsx
 // npm|yarn|pnpm|bun|whatever add|install @waldiez/react
-import '@waldiez/react/dist/@waldiez.css';
-import { Waldiez } from '@waldiez/react';
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+import { Waldiez } from '@waldiez/react';
+import '@waldiez/react/dist/@waldiez.css';
 
 const isProd = import.meta.env.PROD;
 

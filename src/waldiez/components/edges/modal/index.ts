@@ -1,1 +1,1 @@
-export { WaldiezEdgeModal } from '@waldiez/components/edges/modal/main';
+export { WaldiezEdgeModal } from "@waldiez/components/edges/modal/main";

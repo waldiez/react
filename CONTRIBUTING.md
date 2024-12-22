@@ -9,7 +9,7 @@ This project is a React application managed using yarn. To contribute, follow th
 Ensure you have the following installed:
 
 - Node.js (version 20.x or later)
-- yarn@4.5.3
+- bun@1.1.42
 
 ### Installation
 
@@ -29,7 +29,7 @@ Ensure you have the following installed:
 4. Install the dependencies:
 
     ```shell
-    yarn install
+    bun install
     ```
 
 ### Running the Project
@@ -37,7 +37,7 @@ Ensure you have the following installed:
 To start the development server, run:
 
 ```shell
-yarn dev
+bun dev
 ```
 
 This will launch the application at `http://localhost:5173/`.
@@ -77,13 +77,13 @@ This will launch the application at `http://localhost:5173/`.
 Ensure your code adheres to the project's coding standards. Run the following command to check for linting errors:
 
 ```shell
-yarn lint
+bun lint
 ```
 
 To try and automatically fix linting errors, run:
 
 ```shell
-yarn format
+bun format
 ```
 
 ### Running Tests
@@ -91,9 +91,9 @@ yarn format
 Run the test suite to ensure your changes do not break existing functionality:
 
 ```shell
-yarn run test:coverage
-yarn run test:snapshots  # to update snapshots
-yarn run test:browser  # to use playwright *you might need to 'playwright install' first
+bun run test:coverage
+bun run test:snapshots  # to update snapshots
+bun run test:browser  # to use playwright *you might need to 'playwright install' first
 ```
 
 Thank you for contributing! 🎉

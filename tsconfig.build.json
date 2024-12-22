@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.app.json",
-  "types": ["jest", "@testing-library/jest-dom", "@vitest/browser/providers/playwright", "vitest/globals"],
-  "exclude": ["src/index.tsx", "src/index.css", "tests"]
+    "extends": "./tsconfig.app.json",
+    "types": ["jest", "@testing-library/jest-dom", "@vitest/browser/providers/playwright", "vitest/globals"],
+    "exclude": ["src/index.tsx", "src/index.css", "tests"]
 }

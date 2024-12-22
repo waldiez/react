@@ -1,1 +1,1 @@
-export { Dict } from '@waldiez/components/inputs/dict/main';
+export { Dict } from "@waldiez/components/inputs/dict/main";

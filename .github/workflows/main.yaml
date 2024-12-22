@@ -1,5 +1,5 @@
 ---
-name: Lint, test, and docs
+name: Lint and test
 
 # yamllint disable rule:truthy
 on:
@@ -18,17 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      # yarn: latest / berry / stable
-      - run: |
-          corepack enable
-          yarn set version stable
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
       - name: Install dependencies
-        run: yarn install
+        run: bun install
       - name: Lint
-        run: yarn lint
+        run: bun run lint
   test:
       runs-on: ${{ matrix.os }}
       strategy:
@@ -36,57 +31,17 @@ jobs:
           os: [ubuntu-latest, windows-latest, macos-latest]
       steps:
         - uses: actions/checkout@v4
-        - uses: actions/setup-node@v4
-          with:
-            node-version: '20'
-        - run: |
-            corepack enable
-            yarn set version stable
+        - name: Setup bun
+          uses: oven-sh/setup-bun@v2
         - name: Install dependencies
-          run: yarn install
+          run: bun install
         - name: Prepare Playwright
           run: npx playwright install --with-deps chromium
         - name: Run tests
-          run: yarn test:all
+          run: bun run test
         - name: Report to Coveralls
           uses: coverallsapp/github-action@v2
           if: matrix.os == 'ubuntu-latest'
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             path-to-lcov: coverage/lcov.info
-
-  docs:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: |
-          corepack enable
-          yarn set version stable
-      - name: Install dependencies
-        run: yarn install
-      - name: Build docs
-        run: yarn docs
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          name: docs
-          path: './out/docs'
-
-  deploy-docs:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: docs
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          artifact_name: docs
-  

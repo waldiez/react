@@ -1,1 +1,1 @@
-export { WaldiezNodeModelModalAdvancedTab } from '@waldiez/components/nodes/model/modal/tabs/advanced/main';
+export { WaldiezNodeModelModalAdvancedTab } from "@waldiez/components/nodes/model/modal/tabs/advanced/main";

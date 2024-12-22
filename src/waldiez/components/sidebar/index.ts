@@ -1,1 +1,1 @@
-export { SideBar } from '@waldiez/components/sidebar/main';
+export { SideBar } from "@waldiez/components/sidebar/main";

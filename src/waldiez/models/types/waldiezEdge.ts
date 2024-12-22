@@ -1,6 +1,6 @@
-import { Edge } from '@xyflow/react';
+import { Edge } from "@xyflow/react";
 
-import { IWaldiezMessage } from '@waldiez/models/types/waldiezMessage';
+import { IWaldiezMessage } from "@waldiez/models/types/waldiezMessage";
 
 /**
  * Waldiez Edge Llm Summary Method.
@@ -8,7 +8,7 @@ import { IWaldiezMessage } from '@waldiez/models/types/waldiezMessage';
  * @param last_msg - Use last message summary method
  * @param null - No summary method
  */
-export type WaldiezEdgeLlmSummaryMethod = 'reflection_with_llm' | 'last_msg' | null;
+export type WaldiezEdgeLlmSummaryMethod = "reflection_with_llm" | "last_msg" | null;
 
 /**
  * Waldiez Edge Data.
@@ -25,21 +25,21 @@ export type WaldiezEdgeLlmSummaryMethod = 'reflection_with_llm' | 'last_msg' | n
  * @see WaldiezEdgeLlmSummaryMethod
  */
 export type WaldiezEdgeDataCommon = {
-  description: string;
-  position: number;
-  order: number;
-  clearHistory: boolean;
-  message: IWaldiezMessage;
-  nestedChat: {
-    message: IWaldiezMessage | null;
-    reply: IWaldiezMessage | null;
-  };
-  summary: {
-    method: WaldiezEdgeLlmSummaryMethod;
-    prompt: string;
-    args: { [key: string]: any };
-  };
-  maxTurns: number | null;
+    description: string;
+    position: number;
+    order: number;
+    clearHistory: boolean;
+    message: IWaldiezMessage;
+    nestedChat: {
+        message: IWaldiezMessage | null;
+        reply: IWaldiezMessage | null;
+    };
+    summary: {
+        method: WaldiezEdgeLlmSummaryMethod;
+        prompt: string;
+        args: { [key: string]: any };
+    };
+    maxTurns: number | null;
 };
 
 /**
@@ -48,10 +48,10 @@ export type WaldiezEdgeDataCommon = {
  * @see WaldiezEdgeDataCommon
  */
 export type WaldiezEdgeData = WaldiezEdgeDataCommon & {
-  label: string;
+    label: string;
 };
 
-export type WaldiezEdgeType = 'chat' | 'group' | 'nested' | 'hidden';
+export type WaldiezEdgeType = "chat" | "group" | "nested" | "hidden";
 
 export type WaldiezEdge = Edge<WaldiezEdgeData, WaldiezEdgeType>;
 
@@ -63,9 +63,9 @@ export type WaldiezEdge = Edge<WaldiezEdgeData, WaldiezEdgeType>;
  * @see WaldiezEdgeDataCommon
  */
 export interface IWaldiezSourceEdgeData extends WaldiezEdgeDataCommon {
-  source: string;
-  target: string;
-  name: string;
+    source: string;
+    target: string;
+    name: string;
 }
 
 /**
@@ -78,10 +78,10 @@ export interface IWaldiezSourceEdgeData extends WaldiezEdgeDataCommon {
  * @see WaldiezEdge
  */
 export interface IWaldiezSourceEdge {
-  id: string;
-  source: string;
-  target: string;
-  data: IWaldiezSourceEdgeData;
-  rest: { [key: string]: unknown };
-  asEdge: () => WaldiezEdge;
+    id: string;
+    source: string;
+    target: string;
+    data: IWaldiezSourceEdgeData;
+    rest: { [key: string]: unknown };
+    asEdge: () => WaldiezEdge;
 }

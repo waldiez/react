@@ -1,31 +1,31 @@
-import { WaldiezNodeType } from '@waldiez/models';
-import { ImportedFlow, ThingsToImport } from '@waldiez/store';
+import { WaldiezNodeType } from "@waldiez/models";
+import { ImportedFlow, ThingsToImport } from "@waldiez/store";
 
 export type ImportFlowModalProps = {
-  flowId: string;
-  isOpen: boolean;
-  onClose: () => void;
-  typeShown: WaldiezNodeType;
-  onTypeShownChange: (nodeType: WaldiezNodeType) => void;
+    flowId: string;
+    isOpen: boolean;
+    onClose: () => void;
+    typeShown: WaldiezNodeType;
+    onTypeShownChange: (nodeType: WaldiezNodeType) => void;
 };
 export type ImportFlowModalViewProps = {
-  flowId: string;
-  isOpen: boolean;
-  state: ImportFlowState;
-  onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSearchSubmit: () => void;
-  onRemoteUrlChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onRemoteUrlSubmit: () => void;
-  onUpload: (files: File[]) => void;
-  onClearLoadedFlowData: () => void;
-  onClose: () => void;
-  onSelectedPropsChange: (selectedProps: Partial<ThingsToImport>) => void;
-  onSubmit: () => void;
+    flowId: string;
+    isOpen: boolean;
+    state: ImportFlowState;
+    onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onSearchSubmit: () => void;
+    onRemoteUrlChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onRemoteUrlSubmit: () => void;
+    onUpload: (files: File[]) => void;
+    onClearLoadedFlowData: () => void;
+    onClose: () => void;
+    onSelectedPropsChange: (selectedProps: Partial<ThingsToImport>) => void;
+    onSubmit: () => void;
 };
 
 export type ImportFlowState = {
-  searchTerm: string;
-  remoteUrl: string;
-  loadedFlowData: ImportedFlow | null;
-  selectedProps: ThingsToImport;
+    searchTerm: string;
+    remoteUrl: string;
+    loadedFlowData: ImportedFlow | null;
+    selectedProps: ThingsToImport;
 };
