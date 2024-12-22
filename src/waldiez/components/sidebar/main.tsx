@@ -193,7 +193,7 @@ export const SideBar = (props: SideBarProps) => {
                   <div></div>
                   <div></div>
                   <span className="tooltip">{isCollapsed ? 'Open sidebar' : 'Close sidebar'}</span>
-                </div> 
+                </div>
                 </div>
                 </div>
               </li>
