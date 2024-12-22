@@ -54,7 +54,7 @@
         "before:test": "bun monaco && rimraf tests/browser/videos",
         "after:test": "bun scripts/video.ts",
         "test:components": "bun monaco && vitest run",
-        "test:snapshots": "bun before:test && vitest run --browser.enabled --browser.headless tests/browser/** --update && bun after:test",
+        "test:snapshots": "bun before:test && vitest run --browser.enabled --browser.headless --update tests/browser/** && bun after:test",
         "test:ui": "bun monaco && vitest --ui",
         "test:coverage": "bun monaco && vitest run --coverage",
         "test:browser": "bun before:test && vitest run --browser.enabled --browser.headless tests/browser/** && bun after:test",
