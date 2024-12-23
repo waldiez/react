@@ -5,6 +5,7 @@ labels: bug
 ---
 
 <!-- markdownlint-disable MD041 -->
+
 ## Search terms
 
 <!-- Include keywords that might help others with the same problem find this issue -->
@@ -24,8 +25,8 @@ labels: bug
 ## Environment
 
 - Versions:
-  - @waldiez/react version:
-  - Node.js version:
-  - TypeScript version:
-  - ... Other related packages versions ...
+    - @waldiez/react version:
+    - Node.js version:
+    - TypeScript version:
+    - ... Other related packages versions ...
 - OS:

@@ -3,45 +3,45 @@ name: Lint and test
 
 # yamllint disable rule:truthy
 on:
-  push:
-    branches:
-      - main
-      - dev
+    push:
+        branches:
+            - main
+            - dev
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+    contents: write
+    pages: write
+    id-token: write
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-      - name: Install dependencies
-        run: bun install
-      - name: Lint
-        run: bun run lint
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-      - name: Install dependencies
-        run: bun install
-      - name: Prepare Playwright
-        run: npx playwright install --with-deps chromium
-      - name: Run tests
-        run: bun run test
-      - name: Report to Coveralls
-        uses: coverallsapp/github-action@v2
-        if: matrix.os == 'ubuntu-latest'
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage/lcov.info
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup bun
+              uses: oven-sh/setup-bun@v2
+            - name: Install dependencies
+              run: bun install
+            - name: Lint
+              run: bun run lint
+    test:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup bun
+              uses: oven-sh/setup-bun@v2
+            - name: Install dependencies
+              run: bun install
+            - name: Prepare Playwright
+              run: npx playwright install --with-deps chromium
+            - name: Run tests
+              run: bun run test
+            - name: Report to Coveralls
+              uses: coverallsapp/github-action@v2
+              if: matrix.os == 'ubuntu-latest'
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  path-to-lcov: coverage/lcov.info
