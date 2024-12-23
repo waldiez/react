@@ -15,7 +15,7 @@ export default defineConfig(({ command }) => {
         build: {
             emptyOutDir: true,
             minify: "terser",
-            outDir: resolve(__dirname, "dist", "static"),
+            outDir: resolve(__dirname, "out", "static"),
             rollupOptions: {
                 output: {
                     manualChunks: {
