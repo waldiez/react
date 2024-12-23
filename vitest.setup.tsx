@@ -86,6 +86,7 @@ vi.mock("@monaco-editor/react", async () => {
         default: props => {
             return (
                 <textarea
+                    placeholder="mocked-monaco-editor"
                     data-testid={props["data-testid"] ?? "mocked-monaco-editor"}
                     value={props.value}
                     onChange={event => props.onChange(event.target.value)}
@@ -96,6 +97,7 @@ vi.mock("@monaco-editor/react", async () => {
         Editor: props => {
             return (
                 <textarea
+                    placeholder="mocked-monaco-editor"
                     data-testid={props["data-testid"] ?? "mocked-monaco-editor"}
                     value={props.value}
                     onChange={event => props.onChange(event.target.value)}
