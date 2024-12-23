@@ -3,6 +3,7 @@ import { WaldiezAgentNodeData } from "@waldiez/models";
 export type WaldiezNodeAgentModalTabsProps = {
     id: string;
     flowId: string;
+    isModalOpen: boolean;
     isDarkMode: boolean;
     data: WaldiezAgentNodeData;
     filesToUpload: File[];

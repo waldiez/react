@@ -73,6 +73,7 @@ export const useWaldiezNodeAgentModal = (
         if (data.label !== dataToSubmit.label) {
             updateAgentEdgeLabels();
         }
+        setFilesToUpload([]);
         postSubmit();
     };
     const checkGroupChange = (dataToSubmit: { [key: string]: any }) => {
@@ -118,22 +119,52 @@ export const useWaldiezNodeAgentModal = (
             }
         });
     };
+    const submitRagUser = (dataToSubmit: { [key: string]: any }) => {
+        if (filesToUpload.length > 0 && uploadHandler) {
+            uploadHandler(filesToUpload)
+                .then(filePaths => {
+                    const ragData = agentData as WaldiezNodeRagUserData;
+                    const docsPath = ragData.retrieveConfig.docsPath;
+                    const newDocsPath = [...docsPath];
+                    for (let i = 0; i < filesToUpload.length; i++) {
+                        const index = newDocsPath.indexOf(`file:///${filesToUpload[i].name}`);
+                        if (index > -1) {
+                            if (typeof filePaths[i] === "string") {
+                                newDocsPath[index] = filePaths[i];
+                            } else {
+                                newDocsPath.splice(index, 1);
+                            }
+                        }
+                    }
+                    dataToSubmit.retrieveConfig.docsPath = newDocsPath;
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    const docsPath = dataToSubmit.retrieveConfig.docsPath;
+                    dataToSubmit.retrieveConfig.docsPath = [...docsPath].filter(
+                        (entry: any) =>
+                            typeof entry === "string" && entry.length > 0 && !entry.startsWith("file:///"),
+                    );
+                    setFilesToUpload([]);
+                    submit(dataToSubmit);
+                });
+        } else {
+            // make sure no nulls in docsPath
+            const ragData = agentData as WaldiezNodeRagUserData;
+            const docsPath = ragData.retrieveConfig.docsPath;
+            dataToSubmit.retrieveConfig.docsPath = docsPath.filter(
+                entry => typeof entry === "string" && entry.length > 0 && !entry.startsWith("file:///"),
+            );
+            setFilesToUpload([]);
+            submit(dataToSubmit);
+        }
+    };
     const onSave = () => {
         const dataToSubmit = { ...agentData } as { [key: string]: any };
-        if (agentData.agentType === "rag_user" && filesToUpload.length > 0 && uploadHandler) {
-            uploadHandler(filesToUpload).then(filePaths => {
-                const ragData = agentData as WaldiezNodeRagUserData;
-                const docsPath = ragData.retrieveConfig.docsPath;
-                const newDocsPath = [...docsPath];
-                for (let i = 0; i < filesToUpload.length; i++) {
-                    const index = newDocsPath.indexOf(`file:///${filesToUpload[i].name}`);
-                    if (index > -1) {
-                        newDocsPath[index] = filePaths[i];
-                    }
-                }
-                dataToSubmit.retrieveConfig.docsPath = newDocsPath;
-                submit(dataToSubmit);
-            });
+        if (agentData.agentType === "rag_user") {
+            submitRagUser(dataToSubmit);
         } else {
             submit(dataToSubmit);
         }
@@ -197,6 +228,7 @@ export const useWaldiezNodeAgentModal = (
         if (!ragData.retrieveConfig) {
             ragData.retrieveConfig = defaultRetrieveConfig;
         }
+        ragData.retrieveConfig.docsPath = [];
         setAgentData({
             ...agentData,
             ...ragData,

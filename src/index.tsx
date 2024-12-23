@@ -96,13 +96,21 @@ const onConvert = isProd ? null : onConvertDev;
  * (the docsPath will have to be updated accordingly if needed on the backend)
  */
 const onUploadDev = (files: File[]) => {
+    // reject randomly
+    if (Math.random() < 0.4) {
+        return Promise.reject("Error uploading files");
+    }
     return new Promise<string[]>(resolve => {
         const uploadedFiles: string[] = [];
         const promises = files.map(file => {
             // simulate uploading files
             return new Promise<string>(resolve => {
                 setTimeout(() => {
-                    uploadedFiles.push(`path/to/${file.name}`);
+                    if (Math.random() > 0.8) {
+                        uploadedFiles.push(null as any);
+                    } else {
+                        uploadedFiles.push(`path/to/${file.name}`);
+                    }
                     resolve(`path/to/${file.name}`);
                 }, 2000);
             });

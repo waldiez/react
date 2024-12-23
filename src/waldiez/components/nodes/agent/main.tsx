@@ -80,7 +80,14 @@ export const WaldiezNodeAgent = (props: WaldiezNodeAgentProps) => {
             {edge && isEdgeModalOpen && (
                 <WaldiezEdgeModal isOpen={isEdgeModalOpen} edgeId={edge.id} onClose={onCloseEdgeModal} />
             )}
-            <WaldiezNodeAgentModal id={id} data={data} isOpen={isNodeModalOpen} onClose={onCloseNodeModal} />
+            {isNodeModalOpen && (
+                <WaldiezNodeAgentModal
+                    id={id}
+                    data={data}
+                    isOpen={isNodeModalOpen}
+                    onClose={onCloseNodeModal}
+                />
+            )}
         </div>
     );
 };

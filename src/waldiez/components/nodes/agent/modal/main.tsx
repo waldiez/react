@@ -45,6 +45,7 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
                     data={agentData}
                     isDarkMode={isDarkMode}
                     onDataChange={onDataChange}
+                    isModalOpen={isOpen}
                     onAgentTypeChange={onAgentTypeChange}
                     filesToUpload={filesToUpload}
                     onFilesToUploadChange={onFilesToUploadChange}

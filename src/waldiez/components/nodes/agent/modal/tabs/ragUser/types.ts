@@ -4,6 +4,7 @@ export type WaldiezAgentRagUserProps = {
     id: string;
     flowId: string;
     data: WaldiezNodeRagUserData;
+    isModalOpen: boolean;
     isDarkMode: boolean;
     uploadsEnabled: boolean;
     filesToUpload: File[];

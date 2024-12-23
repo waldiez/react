@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { WaldiezAgentBasic } from "@waldiez/components/nodes/agent/modal/tabs/basic";
 import { WaldiezAgentCodeExecution } from "@waldiez/components/nodes/agent/modal/tabs/codeExecution";
 import { WaldiezAgentGroup } from "@waldiez/components/nodes/agent/modal/tabs/group";
@@ -21,6 +23,7 @@ export const WaldiezNodeAgentModalTabs = ({
     id,
     data,
     flowId,
+    isModalOpen,
     isDarkMode,
     filesToUpload,
     onDataChange,
@@ -42,8 +45,12 @@ export const WaldiezNodeAgentModalTabs = ({
     const connectionsCount = agentConnections.target.edges.length + agentConnections.source.edges.length;
     const showNestedChatsTab = !(isManager || connectionsCount === 0);
     const uploadsEnabled = !!uploadHandler;
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
+    useEffect(() => {
+        setActiveTabIndex(0);
+    }, [isModalOpen]);
     return (
-        <TabItems activeTabIndex={0}>
+        <TabItems activeTabIndex={activeTabIndex}>
             <TabItem label="Agent" id={`wf-${flowId}-agent-config-${id}`}>
                 <div className="modal-tab-body">
                     <WaldiezAgentBasic
@@ -76,6 +83,7 @@ export const WaldiezNodeAgentModalTabs = ({
                             id={id}
                             flowId={flowId}
                             isDarkMode={isDarkMode}
+                            isModalOpen={isModalOpen}
                             uploadsEnabled={uploadsEnabled}
                             data={data as WaldiezNodeRagUserData}
                             onDataChange={onDataChange}
@@ -134,7 +142,7 @@ export const WaldiezNodeAgentModalTabs = ({
                     <div className="modal-tab-body">
                         <WaldiezAgentNestedChats
                             id={id}
-                            data={data}
+                            data={data as WaldiezNodeRagUserData}
                             onDataChange={onDataChange}
                             agentConnections={agentConnections}
                         />

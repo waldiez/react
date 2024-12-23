@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
     WaldiezAgentRagUserAdvanced,
     WaldiezAgentRagUserCustomFunctions,
@@ -14,14 +16,19 @@ export const WaldiezAgentRagUser = (props: WaldiezAgentRagUserProps) => {
         data,
         flowId,
         isDarkMode,
+        isModalOpen,
         onDataChange,
         filesToUpload,
         onFilesToUploadChange,
         uploadsEnabled,
     } = props;
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
+    useEffect(() => {
+        setActiveTabIndex(0);
+    }, [isModalOpen]);
     return (
         <div className="agent-panel agent-ragUser-panel margin-bottom-10">
-            <TabItems activeTabIndex={0}>
+            <TabItems activeTabIndex={activeTabIndex}>
                 <TabItem label="Retrieve Config" id={`wf-${flowId}-agent-ragUser-${id}-retrieveConfig`}>
                     <WaldiezAgentRagUserRetrieveConfig
                         id={id}
