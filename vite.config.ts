@@ -21,6 +21,7 @@ export default defineConfig(({ command }) => ({
     publicDir: command === "build" ? resolve(__dirname, "public", "logo") : resolve(__dirname, "public"),
     build: {
         emptyOutDir: true,
+        outDir: resolve(__dirname, "dist", "lib"),
         lib: {
             entry: resolve(__dirname, "src", "waldiez", "index.ts"),
             name: "@waldiez",
