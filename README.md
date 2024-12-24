@@ -23,7 +23,7 @@ bun add @waldiez/react
 {
     "@monaco-editor/react": "^4.6.0",
     "@xyflow/react": "^12.3.6",
-    "microdiff": "^1.4.0",
+    "microdiff": "^1.5.0",
     "nanoid": "^5.0.9",
     "rc-slider": "^11.1.7",
     "react": "^18.3.1 || ^19.0.0",

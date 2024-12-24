@@ -1,7 +1,7 @@
 {
     "name": "@waldiez/react",
     "license": "MIT",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "type": "module",
     "main": "./dist/@waldiez.umd.cjs",
     "module": "./dist/@waldiez.js",
@@ -72,7 +72,7 @@
     "dependencies": {
         "@monaco-editor/react": "^4.6.0",
         "@xyflow/react": "^12.3.6",
-        "microdiff": "^1.4.0",
+        "microdiff": "^1.5.0",
         "nanoid": "^5.0.9",
         "rc-slider": "^11.1.7",
         "react-error-boundary": "^5.0.0",
@@ -110,7 +110,7 @@
         "@vitest/coverage-v8": "^2.1.8",
         "@vitest/ui": "^2.1.8",
         "ajv": "^8.17.1",
-        "canvas": "^3.0.0-rc3",
+        "canvas": "^3.0.0",
         "cross-spawn": "^7.0.6",
         "dotenv": "^16.4.7",
         "eslint": "^9.17.0",
@@ -182,7 +182,7 @@
         "access": "public"
     },
     "resolutions": {
-        "canvas": "^3.0.0-rc3",
+        "canvas": "^3.0.0",
         "cross-spawn": "^7.0.6",
         "ws": "^8.18.0",
         "got": "^14.4.5"

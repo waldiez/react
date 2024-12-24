@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## v0.1.22
+
+- Updated microdiff to 1.5.0
+- Dev Dependency updates
+
 ## v0.1.21
 
 - Updated the sidebar view: Toggling, keep bottom icons visible
@@ -11,8 +16,8 @@
 ## v0.1.20
 
 - Added optional props:
-    - onSave (listens for 'ctrl+s/mod+s' keypress)
-    - onConvert: adds two icons (python,jupyter) to the panel
+  - onSave (listens for 'ctrl+s/mod+s' keypress)
+  - onConvert: adds two icons (python,jupyter) to the panel
 - Updated context: Make the flow view re-render if the flowId changes
 - Added typings for 'importFlow'
 - Updated react-select to 5.9.0
