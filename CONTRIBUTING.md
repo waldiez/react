@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-This project is a React application managed using yarn. To contribute, follow the steps below:
+This project is a React application managed using bun. To contribute, follow the steps below:
 
 ### Prerequisites
 
@@ -17,7 +17,7 @@ Ensure you have the following installed:
 2. Clone your forked repository:
 
     ```shell
-    git clone https://github.com/waldiez/react.git
+    git clone https://github.com/waldiez/react.git -b dev
     ```
 
 3. Navigate to the project directory:
@@ -94,6 +94,7 @@ Run the test suite to ensure your changes do not break existing functionality:
 bun run test:coverage
 bun run test:snapshots  # to update snapshots
 bun run test:browser  # to use playwright *you might need to 'playwright install' first
+bun run test  # to run all tests (make use to use `bun run test` and not `bun test`)
 ```
 
 Thank you for contributing! 🎉
