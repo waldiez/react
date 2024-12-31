@@ -25,7 +25,7 @@ bun add @waldiez/react
     "@xyflow/react": "^12.3.6",
     "microdiff": "^1.5.0",
     "nanoid": "^5.0.9",
-    "rc-slider": "^11.1.7",
+    "rc-slider": "^11.1.8",
     "react": "^18.3.1 || ^19.0.0",
     "react-dom": "^18.3.1 || ^19.0.0",
     "react-error-boundary": "^4.1.2",

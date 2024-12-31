@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- Updated rc-slider to 11.1.8
+- Dev Dependency updates
+
 ## v0.1.22
 
 - Updated microdiff to 1.5.0
