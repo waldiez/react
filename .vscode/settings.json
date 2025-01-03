@@ -5,10 +5,13 @@
     "javascript.suggest.completeJSDocs": false,
     "cSpell.words": [
         "coverallsapp",
+        "currentcolor",
         "eslintcache",
         "forlint",
         "lintcache",
         "microdiff",
+        "nopan",
+        "partialize",
         "softprops",
         "stylelintcache",
         "trivago",
