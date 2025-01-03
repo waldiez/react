@@ -135,11 +135,13 @@ export default defineConfig(({ command }) => ({
             const isFlowRendererUpdate = log.includes(
                 "An update to FlowRenderer inside a test was not wrapped",
             );
+            // SyntaxError: Unexpected token 'o', "not a json" is not valid JSON
+            const isNotValidJSON = log.includes("SyntaxError: Unexpected token");
             const isReceivedNaN = isReceivedNaNRexExp.test(log);
             const isErrorBoundary = log.includes("Cannot read properties of undefined (reading 'x')");
             if (
                 type === "stderr" &&
-                (isNotFound || isErrorBoundary || isReceivedNaN || isFlowRendererUpdate)
+                (isNotFound || isErrorBoundary || isReceivedNaN || isFlowRendererUpdate || isNotValidJSON)
             ) {
                 // we expect these warnings in `non-browser` tests
                 return false;
