@@ -1,8 +1,10 @@
 import "./index.css";
-import { Waldiez } from "@waldiez";
+import { Waldiez, WaldiezProps, importFlow } from "@waldiez";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
+
+import { nanoid } from "nanoid";
 
 const isProd = import.meta.env.PROD;
 
@@ -150,24 +152,62 @@ if (!vsPath) {
  *    - createdAt?: string;
  *    - updatedAt?: string;
  */
+const flowId = `wf-${nanoid()}`;
+const defaultWaldiezProps: Partial<WaldiezProps> = {
+    monacoVsPath: vsPath,
+    onUserInput,
+    inputPrompt,
+    onRun,
+    onConvert,
+    onChange,
+    onUpload,
+    onSave,
+    flowId,
+    storageId: flowId,
+};
 
-export const startApp = () => {
+const getProps = () => {
+    return new Promise<Partial<WaldiezProps>>(resolve => {
+        let waldiezProps = { ...defaultWaldiezProps };
+        const haveFlowInQuery = window.location.search.includes("flow");
+        if (haveFlowInQuery) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const flowUrl = urlParams.get("flow");
+            if (flowUrl && flowUrl.startsWith("http")) {
+                try {
+                    fetch(flowUrl, {
+                        method: "GET",
+                        redirect: "follow",
+                        signal: AbortSignal.timeout(10000),
+                    })
+                        .then(response => response.json())
+                        .then(flow => {
+                            waldiezProps = {
+                                ...waldiezProps,
+                                ...importFlow(flow),
+                            };
+                            resolve(waldiezProps);
+                        })
+                        .catch(_ => {
+                            resolve(waldiezProps);
+                        });
+                } catch (_) {
+                    resolve(waldiezProps);
+                }
+            }
+        } else {
+            resolve(waldiezProps);
+        }
+    });
+};
+
+export const startApp = (waldiezProps: Partial<WaldiezProps> = defaultWaldiezProps) => {
+    window.history.replaceState({}, document.title, window.location.pathname);
     ReactDOM.createRoot(document.getElementById("root")!).render(
         <React.StrictMode>
-            <Waldiez
-                monacoVsPath={vsPath}
-                onUserInput={onUserInput}
-                flowId="flow-0"
-                storageId="storage-0"
-                inputPrompt={inputPrompt}
-                onRun={onRun}
-                onConvert={onConvert}
-                onChange={onChange}
-                onUpload={onUpload}
-                onSave={onSave}
-            />
+            <Waldiez {...waldiezProps} />
         </React.StrictMode>,
     );
 };
 
-startApp();
+getProps().then(startApp);
