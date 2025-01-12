@@ -1,1 +1,1 @@
-export { WaldiezAgentCodeExecution } from '@waldiez/components/nodes/agent/modal/tabs/codeExecution/main';
+export { WaldiezAgentCodeExecution } from "@waldiez/components/nodes/agent/modal/tabs/codeExecution/main";

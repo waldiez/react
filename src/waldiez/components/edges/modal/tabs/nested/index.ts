@@ -1,1 +1,1 @@
-export { WaldiezEdgeNestedTab } from '@waldiez/components/edges/modal/tabs/nested/main';
+export { WaldiezEdgeNestedTab } from "@waldiez/components/edges/modal/tabs/nested/main";

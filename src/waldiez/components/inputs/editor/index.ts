@@ -1,1 +1,1 @@
-export { Editor } from '@waldiez/components/inputs/editor/main';
+export { Editor } from "@waldiez/components/inputs/editor/main";

@@ -1,12 +1,12 @@
 import {
-  WaldiezEdgeData,
-  WaldiezModelNodeData,
-  WaldiezNodeAssistantData,
-  WaldiezNodeGroupManagerData,
-  WaldiezNodeRagUserData,
-  WaldiezNodeUserProxyData,
-  WaldiezSkillNodeData
-} from '@waldiez/models/types';
+    WaldiezEdgeData,
+    WaldiezModelNodeData,
+    WaldiezNodeAssistantData,
+    WaldiezNodeGroupManagerData,
+    WaldiezNodeRagUserData,
+    WaldiezNodeUserProxyData,
+    WaldiezSkillNodeData,
+} from "@waldiez/models/types";
 
 /**
  * Waldiez User Proxy Agent.
@@ -22,19 +22,19 @@ import {
  * @param data - The data of the agent. See {@link WaldiezNodeUserProxyData}
  */
 export type WaldiezUserProxy = {
-  id?: string;
-  type: 'agent';
-  agentType: 'user';
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  createdAt: string;
-  updatedAt: string;
-  data: Omit<
-    WaldiezNodeUserProxyData,
-    'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
-  >;
+    id?: string;
+    type: "agent";
+    agentType: "user";
+    name: string;
+    description: string;
+    tags: string[];
+    requirements: string[];
+    createdAt: string;
+    updatedAt: string;
+    data: Omit<
+        WaldiezNodeUserProxyData,
+        "label" | "agentType" | "description" | "name" | "tags" | "requirements" | "createdAt" | "updatedAt"
+    >;
 };
 
 /**
@@ -51,19 +51,19 @@ export type WaldiezUserProxy = {
  * @param data - The data of the agent. See {@link WaldiezNodeAssistantData}
  */
 export type WaldiezAssistant = {
-  id?: string;
-  type: 'agent';
-  agentType: 'assistant';
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  createdAt: string;
-  updatedAt: string;
-  data: Omit<
-    WaldiezNodeAssistantData,
-    'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
-  >;
+    id?: string;
+    type: "agent";
+    agentType: "assistant";
+    name: string;
+    description: string;
+    tags: string[];
+    requirements: string[];
+    createdAt: string;
+    updatedAt: string;
+    data: Omit<
+        WaldiezNodeAssistantData,
+        "label" | "agentType" | "description" | "name" | "tags" | "requirements" | "createdAt" | "updatedAt"
+    >;
 };
 
 /**
@@ -80,19 +80,19 @@ export type WaldiezAssistant = {
  * @param data - The data of the agent. See {@link WaldiezNodeGroupManagerData}
  */
 export type WaldiezGroupManager = {
-  id?: string;
-  type: 'agent';
-  agentType: 'manager';
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  createdAt: string;
-  updatedAt: string;
-  data: Omit<
-    WaldiezNodeGroupManagerData,
-    'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
-  >;
+    id?: string;
+    type: "agent";
+    agentType: "manager";
+    name: string;
+    description: string;
+    tags: string[];
+    requirements: string[];
+    createdAt: string;
+    updatedAt: string;
+    data: Omit<
+        WaldiezNodeGroupManagerData,
+        "label" | "agentType" | "description" | "name" | "tags" | "requirements" | "createdAt" | "updatedAt"
+    >;
 };
 
 /**
@@ -109,19 +109,19 @@ export type WaldiezGroupManager = {
  * @param data - The data of the user. See {@link WaldiezNodeRagUserData}
  */
 export type WaldiezRagUser = {
-  id?: string;
-  type: 'agent';
-  agentType: 'rag_user';
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  createdAt: string;
-  updatedAt: string;
-  data: Omit<
-    WaldiezNodeRagUserData,
-    'label' | 'agentType' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
-  >;
+    id?: string;
+    type: "agent";
+    agentType: "rag_user";
+    name: string;
+    description: string;
+    tags: string[];
+    requirements: string[];
+    createdAt: string;
+    updatedAt: string;
+    data: Omit<
+        WaldiezNodeRagUserData,
+        "label" | "agentType" | "description" | "name" | "tags" | "requirements" | "createdAt" | "updatedAt"
+    >;
 };
 
 /**
@@ -137,18 +137,18 @@ export type WaldiezRagUser = {
  * @param data - The data of the model. See {@link WaldiezModelNodeData}
  */
 export type WaldiezModel = {
-  id?: string;
-  type: 'model';
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  createdAt: string;
-  updatedAt: string;
-  data: Omit<
-    WaldiezModelNodeData,
-    'label' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
-  >;
+    id?: string;
+    type: "model";
+    name: string;
+    description: string;
+    tags: string[];
+    requirements: string[];
+    createdAt: string;
+    updatedAt: string;
+    data: Omit<
+        WaldiezModelNodeData,
+        "label" | "description" | "name" | "tags" | "requirements" | "createdAt" | "updatedAt"
+    >;
 };
 
 /**
@@ -164,18 +164,18 @@ export type WaldiezModel = {
  * @param data - The data of the skill. See {@link WaldiezSkillNodeData}
  */
 export type WaldiezSkill = {
-  id?: string;
-  type: 'skill';
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  createdAt: string;
-  updatedAt: string;
-  data: Omit<
-    WaldiezSkillNodeData,
-    'label' | 'description' | 'name' | 'tags' | 'requirements' | 'createdAt' | 'updatedAt'
-  >;
+    id?: string;
+    type: "skill";
+    name: string;
+    description: string;
+    tags: string[];
+    requirements: string[];
+    createdAt: string;
+    updatedAt: string;
+    data: Omit<
+        WaldiezSkillNodeData,
+        "label" | "description" | "name" | "tags" | "requirements" | "createdAt" | "updatedAt"
+    >;
 };
 
 /**
@@ -184,12 +184,12 @@ export type WaldiezSkill = {
  * @param data - The data of the chat. See {@link WaldiezEdgeData}
  */
 export type WaldiezChat = {
-  id?: string;
-  data: Omit<WaldiezEdgeData, 'label'> & {
-    name: string;
-    source: string;
-    target: string;
-  };
+    id?: string;
+    data: Omit<WaldiezEdgeData, "label"> & {
+        name: string;
+        source: string;
+        target: string;
+    };
 };
 
 /**
@@ -214,24 +214,24 @@ export type WaldiezChat = {
  * - chats: The chats (from edges) of the flow. See {@link WaldiezChat}
  */
 export type WaldiezFlow = {
-  id?: string;
-  storageId?: string;
-  type: 'flow';
-  name: string;
-  description: string;
-  tags: string[];
-  requirements: string[];
-  data: {
-    nodes: object[];
-    edges: object[];
-    viewport?: object;
-    agents: {
-      users: WaldiezUserProxy[];
-      assistants: WaldiezAssistant[];
-      managers: WaldiezGroupManager[];
+    id?: string;
+    storageId?: string;
+    type: "flow";
+    name: string;
+    description: string;
+    tags: string[];
+    requirements: string[];
+    data: {
+        nodes: object[];
+        edges: object[];
+        viewport?: object;
+        agents: {
+            users: WaldiezUserProxy[];
+            assistants: WaldiezAssistant[];
+            managers: WaldiezGroupManager[];
+        };
+        models: WaldiezModel[];
+        skills: WaldiezSkill[];
+        chats: WaldiezChat[];
     };
-    models: WaldiezModel[];
-    skills: WaldiezSkill[];
-    chats: WaldiezChat[];
-  };
 };

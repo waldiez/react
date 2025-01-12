@@ -1,1 +1,1 @@
-export { useSideBar } from '@waldiez/components/sidebar/hooks/useSideBar';
+export { useSideBar } from "@waldiez/components/sidebar/hooks/useSideBar";

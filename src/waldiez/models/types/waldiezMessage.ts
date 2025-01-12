@@ -1,4 +1,4 @@
-export type WaldiezMessageType = 'string' | 'method' | 'rag_message_generator' | 'none';
+export type WaldiezMessageType = "string" | "method" | "rag_message_generator" | "none";
 /**
  * Waldiez Message.
  *
@@ -11,8 +11,8 @@ export type WaldiezMessageType = 'string' | 'method' | 'rag_message_generator' |
  * @param content - The content of the message
  */
 export interface IWaldiezMessage {
-  type: WaldiezMessageType;
-  use_carryover: boolean;
-  content: string | null;
-  context: { [key: string]: string };
+    type: WaldiezMessageType;
+    use_carryover: boolean;
+    content: string | null;
+    context: { [key: string]: string };
 }

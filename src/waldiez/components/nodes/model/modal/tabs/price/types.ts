@@ -1,7 +1,7 @@
-import { WaldiezModelNodeData } from '@waldiez/models';
+import { WaldiezModelNodeData } from "@waldiez/models";
 
 export type WaldiezNodeModelModalPriceTabProps = {
-  modelId: string;
-  data: WaldiezModelNodeData;
-  onDataChange: (data: Partial<WaldiezModelNodeData>) => void;
+    modelId: string;
+    data: WaldiezModelNodeData;
+    onDataChange: (data: Partial<WaldiezModelNodeData>) => void;
 };

@@ -1,1 +1,1 @@
-export { showSnackbar } from '@waldiez/components/snackbar/main';
+export { showSnackbar } from "@waldiez/components/snackbar/main";

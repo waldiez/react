@@ -1,8 +1,10 @@
-import './index.css';
-import { Waldiez } from '@waldiez';
+import "./index.css";
+import { Waldiez, WaldiezProps, importFlow } from "@waldiez";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import { nanoid } from "nanoid";
 
 const isProd = import.meta.env.PROD;
 
@@ -25,7 +27,7 @@ const onChange = null;
  * the action should be handled by the parent component
  */
 const onSaveDev = (flowString: string) => {
-  console.info('saving', flowString);
+    console.info("saving", flowString);
 };
 const onSave = isProd ? null : onSaveDev;
 /**
@@ -67,7 +69,7 @@ const onUserInput = null;
  * the flow string is the JSON stringified flow
  */
 const onRunDev = (flowString: string) => {
-  console.info(flowString);
+    console.info(flowString);
 };
 const onRun = isProd ? null : onRunDev;
 
@@ -80,8 +82,8 @@ const onRun = isProd ? null : onRunDev;
  * the conversion happens in the python part / backend
  */
 
-const onConvertDev = (_flowString: string, to: 'py' | 'ipynb') => {
-  console.info('converting to', to);
+const onConvertDev = (_flowString: string, to: "py" | "ipynb") => {
+    console.info("converting to", to);
 };
 const onConvert = isProd ? null : onConvertDev;
 
@@ -96,21 +98,29 @@ const onConvert = isProd ? null : onConvertDev;
  * (the docsPath will have to be updated accordingly if needed on the backend)
  */
 const onUploadDev = (files: File[]) => {
-  return new Promise<string[]>(resolve => {
-    const uploadedFiles: string[] = [];
-    const promises = files.map(file => {
-      // simulate uploading files
-      return new Promise<string>(resolve => {
-        setTimeout(() => {
-          uploadedFiles.push(`path/to/${file.name}`);
-          resolve(`path/to/${file.name}`);
-        }, 2000);
-      });
+    // reject randomly
+    if (Math.random() < 0.4) {
+        return Promise.reject("Error uploading files");
+    }
+    return new Promise<string[]>(resolve => {
+        const uploadedFiles: string[] = [];
+        const promises = files.map(file => {
+            // simulate uploading files
+            return new Promise<string>(resolve => {
+                setTimeout(() => {
+                    if (Math.random() > 0.8) {
+                        uploadedFiles.push(null as any);
+                    } else {
+                        uploadedFiles.push(`path/to/${file.name}`);
+                    }
+                    resolve(`path/to/${file.name}`);
+                }, 2000);
+            });
+        });
+        Promise.all(promises).then(() => {
+            resolve(uploadedFiles);
+        });
     });
-    Promise.all(promises).then(() => {
-      resolve(uploadedFiles);
-    });
-  });
 };
 const onUpload = isProd ? null : onUploadDev;
 
@@ -122,10 +132,10 @@ const onUpload = isProd ? null : onUploadDev;
 //  either served and `VITE_VS_PATH` is set to the path, or
 //  use the default cdn (jsdelivr) that monaco loader uses
 // make sure the csp allows the cdn
-let vsPath = !isProd ? 'vs' : (import.meta.env.VITE_VS_PATH ?? null);
+let vsPath = !isProd ? "vs" : (import.meta.env.VITE_VS_PATH ?? null);
 if (!vsPath) {
-  // if set to empty string, make it null
-  vsPath = null;
+    // if set to empty string, make it null
+    vsPath = null;
 }
 /**
  * Other props:
@@ -142,24 +152,62 @@ if (!vsPath) {
  *    - createdAt?: string;
  *    - updatedAt?: string;
  */
-
-export const startApp = () => {
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-      <Waldiez
-        monacoVsPath={vsPath}
-        onUserInput={onUserInput}
-        flowId="flow-0"
-        storageId="storage-0"
-        inputPrompt={inputPrompt}
-        onRun={onRun}
-        onConvert={onConvert}
-        onChange={onChange}
-        onUpload={onUpload}
-        onSave={onSave}
-      />
-    </React.StrictMode>
-  );
+const flowId = `wf-${nanoid()}`;
+const defaultWaldiezProps: Partial<WaldiezProps> = {
+    monacoVsPath: vsPath,
+    onUserInput,
+    inputPrompt,
+    onRun,
+    onConvert,
+    onChange,
+    onUpload,
+    onSave,
+    flowId,
+    storageId: flowId,
 };
 
-startApp();
+const getProps = () => {
+    return new Promise<Partial<WaldiezProps>>(resolve => {
+        let waldiezProps = { ...defaultWaldiezProps };
+        const haveFlowInQuery = window.location.search.includes("flow");
+        if (haveFlowInQuery) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const flowUrl = urlParams.get("flow");
+            if (flowUrl && flowUrl.startsWith("http")) {
+                try {
+                    fetch(flowUrl, {
+                        method: "GET",
+                        redirect: "follow",
+                        signal: AbortSignal.timeout(10000),
+                    })
+                        .then(response => response.json())
+                        .then(flow => {
+                            waldiezProps = {
+                                ...waldiezProps,
+                                ...importFlow(flow),
+                            };
+                            resolve(waldiezProps);
+                        })
+                        .catch(_ => {
+                            resolve(waldiezProps);
+                        });
+                } catch (_) {
+                    resolve(waldiezProps);
+                }
+            }
+        } else {
+            resolve(waldiezProps);
+        }
+    });
+};
+
+export const startApp = (waldiezProps: Partial<WaldiezProps> = defaultWaldiezProps) => {
+    window.history.replaceState({}, document.title, window.location.pathname);
+    ReactDOM.createRoot(document.getElementById("root")!).render(
+        <React.StrictMode>
+            <Waldiez {...waldiezProps} />
+        </React.StrictMode>,
+    );
+};
+
+getProps().then(startApp);

@@ -1,1 +1,1 @@
-export { TextInput } from '@waldiez/components/inputs/textInput/main';
+export { TextInput } from "@waldiez/components/inputs/textInput/main";

@@ -1,1 +1,1 @@
-export { WaldiezNodeModel } from '@waldiez/components/nodes/model/main';
+export { WaldiezNodeModel } from "@waldiez/components/nodes/model/main";

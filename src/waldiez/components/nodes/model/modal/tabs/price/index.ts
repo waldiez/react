@@ -1,1 +1,1 @@
-export { WaldiezNodeModelModalPriceTab } from '@waldiez/components/nodes/model/modal/tabs/price/main';
+export { WaldiezNodeModelModalPriceTab } from "@waldiez/components/nodes/model/modal/tabs/price/main";

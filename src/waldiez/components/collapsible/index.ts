@@ -1,1 +1,1 @@
-export { Collapsible } from '@waldiez/components/collapsible/main';
+export { Collapsible } from "@waldiez/components/collapsible/main";

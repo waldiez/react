@@ -1,1 +1,1 @@
-export { WaldiezNodeSkill } from '@waldiez/components/nodes/skill/main';
+export { WaldiezNodeSkill } from "@waldiez/components/nodes/skill/main";

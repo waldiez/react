@@ -1,13 +1,13 @@
 {
-  "excludeExternals": true,
-  "excludePrivate": true,
-  "excludeProtected": true,
-  "excludeInternal": true,
-  "entryPoints": ["src/waldiez/index.ts", "src/waldiez/schema.ts", "src/waldiez/types.ts"],
-  "entryPointStrategy": "expand",
-  "sortEntryPoints": false,
-  "name": "@waldiez/react",
-  "includeVersion": true,
-  "readme": "README.md",
-  "out": "out/docs"
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true,
+    "entryPoints": ["src/waldiez/index.ts", "src/waldiez/schema.ts", "src/waldiez/types.ts"],
+    "entryPointStrategy": "expand",
+    "sortEntryPoints": false,
+    "name": "@waldiez/react",
+    "includeVersion": true,
+    "readme": "README.md",
+    "out": "out/docs"
 }

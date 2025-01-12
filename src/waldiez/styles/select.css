@@ -1,26 +1,26 @@
 .flow-wrapper .select,
 .flow-wrapper .select * {
-  outline: none;
-  box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .flow-wrapper.dark .select,
 .flow-wrapper.dark .select * {
-  background-color: #222;
-  color: #f8f8f8;
-  border-radius: 4px;
-  border: none;
+    background-color: #222;
+    color: #f8f8f8;
+    border-radius: 4px;
+    border: none;
 }
 
 .flow-wrapper.light .w-select__menu {
-  border: 1px solid #ccc !important;
+    border: 1px solid #ccc !important;
 }
 
 .flow-wrapper.dark .w-select__menu {
-  border: 1px solid #444 !important;
+    border: 1px solid #444 !important;
 }
 
 .flow-wrapper.dark .select .w-select__input-container {
-  background-color: unset;
-  color: unset;
+    background-color: unset;
+    color: unset;
 }

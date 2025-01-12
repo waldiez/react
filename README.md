@@ -14,8 +14,8 @@ bun add @waldiez/react
 
 ## Requirements for development
 
-- Node.js
-- yarn@4.5.3
+- Node.js (version 20.x or later)
+- bun@1.1.42
 
 ## Libraries
 
@@ -23,9 +23,9 @@ bun add @waldiez/react
 {
     "@monaco-editor/react": "^4.6.0",
     "@xyflow/react": "^12.3.6",
-    "microdiff": "^1.4.0",
+    "microdiff": "^1.5.0",
     "nanoid": "^5.0.9",
-    "rc-slider": "^11.1.7",
+    "rc-slider": "^11.1.8",
     "react": "^18.3.1 || ^19.0.0",
     "react-dom": "^18.3.1 || ^19.0.0",
     "react-error-boundary": "^4.1.2",
@@ -41,11 +41,11 @@ bun add @waldiez/react
 
 ```tsx
 // npm|yarn|pnpm|bun|whatever add|install @waldiez/react
-import '@waldiez/react/dist/@waldiez.css';
-import { Waldiez } from '@waldiez/react';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { Waldiez } from "@waldiez/react";
+import "@waldiez/react/dist/@waldiez.css";
 
 const isProd = import.meta.env.PROD;
 
@@ -67,7 +67,7 @@ const onChange = null;
  * the action should be handled by the parent component
  */
 const onSaveDev = (flowString: string) => {
-  console.info('saving', flowString);
+    console.info("saving", flowString);
 };
 const onSave = isProd ? null : onSaveDev;
 /**
@@ -109,7 +109,7 @@ const onUserInput = null;
  * the flow string is the JSON stringified flow
  */
 const onRunDev = (flowString: string) => {
-  console.info(flowString);
+    console.info(flowString);
 };
 const onRun = isProd ? null : onRunDev;
 
@@ -122,8 +122,8 @@ const onRun = isProd ? null : onRunDev;
  * the conversion happens in the python part / backend
  */
 
-const onConvertDev = (_flowString: string, to: 'py' | 'ipynb') => {
-  console.info('converting to', to);
+const onConvertDev = (_flowString: string, to: "py" | "ipynb") => {
+    console.info("converting to", to);
 };
 const onConvert = isProd ? null : onConvertDev;
 
@@ -138,21 +138,21 @@ const onConvert = isProd ? null : onConvertDev;
  * (the docsPath will have to be updated accordingly if needed on the backend)
  */
 const onUploadDev = (files: File[]) => {
-  return new Promise<string[]>(resolve => {
-    const uploadedFiles: string[] = [];
-    const promises = files.map(file => {
-      // simulate uploading files
-      return new Promise<string>(resolve => {
-        setTimeout(() => {
-          uploadedFiles.push(`path/to/${file.name}`);
-          resolve(`path/to/${file.name}`);
-        }, 2000);
-      });
+    return new Promise<string[]>(resolve => {
+        const uploadedFiles: string[] = [];
+        const promises = files.map(file => {
+            // simulate uploading files
+            return new Promise<string>(resolve => {
+                setTimeout(() => {
+                    uploadedFiles.push(`path/to/${file.name}`);
+                    resolve(`path/to/${file.name}`);
+                }, 2000);
+            });
+        });
+        Promise.all(promises).then(() => {
+            resolve(uploadedFiles);
+        });
     });
-    Promise.all(promises).then(() => {
-      resolve(uploadedFiles);
-    });
-  });
 };
 const onUpload = isProd ? null : onUploadDev;
 
@@ -164,10 +164,10 @@ const onUpload = isProd ? null : onUploadDev;
 //  either served and `VITE_VS_PATH` is set to the path, or
 //  use the default cdn (jsdelivr) that monaco loader uses
 // make sure the csp allows the cdn
-let vsPath = !isProd ? 'vs' : (import.meta.env.VITE_VS_PATH ?? null);
+let vsPath = !isProd ? "vs" : (import.meta.env.VITE_VS_PATH ?? null);
 if (!vsPath) {
-  // if set to empty string, make it null
-  vsPath = null;
+    // if set to empty string, make it null
+    vsPath = null;
 }
 /**
  * Other props:
@@ -186,22 +186,22 @@ if (!vsPath) {
  */
 
 const startApp = () => {
-  ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-      <Waldiez
-        monacoVsPath={vsPath}
-        onUserInput={onUserInput}
-        flowId="flow-0"
-        storageId="storage-0"
-        inputPrompt={inputPrompt}
-        onRun={onRun}
-        onConvert={onConvert}
-        onChange={onChange}
-        onUpload={onUpload}
-        onSave={onSave}
-      />
-    </React.StrictMode>
-  );
+    ReactDOM.createRoot(document.getElementById("root")!).render(
+        <React.StrictMode>
+            <Waldiez
+                monacoVsPath={vsPath}
+                onUserInput={onUserInput}
+                flowId="flow-0"
+                storageId="storage-0"
+                inputPrompt={inputPrompt}
+                onRun={onRun}
+                onConvert={onConvert}
+                onChange={onChange}
+                onUpload={onUpload}
+                onSave={onSave}
+            />
+        </React.StrictMode>,
+    );
 };
 
 startApp();
@@ -209,4 +209,4 @@ startApp();
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/waldiez/react/blob/main/LICENSE) file for details.
+This project is licensed under the [Apache License, Version 2.0 (Apache-2.0)](https://github.com/waldiez/react/blob/main/LICENSE).

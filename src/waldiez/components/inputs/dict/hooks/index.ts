@@ -1,1 +1,1 @@
-export { useDict } from '@waldiez/components/inputs/dict/hooks/useDict';
+export { useDict } from "@waldiez/components/inputs/dict/hooks/useDict";

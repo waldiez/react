@@ -1,6 +1,6 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
 export const getId = () => {
-  // epoch now + nanoid
-  return `${Date.now()}${nanoid()}`;
+    // epoch now + nanoid
+    return `${Date.now()}${nanoid()}`;
 };
