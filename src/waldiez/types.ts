@@ -5,21 +5,21 @@ export type * from "@waldiez/store";
 
 export type WaldiezFlowProps = ReactFlowJsonObject & {
     flowId: string;
-    isAsync: boolean;
+    isAsync?: boolean;
     storageId: string;
-    createdAt: string;
-    updatedAt: string;
     name: string;
     description: string;
     tags: string[];
     requirements: string[];
-    viewport: Viewport | undefined;
+    viewport?: Viewport;
+    createdAt?: string;
+    updatedAt?: string;
 };
 export type WaldiezProps = WaldiezFlowProps & {
     nodes: Node[];
     edges: Edge[];
     viewport?: Viewport;
-    monacoVsPath?: string;
+    monacoVsPath?: string | null;
     inputPrompt?: {
         previousMessages: string[];
         prompt: string;

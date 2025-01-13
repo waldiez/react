@@ -81,8 +81,8 @@ export const flowMapper = {
             description: flow.description,
             tags: flow.tags,
             requirements: flow.requirements,
-            createdAt: flow.createdAt,
-            updatedAt: flow.updatedAt,
+            createdAt: flow.createdAt || new Date().toISOString(),
+            updatedAt: flow.updatedAt || new Date().toISOString(),
             data: getFlowDataToExport(flow, hideSecrets, skipLinks),
         };
         return waldiezFlow;
