@@ -22,5 +22,5 @@
         },
         "types": ["vitest/globals", "@vitest/browser/providers/playwright", "@testing-library/jest-dom"]
     },
-    "include": ["src", "tests"]
+    "include": ["src", "tests", "e2e"],
 }

@@ -13,7 +13,7 @@ const main = async () => {
         console.log("ffmpeg not found in PATH");
         process.exit(0);
     }
-    const videosDir = path.resolve(__dirname, "..", "tests", "browser", "videos");
+    const videosDir = path.resolve(__dirname, "..", ".local", "recordings");
     if (!fs.existsSync(videosDir)) {
         fs.mkdirSync(videosDir, { recursive: true });
         process.exit(0);

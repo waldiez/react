@@ -4,8 +4,8 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { externalizeDeps } from "vite-plugin-externalize-deps";
 
-const defaultIncludes = ["**/tests/**/*.test.{ts,tsx}", "!**/tests/browser/**/*.test.{ts,tsx}"];
-const defaultBrowserIncludes = ["**/tests/browser/**/*.test.{ts,tsx}"];
+const defaultIncludes = ["**/tests/**/*.test.{ts,tsx}"];
+const defaultBrowserIncludes = ["**/e2e/**/*.test.{ts,tsx}"];
 const isBrowserTest = process.argv.includes("--browser.enabled");
 
 const viewport = { width: 1280, height: 720 };
@@ -161,7 +161,7 @@ export default defineConfig(({ command }) => ({
             providerOptions: {
                 context: {
                     recordVideo: {
-                        dir: "./tests/browser/videos",
+                        dir: "./.local/recordings",
                         size: viewport,
                     },
                     viewport,
