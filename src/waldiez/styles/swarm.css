@@ -1,0 +1,32 @@
+.flow-wrapper .swarm-container {
+    border: 2px solid currentcolor;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    min-width: 480px;
+    min-height: 320px;
+    flex-grow: 1;
+}
+
+.flow-wrapper .swarm-container .header {
+    margin: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flow-wrapper .agent-edge-swarm-box {
+    cursor: pointer;
+}
+
+.flow-wrapper .agent-handoff-recipients {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+}
+
+.flow-wrapper .agent-handoff-recipients .agent-handoff-recipient {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}

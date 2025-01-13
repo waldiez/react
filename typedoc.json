@@ -3,7 +3,7 @@
     "excludePrivate": true,
     "excludeProtected": true,
     "excludeInternal": true,
-    "entryPoints": ["src/waldiez/index.ts", "src/waldiez/schema.ts", "src/waldiez/types.ts"],
+    "entryPoints": ["src/waldiez/index.ts", "src/waldiez/types.ts"],
     "entryPointStrategy": "expand",
     "sortEntryPoints": false,
     "name": "@waldiez/react",

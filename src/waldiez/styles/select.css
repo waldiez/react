@@ -4,6 +4,10 @@
     box-shadow: none;
 }
 
+.flow-wrapper .w-select__single-value {
+    margin-top: 4px;
+}
+
 .flow-wrapper.dark .select,
 .flow-wrapper.dark .select * {
     background-color: #222;

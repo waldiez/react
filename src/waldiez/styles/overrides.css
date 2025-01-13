@@ -24,6 +24,10 @@
     border: none;
 }
 
+.flow-wrapper .swarm .react-flow__handle {
+    background-color: var(--swarm-agent-color);
+}
+
 .flow-wrapper .agent-node.assistant .react-flow__handle {
     background-color: var(--assistant-agent-color);
 }
@@ -41,10 +45,27 @@
 }
 
 .flow-wrapper .agent-node .react-flow__handle-left,
-.flow-wrapper .agent-node .react-flow__handle-right {
+.flow-wrapper .agent-node .react-flow__handle-right,
+.flow-wrapper .swarm-container .react-flow__handle-left,
+.flow-wrapper .swarm-container .react-flow__handle-right {
     width: 12px;
     height: 12px;
     border-radius: 50%;
+}
+
+.flow-wrapper .agent-node .react-flow__handle-top,
+.flow-wrapper .agent-node .react-flow__handle-bottom {
+    width: 12px;
+    height: 12px;
+    rotate: 45deg;
+}
+
+.flow-wrapper .agent-node .react-flow__handle-top {
+    margin-top: 4px;
+}
+
+.flow-wrapper .agent-node .react-flow__handle-bottom {
+    margin-bottom: -4px;
 }
 
 .flow-wrapper .rc-slider {
@@ -75,6 +96,11 @@
 
 .react-flow__resize-control.nodrag.bottom.right.handle.manager {
     border-color: var(--manager-agent-color);
+}
+
+.react-flow__resize-control.nodrag.bottom.right.handle.swarm_container {
+    width: 8px;
+    height: 8px;
 }
 
 .react-flow__resize-control.nodrag.bottom.left.handle {

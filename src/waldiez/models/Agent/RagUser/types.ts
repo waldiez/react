@@ -1,0 +1,47 @@
+import { Node } from "@xyflow/react";
+
+import { WaldiezAgentCommonData } from "@waldiez/models/Agent/Common";
+
+export type WaldiezVectorDbConfig = {
+    model: string;
+    useMemory: boolean;
+    useLocalStorage: boolean;
+    localStoragePath: string | null;
+    connectionUrl: string | null;
+};
+
+export type WaldiezRagUserRetrieveConfig = {
+    task: "code" | "qa" | "default";
+    vectorDb: "chroma" | "pgvector" | "mongodb" | "qdrant";
+    dbConfig: WaldiezVectorDbConfig;
+    docsPath: string[];
+    newDocs: boolean;
+    model: string | null;
+    chunkTokenSize: number | null;
+    contextMaxTokens: number | null;
+    chunkMode: "multi_lines" | "one_line";
+    mustBreakAtEmptyLine: boolean;
+    useCustomEmbedding: boolean;
+    embeddingFunction: string | null;
+    customizedPrompt: string | null;
+    customizedAnswerPrefix: string | null;
+    updateContext: boolean;
+    collectionName: string | null;
+    getOrCreate: boolean;
+    overwrite: boolean;
+    useCustomTokenCount: boolean;
+    customTokenCountFunction: string | null;
+    useCustomTextSplit: boolean;
+    customTextSplitFunction: string | null;
+    customTextTypes: string[];
+    recursive: boolean;
+    distanceThreshold: number | null;
+    n_results: number | null;
+};
+
+export type WaldiezNodeAgentRagUserData = WaldiezAgentCommonData & {
+    label: string;
+    retrieveConfig: WaldiezRagUserRetrieveConfig;
+};
+
+export type WaldiezNodeAgentRagUser = Node<WaldiezNodeAgentRagUserData, "agent">;

@@ -15,6 +15,7 @@ export const Modal = (props: ModalProps) => {
         hasUnsavedChanges = false,
         preventCloseIfUnsavedChanges = false,
         onClose,
+        onSaveAndClose,
         children,
         className,
     } = props;
@@ -38,7 +39,12 @@ export const Modal = (props: ModalProps) => {
         }
         setModalOpen(false);
     };
-
+    const handleSaveAndClose = () => {
+        if (onSaveAndClose) {
+            onSaveAndClose();
+        }
+        setModalOpen(false);
+    };
     const onKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === "Escape" && canClose) {
             onCancel(event);
@@ -117,20 +123,45 @@ export const Modal = (props: ModalProps) => {
                             <div className="modal-actions">
                                 <button
                                     className="modal-action-cancel"
+                                    data-testid="modal-action-confirm-cancel"
                                     onClick={hideConfirmation}
                                     type="button"
                                     title="Don't Close"
                                 >
                                     Don't Close
                                 </button>
-                                <button
-                                    className="modal-action-submit"
-                                    onClick={handleCloseModal}
-                                    type="button"
-                                    title="Close"
-                                >
-                                    Close
-                                </button>
+                                {onSaveAndClose ? (
+                                    <div className="modal-actions flex-center">
+                                        <button
+                                            className="modal-action-submit margin-right-20"
+                                            data-testid="modal-action-confirm-save"
+                                            onClick={handleSaveAndClose}
+                                            type="button"
+                                            title="Save & Close"
+                                        >
+                                            Save & Close
+                                        </button>
+                                        <button
+                                            className="modal-action-submit"
+                                            data-testid="modal-action-confirm-close"
+                                            onClick={handleCloseModal}
+                                            type="button"
+                                            title="Close"
+                                        >
+                                            Close
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <button
+                                        className="modal-action-submit"
+                                        data-testid="modal-action-confirm-close"
+                                        onClick={handleCloseModal}
+                                        type="button"
+                                        title="Close"
+                                    >
+                                        Close
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>

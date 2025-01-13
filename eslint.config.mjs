@@ -135,7 +135,7 @@ export default [
     })),
     ...defaultConfig.map(config => ({
         ...config,
-        files: ["tests/**/*.{ts,tsx}", "src/waldiez/models/**/*.ts"],
+        files: ["tests/**/*.{ts,tsx}"],
         rules: {
             ...config.rules,
             complexity: ["error", 20],

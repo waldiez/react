@@ -31,6 +31,10 @@
     align-items: center;
 }
 
+.flow-wrapper .checkbox-label .checkbox-label-view {
+    margin-top: 4px;
+}
+
 .flow-wrapper .checkbox-label input {
     display: none;
 }

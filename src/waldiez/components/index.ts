@@ -1,24 +1,16 @@
-export {
-    WaldiezEdgeChat,
-    WaldiezEdgeGroup,
-    WaldiezEdgeNested,
-    WaldiezEdgeHidden,
-} from "@waldiez/components/edges";
-export { WaldiezFlow, nodeTypes, edgeTypes } from "@waldiez/components/flow";
-export {
-    Dict,
-    Editor,
-    InfoCheckbox,
-    InfoLabel,
-    MessageInput,
-    Select,
-    StringList,
-    TextInput,
-} from "@waldiez/components/inputs";
-export { Modal } from "@waldiez/components/modal";
-export { WaldiezNodeAgent, WaldiezNodeModel, WaldiezNodeSkill } from "@waldiez/components/nodes";
-export { TabItem, TabItems } from "@waldiez/components/tabs";
-export { SideBar } from "@waldiez/components/sidebar";
-export { showSnackbar } from "@waldiez/components/snackbar";
+export { AfterWork } from "@waldiez/components/afterWork";
 export { Collapsible } from "@waldiez/components/collapsible";
+export { Dict } from "@waldiez/components/dict";
+export { InfoCheckbox } from "@waldiez/components/infoCheckBox";
+export { Editor } from "@waldiez/components/editor";
+export { InfoLabel } from "@waldiez/components/infoLabel";
+export { StringList } from "@waldiez/components/stringList";
+export { TextInput } from "@waldiez/components/textInput";
+export { Select } from "@waldiez/components/select";
+export { MessageInput } from "@waldiez/components/messageInput";
+export { NumberInput } from "@waldiez/components/numberInput";
+export { DropZone } from "@waldiez/components/dropZone";
+export { TabItem, TabItems } from "@waldiez/components/tabs";
 export { Wizard, WizardStep } from "@waldiez/components/wizard";
+export { Modal } from "@waldiez/components/modal";
+export type * from "@waldiez/components/types";

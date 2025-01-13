@@ -1,6 +1,12 @@
+import { flowMapper } from "@waldiez/models/mappers";
+import { WaldiezProps } from "@waldiez/types";
 import { Waldiez } from "@waldiez/waldiez";
 
-export { importFlow } from "@waldiez/store";
-export type { WaldiezProps, WaldiezImportProps } from "@waldiez/types";
+export type { WaldiezProps };
+
+export const importFlow = (data: any) => {
+    const flow = flowMapper.importFlow(data);
+    return flowMapper.toReactFlow(flow);
+};
 export { Waldiez };
 export default Waldiez;

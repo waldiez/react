@@ -3,8 +3,6 @@
     font-size: small;
     display: flex;
     flex-direction: column;
-    min-width: 200px;
-    max-width: 200px;
     height: 100%;
     transition: width 0.3s ease;
 }
@@ -41,12 +39,12 @@
     vertical-align: -0.2rem;
 }
 
-.flow-wrapper .flow-main .sidebar.collapsed {
+/* .flow-wrapper .flow-main .sidebar.collapsed {
     width: 40px;
     min-width: 40px;
     max-width: 40px;
     height: 100%;
-}
+} */
 
 .flow-wrapper .flow-main .sidebar.sidebar.collapsed .sidebar-header {
     justify-content: center;

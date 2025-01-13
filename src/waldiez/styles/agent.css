@@ -267,6 +267,10 @@
     border-color: var(--rag-user-color);
 }
 
+.flow-wrapper .agent-node.swarm {
+    border-color: var(--swarm-agent-color);
+}
+
 .flow-wrapper .group-member-entry {
     display: flex;
     align-items: center;
