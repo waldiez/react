@@ -18,11 +18,11 @@
     cursor: pointer;
 }
 
-.flow-wrapper .agent-edge-user-to-swarm-view:hover {
+.flow-wrapper .agent-edge-from-user-to-swarm:hover {
     box-shadow: 0 0 4px var(--user-agent-color);
 }
 
-.flow-wrapper .agent-edge-swarm-to-swarm-view:hover {
+.flow-wrapper .agent-edge-from-swarm:hover {
     box-shadow: 0 0 4px var(--swarm-agent-color);
 }
 

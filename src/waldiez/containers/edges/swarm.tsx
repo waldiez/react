@@ -51,8 +51,7 @@ export const WaldiezEdgeSwarmView = (
             onEdgeDoubleClick(event, edge);
         }
     };
-    const className =
-        swarmType === "source" ? "agent-edge-user-to-swarm-view" : "agent-edge-swarm-to-swarm-view";
+    const className = swarmType === "source" ? "agent-edge-from-user-to-swarm" : "agent-edge-from-swarm";
     return (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />

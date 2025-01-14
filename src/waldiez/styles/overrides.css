@@ -77,20 +77,6 @@
     background-color: var(--rag-user-color);
 }
 
-.flow-wrapper .rc-slider {
-    width: calc(100% - 20px);
-    margin: 0 10px;
-}
-
-.flow-wrapper .rc-slider-handle {
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.flow-wrapper.dark .rc-slider-rail {
-    background-color: #666;
-}
-
 .react-flow__resize-control.line {
     display: none;
 }
@@ -126,4 +112,18 @@
 
 .react-flow__attribution {
     background: transparent;
+}
+
+.flow-wrapper .rc-slider {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+}
+
+.flow-wrapper .rc-slider-handle {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.flow-wrapper.dark .rc-slider-rail {
+    background-color: #666;
 }
