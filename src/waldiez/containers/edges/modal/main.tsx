@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaTrashCan } from "react-icons/fa6";
 
 import { Modal, TabItem, TabItems } from "@waldiez/components";
 import { useWaldiezEdgeModal } from "@waldiez/containers/edges/modal/hooks";
@@ -23,6 +24,7 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
         onDataChange,
         onTypeChange,
         onCancel,
+        onDelete,
         onSubmit,
     } = useWaldiezEdgeModal(props);
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -34,10 +36,12 @@ export const WaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
     }
     const isSwarmChat = edgeType === "swarm";
     const isGroupChat = edgeType === "group";
+    const beforeTitle = <FaTrashCan className="clickable" onClick={onDelete} />;
     return (
         <Modal
             isOpen={isOpen}
             onClose={onClose}
+            beforeTitle={beforeTitle}
             title={edgeData.label}
             dataTestId={`edge-modal-${edgeId}`}
             hasUnsavedChanges={isDirty}

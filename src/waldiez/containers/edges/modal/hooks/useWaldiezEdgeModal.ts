@@ -14,6 +14,7 @@ export const useWaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
     const updateEdgeData = useWaldiez(s => s.updateEdgeData);
     const updateEdgeType = useWaldiez(s => s.updateEdgeType);
     const getEdgeById = useWaldiez(s => s.getEdgeById);
+    const deleteEdge = useWaldiez(s => s.deleteEdge);
     const flowId = useWaldiez(s => s.flowId);
     const edge = getEdgeById(edgeId) as WaldiezEdge | null;
     const [edgeType, setEdgeType] = useState<WaldiezEdgeType>(edge?.type ?? "chat");
@@ -57,6 +58,10 @@ export const useWaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
         setIsDirty(false);
         onClose();
     };
+    const onDelete = () => {
+        onCancel();
+        deleteEdge(edgeId);
+    };
     const onSubmit = () => {
         if (edgeData) {
             updateEdgeData(edgeId, edgeData);
@@ -83,5 +88,6 @@ export const useWaldiezEdgeModal = (props: WaldiezEdgeModalProps) => {
         onTypeChange,
         onCancel,
         onSubmit,
+        onDelete,
     };
 };
