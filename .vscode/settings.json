@@ -4,6 +4,7 @@
     "typescript.suggest.completeJSDocs": false,
     "javascript.suggest.completeJSDocs": false,
     "cSpell.words": [
+        "boxshadow",
         "coverallsapp",
         "currentcolor",
         "eslintcache",
