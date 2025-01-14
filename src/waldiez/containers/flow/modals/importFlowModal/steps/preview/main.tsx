@@ -1,8 +1,8 @@
-import { FlowAgents } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/preview/flowAgents";
-import { FlowInfo } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/preview/flowInfo";
-import { FlowModels } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/preview/flowModels";
-import { FlowSkills } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/preview/flowSkills";
-import { FlowDataPreviewProps } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/types";
+import { FlowAgents } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/flowAgents";
+import { FlowInfo } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/flowInfo";
+import { FlowModels } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/flowModels";
+import { FlowSkills } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/flowSkills";
+import { FlowDataPreviewProps } from "@waldiez/containers/flow/modals/importFlowModal/steps/types";
 
 export const FlowDataPreviewStep = (props: FlowDataPreviewProps) => {
     const { flowId, state, onStateChange } = props;

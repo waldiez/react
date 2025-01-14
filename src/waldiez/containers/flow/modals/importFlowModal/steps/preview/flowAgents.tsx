@@ -1,5 +1,5 @@
-import { useFlowAgents } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/preview/hooks";
-import { FlowDataPreviewProps } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/types";
+import { useFlowAgents } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/hooks";
+import { FlowDataPreviewProps } from "@waldiez/containers/flow/modals/importFlowModal/steps/types";
 import { WaldiezNodeAgent } from "@waldiez/models";
 
 export const FlowAgents = (props: FlowDataPreviewProps) => {

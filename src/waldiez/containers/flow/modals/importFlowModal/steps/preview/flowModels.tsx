@@ -1,5 +1,5 @@
-import { useFlowModels } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/preview/hooks";
-import { FlowDataPreviewProps } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/types";
+import { useFlowModels } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/hooks";
+import { FlowDataPreviewProps } from "@waldiez/containers/flow/modals/importFlowModal/steps/types";
 import { WaldiezNodeModel } from "@waldiez/models";
 
 export const FlowModels = (props: FlowDataPreviewProps) => {

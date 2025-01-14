@@ -1,4 +1,4 @@
-import { ImportFlowState } from "@waldiez/containers/sidebar/modals/importFlowModal/types";
+import { ImportFlowState } from "@waldiez/containers/flow/modals/importFlowModal/types";
 import { flowMapper } from "@waldiez/models/mappers";
 import { ImportedFlow, ThingsToImport } from "@waldiez/types";
 import { showSnackbar } from "@waldiez/utils";

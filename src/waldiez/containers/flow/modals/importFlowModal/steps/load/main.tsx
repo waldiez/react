@@ -1,8 +1,8 @@
 import { FaXmark } from "react-icons/fa6";
 
 import { Collapsible, DropZone } from "@waldiez/components";
-import { useLoadFlowStep } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/load/hooks";
-import { LoadFlowStepProps } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/types";
+import { useLoadFlowStep } from "@waldiez/containers/flow/modals/importFlowModal/steps/load/hooks";
+import { LoadFlowStepProps } from "@waldiez/containers/flow/modals/importFlowModal/steps/types";
 
 const includeSearch = false;
 

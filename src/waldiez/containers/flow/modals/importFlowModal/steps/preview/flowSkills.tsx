@@ -1,5 +1,5 @@
-import { useFlowSkills } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/preview/hooks";
-import { FlowDataPreviewProps } from "@waldiez/containers/sidebar/modals/importFlowModal/steps/types";
+import { useFlowSkills } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/hooks";
+import { FlowDataPreviewProps } from "@waldiez/containers/flow/modals/importFlowModal/steps/types";
 import { WaldiezNodeSkill } from "@waldiez/models";
 
 export const FlowSkills = (props: FlowDataPreviewProps) => {

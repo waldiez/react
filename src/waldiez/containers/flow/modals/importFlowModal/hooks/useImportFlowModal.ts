@@ -1,9 +1,6 @@
 import { useState } from "react";
 
-import {
-    ImportFlowModalProps,
-    ImportFlowState,
-} from "@waldiez/containers/sidebar/modals/importFlowModal/types";
+import { ImportFlowModalProps, ImportFlowState } from "@waldiez/containers/flow/modals/importFlowModal/types";
 import { useWaldiez } from "@waldiez/store";
 
 export const useImportFlowModal = (props: ImportFlowModalProps) => {

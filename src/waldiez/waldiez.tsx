@@ -40,7 +40,7 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
                     <ReactFlowProvider>
                         <SidebarProvider>
                             <WaldiezProvider {...props} flowId={flowId} nodes={nodes} edges={edges}>
-                                <WaldiezFlowView inputPrompt={inputPrompt} />
+                                <WaldiezFlowView flowId={flowId} inputPrompt={inputPrompt} />
                             </WaldiezProvider>
                         </SidebarProvider>
                     </ReactFlowProvider>

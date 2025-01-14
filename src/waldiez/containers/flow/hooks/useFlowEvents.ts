@@ -1,10 +1,14 @@
 import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance, Viewport } from "@xyflow/react";
 
+import { useState } from "react";
+
 import { WaldiezEdge, WaldiezNodeType } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
-import { getFlowRoot, showSnackbar } from "@waldiez/utils";
+import { downloadFile, getFlowRoot, showSnackbar } from "@waldiez/utils";
 
-export const useFlowEvents = (flowId: string, selectedNodeType: WaldiezNodeType) => {
+export const useFlowEvents = (flowId: string) => {
+    const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
+    const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const addModel = useWaldiez(s => s.addModel);
     const addSkill = useWaldiez(s => s.addSkill);
     const runner = useWaldiez(s => s.onRun);
@@ -18,6 +22,9 @@ export const useFlowEvents = (flowId: string, selectedNodeType: WaldiezNodeType)
     const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const getAgents = useWaldiez(s => s.getAgents);
     const getFlowEdges = useWaldiez(s => s.getFlowEdges);
+    const showNodes = useWaldiez(s => s.showNodes);
+    const getFlowInfo = useWaldiez(s => s.getFlowInfo);
+    const exportFlow = useWaldiez(s => s.exportFlow);
     const onFlowInit = (instance: ReactFlowInstance) => {
         setRfInstance(instance);
         const rootDiv = getFlowRoot(flowId);
@@ -31,6 +38,20 @@ export const useFlowEvents = (flowId: string, selectedNodeType: WaldiezNodeType)
                 duration: 100,
             });
         }
+    };
+    const onOpenImportModal = () => {
+        setIsImportModalOpen(true);
+    };
+    const onCloseImportModal = () => {
+        setIsImportModalOpen(false);
+    };
+    const onTypeShownChange = (nodeType: WaldiezNodeType) => {
+        setSelectedNodeType(nodeType);
+    };
+    const onNewAgent = () => {
+        setSelectedNodeType("agent");
+        showNodes("agent");
+        onFlowChanged();
     };
     const onNodesChange = (changes: NodeChange<Node>[]) => {
         handleNodesChange(changes);
@@ -103,9 +124,36 @@ export const useFlowEvents = (flowId: string, selectedNodeType: WaldiezNodeType)
             }
         }
     };
+
+    const onExport = (_e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        const flow = exportFlow(true, false);
+        const { name } = getFlowInfo();
+        if (flow) {
+            let fileName = name;
+            if (fileName.length < 3) {
+                fileName = "flow";
+            }
+            if (fileName.length > 100) {
+                fileName = fileName.substring(0, 100);
+            }
+            const blob = new Blob([JSON.stringify(flow)], {
+                type: "application/json",
+            });
+            downloadFile(blob, `${fileName}.waldiez`);
+        } else {
+            showSnackbar(flowId, "Could not export flow", "error", undefined, 3000);
+        }
+    };
     return {
+        selectedNodeType,
+        isImportModalOpen,
+        onOpenImportModal,
+        onCloseImportModal,
+        onTypeShownChange,
+        onNewAgent,
         convertToPy,
         convertToIpynb,
+        onExport,
         onRun,
         onAddNode,
         onFlowInit,

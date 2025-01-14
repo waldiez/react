@@ -2,17 +2,17 @@ import { Node } from "@xyflow/react";
 
 import { useEffect } from "react";
 
-import { ImportFlowState } from "@waldiez/containers/sidebar/modals/importFlowModal/types";
+import { ImportFlowState } from "@waldiez/containers/flow/modals/importFlowModal/types";
 import { ThingsToImport } from "@waldiez/types";
 
-export const useFlowSkills = (props: {
+export const useFlowModels = (props: {
     flowId: string;
     state: ImportFlowState;
     onStateChange: (newState: Partial<ImportFlowState>) => void;
 }) => {
     const { flowId, state, onStateChange } = props;
     const { selectedProps, loadedFlowData: flowData } = state;
-    const skillNodes = flowData?.nodes.filter(node => node.type === "skill");
+    const modelNodes = flowData?.nodes.filter(node => node.type === "model");
     useEffect(() => {
         checkAllNoneIndeterminate();
     }, [selectedProps]);
@@ -26,12 +26,12 @@ export const useFlowSkills = (props: {
     };
     const checkAllNoneIndeterminate = () => {
         const allNoneCheckbox = document.getElementById(
-            `import-flow-modal-skills-all-none-${flowId}`,
+            `import-flow-modal-models-all-none-${flowId}`,
         ) as HTMLInputElement;
         if (allNoneCheckbox) {
-            const atLeastOneChecked = selectedProps.nodes.skills.length > 0;
+            const atLeastOneChecked = selectedProps.nodes.models.length > 0;
             if (atLeastOneChecked) {
-                const allChecked = selectedProps.nodes.skills.length === skillNodes?.length;
+                const allChecked = selectedProps.nodes.models.length === modelNodes?.length;
                 allNoneCheckbox.indeterminate = !allChecked;
                 allNoneCheckbox.checked = allChecked;
             } else {
@@ -40,29 +40,29 @@ export const useFlowSkills = (props: {
             }
         }
     };
-    const onSkillsChange = (node: Node) => {
+    const onModelsChange = (node: Node) => {
         onSelectedPropsChange({
             nodes: {
-                models: selectedProps.nodes.models,
-                skills: selectedProps.nodes.skills.some(skill => skill.id === node.id)
-                    ? selectedProps.nodes.skills.filter(skill => skill.id !== node.id)
-                    : [...selectedProps.nodes.skills, node],
+                models: selectedProps.nodes.models.some(model => model.id === node.id)
+                    ? selectedProps.nodes.models.filter(model => model.id !== node.id)
+                    : [...selectedProps.nodes.models, node],
+                skills: selectedProps.nodes.skills,
                 agents: selectedProps.nodes.agents,
             },
         });
     };
-    const onAllNoneSkillsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onAllNoneModelsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         onSelectedPropsChange({
             nodes: {
-                models: selectedProps.nodes.models,
-                skills: event.target.checked ? skillNodes! : [],
+                models: event.target.checked ? modelNodes! : [],
+                skills: selectedProps.nodes.skills,
                 agents: selectedProps.nodes.agents,
             },
         });
     };
     return {
-        skillNodes,
-        onSkillsChange,
-        onAllNoneSkillsChange,
+        modelNodes,
+        onModelsChange,
+        onAllNoneModelsChange,
     };
 };

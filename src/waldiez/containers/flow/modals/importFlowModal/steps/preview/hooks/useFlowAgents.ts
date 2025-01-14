@@ -2,7 +2,7 @@ import { Node } from "@xyflow/react";
 
 import { useEffect } from "react";
 
-import { ImportFlowState } from "@waldiez/containers/sidebar/modals/importFlowModal/types";
+import { ImportFlowState } from "@waldiez/containers/flow/modals/importFlowModal/types";
 import { ThingsToImport } from "@waldiez/types";
 
 export const useFlowAgents = (props: {

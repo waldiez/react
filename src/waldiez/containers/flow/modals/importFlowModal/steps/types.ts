@@ -1,4 +1,4 @@
-import { ImportFlowState } from "@waldiez/containers/sidebar/modals/importFlowModal/types";
+import { ImportFlowState } from "@waldiez/containers/flow/modals/importFlowModal/types";
 
 export type LoadFlowStepProps = {
     flowId: string;
