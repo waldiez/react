@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, getBezierPath } from "@xyflow/react";
+import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react";
 
 import { GiNestEggs } from "react-icons/gi";
 import { MdMessage } from "react-icons/md";
@@ -27,7 +27,7 @@ export const WaldiezEdgeSwarmView = (
         sourcePosition,
         targetPosition,
     } = props;
-    const [edgePath, labelX, labelY] = getBezierPath({
+    const [edgePath, labelX, labelY] = getSmoothStepPath({
         sourceX,
         sourceY,
         sourcePosition,
@@ -51,6 +51,8 @@ export const WaldiezEdgeSwarmView = (
             onEdgeDoubleClick(event, edge);
         }
     };
+    const className =
+        swarmType === "source" ? "agent-edge-user-to-swarm-view" : "agent-edge-swarm-to-swarm-view";
     return (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
@@ -68,7 +70,7 @@ export const WaldiezEdgeSwarmView = (
                     data-testid={`edge-label-${id}`}
                     onClick={onOpenModal}
                 >
-                    <div className="agent-edge-swarm-view clickable">{icon}</div>
+                    <div className={`agent-edge-swarm-view clickable ${className}`}>{icon}</div>
                 </div>
             </EdgeLabelRenderer>
         </>

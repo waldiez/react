@@ -24,8 +24,41 @@
     border: none;
 }
 
+.flow-wrapper .agent-node .react-flow__handle-left,
+.flow-wrapper .agent-node .react-flow__handle-right,
+.flow-wrapper .swarm-container .react-flow__handle-left,
+.flow-wrapper .swarm-container .react-flow__handle-right {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
 .flow-wrapper .swarm .react-flow__handle {
     background-color: var(--swarm-agent-color);
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+    border-radius: 0;
+}
+
+.flow-wrapper .swarm .react-flow__handle-left {
+    margin-left: -6px;
+    margin-top: -3px;
+}
+
+.flow-wrapper .swarm .react-flow__handle-right {
+    margin-right: -6px;
+    margin-top: -3px;
+}
+
+.flow-wrapper .agent-node .react-flow__handle-top {
+    margin-top: -6px;
+    margin-left: -3px;
+}
+
+.flow-wrapper .agent-node .react-flow__handle-bottom {
+    margin-bottom: -6px;
+    margin-left: -3px;
 }
 
 .flow-wrapper .agent-node.assistant .react-flow__handle {
@@ -42,30 +75,6 @@
 
 .flow-wrapper .agent-node.rag_user .react-flow__handle {
     background-color: var(--rag-user-color);
-}
-
-.flow-wrapper .agent-node .react-flow__handle-left,
-.flow-wrapper .agent-node .react-flow__handle-right,
-.flow-wrapper .swarm-container .react-flow__handle-left,
-.flow-wrapper .swarm-container .react-flow__handle-right {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-}
-
-.flow-wrapper .agent-node .react-flow__handle-top,
-.flow-wrapper .agent-node .react-flow__handle-bottom {
-    width: 12px;
-    height: 12px;
-    rotate: 45deg;
-}
-
-.flow-wrapper .agent-node .react-flow__handle-top {
-    margin-top: 4px;
-}
-
-.flow-wrapper .agent-node .react-flow__handle-bottom {
-    margin-bottom: -4px;
 }
 
 .flow-wrapper .rc-slider {

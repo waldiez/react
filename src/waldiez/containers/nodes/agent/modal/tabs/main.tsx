@@ -145,22 +145,22 @@ export const WaldiezNodeAgentModalTabs = ({
                 </TabItem>
             )}
             {isSwarm && (
+                <TabItem label="Skills" id={`wf-${flowId}-agent-swarm-${id}`}>
+                    <WaldiezAgentSwarmFunctions
+                        id={id}
+                        data={data as WaldiezNodeAgentSwarmData}
+                        skills={skills}
+                        onDataChange={onDataChange}
+                    />
+                </TabItem>
+            )}
+            {isSwarm && (
                 <TabItem label="Hand offs" id={`wf-${flowId}-agent-swarm-${id}`}>
                     <WaldiezAgentSwarmHandoffs
                         id={id}
                         data={data as WaldiezNodeAgentSwarmData}
                         agentConnections={agentConnections}
                         agents={agents}
-                        onDataChange={onDataChange}
-                    />
-                </TabItem>
-            )}
-            {isSwarm && (
-                <TabItem label="Functions" id={`wf-${flowId}-agent-swarm-${id}`}>
-                    <WaldiezAgentSwarmFunctions
-                        id={id}
-                        data={data as WaldiezNodeAgentSwarmData}
-                        skills={skills}
                         onDataChange={onDataChange}
                     />
                 </TabItem>

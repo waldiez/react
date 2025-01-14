@@ -61,11 +61,22 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentProps) => {
                 className={data.parentId ? "hidden" : ""}
                 type="target"
                 isConnectableEnd
-                position={agentType === "swarm" ? Position.Top : Position.Left}
+                position={Position.Left}
                 onConnect={onEdgeConnection}
-                data-testid={`agent-handle-${id}-${agentType === "swarm" ? "top" : "left"}`}
-                id={`agent-handle-${id}-${agentType === "swarm" ? "top" : "left"}`}
+                data-testid={`agent-handle-${id}-left"}`}
+                id={`agent-handle-${id}-left`}
             />
+            {agentType === "swarm" && (
+                <Handle
+                    className="swarm-handle"
+                    type="target"
+                    isConnectableStart
+                    position={Position.Top}
+                    onConnect={onEdgeConnection}
+                    data-testid={`agent-handle-${id}-top`}
+                    id={`agent-handle-${id}-top`}
+                />
+            )}
             <Handle
                 className={data.parentId ? "hidden" : ""}
                 type="source"
@@ -77,7 +88,7 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentProps) => {
             />
             {agentType === "swarm" && (
                 <Handle
-                    className={data.parentId ? "hidden" : ""}
+                    className="swarm-handle"
                     type="source"
                     isConnectableStart
                     position={Position.Bottom}

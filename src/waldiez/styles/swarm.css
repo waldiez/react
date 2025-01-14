@@ -18,6 +18,14 @@
     cursor: pointer;
 }
 
+.flow-wrapper .agent-edge-user-to-swarm-view:hover {
+    box-shadow: 0 0 4px var(--user-agent-color);
+}
+
+.flow-wrapper .agent-edge-swarm-to-swarm-view:hover {
+    box-shadow: 0 0 4px var(--swarm-agent-color);
+}
+
 .flow-wrapper .agent-handoff-recipients {
     display: flex;
     flex-direction: column;
