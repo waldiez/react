@@ -13,7 +13,6 @@ export const FlowInfo = (props: FlowDataPreviewProps) => {
         onDescriptionChange,
         onTagsChange,
         onRequirementsChange,
-        onIsASyncChange,
         onImportEverythingChange,
     } = useFlowInfo(props);
     return (
@@ -116,7 +115,7 @@ export const FlowInfo = (props: FlowDataPreviewProps) => {
                                 <div className="checkbox"></div>
                             </label>
                         </div>
-                        <div className="flow-data-preview-body-section-row">
+                        {/* <div className="flow-data-preview-body-section-row">
                             <label className="checkbox-label">
                                 <div>Is Async</div>
                                 <input
@@ -127,7 +126,7 @@ export const FlowInfo = (props: FlowDataPreviewProps) => {
                                 />
                                 <div className="checkbox"></div>
                             </label>
-                        </div>
+                        </div> */}
                     </div>
                 )}
             </div>

@@ -46,10 +46,7 @@ export class WaldiezNodeStore implements IWaldiezNodeStore {
         const flowId = this.get().flowId;
         const flowRoot = getFlowRoot(flowId);
         if (flowRoot) {
-            const nodeType = node.type;
-            const openModalBtn = flowRoot.querySelector(
-                `#open-${nodeType}-node-modal-${node.id}`,
-            ) as HTMLButtonElement;
+            const openModalBtn = flowRoot.querySelector(`[data-node-id="${node.id}"]`) as HTMLButtonElement;
             if (openModalBtn) {
                 openModalBtn.click();
             }

@@ -165,6 +165,7 @@ export const swarmJson = {
         functions: [],
         updateAgentStateBeforeReply: [],
         handoffs: [],
+        isInitial: false,
     },
     key: "value",
     position: { x: 50, y: 51 },

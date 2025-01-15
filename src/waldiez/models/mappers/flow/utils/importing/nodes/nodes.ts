@@ -127,7 +127,7 @@ const updateAgentNodes = (json: Record<string, unknown>, nodes: Node[]) => {
             return;
         }
         VALID_AGENT_TYPES.forEach(agentType => {
-            const key = `${agentType}s`;
+            const key = agentType === "swarm" ? "swarm_agents" : `${agentType}s`;
             if (!(key in agents) || !Array.isArray(agents[key])) {
                 return;
             }

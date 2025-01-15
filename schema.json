@@ -1090,6 +1090,9 @@
                         "$ref": "#/definitions/WaldiezAgentNestedChat"
                     }
                 },
+                "isInitial": {
+                    "type": "boolean"
+                },
                 "functions": {
                     "type": "array",
                     "items": {
@@ -1122,6 +1125,7 @@
                 "functions",
                 "handoffs",
                 "humanInputMode",
+                "isInitial",
                 "maxConsecutiveAutoReply",
                 "modelIds",
                 "nestedChats",
@@ -1187,7 +1191,7 @@
         },
         "WaldiezSwarmAfterWorkOption": {
             "type": "string",
-            "enum": ["TERMINATE", "REVERT_TO_USER", "STAY"]
+            "enum": ["TERMINATE", "REVERT_TO_USER", "STAY", "SWARM_MANAGER"]
         },
         "WaldiezSwarmOnCondition": {
             "type": "object",
@@ -1509,6 +1513,15 @@
                         }
                     ]
                 },
+                "contextVariables": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "available": {
+                    "$ref": "#/definitions/WaldiezSwarmAvailable"
+                },
                 "realSource": {
                     "type": ["string", "null"]
                 },
@@ -1530,6 +1543,8 @@
                 "nestedChat",
                 "maxRounds",
                 "afterWork",
+                "contextVariables",
+                "available",
                 "realSource",
                 "realTarget"
             ],
@@ -1581,6 +1596,19 @@
         "WaldiezChatLlmSummaryMethod": {
             "type": ["string", "null"],
             "enum": ["reflection_with_llm", "last_msg", null]
+        },
+        "WaldiezSwarmAvailable": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "$ref": "#/definitions/WaldiezSwarmOnConditionAvailableCheckType"
+                },
+                "value": {
+                    "type": ["string", "null"]
+                }
+            },
+            "required": ["type", "value"],
+            "additionalProperties": false
         }
     },
     "title": "Waldiez Flow",

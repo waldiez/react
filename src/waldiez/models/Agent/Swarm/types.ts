@@ -6,18 +6,22 @@ import { WaldiezSwarmOnCondition } from "@waldiez/models/Agent/Swarm/OnCondition
 import { WaldiezSwarmUpdateSystemMessage } from "@waldiez/models/Agent/Swarm/UpdateSystemMessage";
 
 export type WaldiezSwarmAfterWorkRecipientType = "agent" | "option" | "callable";
-export type WaldiezSwarmAfterWorkOption = "TERMINATE" | "REVERT_TO_USER" | "STAY";
+export type WaldiezSwarmAfterWorkOption = "TERMINATE" | "REVERT_TO_USER" | "STAY" | "SWARM_MANAGER";
 export type WaldiezSwarmOnConditionTargetType = "agent" | "nested_chat";
 export type WaldiezSwarmOnConditionAvailableCheckType = "string" | "callable" | "none";
 export type WaldiezSwarmUpdateSystemMessageType = "string" | "callable";
 export type WaldiezSwarmHandoff = WaldiezSwarmAfterWork | WaldiezSwarmOnCondition;
-
+export type WaldiezSwarmAvailable = {
+    type: WaldiezSwarmOnConditionAvailableCheckType;
+    value: string | null;
+};
 export type WaldiezNodeAgentSwarmData = WaldiezAgentCommonData & {
     label: string;
     agentType: "swarm";
     functions: string[]; //skill Ids
-    updateAgentStateBeforeReply: Array<WaldiezSwarmUpdateSystemMessage | string>;
+    updateAgentStateBeforeReply: WaldiezSwarmUpdateSystemMessage[];
     handoffs: WaldiezSwarmHandoff[];
+    isInitial: boolean;
 };
 
 export type WaldiezNodeAgentSwarmContainerData = WaldiezAgentCommonData & {

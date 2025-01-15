@@ -100,7 +100,8 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentProps) => {
             <button
                 title="Open Node Modal"
                 type="button"
-                id={`open-agent-node-modal-${id}`}
+                // id={`open-agent-node-modal-${id}`}
+                data-node-id={id}
                 data-testid={`open-agent-node-modal-${id}`}
                 className="hidden"
                 onClick={onOpenNodeModal}

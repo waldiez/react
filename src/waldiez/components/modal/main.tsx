@@ -75,6 +75,7 @@ export const Modal = (props: ModalProps) => {
             }
         }
     };
+    const noInteraction = isOpen ? "no-wheel no-pan no-drag" : "";
     return (
         <dialog
             ref={modalRef}
@@ -82,7 +83,7 @@ export const Modal = (props: ModalProps) => {
             data-testid={dataTestId ?? "modal-dialog"}
             onKeyDown={onKeyDown}
             onCancel={onCancel}
-            className={`modal ${isFullScreen ? "fullscreen" : ""} ${className ?? ""}`}
+            className={`modal ${noInteraction} ${isFullScreen ? "fullscreen" : ""} ${className ?? ""}`}
         >
             <div className="modal-content">
                 <div className="modal-header">

@@ -1,6 +1,6 @@
 import { Edge, MarkerType, Node } from "@xyflow/react";
 
-import { WaldiezNodeAgentType } from "@waldiez/models";
+import { WaldiezNodeAgentType, WaldiezSwarmAvailable } from "@waldiez/models";
 import {
     WaldiezChat,
     WaldiezChatData,
@@ -69,6 +69,8 @@ export const chatMapper = {
             nestedChat: getNestedChat(data),
             maxRounds: getChatMaxRounds(data),
             afterWork: data.afterWork ? swarmAfterWorkMapper.exportSwarmAfterWork(data.afterWork) : null,
+            available: data.available,
+            contextVariables: data.contextVariables,
             realSource: data.realSource,
             realTarget: data.realTarget,
         };
@@ -100,6 +102,8 @@ export const chatMapper = {
             maxTurns: chat.data.maxTurns,
             maxRounds: chat.data.maxRounds,
             afterWork: chat.data.afterWork,
+            contextVariables: chat.data.contextVariables,
+            available: chat.data.available,
             realSource: chat.data.realSource,
             realTarget: chat.data.realTarget,
         };
@@ -127,6 +131,9 @@ const getChatData = (json: { [key: string]: any }, index: number): WaldiezChatDa
     const nestedChat = getNestedChat(json);
     const maxRounds = getChatMaxRounds(json);
     const afterWork = getChatAfterWork(json);
+    const contextVariables = getContextVariables(json);
+    const available = getAvailable(json);
+    console.log(available);
     const realSource = getRealSource(json);
     const realTarget = getRealTarget(json);
     const data = new WaldiezChatData({
@@ -143,6 +150,8 @@ const getChatData = (json: { [key: string]: any }, index: number): WaldiezChatDa
         nestedChat,
         maxRounds,
         afterWork,
+        contextVariables,
+        available,
         realSource,
         realTarget,
     });
@@ -319,6 +328,43 @@ const getChatMaxRounds = (data: { [key: string]: any }) => {
         maxRounds = data.maxRounds;
     }
     return maxRounds;
+};
+
+const getContextVariables = (data: { [key: string]: any }) => {
+    const contextVariables: { [key: string]: string } = {};
+    if ("contextVariables" in data && typeof data.contextVariables === "object") {
+        Object.entries(data.contextVariables).forEach(([key, value]) => {
+            if (
+                typeof value === "string" ||
+                typeof value === "number" ||
+                typeof value === "boolean" ||
+                value === null
+            ) {
+                contextVariables[key] = value !== null ? `${value}` : "";
+            }
+        });
+    }
+    return contextVariables;
+};
+
+const getAvailable = (data: { [key: string]: any }) => {
+    const available: WaldiezSwarmAvailable = {
+        type: "none",
+        value: null,
+    };
+    if ("available" in data && typeof data.available === "object") {
+        if (
+            "type" in data.available &&
+            typeof data.available.type === "string" &&
+            ["string", "callable", "none"].includes(data.available.type)
+        ) {
+            available.type = data.available.type;
+        }
+        if ("value" in data.available && typeof data.available.value === "string") {
+            available.value = data.available.value;
+        }
+    }
+    return available;
 };
 
 const getChatAfterWork = (data: { [key: string]: any }) => {

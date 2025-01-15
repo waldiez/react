@@ -38,6 +38,11 @@ describe("chatMapper.exportChat", () => {
                     recipientType: "agent",
                     recipient: "wa-2",
                 },
+                contextVariables: {},
+                available: {
+                    type: "none",
+                    value: null,
+                },
                 realSource: "wa-1",
                 realTarget: "wa-2",
             },
@@ -108,6 +113,11 @@ describe("chatMapper.exportChat", () => {
                 maxTurns: 0,
                 maxRounds: 0,
                 afterWork: null,
+                contextVariables: {},
+                available: {
+                    type: "none",
+                    value: null,
+                },
                 realSource: "wa-1",
                 realTarget: "wa-2",
             },

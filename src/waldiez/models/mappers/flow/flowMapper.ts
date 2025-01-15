@@ -1,6 +1,7 @@
 import { Edge, Node } from "@xyflow/react";
 
 import {
+    WaldiezAgentSwarmContainerData,
     WaldiezEdge,
     WaldiezFlow,
     WaldiezFlowData,
@@ -27,7 +28,13 @@ import {
 } from "@waldiez/models/mappers/flow/utils";
 import { modelMapper } from "@waldiez/models/mappers/model";
 import { skillMapper } from "@waldiez/models/mappers/skill";
-import { WaldiezFlowProps } from "@waldiez/types";
+import { isAfterWork } from "@waldiez/store/utils";
+import {
+    WaldiezAgentSwarm,
+    WaldiezFlowProps,
+    WaldiezNodeAgentSwarmContainer,
+    WaldiezSwarmAfterWork,
+} from "@waldiez/types";
 
 export const flowMapper = {
     importFlow: (item: any, newId?: string) => {
@@ -53,8 +60,8 @@ export const flowMapper = {
         });
     },
     toReactFlow(flow: WaldiezFlow) {
-        const edges: Edge[] = flow.data.chats.map(chatMapper.asEdge);
-        const nodes: Node[] = getRFNodes(flow);
+        const edges: Edge[] = getRFEdges(flow);
+        const nodes: Node[] = getRFNodes(flow, edges);
         const flowProps: WaldiezFlowProps = {
             flowId: flow.id,
             isAsync: flow.data.isAsync ?? false,
@@ -198,7 +205,7 @@ const exportChat = (edge: WaldiezEdge, edges: WaldiezEdge[], index: number) => {
     return chat;
 };
 
-const getRFNodes = (flow: WaldiezFlow) => {
+const getRFNodes = (flow: WaldiezFlow, edges: Edge[]) => {
     const nodes: Node[] = [];
     flow.data.models.forEach(model => {
         nodes.push(modelMapper.asNode(model));
@@ -218,16 +225,30 @@ const getRFNodes = (flow: WaldiezFlow) => {
     flow.data.agents.rag_users.forEach(ragUser => {
         nodes.push(agentMapper.asNode(ragUser));
     });
-    const swarmNodes = getSwarmRFNodes(flow);
+    const swarmNodes = getSwarmRFNodes(flow, edges);
     nodes.push(...swarmNodes);
     return nodes;
 };
 
-const getSwarmRFNodes = (flow: WaldiezFlow) => {
+const getRFEdges = (flow: WaldiezFlow) => {
+    const flowEdges: Edge[] = [];
+    flow.data.chats.forEach(chat => {
+        const edge = chatMapper.asEdge(chat);
+        if (edge.type === "swarm") {
+            if (edge.target.startsWith("swarm-container")) {
+                edge.target = `swarm-container-${flow.id}`;
+                edge.targetHandle = `swarm-container-agent-handle-swarm-container-${flow.id}-target`;
+            }
+        }
+        flowEdges.push(edge);
+    });
+    return flowEdges;
+};
+
+const getSwarmRFNodes = (flow: WaldiezFlow, edges: Edge[]) => {
     const nodes: Node[] = [];
     if (flow.data.agents.swarm_agents.length > 0) {
-        // nodes.push(getSwarmContainer(flow, nodes));
-        const containerNode = getSwarmContainer(flow, nodes);
+        const containerNode = getSwarmContainerNode(flow, edges);
         nodes.push(containerNode);
         flow.data.agents.swarm_agents.forEach(swarmAgent => {
             const swarmNode = agentMapper.asNode(swarmAgent);
@@ -236,6 +257,106 @@ const getSwarmRFNodes = (flow: WaldiezFlow) => {
         });
     }
     return nodes;
+};
+
+const getSwarmContainerNode = (flow: WaldiezFlow, edges: Edge[]) => {
+    const parentId = getSwarmContainerId(flow);
+    if (parentId) {
+        const agentNode = flow.data.nodes.find(node => node.id === parentId);
+        if (agentNode) {
+            const agentData = new WaldiezAgentSwarmContainerData() as any;
+            agentNode.data = agentData;
+            return updateSwarmContainer(flow, agentNode as WaldiezNodeAgentSwarmContainer, edges);
+        }
+    }
+    return getSwarmContainer(flow, []);
+};
+
+const updateSwarmContainer = (
+    flow: WaldiezFlow,
+    agentNode: WaldiezNodeAgentSwarmContainer,
+    edges: Edge[],
+) => {
+    const initialAgent = getSwarmInitialAgent(flow);
+    const containerId = getSwarmContainerId(flow);
+    agentNode.data.initialAgent = initialAgent.id;
+    agentNode.id = `swarm-container-${flow.id}`;
+    agentNode.data.agentType = "swarm_container";
+    // missing:
+    // - maxRounds: number;
+    // - afterWork: WaldiezSwarmAfterWork | null;
+    // - contextVariables: { [key: string]: string };
+    updateSwarmContainerFromEdgeTrigger(edges, agentNode, initialAgent, containerId);
+    // let's try to get these from the edge trigger.
+    // find the edge that has as target the swarm_container
+    // if not found (no userAgent), find the edge that has as source the initialAgent of the swarm_container
+    return agentNode;
+};
+
+const updateSwarmContainerFromEdgeTrigger = (
+    edges: Edge[],
+    agentNode: WaldiezNodeAgentSwarmContainer,
+    initialAgent: WaldiezAgentSwarm,
+    containerId: string,
+) => {
+    const edgeTrigger = getEdgeTrigger(edges, agentNode, initialAgent, containerId);
+    if (edgeTrigger) {
+        updateSwarmContainerFromEdge(edgeTrigger, agentNode);
+    }
+};
+
+const getEdgeTrigger = (
+    edges: Edge[],
+    agentNode: WaldiezNodeAgentSwarmContainer,
+    initialAgent: WaldiezAgentSwarm,
+    containerId: string,
+) => {
+    const edgeTrigger = edges.find(
+        edge =>
+            edge.target === initialAgent.id ||
+            edge.data?.realTarget === initialAgent.id ||
+            edge.target === containerId,
+    );
+    if (edgeTrigger && edgeTrigger.type === "swarm" && edgeTrigger.data) {
+        edgeTrigger.data.realTarget = initialAgent.id;
+        updateSwarmContainerFromEdge(edgeTrigger, agentNode);
+    }
+    return edgeTrigger;
+};
+const updateSwarmContainerFromEdge = (edgeTrigger: Edge, agentNode: WaldiezNodeAgentSwarmContainer) => {
+    if (typeof edgeTrigger.data?.maxRounds !== "number") {
+        agentNode.data.maxRounds = 20;
+    } else {
+        agentNode.data.maxRounds = edgeTrigger.data.maxRounds;
+    }
+    if (!edgeTrigger.data?.afterWork) {
+        agentNode.data.afterWork = null;
+    } else if (isAfterWork(edgeTrigger.data.afterWork)) {
+        agentNode.data.afterWork = edgeTrigger.data.afterWork as WaldiezSwarmAfterWork;
+    }
+    agentNode.data.contextVariables = {};
+    if (edgeTrigger.data?.contextVariables && typeof edgeTrigger.data.contextVariables === "object") {
+        agentNode.data.contextVariables = edgeTrigger.data.contextVariables as Record<string, string>;
+    }
+};
+
+const getSwarmContainerId = (flow: WaldiezFlow) => {
+    let parentId = `swarm-container-${flow.id}`;
+    for (const agent of flow.data.agents.swarm_agents) {
+        if (agent.data.parentId && typeof agent.data.parentId === "string") {
+            parentId = agent.data.parentId;
+            break;
+        } else if (agent.rest?.parentId && typeof agent.rest.parentId === "string") {
+            parentId = agent.rest.parentId as string;
+            break;
+        }
+    }
+    return parentId;
+};
+
+const getSwarmInitialAgent = (flow: WaldiezFlow) => {
+    const initialAgent = flow.data.agents.swarm_agents.find(agent => agent.data.isInitial);
+    return initialAgent || flow.data.agents.swarm_agents[0];
 };
 
 const getFlowJson = (item: any) => {

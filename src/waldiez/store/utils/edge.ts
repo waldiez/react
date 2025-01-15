@@ -112,6 +112,8 @@ const getSwarmEdge = (
 
 const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
     const edgeName = getNewEdgeName(sourceNode, targetNode);
+    const sourceAgentType = sourceNode.data.agentType as WaldiezNodeAgentType;
+    const targetAgentType = targetNode.data.agentType as WaldiezNodeAgentType;
     const source = sourceNode.id;
     const target = targetNode.id;
     const chatData = new WaldiezChatData();
@@ -121,6 +123,31 @@ const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
     chatData.description = `Transfer to ${targetNode.data.label}`;
     chatData.order = -1;
     chatData.position = 0;
+    if (sourceAgentType !== "swarm") {
+        chatData.message = {
+            type: "string",
+            content: "Start the chat",
+            context: {},
+            use_carryover: false,
+        };
+    }
+    if (targetAgentType !== "swarm") {
+        // nested chat
+        chatData.nestedChat = {
+            message: {
+                type: "string",
+                content: "",
+                context: {},
+                use_carryover: false,
+            },
+            reply: {
+                type: "none",
+                content: "",
+                context: {},
+                use_carryover: false,
+            },
+        };
+    }
     return chatData;
 };
 

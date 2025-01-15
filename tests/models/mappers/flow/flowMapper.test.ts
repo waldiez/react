@@ -21,12 +21,11 @@ const flowLinks = [
 ];
 
 // we removed "teachability",
-// "agentType" is not in "data" it is one level up
-const deprecatedAgentDataKeys = ["teachability", "agentType"];
+const deprecatedAgentDataKeys = ["teachability"];
 const newAgents = ["swarm_agents"];
-// "afterWork", "maxRounds" added with swarm
-const newChatKeys = ["afterWork", "maxRounds", "realSource", "realTarget"];
-// these keys are not (or might not be) in the exported flows
+// added with swarm
+const newChatKeys = ["afterWork", "maxRounds", "realSource", "realTarget", "contextVariables", "available"];
+// these keys are not necessarily in the exported flows
 const newEdgeKeys = ["hidden", "realSource", "realTarget"];
 // id: either missing, or overridden when importing/exporting
 const flowKeysToRemove: string[] = ["id"];
@@ -111,6 +110,8 @@ const compareObjects = (json1: any, json2: any) => {
         const node2 = json2.data.nodes.find((n: any) => n.id === nodeId);
         expect(node2).toBeDefined();
         expect(node1).toEqual(node2);
+        console.log(node1);
+        console.log(node2);
     });
     json1.data.edges.forEach((edge1: any) => {
         const edgeId = edge1.id;

@@ -17,7 +17,7 @@ export const LoadFlowStep = (props: LoadFlowStepProps) => {
                 dataTestId={`import-flow-modal-collapsible-local-${flowId}`}
                 expanded={!includeSearch}
             >
-                <div className="margin-top-10">
+                <div className="padding-10 margin-left--10 margin-right--10">
                     <DropZone flowId={flowId} onUpload={onUpload} allowedFileExtensions={[".waldiez"]} />
                 </div>
             </Collapsible>

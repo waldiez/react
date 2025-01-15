@@ -1,16 +1,10 @@
-import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance, Viewport } from "@xyflow/react";
+import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance } from "@xyflow/react";
 
-import { useState } from "react";
-
-import { WaldiezEdge, WaldiezNodeType } from "@waldiez/models";
+import { WaldiezEdge } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
 import { downloadFile, getFlowRoot, showSnackbar } from "@waldiez/utils";
 
 export const useFlowEvents = (flowId: string) => {
-    const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
-    const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
-    const addModel = useWaldiez(s => s.addModel);
-    const addSkill = useWaldiez(s => s.addSkill);
     const runner = useWaldiez(s => s.onRun);
     const onConvert = useWaldiez(s => s.onConvert);
     const setRfInstance = useWaldiez(s => s.setRfInstance);
@@ -18,11 +12,9 @@ export const useFlowEvents = (flowId: string) => {
     const handleEdgesChange = useWaldiez(s => s.onEdgesChange);
     const handleEdgeDoubleClick = useWaldiez(s => s.onEdgeDoubleClick);
     const handleNodeDoubleClick = useWaldiez(s => s.onNodeDoubleClick);
-    const handleViewportChange = useWaldiez(s => s.onViewportChange);
     const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const getAgents = useWaldiez(s => s.getAgents);
     const getFlowEdges = useWaldiez(s => s.getFlowEdges);
-    const showNodes = useWaldiez(s => s.showNodes);
     const getFlowInfo = useWaldiez(s => s.getFlowInfo);
     const exportFlow = useWaldiez(s => s.exportFlow);
     const onFlowInit = (instance: ReactFlowInstance) => {
@@ -38,20 +30,6 @@ export const useFlowEvents = (flowId: string) => {
                 duration: 100,
             });
         }
-    };
-    const onOpenImportModal = () => {
-        setIsImportModalOpen(true);
-    };
-    const onCloseImportModal = () => {
-        setIsImportModalOpen(false);
-    };
-    const onTypeShownChange = (nodeType: WaldiezNodeType) => {
-        setSelectedNodeType(nodeType);
-    };
-    const onNewAgent = () => {
-        setSelectedNodeType("agent");
-        showNodes("agent");
-        onFlowChanged();
     };
     const onNodesChange = (changes: NodeChange<Node>[]) => {
         handleNodesChange(changes);
@@ -75,19 +53,6 @@ export const useFlowEvents = (flowId: string) => {
         }
         handleNodeDoubleClick(event, node);
     };
-    const onViewportChange = (viewport: Viewport) => {
-        handleViewportChange(viewport, selectedNodeType);
-        // onFlowChanged();
-    };
-    const onAddNode = () => {
-        if (selectedNodeType === "model") {
-            addModel();
-            onFlowChanged();
-        } else if (selectedNodeType === "skill") {
-            addSkill();
-            onFlowChanged();
-        }
-    };
     const convertToPy = () => {
         const flow = onFlowChanged();
         onConvert?.(JSON.stringify(flow), "py");
@@ -97,11 +62,16 @@ export const useFlowEvents = (flowId: string) => {
         onConvert?.(JSON.stringify(flow), "ipynb");
     };
     const canRun = () => {
-        const agentsCount = getAgents().length;
+        const allAgents = getAgents();
+        const agentsCount = allAgents.length;
         if (agentsCount < 2) {
             const msg = agentsCount === 0 ? "No agents" : "Only one agent";
             showSnackbar(flowId, `${msg} found in the flow`, "error", undefined, 3000);
             return false;
+        }
+        const swarmAgents = allAgents.filter(agent => agent.data.agentType === "swarm");
+        if (swarmAgents.length > 0) {
+            return true;
         }
         const { used } = getFlowEdges();
         return used.length > 0;
@@ -145,22 +115,14 @@ export const useFlowEvents = (flowId: string) => {
         }
     };
     return {
-        selectedNodeType,
-        isImportModalOpen,
-        onOpenImportModal,
-        onCloseImportModal,
-        onTypeShownChange,
-        onNewAgent,
         convertToPy,
         convertToIpynb,
         onExport,
         onRun,
-        onAddNode,
         onFlowInit,
         onNodesChange,
         onEdgesChange,
         onNodeDoubleClick,
         onEdgeDoubleClick,
-        onViewportChange,
     };
 };

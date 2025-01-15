@@ -177,7 +177,7 @@ const getKeysToExclude = (agentType: WaldiezNodeAgentType) => {
         toExclude.push("maxRound", "adminName", "speakers", "enableClearHistory", "sendIntroductions");
     }
     if (agentType === "swarm") {
-        toExclude.push("functions", "updateAgentStateBeforeReply", "handoffs", "parentId");
+        toExclude.push("functions", "updateAgentStateBeforeReply", "handoffs");
     }
     return toExclude;
 };
@@ -212,6 +212,7 @@ const getAgentData = (
             functions: (jsonData as WaldiezNodeAgentSwarmData).functions,
             updateAgentStateBeforeReply: (jsonData as WaldiezNodeAgentSwarmData).updateAgentStateBeforeReply,
             handoffs: (jsonData as WaldiezNodeAgentSwarmData).handoffs,
+            isInitial: (jsonData as WaldiezNodeAgentSwarmData).isInitial ?? false,
         });
     }
     return data;
@@ -372,4 +373,5 @@ const updateSwarmAgent = (agentData: WaldiezAgentSwarmData, data: any) => {
     agentData.functions = (data as WaldiezAgentSwarmData).functions;
     agentData.updateAgentStateBeforeReply = (data as WaldiezAgentSwarmData).updateAgentStateBeforeReply;
     agentData.handoffs = (data as WaldiezAgentSwarmData).handoffs;
+    agentData.isInitial = (data as WaldiezAgentSwarmData).isInitial;
 };

@@ -1,36 +1,13 @@
 import { useState } from "react";
 
-import { AfterWork } from "@waldiez/components";
-import { WaldiezAgentSwarmHandoffsProps } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/types";
-import {
-    WaldiezNodeAgentSwarm,
-    WaldiezSwarmAfterWork,
-    WaldiezSwarmHandoff,
-    WaldiezSwarmOnCondition,
-} from "@waldiez/models";
-import { getHandoffConditions, isAfterWork } from "@waldiez/store/utils";
+import { WaldiezAgentSwarmNestedChatsProps } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/types";
+import { WaldiezSwarmAfterWork, WaldiezSwarmHandoff, WaldiezSwarmOnCondition } from "@waldiez/models";
+import { getNestedChatOnConditionHandoffs, isAfterWork } from "@waldiez/store/utils";
 
-export const WaldiezAgentSwarmHandoffs = (props: WaldiezAgentSwarmHandoffsProps) => {
-    const { id, data, agents, agentConnections, onDataChange } = props;
-    const onConditions = getHandoffConditions(id, agents, agentConnections, data);
+export const WaldiezAgentSwarmNestedChats = (props: WaldiezAgentSwarmNestedChatsProps) => {
+    const { data, agentConnections, onDataChange } = props;
+    const onConditions = getNestedChatOnConditionHandoffs(agentConnections, data);
     const [onConditionsState, setOnConditionsState] = useState<WaldiezSwarmOnCondition[]>(onConditions);
-    const getAfterWork = () => {
-        for (const handoff of data.handoffs) {
-            if (isAfterWork(handoff)) {
-                return handoff as WaldiezSwarmAfterWork;
-            }
-        }
-        return null;
-    };
-    const afterWork = getAfterWork();
-    const onAfterWorkChange = (value: WaldiezSwarmAfterWork | null) => {
-        const handoffs = data.handoffs.filter(handoff => !isAfterWork(handoff));
-        if (value) {
-            handoffs.push(value);
-        }
-        onDataChange({ handoffs });
-    };
-    const otherSwarmAgents = agents.filter(agent => agent.id !== id && agent.data.agentType === "swarm");
     const conditionsCount = onConditions.length;
     const onConditionsChanged = () => {
         const handoffs: WaldiezSwarmHandoff[] = [...onConditionsState];
@@ -60,23 +37,15 @@ export const WaldiezAgentSwarmHandoffs = (props: WaldiezAgentSwarmHandoffsProps)
         setOnConditionsState(newOnConditions);
         onConditionsChanged();
     };
-    const onHandoffIsReplyChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOnConditions = [...onConditionsState];
-        (newOnConditions[index].target as any).isReply = event.target.checked;
-        setOnConditionsState(newOnConditions);
-        onConditionsChanged();
-    };
     return (
         <div className="agent-panel agent-swarm-handoffs-panel">
             {onConditions.length === 0 ? (
                 <div className="agent-no-agents margin-top-10 margin-bottom-10">
-                    {otherSwarmAgents.length === 0
-                        ? "No other swarm agents found in the workspace"
-                        : "No other agents found to hand off to"}
+                    No nested chat handoffs found for this agent.
                 </div>
             ) : (
                 <div>
-                    <label>Agent Hands off to:</label>
+                    <label>Chat queue:</label>
                     <div className="agent-handoff-recipients flex-column">
                         {onConditionsState.map((onCondition, index) => (
                             <div key={index} className="agent-handoff-recipient">
@@ -117,31 +86,12 @@ export const WaldiezAgentSwarmHandoffs = (props: WaldiezAgentSwarmHandoffsProps)
                                 </div>
                                 <div className="agent-handoff-recipient-name">
                                     {(onCondition.target as any).label}
-                                    {onCondition.targetType === "nested_chat" && (
-                                        // add a checkbox for reply or not
-                                        <label className="checkbox-label margin-left-10">
-                                            <div className="checkbox-label-view">Reply</div>
-                                            <input
-                                                type="checkbox"
-                                                defaultChecked={(onCondition.target as any).isReply}
-                                                onChange={onHandoffIsReplyChange.bind(null, index)}
-                                                data-testid={`agent-${id}-agent-handoff-nested-reply`}
-                                            />
-                                            <div className="checkbox"></div>
-                                        </label>
-                                    )}
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
             )}
-            <AfterWork
-                value={afterWork}
-                agents={otherSwarmAgents as WaldiezNodeAgentSwarm[]}
-                darkMode={false}
-                onChange={onAfterWorkChange}
-            />
         </div>
     );
 };

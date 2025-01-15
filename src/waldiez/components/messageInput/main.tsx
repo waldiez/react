@@ -19,6 +19,7 @@ export const MessageInput = (props: MessageInputProps) => {
         includeContext,
         skipRagOption,
         skipCarryoverOption,
+        skipNone,
         onTypeChange,
     } = props;
     const {
@@ -44,9 +45,12 @@ export const MessageInput = (props: MessageInputProps) => {
     };
     const labelView = getLabelView();
     const useDict = includeContext && current.type !== "rag_message_generator" && current.type !== "none";
-    const selectOptions = skipRagOption
+    let selectOptions = skipRagOption
         ? messageTypeOptions.filter(option => option.value !== "rag_message_generator")
         : messageTypeOptions;
+    if (skipNone === true) {
+        selectOptions = selectOptions.filter(option => option.value !== "none");
+    }
     return (
         <>
             <label htmlFor={`message-select-test-${selectTestId}`}>{selectLabel}</label>

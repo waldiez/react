@@ -39,14 +39,18 @@ export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
                     />
                 </div>
             )}
-            <label>Description:</label>
-            <textarea
-                rows={2}
-                defaultValue={data.description}
-                placeholder="Enter a description"
-                onChange={onDescriptionChange}
-                data-testid={`edge-${edgeId}-description-input`}
-            />
+            {edgeType !== "swarm" && (
+                <>
+                    <label>Description:</label>
+                    <textarea
+                        rows={2}
+                        defaultValue={data.description}
+                        placeholder="Enter a description"
+                        onChange={onDescriptionChange}
+                        data-testid={`edge-${edgeId}-description-input`}
+                    />
+                </>
+            )}
             {edgeType !== "group" && (
                 <>
                     <label className="checkbox-label clear-history-checkbox">

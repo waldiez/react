@@ -1,4 +1,5 @@
 import react from "@vitejs/plugin-react";
+import fs from "fs-extra";
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
@@ -7,6 +8,8 @@ import { externalizeDeps } from "vite-plugin-externalize-deps";
 const defaultIncludes = ["**/tests/**/*.test.{ts,tsx}"];
 const defaultBrowserIncludes = ["**/e2e/**/*.test.{ts,tsx}"];
 const isBrowserTest = process.argv.includes("--browser.enabled");
+const recordingsDir = resolve(__dirname, ".local", "recordings");
+fs.ensureDirSync(recordingsDir);
 
 const viewport = { width: 1280, height: 720 };
 // tmp to continue on CI (not ready yet :( )
@@ -161,7 +164,7 @@ export default defineConfig(({ command }) => ({
             providerOptions: {
                 context: {
                     recordVideo: {
-                        dir: "./.local/recordings",
+                        dir: resolve(__dirname, ".local", "recordings"),
                         size: viewport,
                     },
                     viewport,

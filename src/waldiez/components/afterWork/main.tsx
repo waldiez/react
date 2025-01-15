@@ -11,6 +11,8 @@ import {
     WaldiezSwarmAfterWorkRecipientType,
 } from "@waldiez/types";
 
+const VALID_AFTER_WORK_OPTIONS = ["TERMINATE", "REVERT_TO_USER", "STAY", "SWARM_MANAGER"];
+
 export const AfterWork = (props: AfterWorkProps) => {
     const { value, darkMode, onChange } = props;
     const [enabled, setEnabled] = useState(value !== null);
@@ -27,11 +29,13 @@ export const AfterWork = (props: AfterWorkProps) => {
         { value: "TERMINATE", label: "Terminate" },
         { value: "REVERT_TO_USER", label: "Revert to User" },
         { value: "STAY", label: "Stay" },
+        { value: "SWARM_MANAGER", label: "Swarm Manager" },
     ];
     const optionToLabel: { [key in WaldiezSwarmAfterWorkOption]: string } = {
         TERMINATE: "Terminate",
         REVERT_TO_USER: "Revert to User",
         STAY: "Stay",
+        SWARM_MANAGER: "Swarm Manager",
     };
     const recipientTypeOptions: {
         value: WaldiezSwarmAfterWorkRecipientType;
@@ -70,9 +74,7 @@ export const AfterWork = (props: AfterWorkProps) => {
         acc[agent.id] = agent;
         return acc;
     }, {});
-    const isRecipientAnOption = ["TERMINATE", "REVERT_TO_USER", "STAY"].includes(
-        afterWorkLocal.recipient as string,
-    );
+    const isRecipientAnOption = VALID_AFTER_WORK_OPTIONS.includes(afterWorkLocal.recipient as string);
     const isRecipientAnAgent = agentOptions.some(agent => agent.value.id === afterWorkLocal.recipient);
     const onRecipientTypeChange = (
         option: SingleValue<{ value: WaldiezSwarmAfterWorkRecipientType; label: string }>,
@@ -216,7 +218,7 @@ export const DEFAULT_CUSTOM_AFTER_WORK_RECIPIENT_METHOD_CONTENT = `"""Custom aft
 #     last_speaker: SwarmAgent,
 #     messages: List[Dict[str, Any]],
 #     groupchat: GroupChat,
-# ) -> Union[AfterWorkOption, SwarmAgent, str]:"
+# ) -> Union[AfterWorkOption, SwarmAgent, str]:
 #     """Complete the custom after work recipient function"""
 #     # return last_speaker
 #     return "TERMINATE"
@@ -226,7 +228,7 @@ def custom_after_work(
     last_speaker: SwarmAgent,
     messages: List[Dict[str, Any]],
     groupchat: GroupChat,
-) -> Union[AfterWorkOption, SwarmAgent, str]:"
+) -> Union[AfterWorkOption, SwarmAgent, str]:
     """Complete the custom after work recipient function"""
     ...
 `;

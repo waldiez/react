@@ -10,8 +10,10 @@ import { WaldiezAgentNestedChats } from "@waldiez/containers/nodes/agent/modal/t
 import { WaldiezAgentRagUser } from "@waldiez/containers/nodes/agent/modal/tabs/ragUser";
 import { WaldiezAgentSkills } from "@waldiez/containers/nodes/agent/modal/tabs/skills";
 import {
+    WaldiezAgentSwarmAfterWork,
     WaldiezAgentSwarmFunctions,
-    WaldiezAgentSwarmHandoffs,
+    WaldiezAgentSwarmNestedChats,
+    WaldiezAgentSwarmUpdateState,
 } from "@waldiez/containers/nodes/agent/modal/tabs/swarm";
 import { WaldiezAgentTermination } from "@waldiez/containers/nodes/agent/modal/tabs/termination";
 import { WaldiezNodeAgentModalTabsProps } from "@waldiez/containers/nodes/agent/modal/tabs/types";
@@ -145,7 +147,7 @@ export const WaldiezNodeAgentModalTabs = ({
                 </TabItem>
             )}
             {isSwarm && (
-                <TabItem label="Skills" id={`wf-${flowId}-agent-swarm-${id}`}>
+                <TabItem label="Skills" id={`wf-${flowId}-agent-swarm-skills-${id}`}>
                     <WaldiezAgentSwarmFunctions
                         id={id}
                         data={data as WaldiezNodeAgentSwarmData}
@@ -155,8 +157,8 @@ export const WaldiezNodeAgentModalTabs = ({
                 </TabItem>
             )}
             {isSwarm && (
-                <TabItem label="Hand offs" id={`wf-${flowId}-agent-swarm-${id}`}>
-                    <WaldiezAgentSwarmHandoffs
+                <TabItem label="Nested chat" id={`wf-${flowId}-agent-swarm-nestedChats-${id}`}>
+                    <WaldiezAgentSwarmNestedChats
                         id={id}
                         data={data as WaldiezNodeAgentSwarmData}
                         agentConnections={agentConnections}
@@ -165,8 +167,31 @@ export const WaldiezNodeAgentModalTabs = ({
                     />
                 </TabItem>
             )}
+            {isSwarm && (
+                <TabItem label="Swarm" id={`wf-${flowId}-agent-swarm-specific-${id}`}>
+                    <TabItems activeTabIndex={0}>
+                        <TabItem label="Agent's State" id={`wf-${flowId}-agent-swarm-updateState-${id}`}>
+                            <WaldiezAgentSwarmUpdateState
+                                id={id}
+                                data={data as WaldiezNodeAgentSwarmData}
+                                onDataChange={onDataChange}
+                                darkMode={isDarkMode}
+                            />
+                        </TabItem>
+                        <TabItem label="After work" id={`wf-${flowId}-agent-swarm-afterWork-${id}`}>
+                            <WaldiezAgentSwarmAfterWork
+                                id={id}
+                                data={data as WaldiezNodeAgentSwarmData}
+                                onDataChange={onDataChange}
+                                agentConnections={agentConnections}
+                                darkMode={isDarkMode}
+                            />
+                        </TabItem>
+                    </TabItems>
+                </TabItem>
+            )}
             {showNestedChatsTab && (
-                <TabItem label="Nested chats" id={`wf-${flowId}-agent-nestedChats-${id}`}>
+                <TabItem label="Nested chat" id={`wf-${flowId}-agent-nestedChats-${id}`}>
                     <div className="modal-tab-body">
                         <WaldiezAgentNestedChats
                             id={id}

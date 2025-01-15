@@ -79,7 +79,7 @@ export const WaldiezEdgeNestedTab = (props: WaldiezEdgeNestedTabProps) => {
     );
 };
 
-const DEFAULT_NESTED_CHAT_MESSAGE_METHOD_CONTENT = `"""Custom nested chat message function."""
+export const DEFAULT_NESTED_CHAT_MESSAGE_METHOD_CONTENT = `"""Custom nested chat message function."""
 # provide the message to be sent from the sender to the recipient in a nested chat
 # complete the \`nested_chat_message\` below. Do not change the name or the arguments of the function.
 # only complete the function body and the docstring and return the final message.
@@ -93,7 +93,7 @@ def nested_chat_message(recipient, messages, sender, config):
     """Complete the nested chat message function"""
     ...
 `;
-const DEFAULT_NESTED_CHAT_REPLY_METHOD_CONTENT = `"""Custom nested chat reply function."""
+export const DEFAULT_NESTED_CHAT_REPLY_METHOD_CONTENT = `"""Custom nested chat reply function."""
 # provide the reply to be sent when the recipient replies to the sender in a nested chat
 # complete the \`nested_chat_reply\` below. Do not change the name or the arguments of the function.
 # only complete the function body and the docstring and return the agent's reply.

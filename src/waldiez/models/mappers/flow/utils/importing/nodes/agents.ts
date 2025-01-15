@@ -106,6 +106,7 @@ const getFlowAgents = (
                 delete nodeExtras.data;
                 delete nodeExtras.type;
                 delete nodeExtras.parentId;
+                // delete nodeExtras.agentType;
                 const waldiezAgent = agentMapper.importAgent({ ...agentJson, ...nodeExtras });
                 agents.push(waldiezAgent);
             }

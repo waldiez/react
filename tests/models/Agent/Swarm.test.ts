@@ -68,6 +68,7 @@ describe("WaldiezAgentSwarm", () => {
                     recipient: "method",
                 }),
             ],
+            isInitial: false,
         });
         const swarm = new WaldiezAgentSwarm({
             id: "1",

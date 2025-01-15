@@ -1,8 +1,12 @@
 import {
     WaldiezEdge,
     WaldiezNodeAgent,
+    WaldiezNodeAgentSwarm,
     WaldiezNodeAgentSwarmData,
+    WaldiezSwarmAfterWork,
+    WaldiezSwarmHandoff,
     WaldiezSwarmOnCondition,
+    WaldiezSwarmOnConditionAvailableCheckType,
 } from "@waldiez/models";
 
 export const isAfterWork = (item: any) => {
@@ -22,16 +26,60 @@ export const isAfterWork = (item: any) => {
             return false;
         }
     } else if (recipientType === "option") {
-        if (!["TERMINATE", "REVERT_TO_USER", "STAY"].includes(item.recipient)) {
+        if (!["TERMINATE", "REVERT_TO_USER", "STAY", "SWARM_MANAGER"].includes(item.recipient)) {
             return false;
         }
     }
     return true;
 };
 
-export const getHandoffConditions = (
-    id: string,
-    agents: WaldiezNodeAgent[],
+export const getSwarmAgentHandoffs = (
+    node: WaldiezNodeAgentSwarm,
+    agentConnections: {
+        source: {
+            nodes: WaldiezNodeAgent[];
+            edges: WaldiezEdge[];
+        };
+        target: {
+            nodes: WaldiezNodeAgent[];
+            edges: WaldiezEdge[];
+        };
+    },
+    agentNodes: WaldiezNodeAgent[],
+    swarmAgentNodes: WaldiezNodeAgent[],
+    updatedEdges: WaldiezEdge[],
+) => {
+    const agentHandoffs: WaldiezSwarmHandoff[] = getNestedChatOnConditionHandoffs(
+        agentConnections,
+        node.data,
+    );
+    let gotAfterWork = false;
+    const swarmTargets = agentConnections.target.nodes.filter(node =>
+        swarmAgentNodes.some(agent => agent.id === node.id),
+    );
+    const swarmTargetEdges = agentConnections.target.edges.filter(
+        edge => edge.type === "swarm" && swarmTargets.some(target => target.id === edge.target),
+    );
+    swarmTargetEdges.forEach(edge => {
+        const { afterWork, onCondition } = getSwarmAgentHandoff(node, edge, agentNodes, updatedEdges);
+        if (afterWork) {
+            gotAfterWork = true;
+            agentHandoffs.push(afterWork);
+        }
+        if (onCondition) {
+            agentHandoffs.push(onCondition);
+        }
+    });
+    if (!gotAfterWork) {
+        const afterWork = node.data.handoffs.find(handoff => isAfterWork(handoff));
+        if (afterWork) {
+            agentHandoffs.push(afterWork);
+        }
+    }
+    return agentHandoffs;
+};
+
+export const getNestedChatOnConditionHandoffs = (
     agentConnections: {
         source: {
             nodes: WaldiezNodeAgent[];
@@ -44,101 +92,127 @@ export const getHandoffConditions = (
     },
     agentData: WaldiezNodeAgentSwarmData,
 ) => {
-    const basedOnConnections = getDefaultHandoffOnConditions(id, agents, agentConnections);
-    const basedOnAgentData = agentData.handoffs.filter(handoff => !isAfterWork(handoff));
-    if (basedOnAgentData.length > 0) {
-        return mergeHandoffConditions(basedOnConnections, basedOnAgentData as WaldiezSwarmOnCondition[]);
-    }
-    return basedOnConnections;
-};
-
-const getDefaultHandoffOnConditions = (
-    id: string,
-    agents: WaldiezNodeAgent[],
-    agentConnections: {
-        source: {
-            nodes: WaldiezNodeAgent[];
-            edges: WaldiezEdge[];
-        };
-        target: {
-            nodes: WaldiezNodeAgent[];
-            edges: WaldiezEdge[];
-        };
-    },
-) => {
+    // only the ones that connect/handoff to non-swarm agents
     const onConditions: WaldiezSwarmOnCondition[] = [];
-    // get the targets of the source agent that are swarm agents
-    // these will be the "on condition" agent targets
-    // get the targets of the source agent that are not swarm agents
-    // these will be the "on condition" nested chat targets
-    // give a determined order (to allow re-ordering)
-    const swarmAgents = agents.filter(agent => agent.id !== id && agent.data.agentType === "swarm");
-    const swarmTargets = agentConnections.target.nodes.filter(node =>
-        swarmAgents.some(agent => agent.id === node.id),
-    );
-    const nonSwarmTargets = agentConnections.target.nodes.filter(node =>
-        swarmAgents.every(agent => agent.id !== node.id),
-    );
-    const nonSwarmTargetsEdges = agentConnections.target.edges.filter(edge =>
-        nonSwarmTargets.some(node => node.id === edge.target),
-    );
-    // create on conditions for swarm agents
-    swarmTargets.forEach((target, index) => {
-        onConditions.push({
-            targetType: "agent",
-            // tmp, we manage this when exporting (to avoid needing to also update edges)
-            target: { id: target.id, label: target.data.label, isReply: false, order: index },
-            condition: "false",
-            available: null,
-            availableCheckType: "none",
-        });
-    });
-    const newOrderStart = swarmTargets.length;
-    nonSwarmTargets.forEach((target, index) => {
-        const edge = nonSwarmTargetsEdges.find(edge => edge.target === target.id);
+
+    const nonSwarmTargets = agentConnections.target.nodes.filter(node => node.data.agentType !== "swarm");
+    nonSwarmTargets.forEach(target => {
+        const edge = agentConnections.target.edges.find(edge => edge.target === target.id);
         if (edge) {
-            onConditions.push({
-                targetType: "nested_chat",
-                target: {
-                    label: target.data.label,
-                    id: edge.id,
-                    isReply: false,
-                    order: newOrderStart + index,
-                },
-                condition: "false",
-                available: null,
-                availableCheckType: "none",
-            });
+            let handoff: WaldiezSwarmOnCondition | undefined;
+            try {
+                handoff = agentData.handoffs.find(
+                    handoff =>
+                        !isAfterWork(handoff) &&
+                        ((handoff as WaldiezSwarmOnCondition).target as any).id === edge.id,
+                ) as WaldiezSwarmOnCondition;
+            } catch (_) {
+                handoff = undefined;
+            }
+            if (handoff) {
+                onConditions.push(handoff);
+            } else {
+                onConditions.push({
+                    targetType: "nested_chat",
+                    target: {
+                        label: target.data.label,
+                        id: edge.id,
+                        isReply: false,
+                        order: onConditions.length,
+                    },
+                    condition: "false",
+                    available: null,
+                    availableCheckType: "none",
+                });
+            }
         }
     });
     return onConditions.sort((a, b) => (a.target as any).order - (b.target as any).order);
 };
 
-const mergeHandoffConditions = (
-    basedOnConnections: WaldiezSwarmOnCondition[],
-    basedOnAgentData: WaldiezSwarmOnCondition[],
+const getSwarmAgentHandoff: (
+    node: WaldiezNodeAgentSwarm,
+    edge: WaldiezEdge,
+    agentNodes: WaldiezNodeAgent[],
+    edges: WaldiezEdge[],
+) => { afterWork: WaldiezSwarmAfterWork | null; onCondition: WaldiezSwarmOnCondition | null } = (
+    node,
+    edge,
+    agentNodes,
+    edges,
 ) => {
-    // defaultOnConditions have all the on conditions based on the connections
-    // we only want to have the ones based on the connections
-    // remove existing on conditions that are not in the connections
-    // add new on conditions that are in the connections and not in the existing on conditions
-    const onConditions: WaldiezSwarmOnCondition[] = [];
-    const existingOnConditions = basedOnConnections.filter(condition =>
-        basedOnAgentData.some(
-            handoff =>
-                handoff.targetType === condition.targetType &&
-                (handoff.target as any).id === (condition.target as any).id,
-        ),
-    );
-    const newOnConditions = basedOnConnections.filter(
-        condition =>
-            !basedOnAgentData.some(
-                handoff =>
-                    handoff.targetType === condition.targetType &&
-                    (handoff.target as any).id === (condition.target as any).id,
-            ),
-    );
-    onConditions.push(...existingOnConditions);
-    onConditions.push(...newOnConditions);
-    return onConditions.sort((a, b) => (a.target as any).order - (b.target as any).order);
+    const targetNode = agentNodes.find(node => node.id === edge.id);
+    if (!targetNode) {
+        return {
+            afterWork: null,
+            onCondition: null,
+        };
+    }
+    return getSwarmAgentHandoffFromTargetNode(node, targetNode, edges);
+};
+
+const getSwarmAgentHandoffFromTargetNode: (
+    node: WaldiezNodeAgentSwarm,
+    targetNode: WaldiezNodeAgent,
+    edges: WaldiezEdge[],
+) => { afterWork: WaldiezSwarmAfterWork | null; onCondition: WaldiezSwarmOnCondition | null } = (
+    node,
+    targetNode,
+    edges,
+) => {
+    const edge = edges.find(edge => edge.source === node.id && edge.target === targetNode.id);
+    if (!edge || !edge.data?.nestedChat) {
+        return {
+            afterWork: null,
+            onCondition: null,
+        };
+    }
+    if (edge.data.nestedChat.message?.type === "string") {
+        //afterWork
+        return {
+            afterWork: {
+                recipientType: "agent",
+                recipient: targetNode.id,
+            },
+            onCondition: null,
+        };
+    }
+    if (edge.data.nestedChat.message?.type === "none") {
+        const { condition, available, availableCheckType } = getOnConditionFromEdge(edge, targetNode);
+        const onConditionHandoff: WaldiezSwarmOnCondition = {
+            targetType: "agent",
+            target: targetNode.id,
+            condition,
+            available,
+            availableCheckType,
+        };
+        return {
+            afterWork: null,
+            onCondition: onConditionHandoff,
+        };
+    }
+    return {
+        afterWork: null,
+        onCondition: null,
+    };
+};
+
+export const getOnConditionFromEdge = (edge: WaldiezEdge, targetNode: WaldiezNodeAgent) => {
+    let condition = `transfer_to_${targetNode.data.label}`;
+    if (
+        edge.data?.description &&
+        edge.data.description !== "" &&
+        edge.data.description.toLowerCase() !== "new connection"
+    ) {
+        condition = edge.data.description;
+    }
+    let availableCheckType: WaldiezSwarmOnConditionAvailableCheckType = "none";
+    const available = edge.data?.message.type === "none" ? null : edge.data?.message.content;
+    if (!available) {
+        return { condition, available: null, availableCheckType };
+    }
+    if (available) {
+        availableCheckType = edge.data?.message.type === "method" ? "callable" : "string";
+    }
+    return { condition, available, availableCheckType };
 };

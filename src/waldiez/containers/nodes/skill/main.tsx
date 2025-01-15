@@ -30,7 +30,8 @@ export const WaldiezNodeSkillView = ({ id, data }: NodeProps<WaldiezNodeSkill>) 
                     role="button"
                     title="Edit"
                     className="clickable"
-                    id={`open-skill-node-modal-${id}`}
+                    // id={`open-skill-node-modal-${id}`}
+                    data-node-id={id}
                     data-testid={`open-skill-node-modal-${id}`}
                     onClick={onOpen}
                 >

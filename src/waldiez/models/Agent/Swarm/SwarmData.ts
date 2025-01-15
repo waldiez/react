@@ -21,6 +21,7 @@ import { WaldiezSwarmHandoff } from "@waldiez/models/Agent/Swarm/types";
  * @param skills - The linked skills of the agent
  * @param parentId - The parent id of the agent
  * @param nestedChats - The nested chats of the agent
+ * @param isInitial - The flag to check if the agent is initial
  * @param functions - The functions of the agent
  * @param updateAgentStateBeforeReply - The update agent state before reply of the agent
  * @param handoffs - The hand offs of the agent
@@ -35,6 +36,7 @@ import { WaldiezSwarmHandoff } from "@waldiez/models/Agent/Swarm/types";
  * @see {@link WaldiezAgentTerminationMessageCheck}
  */
 export class WaldiezAgentSwarmData extends WaldiezAgentData {
+    isInitial: boolean;
     functions: string[];
     updateAgentStateBeforeReply: Array<WaldiezSwarmUpdateSystemMessage | string>;
     handoffs: WaldiezSwarmHandoff[];
@@ -53,6 +55,7 @@ export class WaldiezAgentSwarmData extends WaldiezAgentData {
             functions: string[];
             updateAgentStateBeforeReply: Array<WaldiezSwarmUpdateSystemMessage | string>;
             handoffs: WaldiezSwarmHandoff[];
+            isInitial: boolean;
         } = {
             humanInputMode: "NEVER",
             systemMessage: null,
@@ -72,11 +75,13 @@ export class WaldiezAgentSwarmData extends WaldiezAgentData {
             functions: [],
             updateAgentStateBeforeReply: [],
             handoffs: [],
+            isInitial: false,
         },
     ) {
         super(props);
         this.functions = props.functions;
         this.updateAgentStateBeforeReply = props.updateAgentStateBeforeReply;
         this.handoffs = props.handoffs;
+        this.isInitial = props.isInitial;
     }
 }

@@ -1,6 +1,6 @@
-import { Background, BackgroundVariant, Controls, Panel, ReactFlow } from "@xyflow/react";
+import { Background, BackgroundVariant, Controls, Panel, ReactFlow, Viewport } from "@xyflow/react";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaFileExport, FaFileImport, FaMoon, FaPython, FaSun } from "react-icons/fa6";
 import { FaCirclePlay } from "react-icons/fa6";
@@ -19,6 +19,7 @@ import { WaldiezNodeAgentView, WaldiezNodeModelView, WaldiezNodeSkillView } from
 import { SideBar } from "@waldiez/containers/sidebar";
 import { useWaldiez } from "@waldiez/store";
 import { useWaldiezTheme } from "@waldiez/theme";
+import { WaldiezNodeType } from "@waldiez/types";
 
 type WaldiezFlowViewProps = {
     flowId: string;
@@ -41,9 +42,15 @@ const nodeTypes = {
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const { flowId, inputPrompt } = props;
+    const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
+    const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
     const edges = useWaldiez(s => s.edges);
     const viewport = useWaldiez(s => s.viewport);
+    const addModel = useWaldiez(s => s.addModel);
+    const addSkill = useWaldiez(s => s.addSkill);
+    const handleViewportChange = useWaldiez(s => s.onViewportChange);
+    const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const showNodes = useWaldiez(s => s.showNodes);
     const onUserInput = useWaldiez(s => s.onUserInput);
     const runner = useWaldiez(s => s.onRun);
@@ -52,29 +59,53 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const onSave = useWaldiez(s => s.onSave);
     const { onKeyDown } = useKeys(flowId, onSave);
     const {
-        selectedNodeType,
-        isImportModalOpen,
         convertToPy,
         convertToIpynb,
         onExport,
         onRun,
-        onAddNode,
-        onNewAgent,
         onFlowInit,
         onNodesChange,
         onEdgesChange,
         onNodeDoubleClick,
         onEdgeDoubleClick,
-        onViewportChange,
-        onTypeShownChange,
-        onOpenImportModal,
-        onCloseImportModal,
     } = useFlowEvents(flowId);
-    const { onDragOver, onDrop } = useDnD(onNewAgent);
     const includeRunButton = typeof runner === "function";
     const includeConvertIcons = typeof onConvert === "function";
     const { isDark, toggleTheme } = useWaldiezTheme();
     const colorMode = isDark ? "dark" : "light";
+
+    const onOpenImportModal = () => {
+        setIsImportModalOpen(true);
+    };
+    const onCloseImportModal = () => {
+        setIsImportModalOpen(false);
+    };
+    const onTypeShownChange = (nodeType: WaldiezNodeType) => {
+        if (nodeType !== selectedNodeType) {
+            showNodes(nodeType);
+            setSelectedNodeType(nodeType);
+        }
+    };
+
+    const onAddNode = () => {
+        if (selectedNodeType === "model") {
+            addModel();
+            onFlowChanged();
+        } else if (selectedNodeType === "skill") {
+            addSkill();
+            onFlowChanged();
+        }
+    };
+    const onNewAgent = () => {
+        setSelectedNodeType("agent");
+        showNodes("agent");
+        onFlowChanged();
+    };
+    const { onDragOver, onDrop } = useDnD(onNewAgent);
+    const onViewportChange = (viewport: Viewport) => {
+        handleViewportChange(viewport, selectedNodeType);
+        // onFlowChanged();
+    };
     useEffect(() => {
         showNodes("agent");
         // setSelectedNodeType("agent");
@@ -112,6 +143,9 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                         onViewportChange={onViewportChange}
                         connectOnClick
                         zoomOnDoubleClick={false}
+                        noWheelClassName="no-wheel"
+                        // noPanClassName="no-pan"
+                        // noDragClassName="no-drag"
                         // nodesDraggable
                         // zoomOnScroll
                         // panOnDrag
@@ -230,7 +264,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
 /*
 
 
-               
+
 <div className="sidebar-footer">
                 <ul>
                     <li

@@ -1,4 +1,4 @@
-import { WaldiezEdgeData } from "@waldiez/types";
+import { WaldiezEdgeData, WaldiezNodeAgent } from "@waldiez/types";
 
 export type WaldiezEdgeSwarmTriggerTabProps = {
     flowId: string;
@@ -9,6 +9,7 @@ export type WaldiezEdgeSwarmTriggerTabProps = {
 };
 export type WaldiezEdgeSwarmHandoffTabProps = {
     flowId: string;
+    targetAgent: WaldiezNodeAgent;
     activeTabIndex: number;
     edgeId: string;
     data: WaldiezEdgeData;

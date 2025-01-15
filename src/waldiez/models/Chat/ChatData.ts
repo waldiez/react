@@ -1,4 +1,4 @@
-import { WaldiezSwarmAfterWork } from "@waldiez/models/Agent";
+import { WaldiezSwarmAfterWork, WaldiezSwarmAvailable } from "@waldiez/models/Agent";
 import { WaldiezMessage } from "@waldiez/models/Chat/Message";
 import { WaldiezChatSummary, WaldiezNestedChat } from "@waldiez/models/Chat/types";
 
@@ -17,6 +17,8 @@ import { WaldiezChatSummary, WaldiezNestedChat } from "@waldiez/models/Chat/type
  * @param nestedChat - The nested chat
  * @param maxRounds - The maximum rounds
  * @param afterWork - The after work
+ * @param contextVariables - The context variables
+ * @param available - The available for handoff condition
  * @param realSource - The real source (overrides source)
  * @param realTarget - The real target (overrides target)
  * @see {@link WaldiezMessage}
@@ -41,6 +43,11 @@ export class WaldiezChatData {
     };
     maxRounds: number;
     afterWork: WaldiezSwarmAfterWork | null;
+    contextVariables: { [key: string]: string } = {};
+    available: WaldiezSwarmAvailable = {
+        type: "none",
+        value: null,
+    };
     realSource: string | null = null;
     realTarget: string | null = null;
     constructor(
@@ -58,6 +65,8 @@ export class WaldiezChatData {
             nestedChat: WaldiezNestedChat;
             maxRounds: number;
             afterWork: WaldiezSwarmAfterWork | null;
+            contextVariables: { [key: string]: string };
+            available: WaldiezSwarmAvailable;
             realSource: string | null;
             realTarget: string | null;
         } = {
@@ -86,6 +95,11 @@ export class WaldiezChatData {
             },
             maxRounds: 20,
             afterWork: null,
+            contextVariables: {},
+            available: {
+                type: "none",
+                value: null,
+            },
             realSource: null,
             realTarget: null,
         },
@@ -120,6 +134,8 @@ export class WaldiezChatData {
         this.nestedChat = nestedChat;
         this.maxRounds = maxRounds;
         this.afterWork = afterWork;
+        this.contextVariables = props.contextVariables;
+        this.available = props.available;
         this.realSource = realSource;
         this.realTarget = realTarget;
     }

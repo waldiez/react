@@ -11,6 +11,7 @@ export type MessageInputProps = {
     selectTestId: string;
     notNoneLabel?: string;
     notNoneLabelInfo?: string;
+    skipNone?: boolean;
     onTypeChange: (type: WaldiezMessageType) => void;
     onMessageChange: (message: WaldiezMessage) => void;
     onAddContextEntry?: (key: string, value: string) => void;

@@ -36,6 +36,11 @@ describe("chatMapper.asEdge", () => {
                 recipientType: "agent",
                 recipient: "wa-2",
             },
+            contextVariables: {},
+            available: {
+                type: "none",
+                value: null,
+            },
             realSource: "wa-1",
             realTarget: "wa-2",
         };

@@ -3,7 +3,7 @@ import { EditFlowModalModalTabOtherProps } from "@waldiez/containers/sidebar/mod
 
 export const EditFlowModalModalTabOther = (props: EditFlowModalModalTabOtherProps) => {
     const { flowId, data, onDataChange } = props;
-    const { tags, requirements, isAsync } = data;
+    const { tags, requirements } = data;
     const onAddTag = (tag: string) => {
         onDataChange({ tags: [...tags, tag] });
     };
@@ -26,9 +26,6 @@ export const EditFlowModalModalTabOther = (props: EditFlowModalModalTabOtherProp
             requirements: requirements.map(r => (r === oldValue ? newValue : r)),
         });
     };
-    const onAsyncChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onDataChange({ isAsync: e.target.checked });
-    };
     const viewLabelInfo = () => (
         <div>
             Requirements to <span className="bold italic">pip install</span> before running this flow
@@ -39,16 +36,6 @@ export const EditFlowModalModalTabOther = (props: EditFlowModalModalTabOtherProp
             className="modal-body agent-panel agent-config-panel"
             data-testid={`edit-flow-${flowId}-modal-other-view`}
         >
-            <label className="checkbox-label margin-left-10">
-                <div className="checkbox-label-view">Async Mode</div>
-                <input
-                    type="checkbox"
-                    defaultChecked={isAsync}
-                    onChange={onAsyncChange}
-                    data-testid={`edit-flow-${flowId}-modal-async-mode`}
-                />
-                <div className="checkbox"></div>
-            </label>
             <StringList
                 items={requirements}
                 itemsType="requirement"
@@ -69,3 +56,19 @@ export const EditFlowModalModalTabOther = (props: EditFlowModalModalTabOtherProp
         </div>
     );
 };
+
+/*
+const onAsyncChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onDataChange({ isAsync: e.target.checked });
+};
+<label className="checkbox-label margin-left-10">
+                <div className="checkbox-label-view">Async Mode</div>
+                <input
+                    type="checkbox"
+                    defaultChecked={isAsync}
+                    onChange={onAsyncChange}
+                    data-testid={`edit-flow-${flowId}-modal-async-mode`}
+                />
+                <div className="checkbox"></div>
+            </label>
+*/

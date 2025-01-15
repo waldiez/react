@@ -6,7 +6,6 @@ import {
     WaldiezNodeAgent,
     WaldiezNodeAgentSwarm,
     WaldiezNodeAgentSwarmContainerData,
-    WaldiezSwarmOnConditionAvailableCheckType,
 } from "@waldiez/models";
 
 // node:
@@ -25,36 +24,23 @@ export const getEdgeTrigger = (
     nodes: Node[],
     initialAgent: WaldiezNodeAgentSwarm,
     containerData: WaldiezNodeAgentSwarmContainerData,
+    containerId: string,
 ) => {
     let edgeTrigger: WaldiezEdge | null;
     try {
-        edgeTrigger = findEdgeTrigger(allEdges, nodes, initialAgent);
+        edgeTrigger = findEdgeTrigger(allEdges, nodes, initialAgent, containerId);
     } catch (_) {
         return null;
     }
     return updateEdgeTrigger(edgeTrigger, containerData);
 };
 
-export const getOnConditionFromEdge = (edge: WaldiezEdge, targetNode: WaldiezNodeAgent) => {
-    let condition = `transfer_to_${targetNode.data.label}`;
-    if (
-        edge.data?.description &&
-        edge.data.description !== "" &&
-        edge.data.description.toLowerCase() !== "new connection"
-    ) {
-        condition = edge.data.description;
-    }
-    let availableCheckType: WaldiezSwarmOnConditionAvailableCheckType = "none";
-    const available = edge.data?.message.type === "none" ? null : edge.data?.message.content;
-    if (!available) {
-        return { condition, available: null, availableCheckType };
-    }
-    if (available) {
-        availableCheckType = edge.data?.message.type === "method" ? "callable" : "string";
-    }
-    return { condition, available, availableCheckType };
-};
-const findEdgeTrigger = (allEdges: WaldiezEdge[], nodes: Node[], initialAgent: WaldiezNodeAgentSwarm) => {
+const findEdgeTrigger = (
+    allEdges: WaldiezEdge[],
+    nodes: Node[],
+    initialAgent: WaldiezNodeAgentSwarm,
+    containerId: string,
+) => {
     // search in nodes: node.type === "agent" && node.data.agentType === "user" || "rag_user"
     const userNodes = nodes.filter(
         node =>
@@ -65,11 +51,19 @@ const findEdgeTrigger = (allEdges: WaldiezEdge[], nodes: Node[], initialAgent: W
             "agentType" in node.data &&
             (node.data.agentType === "user" || node.data.agentType === "rag_user"),
     ) as WaldiezNodeAgent[];
-    // if an edge has source a userNode and target the initialAgent, return that edge
+    // if an edge has source a userNode and one of:
+    // - target the initialAgent.id
+    // - realTarget the initialAgent.id
+    // - target the containerAgent.id
     const edgeFromUser = allEdges.find(
-        edge => userNodes.some(node => node.id === edge.source) && edge.target === initialAgent.id,
+        edge =>
+            userNodes.some(node => node.id === edge.source) &&
+            (edge.target === initialAgent.id ||
+                edge.data?.realTarget === initialAgent.id ||
+                edge.target === containerId),
     );
-    if (edgeFromUser) {
+    if (edgeFromUser && edgeFromUser.type === "swarm" && edgeFromUser.data) {
+        edgeFromUser.data.realTarget = initialAgent.id;
         return edgeFromUser;
     }
     // if not found, return the first edge that has as source the initialAgent and target a swarmAgent (not other agent [avoid edge with nested_chat])
@@ -92,6 +86,6 @@ const updateEdgeTrigger = (edge: WaldiezEdge, data: WaldiezNodeAgentSwarmContain
     }
     edgeCopy.data.maxRounds = data.maxRounds;
     edgeCopy.data.afterWork = data.afterWork;
-    edgeCopy.data.message.context = data.contextVariables;
+    edgeCopy.data.contextVariables = data.contextVariables;
     return edgeCopy;
 };

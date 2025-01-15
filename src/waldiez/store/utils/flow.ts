@@ -11,15 +11,15 @@ export const mergeRequirements: (currentRequirements: string[], newRequirements:
 ) => {
     return Array.from(new Set([...currentRequirements, ...newRequirements]));
 };
-export const mergeEdges: (currentNodes: Node[], currentEdges: Edge[], newEdges: Edge[]) => Edge[] = (
-    currentNodes,
+export const mergeEdges: (allNodes: Node[], currentEdges: Edge[], newEdges: Edge[]) => Edge[] = (
+    allNodes,
     currentEdges,
     newEdges,
 ) => {
-    const isEmpty = currentNodes.length === 0 && currentEdges.length === 0;
+    const isEmpty = allNodes.length === 0 && currentEdges.length === 0;
     if (isEmpty) {
         return newEdges.map(edge => {
-            const animated = edge.type === "nested";
+            const animated = isEdgeAnimated(edge, allNodes);
             const hidden = edge.type === "hidden";
             return { ...edge, animated, hidden };
         });
@@ -31,7 +31,7 @@ export const mergeEdges: (currentNodes: Node[], currentEdges: Edge[], newEdges: 
         edge => !currentEdges.find(currentEdge => currentEdge.id === edge.id),
     );
     return [...currentEdges, ...nonDuplicateEdges].map(edge => {
-        const animated = edge.type === "nested";
+        const animated = isEdgeAnimated(edge, allNodes);
         const hidden = edge.type === "hidden";
         return { ...edge, animated, hidden };
     });
@@ -82,6 +82,9 @@ export const loadFlow: (
     let mergedFlow: ImportedFlow = items.override ? { ...newFlow, nodes: [], edges: [] } : { ...currentFlow };
 
     if (items.everything) {
+        const mergedNodes = items.override
+            ? newFlow.nodes
+            : mergeNodes(currentFlow.nodes, newFlow.nodes, typeShown);
         // either override everything or merge everything
         mergedFlow = items.override
             ? newFlow
@@ -97,8 +100,8 @@ export const loadFlow: (
                   tags: mergeTags(currentFlow.tags, newFlow.tags),
                   requirements: mergeRequirements(currentFlow.requirements, newFlow.requirements),
                   isAsync: newFlow.isAsync ?? currentFlow.isAsync,
-                  nodes: mergeNodes(currentFlow.nodes, newFlow.nodes, typeShown),
-                  edges: mergeEdges(currentFlow.nodes, currentFlow.edges, newFlow.edges),
+                  nodes: mergedNodes,
+                  edges: mergeEdges(mergedNodes, currentFlow.edges, newFlow.edges),
               };
     } else {
         selectivelyOverrideOrMergeFlow(items, currentFlow, newFlow, typeShown, mergedFlow);
@@ -140,4 +143,19 @@ const selectivelyOverrideOrMergeFlow = (
         ? newFlow.edges
         : mergeEdges(mergedNodes, currentFlow.edges, newFlow.edges);
     mergedFlow.edges = mergedEdges;
+};
+
+const isEdgeAnimated = (edge: Edge, nodes: Node[]) => {
+    if (edge.type === "nested") {
+        return true;
+    }
+    if (edge.type !== "swarm") {
+        return false;
+    }
+    const sourceNode = nodes.find(node => node.id === edge.source);
+    const targetNode = nodes.find(node => node.id === edge.target);
+    if (!sourceNode || !targetNode) {
+        return false;
+    }
+    return sourceNode.data.agentType === "swarm" && targetNode.data.agentType !== "swarm";
 };
