@@ -56,8 +56,10 @@ describe("WaldiezAgentSwarm", () => {
                     target: "agent2",
                     targetType: "agent",
                     condition: "condition",
-                    available: "available",
-                    availableCheckType: "string",
+                    available: {
+                        type: "string",
+                        value: "available",
+                    },
                 }),
                 new WaldiezSwarmAfterWork({
                     recipientType: "option",
@@ -98,8 +100,10 @@ describe("WaldiezAgentSwarm", () => {
                 target: "agent2",
                 targetType: "agent",
                 condition: "condition",
-                available: "available",
-                availableCheckType: "string",
+                available: {
+                    type: "string",
+                    value: "available",
+                },
             }),
             new WaldiezSwarmAfterWork({
                 recipientType: "option",

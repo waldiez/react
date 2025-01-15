@@ -1,6 +1,6 @@
 import { Edge } from "@xyflow/react";
 
-import { WaldiezSwarmAfterWork, WaldiezSwarmAvailable } from "@waldiez/models/Agent";
+import { WaldiezSwarmAfterWork, WaldiezSwarmOnConditionAvailable } from "@waldiez/models/Agent";
 import { WaldiezMessage } from "@waldiez/models/Chat/Message";
 
 export type WaldiezMessageType = "string" | "method" | "rag_message_generator" | "none";
@@ -29,7 +29,7 @@ export type WaldiezChatDataCommon = {
     maxRounds: number;
     afterWork: WaldiezSwarmAfterWork | null;
     contextVariables: { [key: string]: string };
-    available: WaldiezSwarmAvailable;
+    available: WaldiezSwarmOnConditionAvailable;
     realSource: string | null;
     realTarget: string | null;
 };

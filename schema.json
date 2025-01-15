@@ -1213,18 +1213,28 @@
                     "type": "string"
                 },
                 "available": {
-                    "type": ["string", "null"]
-                },
-                "availableCheckType": {
-                    "$ref": "#/definitions/WaldiezSwarmOnConditionAvailableCheckType"
+                    "$ref": "#/definitions/WaldiezSwarmOnConditionAvailable"
                 }
             },
-            "required": ["target", "targetType", "condition", "available", "availableCheckType"],
+            "required": ["target", "targetType", "condition", "available"],
             "additionalProperties": false
         },
         "WaldiezSwarmOnConditionTargetType": {
             "type": "string",
             "enum": ["agent", "nested_chat"]
+        },
+        "WaldiezSwarmOnConditionAvailable": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "$ref": "#/definitions/WaldiezSwarmOnConditionAvailableCheckType"
+                },
+                "value": {
+                    "type": ["string", "null"]
+                }
+            },
+            "required": ["type", "value"],
+            "additionalProperties": false
         },
         "WaldiezSwarmOnConditionAvailableCheckType": {
             "type": "string",
@@ -1520,7 +1530,7 @@
                     }
                 },
                 "available": {
-                    "$ref": "#/definitions/WaldiezSwarmAvailable"
+                    "$ref": "#/definitions/WaldiezSwarmOnConditionAvailable"
                 },
                 "realSource": {
                     "type": ["string", "null"]
@@ -1596,19 +1606,6 @@
         "WaldiezChatLlmSummaryMethod": {
             "type": ["string", "null"],
             "enum": ["reflection_with_llm", "last_msg", null]
-        },
-        "WaldiezSwarmAvailable": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "$ref": "#/definitions/WaldiezSwarmOnConditionAvailableCheckType"
-                },
-                "value": {
-                    "type": ["string", "null"]
-                }
-            },
-            "required": ["type", "value"],
-            "additionalProperties": false
         }
     },
     "title": "Waldiez Flow",

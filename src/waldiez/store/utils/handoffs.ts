@@ -121,8 +121,7 @@ export const getNestedChatOnConditionHandoffs = (
                         order: onConditions.length,
                     },
                     condition: "false",
-                    available: null,
-                    availableCheckType: "none",
+                    available: { value: null, type: "none" },
                 });
             }
         }
@@ -183,8 +182,10 @@ const getSwarmAgentHandoffFromTargetNode: (
             targetType: "agent",
             target: targetNode.id,
             condition,
-            available,
-            availableCheckType,
+            available: {
+                type: availableCheckType,
+                value: available,
+            },
         };
         return {
             afterWork: null,

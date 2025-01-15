@@ -5,8 +5,10 @@ export const getSourceAgentOnCondition = (sourceAgent: WaldiezNodeAgent, targetA
         targetType: "agent",
         target: targetAgent.id,
         condition: `Transfer to ${targetAgent.data.label}`,
-        available: null,
-        availableCheckType: "none",
+        available: {
+            type: "none",
+            value: null,
+        },
     });
     if (sourceAgent.data.agentType !== "swarm" || targetAgent.data.agentType !== "swarm") {
         return onCondition;

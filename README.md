@@ -22,18 +22,17 @@ bun add @waldiez/react
 ```json
 {
     "@monaco-editor/react": "^4.6.0",
-    "@xyflow/react": "^12.3.6",
+    "@xyflow/react": "^12.4.0",
     "microdiff": "^1.5.0",
     "nanoid": "^5.0.9",
     "rc-slider": "^11.1.8",
-    "react": "^18.3.1 || ^19.0.0",
-    "react-dom": "^18.3.1 || ^19.0.0",
-    "react-error-boundary": "^4.1.2",
+    "react-error-boundary": "^5.0.0",
+    "react-fast-compare": "^3.2.2",
     "react-hotkeys-hook": "^4.6.1",
     "react-icons": "^5.4.0",
     "react-select": "^5.9.0",
     "zundo": "^2.3.0",
-    "zustand": "^5.0.2"
+    "zustand": "^5.0.3"
 }
 ```
 

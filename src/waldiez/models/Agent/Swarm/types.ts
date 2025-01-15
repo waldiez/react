@@ -11,7 +11,7 @@ export type WaldiezSwarmOnConditionTargetType = "agent" | "nested_chat";
 export type WaldiezSwarmOnConditionAvailableCheckType = "string" | "callable" | "none";
 export type WaldiezSwarmUpdateSystemMessageType = "string" | "callable";
 export type WaldiezSwarmHandoff = WaldiezSwarmAfterWork | WaldiezSwarmOnCondition;
-export type WaldiezSwarmAvailable = {
+export type WaldiezSwarmOnConditionAvailable = {
     type: WaldiezSwarmOnConditionAvailableCheckType;
     value: string | null;
 };

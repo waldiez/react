@@ -1,4 +1,4 @@
-import { WaldiezSwarmAfterWork, WaldiezSwarmAvailable } from "@waldiez/models/Agent";
+import { WaldiezSwarmAfterWork, WaldiezSwarmOnConditionAvailable } from "@waldiez/models/Agent";
 import { WaldiezMessage } from "@waldiez/models/Chat/Message";
 import { WaldiezChatSummary, WaldiezNestedChat } from "@waldiez/models/Chat/types";
 
@@ -25,6 +25,7 @@ import { WaldiezChatSummary, WaldiezNestedChat } from "@waldiez/models/Chat/type
  * @see {@link WaldiezChatSummary}
  * @see {@link WaldiezNestedChat}
  * @see {@link WaldiezSwarmAfterWork}
+ * @see {@link WaldiezSwarmOnConditionAvailable}
  */
 export class WaldiezChatData {
     source: string;
@@ -44,7 +45,7 @@ export class WaldiezChatData {
     maxRounds: number;
     afterWork: WaldiezSwarmAfterWork | null;
     contextVariables: { [key: string]: string } = {};
-    available: WaldiezSwarmAvailable = {
+    available: WaldiezSwarmOnConditionAvailable = {
         type: "none",
         value: null,
     };
@@ -66,7 +67,7 @@ export class WaldiezChatData {
             maxRounds: number;
             afterWork: WaldiezSwarmAfterWork | null;
             contextVariables: { [key: string]: string };
-            available: WaldiezSwarmAvailable;
+            available: WaldiezSwarmOnConditionAvailable;
             realSource: string | null;
             realTarget: string | null;
         } = {

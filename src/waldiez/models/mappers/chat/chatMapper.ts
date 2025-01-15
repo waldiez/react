@@ -1,6 +1,6 @@
 import { Edge, MarkerType, Node } from "@xyflow/react";
 
-import { WaldiezNodeAgentType, WaldiezSwarmAvailable } from "@waldiez/models";
+import { WaldiezNodeAgentType, WaldiezSwarmOnConditionAvailable } from "@waldiez/models";
 import {
     WaldiezChat,
     WaldiezChatData,
@@ -348,7 +348,7 @@ const getContextVariables = (data: { [key: string]: any }) => {
 };
 
 const getAvailable = (data: { [key: string]: any }) => {
-    const available: WaldiezSwarmAvailable = {
+    const available: WaldiezSwarmOnConditionAvailable = {
         type: "none",
         value: null,
     };
