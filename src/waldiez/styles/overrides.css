@@ -7,6 +7,10 @@
     align-items: stretch;
 }
 
+.flow-wrapper .react-flow__handle {
+    border: none;
+}
+
 .flow-wrapper .agent-node .react-flow__handle {
     width: 10px;
     height: 10px;
@@ -36,7 +40,6 @@
 .flow-wrapper .swarm .react-flow__handle {
     border-radius: 2px;
     background-color: var(--swarm-agent-color);
-    border: none;
 }
 
 .flow-wrapper .swarm .react-flow__handle.target {
