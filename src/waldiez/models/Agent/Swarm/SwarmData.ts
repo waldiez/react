@@ -38,7 +38,7 @@ import { WaldiezSwarmHandoff } from "@waldiez/models/Agent/Swarm/types";
 export class WaldiezAgentSwarmData extends WaldiezAgentData {
     isInitial: boolean;
     functions: string[];
-    updateAgentStateBeforeReply: Array<WaldiezSwarmUpdateSystemMessage | string>;
+    updateAgentStateBeforeReply: Array<WaldiezSwarmUpdateSystemMessage>;
     handoffs: WaldiezSwarmHandoff[];
     constructor(
         props: {
@@ -53,7 +53,7 @@ export class WaldiezAgentSwarmData extends WaldiezAgentData {
             parentId: string | null;
             nestedChats: WaldiezAgentNestedChat[];
             functions: string[];
-            updateAgentStateBeforeReply: Array<WaldiezSwarmUpdateSystemMessage | string>;
+            updateAgentStateBeforeReply: Array<WaldiezSwarmUpdateSystemMessage>;
             handoffs: WaldiezSwarmHandoff[];
             isInitial: boolean;
         } = {

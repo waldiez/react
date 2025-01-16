@@ -110,8 +110,6 @@ const compareObjects = (json1: any, json2: any) => {
         const node2 = json2.data.nodes.find((n: any) => n.id === nodeId);
         expect(node2).toBeDefined();
         expect(node1).toEqual(node2);
-        console.log(node1);
-        console.log(node2);
     });
     json1.data.edges.forEach((edge1: any) => {
         const edgeId = edge1.id;

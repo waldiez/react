@@ -133,7 +133,6 @@ const getChatData = (json: { [key: string]: any }, index: number): WaldiezChatDa
     const afterWork = getChatAfterWork(json);
     const contextVariables = getContextVariables(json);
     const available = getAvailable(json);
-    console.log(available);
     const realSource = getRealSource(json);
     const realTarget = getRealTarget(json);
     const data = new WaldiezChatData({

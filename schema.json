@@ -1102,14 +1102,7 @@
                 "updateAgentStateBeforeReply": {
                     "type": "array",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/WaldiezSwarmUpdateSystemMessage"
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
+                        "$ref": "#/definitions/WaldiezSwarmUpdateSystemMessage"
                     }
                 },
                 "handoffs": {

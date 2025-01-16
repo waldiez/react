@@ -8,3 +8,9 @@ export {
     getMaxRound,
     getSendIntroductions,
 } from "@waldiez/models/mappers/agent/utils/groupChat";
+export {
+    getSwarmFunctions,
+    getSwarmUpdateAgentStateBeforeReply,
+    getIsInitial,
+    getSwarmHandoffs,
+} from "@waldiez/models/mappers/agent/utils/swarm";

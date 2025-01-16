@@ -14,7 +14,6 @@ import {
     WaldiezNodeAgent,
     WaldiezNodeAgentGroupManager,
     WaldiezNodeAgentRagUser,
-    WaldiezNodeAgentSwarmData,
     WaldiezNodeAgentType,
 } from "@waldiez/models/Agent";
 import {
@@ -26,6 +25,7 @@ import {
     getCodeExecutionConfig,
     getEnableClearHistory,
     getHumanInputMode,
+    getIsInitial,
     getMaxRound,
     getMaximumConsecutiveAutoReply,
     getModelIds,
@@ -35,6 +35,9 @@ import {
     getSendIntroductions,
     getSkills,
     getSpeakers,
+    getSwarmFunctions,
+    getSwarmHandoffs,
+    getSwarmUpdateAgentStateBeforeReply,
     getSystemMessage,
     getTermination,
 } from "@waldiez/models/mappers/agent/utils";
@@ -206,13 +209,10 @@ const getAgentData = (
     if (agentType === "swarm") {
         return new WaldiezAgentSwarmData({
             ...data,
-            // functions: getFunctions(jsonData),
-            // updateAgentStateBeforeReply: getUpdateAgentStateBeforeReply(jsonData),
-            // handoffs: getHandOffs(jsonData),
-            functions: (jsonData as WaldiezNodeAgentSwarmData).functions,
-            updateAgentStateBeforeReply: (jsonData as WaldiezNodeAgentSwarmData).updateAgentStateBeforeReply,
-            handoffs: (jsonData as WaldiezNodeAgentSwarmData).handoffs,
-            isInitial: (jsonData as WaldiezNodeAgentSwarmData).isInitial ?? false,
+            isInitial: getIsInitial(jsonData),
+            functions: getSwarmFunctions(jsonData),
+            updateAgentStateBeforeReply: getSwarmUpdateAgentStateBeforeReply(jsonData),
+            handoffs: getSwarmHandoffs(jsonData),
         });
     }
     return data;

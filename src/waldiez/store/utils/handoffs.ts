@@ -61,7 +61,11 @@ export const getSwarmAgentHandoffs = (
         edge => edge.type === "swarm" && swarmTargets.some(target => target.id === edge.target),
     );
     swarmTargetEdges.forEach(edge => {
-        const { afterWork, onCondition } = getSwarmAgentHandoff(node, edge, agentNodes, updatedEdges);
+        const updatedEdge = updatedEdges.find(updatedEdge => updatedEdge.id === edge.id);
+        if (!updatedEdge) {
+            return;
+        }
+        const { afterWork, onCondition } = getSwarmAgentHandoff(updatedEdge, agentNodes);
         if (afterWork) {
             gotAfterWork = true;
             agentHandoffs.push(afterWork);
@@ -120,8 +124,11 @@ export const getNestedChatOnConditionHandoffs = (
                         isReply: false,
                         order: onConditions.length,
                     },
-                    condition: "false",
-                    available: { value: null, type: "none" },
+                    condition: edge.data?.description || `transfer_to_${target.data.label}`,
+                    available: {
+                        type: edge.data?.available.type || "none",
+                        value: edge.data?.available.value || null,
+                    },
                 });
             }
         }
@@ -130,75 +137,42 @@ export const getNestedChatOnConditionHandoffs = (
 };
 
 const getSwarmAgentHandoff: (
-    node: WaldiezNodeAgentSwarm,
     edge: WaldiezEdge,
     agentNodes: WaldiezNodeAgent[],
-    edges: WaldiezEdge[],
 ) => { afterWork: WaldiezSwarmAfterWork | null; onCondition: WaldiezSwarmOnCondition | null } = (
-    node,
     edge,
     agentNodes,
-    edges,
 ) => {
-    const targetNode = agentNodes.find(node => node.id === edge.id);
-    if (!targetNode) {
+    const targetNode = agentNodes.find(node => node.id === edge.target);
+    if (!targetNode || !edge.data) {
         return {
             afterWork: null,
             onCondition: null,
         };
     }
-    return getSwarmAgentHandoffFromTargetNode(node, targetNode, edges);
-};
-
-const getSwarmAgentHandoffFromTargetNode: (
-    node: WaldiezNodeAgentSwarm,
-    targetNode: WaldiezNodeAgent,
-    edges: WaldiezEdge[],
-) => { afterWork: WaldiezSwarmAfterWork | null; onCondition: WaldiezSwarmOnCondition | null } = (
-    node,
-    targetNode,
-    edges,
-) => {
-    const edge = edges.find(edge => edge.source === node.id && edge.target === targetNode.id);
-    if (!edge || !edge.data?.nestedChat) {
+    const afterWork = edge.data.afterWork;
+    if (afterWork) {
         return {
-            afterWork: null,
+            afterWork,
             onCondition: null,
         };
     }
-    if (edge.data.nestedChat.message?.type === "string") {
-        //afterWork
-        return {
-            afterWork: {
-                recipientType: "agent",
-                recipient: targetNode.id,
-            },
-            onCondition: null,
-        };
-    }
-    if (edge.data.nestedChat.message?.type === "none") {
-        const { condition, available, availableCheckType } = getOnConditionFromEdge(edge, targetNode);
-        const onConditionHandoff: WaldiezSwarmOnCondition = {
-            targetType: "agent",
-            target: targetNode.id,
-            condition,
-            available: {
-                type: availableCheckType,
-                value: available,
-            },
-        };
-        return {
-            afterWork: null,
-            onCondition: onConditionHandoff,
-        };
-    }
+    const onCondition = getOnConditionFromEdge(edge, targetNode);
     return {
         afterWork: null,
-        onCondition: null,
+        onCondition: {
+            targetType: "agent",
+            target: targetNode.id,
+            condition: onCondition.condition,
+            available: {
+                type: onCondition.availableCheckType,
+                value: onCondition.available,
+            },
+        },
     };
 };
 
-export const getOnConditionFromEdge = (edge: WaldiezEdge, targetNode: WaldiezNodeAgent) => {
+const getOnConditionFromEdge = (edge: WaldiezEdge, targetNode: WaldiezNodeAgent) => {
     let condition = `transfer_to_${targetNode.data.label}`;
     if (
         edge.data?.description &&
@@ -207,13 +181,10 @@ export const getOnConditionFromEdge = (edge: WaldiezEdge, targetNode: WaldiezNod
     ) {
         condition = edge.data.description;
     }
-    let availableCheckType: WaldiezSwarmOnConditionAvailableCheckType = "none";
-    const available = edge.data?.message.type === "none" ? null : edge.data?.message.content;
+    const availableCheckType: WaldiezSwarmOnConditionAvailableCheckType = "none";
+    const available = edge.data?.available.type === "none" ? null : edge.data?.available.value;
     if (!available) {
         return { condition, available: null, availableCheckType };
-    }
-    if (available) {
-        availableCheckType = edge.data?.message.type === "method" ? "callable" : "string";
     }
     return { condition, available, availableCheckType };
 };
