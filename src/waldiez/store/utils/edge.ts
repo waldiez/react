@@ -22,14 +22,16 @@ export const edgeCommonStyle = (edgeType: WaldiezEdgeType, color: string) => ({
     },
 });
 
-const getNewEdgeNodes = (allNodes: Node[], source: string, target: string) => {
+export const getNewEdgeNodes = (allNodes: Node[], source: string, target: string) => {
     const sourceNode = allNodes.find(node => node.id === source);
     if (!sourceNode) {
-        throw new Error(`Source node with id ${source} not found`);
+        // throw new Error(`Source node with id ${source} not found`);
+        return { sourceNode: null, targetNode: null };
     }
     const targetNode = allNodes.find(node => node.id === target);
     if (!targetNode) {
-        throw new Error(`Target node with id ${target} not found`);
+        // throw new Error(`Target node with id ${target} not found`);
+        return { sourceNode: null, targetNode: null };
     }
     return {
         sourceNode,
@@ -49,7 +51,7 @@ const isSwarmEdge = (sourceNode: Node, targetNode: Node) => {
     if (sourceAgentType === "swarm") {
         return true;
     }
-    if (["user", "rag_user"].includes(sourceAgentType) && targetAgentType === "swarm_container") {
+    if (["user", "rag_user"].includes(sourceAgentType) && targetAgentType === "swarm") {
         return true;
     }
     return false;
@@ -74,16 +76,11 @@ const getNewChatType: (sourceNode: Node, targetNode: Node, hidden: boolean) => W
     return chatType;
 };
 
-const getSwarmEdge = (
-    edges: Edge[],
-    sourceNode: Node,
-    targetNode: Node,
-    sourceHandle: string | null,
-    targetHandle: string | null,
-) => {
-    if (targetNode.data.agentType === "swarm_container") {
-        const existingEdge = edges.find(edge => edge.target === targetNode.id);
-        if (existingEdge) {
+const getSwarmEdge = (edges: Edge[], sourceNode: Node, targetNode: Node) => {
+    // if the source is not swarm, it should not connect to any other node
+    if (sourceNode.data.agentType !== "swarm") {
+        const existing = edges.find(edge => edge.source === sourceNode.id);
+        if (existing) {
             return null;
         }
     }
@@ -102,8 +99,6 @@ const getSwarmEdge = (
     return {
         ...newEdge,
         type: "swarm",
-        sourceHandle,
-        targetHandle,
         animated,
         selected: true,
         ...edgeCommonStyle("swarm", color),
@@ -152,24 +147,22 @@ const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
 };
 
 export const getNewEdge = (
-    connection: Connection,
     hidden: boolean,
     positionGetter: (chatType: string) => number,
-    nodes: Node[],
+    sourceNode: Node,
+    targetNode: Node,
     edges: Edge[],
 ) => {
-    const { source, target, sourceHandle, targetHandle } = connection;
-    const { sourceNode, targetNode } = getNewEdgeNodes(nodes, source, target);
     if (isSwarmEdge(sourceNode, targetNode)) {
-        return getSwarmEdge(edges, sourceNode, targetNode, sourceHandle, targetHandle);
+        return getSwarmEdge(edges, sourceNode, targetNode);
     }
     if (["swarm", "swarm_container"].includes(targetNode.data.agentType as WaldiezNodeAgentType)) {
         return null;
     }
     const edgeName = getNewEdgeName(sourceNode, targetNode);
     const chatData = new WaldiezChatData();
-    chatData.source = source;
-    chatData.target = target;
+    chatData.source = sourceNode.id;
+    chatData.target = targetNode.id;
     chatData.name = edgeName;
     chatData.order = -1;
     const chatType = getNewChatType(sourceNode, targetNode, hidden);
@@ -185,8 +178,6 @@ export const getNewEdge = (
     return {
         ...newEdge,
         type: chatType,
-        sourceHandle,
-        targetHandle,
         animated: false,
         selected: true,
         ...edgeCommonStyle(chatType, color),
@@ -268,7 +259,7 @@ export const resetEdgePositions = (get: typeOfGet, set: typeOfSet) => {
     });
     updateNestedEdges(get, set);
 };
-export const shouldReconnect = (newConnection: Connection, nodes: Node[], edges: Edge[]): boolean => {
+export const shouldReconnect = (newConnection: Connection, nodes: Node[]): boolean => {
     const newTarget = nodes.find(node => node.id === newConnection.target);
     const newSource = nodes.find(node => node.id === newConnection.source);
     if (!newSource || !newTarget) {
@@ -276,26 +267,19 @@ export const shouldReconnect = (newConnection: Connection, nodes: Node[], edges:
     }
     const isSourceSwarmAgent = newSource.data.agentType === "swarm";
     const isTargetSwarmAgent = newTarget.data.agentType === "swarm";
-    const isTargetSwarmContainer = newTarget.data.agentType === "swarm_container";
     // if not a swarm connection, allow reconnect
-    if (!isSourceSwarmAgent && !isTargetSwarmAgent && !isTargetSwarmContainer) {
+    if (!isSourceSwarmAgent && !isTargetSwarmAgent) {
         return true;
     }
-    if (isSourceSwarmAgent && !isTargetSwarmContainer) {
+    if (isSourceSwarmAgent && ["swarm", "assistant"].includes(newTarget.data.agentType as string)) {
         return true;
     }
-    // if the target is a swarm agent, the source should be a swarm agent too
-    if (isTargetSwarmAgent && !isSourceSwarmAgent) {
-        return false;
+    // if the source is not a swarm agent, but the target is,
+    // only allow user/rag_user to connect to swarm
+    if (!isSourceSwarmAgent && isTargetSwarmAgent) {
+        return ["user", "rag_user"].includes(newSource.data.agentType as string);
     }
-    // if the target is a swarm container, only allow one edge to it
-    if (isTargetSwarmContainer) {
-        const existingSwarmEdgeToContainer = edges.find(edge => edge.target === newTarget.id);
-        if (existingSwarmEdgeToContainer) {
-            return false;
-        }
-        return true;
-    }
+    // if both are swarm agents, allow reconnect
     return isSourceSwarmAgent && isTargetSwarmAgent;
 };
 export const getNewEdgeConnectionProps = (

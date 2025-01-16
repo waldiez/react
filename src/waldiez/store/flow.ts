@@ -68,10 +68,10 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
         }
         return exported;
     };
-    getFlowEdges = () => {
-        const allEdges = this.get().edges.filter(
-            edge => edge.type === "chat" || edge.type === "swarm",
-        ) as WaldiezEdge[];
+    getFlowEdges = (skipSwarm: boolean) => {
+        const allEdges = skipSwarm
+            ? this.get().edges.filter(edge => edge.type === "chat")
+            : this.get().edges.filter(edge => edge.type === "chat" || edge.type === "swarm");
         const usedEdges = [] as WaldiezEdge[];
         const remainingEdges = [] as WaldiezEdge[];
         allEdges.forEach(edge => {
@@ -82,9 +82,9 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
                 edgeOrder = -1;
             }
             if (edgeOrder >= 0) {
-                usedEdges.push(edge);
+                usedEdges.push(edge as WaldiezEdge);
             } else {
-                remainingEdges.push(edge);
+                remainingEdges.push(edge as WaldiezEdge);
             }
         });
         const sortedEdgesUsed = usedEdges.sort((a, b) => (a.data?.order ?? 0) - (b.data?.order ?? 0));

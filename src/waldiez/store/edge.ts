@@ -12,8 +12,10 @@ import {
     edgeCommonStyle,
     getNewEdge,
     getNewEdgeConnectionProps,
+    getNewEdgeNodes,
     resetEdgeOrders,
     resetEdgePositions,
+    setSwarmInitialAgent,
     shouldReconnect,
 } from "@waldiez/store/utils";
 import { AGENT_COLORS } from "@waldiez/theme";
@@ -139,16 +141,24 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
         const nodes = this.get().nodes as WaldiezNodeAgent[];
         const edges = this.get().edges;
         const edgesCounter = (chatType: string) => edges.filter(edge => edge.type === chatType).length;
-        const newEdge = getNewEdge(connection, hidden, edgesCounter, nodes, edges);
+        const { source, target, sourceHandle, targetHandle } = connection;
+        const { sourceNode, targetNode } = getNewEdgeNodes(nodes, source, target);
+        if (!sourceNode || !targetNode) {
+            return null;
+        }
+        const newEdge = getNewEdge(hidden, edgesCounter, sourceNode, targetNode, edges);
         if (!newEdge) {
             return null;
         }
         this.set({
-            edges: [...this.get().edges, { ...newEdge }],
+            edges: [...this.get().edges, { ...newEdge, sourceHandle, targetHandle }],
             updatedAt: new Date().toISOString(),
         });
         this.resetEdgePositions();
         const newStoredEdge = this.get().edges.find(edge => edge.id === newEdge.id);
+        if (sourceNode.data.agentType !== "swarm" && targetNode.data.agentType === "swarm") {
+            setSwarmInitialAgent(targetNode.id, this.get, this.set);
+        }
         return (newStoredEdge ?? newEdge) as WaldiezEdge;
     };
     onEdgeDoubleClick = (_event: any, edge: WaldiezEdge) => {
@@ -191,8 +201,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
     };
     onReconnect: (oldEdge: Edge, newConnection: Connection) => void = (oldEdge, newConnection) => {
         const nodes = this.get().nodes as WaldiezNodeAgent[];
-        const edges = this.get().edges as WaldiezEdge[];
-        if (!shouldReconnect(newConnection, nodes, edges)) {
+        if (!shouldReconnect(newConnection, nodes)) {
             return;
         }
         const { oldSourceNode, oldTargetNode, newSourceNode, newTargetNode, color } =
@@ -201,8 +210,8 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
             console.error("Not all nodes found");
             return;
         }
-        if (oldSourceNode.id === newSourceNode.id && oldTargetNode.id === newTargetNode.id) {
-            return;
+        if (oldSourceNode.data.agentType !== "swarm" && newTargetNode.data.agentType === "swarm") {
+            setSwarmInitialAgent(newTargetNode.id, this.get, this.set);
         }
         if (!color) {
             return false;

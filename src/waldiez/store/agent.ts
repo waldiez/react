@@ -8,7 +8,13 @@ import {
 } from "@waldiez/models";
 import { IWaldiezAgentStore, WaldiezChat } from "@waldiez/models";
 import { agentMapper, chatMapper } from "@waldiez/models/mappers";
-import { getAgentConnections, getAgentNode, resetEdgeOrders, resetEdgePositions } from "@waldiez/store/utils";
+import {
+    getAgentConnections,
+    getAgentNode,
+    resetEdgeOrders,
+    resetEdgePositions,
+    setSwarmInitialAgent,
+} from "@waldiez/store/utils";
 import { typeOfGet, typeOfSet } from "@waldiez/types";
 import { getId } from "@waldiez/utils";
 
@@ -228,6 +234,40 @@ export class WaldiezAgentStore implements IWaldiezAgentStore {
         return this.get().nodes.filter(
             node => node.type === "agent" && node.data.agentType === "swarm",
         ) as WaldiezNodeAgentSwarm[];
+    };
+    setSwarmInitialAgent = (agentId: string) => {
+        setSwarmInitialAgent(agentId, this.get, this.set);
+    };
+    updateSwarmInitialAgent = (agentId: string) => {
+        setSwarmInitialAgent(agentId, this.get, this.set);
+        // if there are any edges (with source a non-swarm agent)
+        // that connect to a swarm agent, update the edge to connect to the new initial agent
+        // (it should connect to the old one, check this too?)
+        this.set({
+            edges: this.get().edges.map(edge => {
+                const sourceNode = this.get().nodes.find(node => node.id === edge.source);
+                if (sourceNode && sourceNode.data.agentType !== "swarm") {
+                    const targetNode = this.get().nodes.find(node => node.id === edge.target);
+                    if (targetNode && targetNode.data.agentType === "swarm") {
+                        // id={`agent-handle-bottom-target-${id}`}
+                        // id={`agent-handle-top-target-${id}`}...
+                        // if the old handle is in the format above,
+                        // let's update it to the new initial agent's id
+                        let newTargetHandle;
+                        const oldTargetHandle = edge.targetHandle ?? "";
+                        const targetHandleParts = oldTargetHandle.split("-");
+                        if (targetHandleParts.length === 5) {
+                            newTargetHandle = `${targetHandleParts[0]}-${targetHandleParts[1]}-${targetHandleParts[2]}-${
+                                targetHandleParts[3]
+                            }-${agentId}`;
+                        }
+                        return { ...edge, target: agentId, targetHandle: newTargetHandle };
+                    }
+                }
+                return edge;
+            }),
+            updatedAt: new Date().toISOString(),
+        });
     };
     getNonSwarmAgents: (
         swarmContainerId: string,

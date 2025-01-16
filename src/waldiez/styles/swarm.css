@@ -38,3 +38,26 @@
     align-items: center;
     margin: 5px;
 }
+
+.flow-wrapper .swarm .react-flow__handle {
+    border-radius: 2px;
+    background-color: var(--swarm-agent-color);
+}
+
+.flow-wrapper .swarm .react-flow__handle.target {
+    width: 20px;
+    height: 10px;
+}
+
+.flow-wrapper .swarm .react-flow__handle-left.target,
+.flow-wrapper .swarm .react-flow__handle-right.target {
+    width: 10px;
+    height: 20px;
+}
+
+.flow-wrapper .swarm .react-flow__handle.source {
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}

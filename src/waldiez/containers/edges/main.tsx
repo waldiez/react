@@ -75,7 +75,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
             return <WaldiezEdgeSwarmView {...props} swarmType="nested" />;
         }
         const isSwarmSource = () =>
-            sourceAgent.data.agentType !== "swarm" && targetAgent?.data.agentType === "swarm_container";
+            sourceAgent.data.agentType !== "swarm" && targetAgent?.data.agentType === "swarm";
         if (isSwarmSource()) {
             return <WaldiezEdgeSwarmView {...props} swarmType="source" />;
         }

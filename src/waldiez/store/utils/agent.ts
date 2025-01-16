@@ -11,6 +11,7 @@ import {
     WaldiezNodeAgentType,
     agentMapper,
 } from "@waldiez/models";
+import { typeOfGet, typeOfSet } from "@waldiez/types";
 
 export const getAgentNode = (
     agentType: WaldiezNodeAgentType,
@@ -102,4 +103,39 @@ const getAgentEdgeConnections = (
         targetNode = nodes.find(node => node.id === edge.target);
     }
     return { sourceNode, targetNode };
+};
+
+export const setSwarmInitialAgent = (agentId: string, get: typeOfGet, set: typeOfSet) => {
+    set({
+        nodes: get().nodes.map(node => {
+            if (node.data.agentType === "swarm") {
+                if (node.id === agentId) {
+                    return {
+                        ...node,
+                        data: {
+                            ...node.data,
+                            isInitial: true,
+                        },
+                    };
+                }
+                return {
+                    ...node,
+                    data: {
+                        ...node.data,
+                        isInitial: false,
+                    },
+                };
+            } else if (node.data.agentType === "swarm_container") {
+                return {
+                    ...node,
+                    data: {
+                        ...node.data,
+                        initialAgent: agentId,
+                    },
+                };
+            }
+            return node;
+        }),
+        updatedAt: new Date().toISOString(),
+    });
 };

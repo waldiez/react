@@ -33,6 +33,7 @@ export const WaldiezNodeSwarmContainerModal = (props: WaldiezSwarmContainerModal
     const getSwarmEdges = useWaldiez(s => s.getSwarmEdges);
     const getNonSwarmAgents = useWaldiez(s => s.getNonSwarmAgents);
     const updateAgentData = useWaldiez(s => s.updateAgentData);
+    const updateSwarmInitialAgent = useWaldiez(s => s.updateSwarmInitialAgent);
     const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const onSave = () => {
         updateAgentData(id, agentData);
@@ -61,7 +62,10 @@ export const WaldiezNodeSwarmContainerModal = (props: WaldiezSwarmContainerModal
     };
     const onInitialAgentChange = (option: SingleValue<{ label: string; value: any }>) => {
         const newData = { ...agentData, initialAgent: option?.value.id };
-        setAgentData(newData);
+        if (option?.value.id) {
+            updateSwarmInitialAgent(option.value.id);
+        }
+        // setAgentData(newData);
         const dirty = !isEqual(data, newData);
         setIsDirty(dirty);
     };

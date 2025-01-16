@@ -29,6 +29,8 @@ export interface IWaldiezAgentStore {
     addGroupMember: (groupId: string, memberId: string) => void;
     removeGroupMember: (groupId: string, memberId: string) => void;
     getSwarmAgents: () => WaldiezNodeAgentSwarm[];
+    setSwarmInitialAgent: (agentId: string) => void;
+    updateSwarmInitialAgent: (agentId: string) => void;
     getNonSwarmAgents: (
         swarmContainerId: string,
         swarmAgents: WaldiezNodeAgent[],

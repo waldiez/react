@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, Position, getSmoothStepPath } from "@xyflow/react";
+import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react";
 
 import { FaTrashAlt } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
@@ -7,6 +7,7 @@ import { GiShakingHands } from "react-icons/gi";
 import { MdMessage } from "react-icons/md";
 
 import { WaldiezEdgeProps } from "@waldiez/containers/edges/types";
+import { getEdgeTranslations } from "@waldiez/containers/edges/utils";
 import { useWaldiez } from "@waldiez/store";
 import { AGENT_COLORS } from "@waldiez/theme";
 
@@ -118,7 +119,7 @@ export const WaldiezEdgeSwarmView = (
         if (label === "") {
             return null;
         }
-        const trimmedTo20 = label.length > 15 ? `${label.slice(0, 15)}...` : label;
+        const trimmedTo20 = label.length > 20 ? `${label.slice(0, 20)}...` : label;
         return (
             <div
                 style={{
@@ -138,26 +139,14 @@ export const WaldiezEdgeSwarmView = (
         );
     };
     const className = swarmType === "source" ? "agent-edge-box" : "clickable agent-edge-swarm-box";
-    const translations = {
-        edgeStart: `translate(-50%, 0%) translate(${sourceX}px,${sourceY}px)`,
-        edgeEnd: `translate(-50%, 0%) translate(${targetX}px,${targetY}px)`,
-    };
-    if (sourcePosition === Position.Right && targetPosition === Position.Left) {
-        translations.edgeStart = `translate(0%, 0%) translate(${sourceX}px,${sourceY - 35}px)`;
-        translations.edgeEnd = `translate(-100%, -100%) translate(${targetX}px,${targetY}px)`;
-    }
-    if (sourcePosition === Position.Left && targetPosition === Position.Right) {
-        translations.edgeStart = `translate(-100%, 0%) translate(${sourceX}px,${sourceY}px)`;
-        translations.edgeEnd = `translate(0, 0) translate(${targetX}px,${targetY}px)`;
-    }
-    if (sourcePosition === Position.Top && targetPosition === Position.Bottom) {
-        translations.edgeStart = `translate(-100%, 0%) translate(${sourceX}px,${sourceY - 30}px)`;
-        translations.edgeEnd = `translate(-100%, 0%) translate(${targetX}px,${targetY}px)`;
-    }
-    if (sourcePosition === Position.Bottom && targetPosition === Position.Top) {
-        translations.edgeStart = `translate(0%, 0%) translate(${sourceX}px,${sourceY}px)`;
-        translations.edgeEnd = `translate(0%, 0%) translate(${targetX}px,${targetY - 30}px)`;
-    }
+    const translations = getEdgeTranslations(
+        sourceX,
+        sourceY,
+        targetX,
+        targetY,
+        sourcePosition,
+        targetPosition,
+    );
     return (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
