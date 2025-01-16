@@ -43,6 +43,8 @@ const nodeTypes = {
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const { flowId, inputPrompt, onUserInput } = props;
+    console.log(inputPrompt);
+    console.log(onUserInput);
     const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
