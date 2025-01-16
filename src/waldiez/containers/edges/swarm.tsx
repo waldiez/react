@@ -108,7 +108,7 @@ export const WaldiezEdgeSwarmView = (
             </div>
         );
     };
-    const className = swarmType === "source" ? "agent-edge-box" : "agent-edge-swarm-box";
+    const className = swarmType === "source" ? "agent-edge-box" : "clickable agent-edge-swarm-box";
     return (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
@@ -122,7 +122,7 @@ export const WaldiezEdgeSwarmView = (
                         // everything inside EdgeLabelRenderer has no pointer events by default
                         // if you have an interactive element, set pointer-events: all
                     }}
-                    className={`nodrag nopan clickable ${className}`}
+                    className={`nodrag nopan ${className}`}
                     data-testid={`edge-label-${id}`}
                     onClick={onOpenModal}
                 >
