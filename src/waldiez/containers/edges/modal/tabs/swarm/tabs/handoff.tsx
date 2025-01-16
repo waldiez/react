@@ -78,11 +78,23 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
             }
         }
     };
+    const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onDataChange({ label: event.target.value });
+    };
     return (
         <TabItems activeTabIndex={activeTabIndex}>
-            <TabItem label="Handoff Condition" id={`we-${flowId}-edge-handoff-${edgeId}`}>
+            <TabItem label="Handoff" id={`we-${flowId}-edge-handoff-${edgeId}`}>
                 <div className="modal-tab-body">
                     <div className="flex-column">
+                        <div className="margin-top-10 margin-bottom-10">
+                            <TextInput
+                                label="Name:"
+                                value={data.label}
+                                placeholder={`Transfer to ${targetAgent.data.label}`}
+                                onChange={onNameChange}
+                                data-testid={`edge-${edgeId}-description-input`}
+                            />
+                        </div>
                         <label>Handoff Type</label>
                         <Select
                             options={handoffTypeOptions}

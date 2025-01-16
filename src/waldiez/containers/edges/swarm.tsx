@@ -50,9 +50,6 @@ export const WaldiezEdgeSwarmView = (
             <MdMessage color={edgeColor} size={size} />
         );
     const onOpenModal = (event: React.MouseEvent) => {
-        if (swarmType === "source") {
-            return;
-        }
         const edge = getEdgeById(id);
         if (edge) {
             onEdgeDoubleClick(event, edge);
@@ -108,17 +105,17 @@ export const WaldiezEdgeSwarmView = (
             </div>
         );
     };
-
+    const noOp = () => {};
     const EdgeLabel = ({ transform }: { transform: string }) => {
         const edge = getEdgeById(id);
         if (!edge) {
             return null;
         }
-        const label = edge.data?.description ?? "";
+        const label = edge.data?.label ?? "";
         if (label === "") {
             return null;
         }
-        const trimmedTo20 = label.length > 10 ? `${label.slice(0, 10)}...` : label;
+        const trimmedTo20 = label.length > 15 ? `${label.slice(0, 15)}...` : label;
         return (
             <div
                 style={{
@@ -142,7 +139,6 @@ export const WaldiezEdgeSwarmView = (
         edgeStart: `translate(-50%, 0%) translate(${sourceX}px,${sourceY}px)`,
         edgeEnd: `translate(-50%, 0%) translate(${targetX}px,${targetY}px)`,
     };
-
     if (sourcePosition === Position.Right && targetPosition === Position.Left) {
         translations.edgeStart = `translate(0%, 0%) translate(${sourceX}px,${sourceY - 35}px)`;
         translations.edgeEnd = `translate(-100%, -100%) translate(${targetX}px,${targetY}px)`;
@@ -163,7 +159,7 @@ export const WaldiezEdgeSwarmView = (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
             <EdgeLabelRenderer>
-                <EdgeLabel transform={translations.edgeStart} />
+                {swarmType !== "source" && <EdgeLabel transform={translations.edgeStart} />}
                 <div
                     role="button"
                     style={{
@@ -175,7 +171,7 @@ export const WaldiezEdgeSwarmView = (
                     }}
                     className={`nodrag nopan ${className}`}
                     data-testid={`edge-label-${id}`}
-                    onClick={onOpenModal}
+                    onClick={swarmType === "source" ? noOp : onOpenModal}
                 >
                     {swarmType === "source" ? (
                         getSwarmSourceView()
