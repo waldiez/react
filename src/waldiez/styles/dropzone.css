@@ -23,7 +23,7 @@
 
 .flow-wrapper.dark .drop_zone.drag-over,
 .flow-wrapper.dark .drop_zone:hover {
-    background-color: #333;
+    background-color: #444;
 }
 
 .flow-wrapper.light .drop_zone.drag-over,
