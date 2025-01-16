@@ -1,8 +1,10 @@
 import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react";
 
+import { FaTrashAlt } from "react-icons/fa";
+import { FaGear } from "react-icons/fa6";
 import { GiNestEggs } from "react-icons/gi";
+import { GiShakingHands } from "react-icons/gi";
 import { MdMessage } from "react-icons/md";
-import { TbHandOff } from "react-icons/tb";
 
 import { WaldiezEdgeProps } from "@waldiez/containers/edges/types";
 import { useWaldiez } from "@waldiez/store";
@@ -13,7 +15,7 @@ export const WaldiezEdgeSwarmView = (
         swarmType: "handoff" | "nested" | "source";
     },
 ) => {
-    const { swarmType } = props;
+    const { swarmType, data } = props;
     const getEdgeById = useWaldiez(s => s.getEdgeById);
     const onEdgeDoubleClick = useWaldiez(s => s.onEdgeDoubleClick);
     const {
@@ -39,7 +41,7 @@ export const WaldiezEdgeSwarmView = (
     const edgeColor = swarmType === "source" ? AGENT_COLORS.user : AGENT_COLORS.swarm;
     const icon =
         swarmType === "handoff" ? (
-            <TbHandOff color={edgeColor} size={size} />
+            <GiShakingHands color={edgeColor} size={size} />
         ) : swarmType === "nested" ? (
             <GiNestEggs color={edgeColor} size={size} />
         ) : (
@@ -51,7 +53,54 @@ export const WaldiezEdgeSwarmView = (
             onEdgeDoubleClick(event, edge);
         }
     };
-    const className = swarmType === "source" ? "agent-edge-from-user-to-swarm" : "agent-edge-from-swarm";
+    const onDelete = () => {
+        //
+    };
+    const onDescriptionChange = () => {
+        //
+    };
+    const getSwarmSourceView = () => {
+        return (
+            <div className="agent-edge-view">
+                <div className="edge-header">
+                    <div className="edge-position">1</div>
+                    <div className="edge-icon">
+                        <MdMessage color={edgeColor} size={size} />
+                    </div>
+                </div>
+                <div className="edge-body">
+                    <textarea
+                        placeholder="Enter a description"
+                        value={data?.description ?? ""}
+                        rows={1}
+                        data-testid={`edge-${id}-description`}
+                        onChange={onDescriptionChange}
+                    />
+                </div>
+                <div className="edge-footer edge-actions">
+                    <div
+                        title="Delete"
+                        role="button"
+                        onClick={onDelete}
+                        className="delete-edge clickable"
+                        data-testid={`delete-edge-${id}`}
+                    >
+                        <FaTrashAlt />
+                    </div>
+                    <div
+                        title="Edit"
+                        role="button"
+                        className="open-edge-modal clickable"
+                        data-testid={`open-edge-modal-${id}`}
+                        onClick={onOpenModal}
+                    >
+                        <FaGear />
+                    </div>
+                </div>
+            </div>
+        );
+    };
+    const className = swarmType === "source" ? "agent-edge-box" : "agent-edge-swarm-box";
     return (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
@@ -65,11 +114,15 @@ export const WaldiezEdgeSwarmView = (
                         // everything inside EdgeLabelRenderer has no pointer events by default
                         // if you have an interactive element, set pointer-events: all
                     }}
-                    className={"nodrag nopan clickable agent-edge-swarm-box"}
+                    className={`nodrag nopan clickable ${className}`}
                     data-testid={`edge-label-${id}`}
                     onClick={onOpenModal}
                 >
-                    <div className={`agent-edge-swarm-view clickable ${className}`}>{icon}</div>
+                    {swarmType === "source" ? (
+                        getSwarmSourceView()
+                    ) : (
+                        <div className={"agent-edge-swarm-view clickable agent-edge-from-swarm"}>{icon}</div>
+                    )}
                 </div>
             </EdgeLabelRenderer>
         </>
