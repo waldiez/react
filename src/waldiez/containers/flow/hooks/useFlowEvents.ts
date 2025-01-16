@@ -73,7 +73,7 @@ export const useFlowEvents = (flowId: string) => {
         if (swarmAgents.length > 0) {
             return true;
         }
-        const { used } = getFlowEdges();
+        const { used } = getFlowEdges(true);
         return used.length > 0;
     };
     const onRun = () => {
