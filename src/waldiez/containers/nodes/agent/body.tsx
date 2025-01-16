@@ -139,7 +139,7 @@ const getAgentSkillsView = (id: string, data: WaldiezNodeAgentData) => {
 const getSwarmAgentFunctionsView = (id: string, data: WaldiezNodeAgentSwarmData) => {
     const getSkills = useWaldiez(s => s.getSkills);
     const skills = getSkills() as WaldiezNodeSkill[];
-    const skillsCount = data.skills.length;
+    const skillsCount = data.functions.length;
     if (skillsCount === 0) {
         return <div className="agent-skills-empty">No Functions</div>;
     }
