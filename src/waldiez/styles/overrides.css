@@ -63,7 +63,7 @@
 
 .flow-wrapper .swarm .react-flow__handle-bottom.target {
     margin-left: calc(-20% + 6px);
-    margin-bottom: 0;
+    margin-bottom: 2px;
 }
 
 .flow-wrapper .swarm .react-flow__handle-bottom.source {
