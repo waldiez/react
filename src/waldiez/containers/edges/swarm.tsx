@@ -18,6 +18,8 @@ export const WaldiezEdgeSwarmView = (
     const { swarmType, data } = props;
     const getEdgeById = useWaldiez(s => s.getEdgeById);
     const onEdgeDoubleClick = useWaldiez(s => s.onEdgeDoubleClick);
+    const updateEdgeData = useWaldiez(s => s.updateEdgeData);
+    const deleteEdge = useWaldiez(s => s.deleteEdge);
     const {
         id,
         style = {},
@@ -48,16 +50,22 @@ export const WaldiezEdgeSwarmView = (
             <MdMessage color={edgeColor} size={size} />
         );
     const onOpenModal = (event: React.MouseEvent) => {
+        if (swarmType === "source") {
+            return;
+        }
         const edge = getEdgeById(id);
         if (edge) {
             onEdgeDoubleClick(event, edge);
         }
     };
     const onDelete = () => {
-        //
+        deleteEdge(id);
     };
-    const onDescriptionChange = () => {
-        //
+    const onDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const edge = getEdgeById(id);
+        if (edge) {
+            updateEdgeData(id, { ...edge.data, description: event.target.value });
+        }
     };
     const getSwarmSourceView = () => {
         return (
