@@ -36,12 +36,12 @@
 .flow-wrapper .swarm .react-flow__handle {
     border-radius: 2px;
     background-color: var(--swarm-agent-color);
+    border: none;
 }
 
 .flow-wrapper .swarm .react-flow__handle.target {
     width: 20px;
     height: 9px;
-    border: none;
 }
 
 .flow-wrapper .swarm .react-flow__handle.source {
