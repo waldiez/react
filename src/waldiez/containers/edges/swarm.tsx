@@ -163,7 +163,7 @@ export const WaldiezEdgeSwarmView = (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
             <EdgeLabelRenderer>
-                {/* <EdgeLabel transform={translations.edgeStart} /> */}
+                <EdgeLabel transform={translations.edgeStart} />
                 <div
                     role="button"
                     style={{
@@ -183,7 +183,7 @@ export const WaldiezEdgeSwarmView = (
                         <div className={"agent-edge-swarm-view clickable agent-edge-from-swarm"}>{icon}</div>
                     )}
                 </div>
-                <EdgeLabel transform={translations.edgeEnd} />
+                {/* <EdgeLabel transform={translations.edgeEnd} /> */}
             </EdgeLabelRenderer>
         </>
     );
