@@ -27,7 +27,6 @@
 .flow-wrapper .agent-node .react-flow__handle-left,
 .flow-wrapper .agent-node .react-flow__handle-right,
 .flow-wrapper .swarm-container .react-flow__handle-left,
-.flow-wrapper .swarm .react-flow__handle-top,
 .flow-wrapper .swarm-container .react-flow__handle-right {
     width: 12px;
     height: 12px;
@@ -35,31 +34,65 @@
 }
 
 .flow-wrapper .swarm .react-flow__handle {
+    border-radius: 2px;
     background-color: var(--swarm-agent-color);
 }
 
-.flow-wrapper .swarm .react-flow__handle-right,
-.flow-wrapper .swarm .react-flow__handle-bottom {
+.flow-wrapper .swarm .react-flow__handle.target {
+    width: 20px;
+    height: 9px;
+    border: none;
+}
+
+.flow-wrapper .swarm .react-flow__handle.source {
     width: 12px;
     height: 12px;
-    transform: rotate(45deg);
     border-radius: 0;
+    transform: rotate(45deg);
 }
 
-.flow-wrapper .swarm .react-flow__handle-left {
-    margin-left: -6px;
-    margin-top: -3px;
-}
-
-.flow-wrapper .swarm .react-flow__handle-right {
-    margin-right: -6px;
-    margin-top: -3px;
-}
-
-/* .flow-wrapper .agent-node .react-flow__handle-top {
+.flow-wrapper .swarm .react-flow__handle-top.source {
+    margin-left: calc(-20%);
     margin-top: -6px;
-    margin-left: -3px;
-} */
+}
+
+.flow-wrapper .swarm .react-flow__handle-top.target {
+    margin-left: calc(20% - 9px);
+    margin-top: 1px;
+}
+
+.flow-wrapper .swarm .react-flow__handle-bottom.target {
+    margin-left: calc(-20% + 6px);
+    margin-bottom: 0;
+}
+
+.flow-wrapper .swarm .react-flow__handle-bottom.source {
+    margin-left: calc(20% - 12px);
+    margin-bottom: -6px;
+}
+
+.flow-wrapper .swarm .react-flow__handle-left.target {
+    margin-top: calc(-20% + 6px);
+    height: 20px;
+    width: 9px;
+}
+
+.flow-wrapper .swarm .react-flow__handle-left.source {
+    margin-top: calc(20% - 12px);
+    margin-left: -6px;
+}
+
+.flow-wrapper .swarm .react-flow__handle-right.target {
+    margin-top: calc(20% - 6px);
+    height: 20px;
+    width: 9px;
+    margin-right: 1px;
+}
+
+.flow-wrapper .swarm .react-flow__handle-right.source {
+    margin-top: calc(-20%);
+    margin-right: -5px;
+}
 
 .flow-wrapper .agent-node .react-flow__handle-bottom {
     margin-bottom: -6px;

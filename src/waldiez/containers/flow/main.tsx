@@ -23,6 +23,7 @@ import { WaldiezNodeType } from "@waldiez/types";
 
 type WaldiezFlowViewProps = {
     flowId: string;
+    onUserInput?: ((input: string) => void) | null;
     inputPrompt?: { previousMessages: string[]; prompt: string } | null;
 };
 
@@ -41,7 +42,7 @@ const nodeTypes = {
 };
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
-    const { flowId, inputPrompt } = props;
+    const { flowId, inputPrompt, onUserInput } = props;
     const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
@@ -52,7 +53,6 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const handleViewportChange = useWaldiez(s => s.onViewportChange);
     const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const showNodes = useWaldiez(s => s.showNodes);
-    const onUserInput = useWaldiez(s => s.onUserInput);
     const runner = useWaldiez(s => s.onRun);
     const onConvert = useWaldiez(s => s.onConvert);
     const onReconnect = useWaldiez(s => s.onReconnect);

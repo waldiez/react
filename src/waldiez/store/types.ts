@@ -26,8 +26,7 @@ export type WaldiezStoreProps = {
     tags?: string[];
     rfInstance?: ReactFlowInstance;
     viewport?: Viewport;
-    onRun?: ((flow: string) => void) | null; // handler for running the flow (send to backend)
-    onUserInput?: ((input: string) => void) | null; // handler for user input (send to backend)
+    onRun?: ((flow: string) => void) | null; // handler for running the flow (send to backend
     onConvert?: ((flow: string, to: "py" | "ipynb") => void) | null; // handler for converting the flow (send to backend)
     onUpload?: ((files: File[]) => Promise<string[]>) | null; // handler for file uploads (send to backend)
     onChange?: ((content: string) => void) | null; // handler for changes in the flow (send to backend)

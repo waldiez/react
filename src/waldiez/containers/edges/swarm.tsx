@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react";
+import { BaseEdge, EdgeLabelRenderer, Position, getSmoothStepPath } from "@xyflow/react";
 
 import { FaTrashAlt } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
@@ -108,16 +108,67 @@ export const WaldiezEdgeSwarmView = (
             </div>
         );
     };
+
+    const EdgeLabel = ({ transform }: { transform: string }) => {
+        const edge = getEdgeById(id);
+        if (!edge) {
+            return null;
+        }
+        const label = edge.data?.description ?? "";
+        if (label === "") {
+            return null;
+        }
+        const trimmedTo20 = label.length > 10 ? `${label.slice(0, 10)}...` : label;
+        return (
+            <div
+                style={{
+                    position: "absolute",
+                    // background: "red",
+                    padding: 10,
+                    color: "currentcolor",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    zIndex: 10000,
+                    transform,
+                }}
+                className="nodrag nopan"
+            >
+                {trimmedTo20}
+            </div>
+        );
+    };
     const className = swarmType === "source" ? "agent-edge-box" : "clickable agent-edge-swarm-box";
+    const translations = {
+        edgeStart: `translate(-50%, 0%) translate(${sourceX}px,${sourceY}px)`,
+        edgeEnd: `translate(-50%, 0%) translate(${targetX}px,${targetY}px)`,
+    };
+
+    if (sourcePosition === Position.Right && targetPosition === Position.Left) {
+        translations.edgeStart = `translate(0%, 0%) translate(${sourceX}px,${sourceY - 35}px)`;
+        translations.edgeEnd = `translate(-100%, -100%) translate(${targetX}px,${targetY}px)`;
+    }
+    if (sourcePosition === Position.Left && targetPosition === Position.Right) {
+        translations.edgeStart = `translate(-100%, 0%) translate(${sourceX}px,${sourceY}px)`;
+        translations.edgeEnd = `translate(0, 0) translate(${targetX}px,${targetY}px)`;
+    }
+    if (sourcePosition === Position.Top && targetPosition === Position.Bottom) {
+        translations.edgeStart = `translate(-100%, 0%) translate(${sourceX}px,${sourceY - 30}px)`;
+        translations.edgeEnd = `translate(-100%, 0%) translate(${targetX}px,${targetY}px)`;
+    }
+    if (sourcePosition === Position.Bottom && targetPosition === Position.Top) {
+        translations.edgeStart = `translate(0%, 0%) translate(${sourceX}px,${sourceY}px)`;
+        translations.edgeEnd = `translate(0%, 0%) translate(${targetX}px,${targetY - 30}px)`;
+    }
     return (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
             <EdgeLabelRenderer>
+                {/* <EdgeLabel transform={translations.edgeStart} /> */}
                 <div
                     role="button"
                     style={{
                         position: "absolute",
-                        transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
+                        transform: `translate(-50%, -50%) translate(${labelX + 0}px,${labelY}px)`,
                         pointerEvents: "all",
                         // everything inside EdgeLabelRenderer has no pointer events by default
                         // if you have an interactive element, set pointer-events: all
@@ -132,6 +183,7 @@ export const WaldiezEdgeSwarmView = (
                         <div className={"agent-edge-swarm-view clickable agent-edge-from-swarm"}>{icon}</div>
                     )}
                 </div>
+                <EdgeLabel transform={translations.edgeEnd} />
             </EdgeLabelRenderer>
         </>
     );

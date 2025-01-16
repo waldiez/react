@@ -21,7 +21,7 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
     const flowId: string = props.flowId ?? `wf-${getId()}`;
     const nodes = props.nodes ?? [];
     const edges = props.edges ?? [];
-    const { inputPrompt, monacoVsPath } = props;
+    const { inputPrompt, monacoVsPath, onUserInput } = props;
     useEffect(() => {
         checkInitialBodyThemeClass();
         checkInitialBodySidebarClass();
@@ -40,7 +40,11 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
                     <ReactFlowProvider>
                         <SidebarProvider>
                             <WaldiezProvider {...props} flowId={flowId} nodes={nodes} edges={edges}>
-                                <WaldiezFlowView flowId={flowId} inputPrompt={inputPrompt} />
+                                <WaldiezFlowView
+                                    flowId={flowId}
+                                    inputPrompt={inputPrompt}
+                                    onUserInput={onUserInput}
+                                />
                             </WaldiezProvider>
                         </SidebarProvider>
                     </ReactFlowProvider>

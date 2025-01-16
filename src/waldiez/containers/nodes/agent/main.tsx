@@ -57,45 +57,102 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentProps) => {
                     <WaldiezNodeAgentFooter id={id} data={data} isModalOpen={isModalOpen} />
                 </div>
             )}
-            <Handle
-                className={data.parentId ? "hidden" : ""}
-                type="target"
-                isConnectableEnd
-                position={Position.Left}
-                onConnect={onEdgeConnection}
-                data-testid={`agent-handle-${id}-left"}`}
-                id={`agent-handle-${id}-left`}
-            />
-            {agentType === "swarm" && (
-                <Handle
-                    className="swarm-handle"
-                    type="target"
-                    isConnectableStart
-                    position={Position.Top}
-                    onConnect={onEdgeConnection}
-                    data-testid={`agent-handle-${id}-top`}
-                    id={`agent-handle-${id}-top`}
-                />
-            )}
-            <Handle
-                className={data.parentId ? "hidden" : ""}
-                type="source"
-                isConnectableStart
-                position={Position.Right}
-                onConnect={onEdgeConnection}
-                data-testid={`agent-handle-${id}-right`}
-                id={`agent-handle-${id}-source`}
-            />
-            {agentType === "swarm" && (
-                <Handle
-                    className="swarm-handle"
-                    type="source"
-                    isConnectableStart
-                    position={Position.Bottom}
-                    onConnect={onEdgeConnection}
-                    data-testid={`agent-handle-${id}-bottom`}
-                    id={`agent-handle-${id}-bottom`}
-                />
+            {agentType === "swarm" ? (
+                <>
+                    <Handle
+                        className="swarm-handle top target"
+                        type="target"
+                        isConnectableStart
+                        position={Position.Top}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-top-target`}
+                        id={`agent-handle-${id}-top-target`}
+                    />
+                    <Handle
+                        className="swarm-handle top source"
+                        type="source"
+                        isConnectableStart
+                        position={Position.Top}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-top-source`}
+                        id={`agent-handle-${id}-top-source`}
+                    />
+                    <Handle
+                        className="swarm-handle bottom target"
+                        type="target"
+                        isConnectableStart
+                        position={Position.Bottom}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-bottom-target`}
+                        id={`agent-handle-${id}-bottom-target`}
+                    />
+                    <Handle
+                        className="swarm-handle bottom source"
+                        type="source"
+                        isConnectableStart
+                        position={Position.Bottom}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-bottom-source`}
+                        id={`agent-handle-${id}-bottom-source`}
+                    />
+                    <Handle
+                        className="swarm-handle left target"
+                        type="target"
+                        isConnectableStart
+                        position={Position.Left}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-left-target`}
+                        id={`agent-handle-${id}-left-target`}
+                    />
+                    <Handle
+                        className="swarm-handle left source"
+                        type="source"
+                        isConnectableStart
+                        position={Position.Left}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-left-source`}
+                        id={`agent-handle-${id}-left-target`}
+                    />
+                    <Handle
+                        className="swarm-handle right target"
+                        type="target"
+                        isConnectableStart
+                        position={Position.Right}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-right-target`}
+                        id={`agent-handle-${id}-right-target`}
+                    />
+                    <Handle
+                        className="swarm-handle right source"
+                        type="source"
+                        isConnectableStart
+                        position={Position.Right}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-right-source`}
+                        id={`agent-handle-${id}-right-source`}
+                    />
+                </>
+            ) : (
+                <>
+                    <Handle
+                        className={data.parentId ? "hidden" : ""}
+                        type="target"
+                        isConnectableEnd
+                        position={Position.Left}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-left"}`}
+                        id={`agent-handle-${id}-left`}
+                    />
+                    <Handle
+                        className={data.parentId ? "hidden" : ""}
+                        type="source"
+                        isConnectableStart
+                        position={Position.Right}
+                        onConnect={onEdgeConnection}
+                        data-testid={`agent-handle-${id}-right`}
+                        id={`agent-handle-${id}-source`}
+                    />
+                </>
             )}
             <button
                 title="Open Node Modal"
