@@ -40,6 +40,9 @@ export const exportSwarmAgents = (
     if (!swarmContainerNode) {
         return { swarmAgents: [], edges };
     }
+    if (!swarmContainerNode.data.label) {
+        swarmContainerNode.data.label = "Swarm Container";
+    }
     return _exportSwarmAgents(swarmAgentNodes, swarmContainerNode, agentNodes, edges, skipLinks);
 };
 
