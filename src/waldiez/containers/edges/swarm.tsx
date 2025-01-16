@@ -58,10 +58,13 @@ export const WaldiezEdgeSwarmView = (
     const onDelete = () => {
         deleteEdge(id);
     };
-    const onDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const onMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const edge = getEdgeById(id);
         if (edge) {
-            updateEdgeData(id, { ...edge.data, description: event.target.value });
+            updateEdgeData(id, {
+                ...edge.data,
+                message: { type: "string", content: event.target.value, context: {}, use_carryover: false },
+            });
         }
     };
     const getSwarmSourceView = () => {
@@ -75,11 +78,11 @@ export const WaldiezEdgeSwarmView = (
                 </div>
                 <div className="edge-body">
                     <textarea
-                        placeholder="Enter a description"
-                        value={data?.description ?? ""}
+                        placeholder="Message"
+                        value={data?.message.content ?? ""}
                         rows={1}
                         data-testid={`edge-${id}-description`}
-                        onChange={onDescriptionChange}
+                        onChange={onMessageChange}
                     />
                 </div>
                 <div className="edge-footer edge-actions">
@@ -159,7 +162,7 @@ export const WaldiezEdgeSwarmView = (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
             <EdgeLabelRenderer>
-                {swarmType !== "source" && <EdgeLabel transform={translations.edgeStart} />}
+                <EdgeLabel transform={translations.edgeStart} />
                 <div
                     role="button"
                     style={{

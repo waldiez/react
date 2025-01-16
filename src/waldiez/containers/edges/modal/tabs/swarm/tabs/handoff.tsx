@@ -86,16 +86,14 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
             <TabItem label="Handoff" id={`we-${flowId}-edge-handoff-${edgeId}`}>
                 <div className="modal-tab-body">
                     <div className="flex-column">
-                        <div className="margin-top-10 margin-bottom-10">
-                            <TextInput
-                                label="Name:"
-                                value={data.label}
-                                placeholder={`Transfer to ${targetAgent.data.label}`}
-                                onChange={onNameChange}
-                                data-testid={`edge-${edgeId}-description-input`}
-                            />
-                        </div>
-                        <label>Handoff Type</label>
+                        <TextInput
+                            label="Label:"
+                            value={data.label}
+                            placeholder={`Transfer to ${targetAgent.data.label}`}
+                            onChange={onNameChange}
+                            data-testid={`edge-${edgeId}-description-input`}
+                        />
+                        <label>Handoff Type:</label>
                         <Select
                             options={handoffTypeOptions}
                             value={handoffTypeOptions.find(option => option.value === handoffType)}

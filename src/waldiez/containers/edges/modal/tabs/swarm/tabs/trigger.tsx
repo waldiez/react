@@ -1,4 +1,4 @@
-import { TabItem, TabItems } from "@waldiez/components";
+import { TabItem, TabItems, TextInput } from "@waldiez/components";
 import { WaldiezEdgeSwarmTriggerTabProps } from "@waldiez/containers/edges/modal/tabs/swarm/tabs/types";
 
 export const WaldiezEdgeSwarmTriggerTab = (props: WaldiezEdgeSwarmTriggerTabProps) => {
@@ -8,11 +8,20 @@ export const WaldiezEdgeSwarmTriggerTab = (props: WaldiezEdgeSwarmTriggerTabProp
             message: { content: event.target.value, type: "string", context: {}, use_carryover: false },
         });
     };
+    const onLabelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onDataChange({ label: event.target.value });
+    };
     return (
         <TabItems activeTabIndex={activeTabIndex}>
-            <TabItem label="Message" id={`we-${flowId}-edge-properties-${edgeId}`}>
+            <TabItem label="Configuration" id={`we-${flowId}-edge-properties-${edgeId}`}>
                 <div className="flex-column">
-                    <label>Message</label>
+                    <TextInput
+                        label="Label:"
+                        value={edgeData.label}
+                        onChange={onLabelChange}
+                        data-testid={`edge-${edgeId}-label-input`}
+                    />
+                    <label>Message:</label>
                     <textarea
                         rows={2}
                         defaultValue={edgeData.message.content ?? ""}

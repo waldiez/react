@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { MessageInput, TabItem, TabItems } from "@waldiez/components";
+import { MessageInput, TabItem, TabItems, TextInput } from "@waldiez/components";
 import { WaldiezEdgeBasicTab } from "@waldiez/containers/edges/modal/tabs/basic";
 import { DEFAULT_NESTED_CHAT_MESSAGE_METHOD_CONTENT } from "@waldiez/containers/edges/modal/tabs/nested";
 import {
@@ -53,6 +53,9 @@ export const WaldiezEdgeSwarmTabs = (props: WaldiezEdgeSwarmTabsProps) => {
             },
         });
     };
+    const onLabelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onDataChange({ label: event.target.value });
+    };
     return (
         <div className="modal-body edge-modal">
             {isTrigger && (
@@ -78,6 +81,14 @@ export const WaldiezEdgeSwarmTabs = (props: WaldiezEdgeSwarmTabsProps) => {
             {isNested && (
                 <TabItems activeTabIndex={0}>
                     <TabItem label="Properties" id={`we-${flowId}-edge-properties-${edgeId}`}>
+                        <div className="flex-column margin-bottom-10">
+                            <TextInput
+                                label="Label:"
+                                value={edgeData.label}
+                                onChange={onLabelChange}
+                                data-testid={`edge-${edgeId}-label-input`}
+                            />
+                        </div>
                         <WaldiezEdgeBasicTab
                             edgeId={edgeId}
                             data={edgeData}
