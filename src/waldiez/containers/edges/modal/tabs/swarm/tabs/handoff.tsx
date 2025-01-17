@@ -170,11 +170,13 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
                         </div>
                     )}
                     {data.available.type === "callable" && (
-                        <Editor
-                            value={data.available.value ?? DEFAULT_ON_CONDITION_AVAILABLE_METHOD_CONTENT}
-                            onChange={onConditionAvailableCallableChange}
-                            darkMode={darkMode}
-                        />
+                        <div className="margin-top-10">
+                            <Editor
+                                value={data.available.value ?? DEFAULT_ON_CONDITION_AVAILABLE_METHOD_CONTENT}
+                                onChange={onConditionAvailableCallableChange}
+                                darkMode={darkMode}
+                            />
+                        </div>
                     )}
                 </div>
             </TabItem>

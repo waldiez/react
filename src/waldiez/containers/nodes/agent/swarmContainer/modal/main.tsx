@@ -30,13 +30,14 @@ export const WaldiezNodeSwarmContainerModal = (props: WaldiezSwarmContainerModal
     const { isDark } = useWaldiezTheme();
     const getAgentById = useWaldiez(s => s.getAgentById);
     const getSwarmAgents = useWaldiez(s => s.getSwarmAgents);
-    const getSwarmEdges = useWaldiez(s => s.getSwarmEdges);
-    const getNonSwarmAgents = useWaldiez(s => s.getNonSwarmAgents);
     const updateAgentData = useWaldiez(s => s.updateAgentData);
     const updateSwarmInitialAgent = useWaldiez(s => s.updateSwarmInitialAgent);
     const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const onSave = () => {
         updateAgentData(id, agentData);
+        if (agentData.initialAgent && agentData.initialAgent !== data.initialAgent) {
+            updateSwarmInitialAgent(agentData.initialAgent);
+        }
         onFlowChanged();
         setIsDirty(false);
         // onClose();
@@ -46,7 +47,6 @@ export const WaldiezNodeSwarmContainerModal = (props: WaldiezSwarmContainerModal
         setIsDirty(false);
     }, [isOpen]);
     const swarmAgents = getSwarmAgents();
-    const { swarmSources: _, swarmTargets: __ } = getNonSwarmAgents(id, swarmAgents, getSwarmEdges());
     const initialAgentOptions = swarmAgents.map(agent => ({
         label: agent.data.label,
         value: agent,
@@ -62,10 +62,7 @@ export const WaldiezNodeSwarmContainerModal = (props: WaldiezSwarmContainerModal
     };
     const onInitialAgentChange = (option: SingleValue<{ label: string; value: any }>) => {
         const newData = { ...agentData, initialAgent: option?.value.id };
-        if (option?.value.id) {
-            updateSwarmInitialAgent(option.value.id);
-        }
-        // setAgentData(newData);
+        setAgentData(newData);
         const dirty = !isEqual(data, newData);
         setIsDirty(dirty);
     };

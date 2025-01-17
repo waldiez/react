@@ -125,7 +125,8 @@ export const setSwarmInitialAgent = (agentId: string, get: typeOfGet, set: typeO
                         isInitial: false,
                     },
                 };
-            } else if (node.data.agentType === "swarm_container") {
+            }
+            if (node.data.agentType === "swarm_container") {
                 return {
                     ...node,
                     data: {
