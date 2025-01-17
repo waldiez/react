@@ -98,11 +98,16 @@ const getSwarmAfterWorkHandoff = (handoff: any): WaldiezSwarmAfterWork | null =>
 const getSwarmOnConditionHandoff = (handoff: any): any => {
     const targetType = handoff.targetType;
     if (["agent", "nested_chat"].includes(targetType)) {
-        // if the target type is nested chat, the target must be a { [key: string]: any }
+        // if the target type is nested chat, the target must be {id: string, order: number}
         // if the target type is agent, the target must be a string
         if (
-            (targetType === "nested_chat" && typeof handoff.target === "object") ||
-            (targetType === "agent" && typeof handoff.target === "string")
+            targetType === "nested_chat" &&
+            typeof handoff.target === "object" &&
+            handoff.target &&
+            "id" in handoff.target &&
+            "order" in handoff.target &&
+            typeof handoff.target.id === "string" &&
+            typeof handoff.target.order === "number"
         ) {
             if (
                 typeof handoff.condition === "string" &&

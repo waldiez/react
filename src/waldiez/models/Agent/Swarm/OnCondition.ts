@@ -4,13 +4,13 @@ import {
 } from "@waldiez/models/Agent/Swarm/types";
 
 export class WaldiezSwarmOnCondition {
-    target: string | { [key: string]: any };
+    target: { id: string; order: number };
     targetType: WaldiezSwarmOnConditionTargetType;
     condition: string;
     available: WaldiezSwarmOnConditionAvailable;
 
     constructor(props: {
-        target: string | { [key: string]: any };
+        target: { id: string; order: number };
         targetType: WaldiezSwarmOnConditionTargetType;
         condition: string;
         available: WaldiezSwarmOnConditionAvailable;

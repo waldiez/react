@@ -53,7 +53,7 @@ describe("WaldiezAgentSwarm", () => {
             ],
             handoffs: [
                 new WaldiezSwarmOnCondition({
-                    target: "agent2",
+                    target: { id: "agent2", order: 0 },
                     targetType: "agent",
                     condition: "condition",
                     available: {
@@ -97,7 +97,7 @@ describe("WaldiezAgentSwarm", () => {
         ]);
         expect(swarm.data.handoffs).toEqual([
             new WaldiezSwarmOnCondition({
-                target: "agent2",
+                target: { id: "agent2", order: 0 },
                 targetType: "agent",
                 condition: "condition",
                 available: {

@@ -26,19 +26,6 @@
     box-shadow: 0 0 4px var(--swarm-agent-color);
 }
 
-.flow-wrapper .agent-handoff-recipients {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 10px;
-}
-
-.flow-wrapper .agent-handoff-recipients .agent-handoff-recipient {
-    display: flex;
-    align-items: center;
-    margin: 5px;
-}
-
 .flow-wrapper .swarm .react-flow__handle {
     border-radius: 2px;
     background-color: var(--swarm-agent-color);
@@ -56,8 +43,28 @@
 }
 
 .flow-wrapper .swarm .react-flow__handle.source {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 0;
     clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.flow-wrapper .agent-swarm-handoff-recipients,
+.flow-wrapper .agent-swarm-nestedChat-recipients {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+}
+
+.flow-wrapper .agent-swarm-order-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flow-wrapper .agent-swarm-handoff-recipients .agent-swarm-handoff-recipient,
+.flow-wrapper .agent-swarm-nestedChat-recipients .agent-swarm-nestedChat-recipient {
+    display: flex;
+    align-items: center;
+    margin: 5px;
 }

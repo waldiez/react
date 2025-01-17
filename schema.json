@@ -1190,14 +1190,17 @@
             "type": "object",
             "properties": {
                 "target": {
-                    "anyOf": [
-                        {
+                    "type": "object",
+                    "properties": {
+                        "id": {
                             "type": "string"
                         },
-                        {
-                            "type": "object"
+                        "order": {
+                            "type": "number"
                         }
-                    ]
+                    },
+                    "required": ["id", "order"],
+                    "additionalProperties": false
                 },
                 "targetType": {
                     "$ref": "#/definitions/WaldiezSwarmOnConditionTargetType"

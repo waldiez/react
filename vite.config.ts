@@ -23,6 +23,12 @@ const thresholds = {
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
     publicDir: command === "build" ? resolve(__dirname, "public", "logo") : resolve(__dirname, "public"),
+    server: {
+        headers: {
+            "content-security-policy-report-only":
+                "default-src 'none'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; script-src 'self'; font-src 'self'; img-src 'self' data:; connect-src *; report-to /_/csp",
+        },
+    },
     build: {
         emptyOutDir: true,
         outDir: resolve(__dirname, "dist"),

@@ -120,10 +120,12 @@ describe("getChats", () => {
                         height: 10,
                         color: undefined,
                     },
+                    sourceHandle: null,
                     style: {
                         stroke: undefined,
                         strokeWidth: 3,
                     },
+                    targetHandle: null,
                 },
             },
         ]);
@@ -147,10 +149,12 @@ describe("getChats", () => {
                     height: 10,
                     color: undefined,
                 },
+                sourceHandle: null,
                 style: {
                     stroke: undefined,
                     strokeWidth: 3,
                 },
+                targetHandle: null,
             },
         ]);
     });

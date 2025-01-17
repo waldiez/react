@@ -20,13 +20,13 @@ const flowLinks = [
     `${flowLinksBaseUrl}/10 - Travel Planning/Travel Planning.waldiez`,
 ];
 
-// we removed "teachability",
+// we removed "teachability"
 const deprecatedAgentDataKeys = ["teachability"];
 const newAgents = ["swarm_agents"];
 // added with swarm
 const newChatKeys = ["afterWork", "maxRounds", "realSource", "realTarget", "contextVariables", "available"];
 // these keys are not necessarily in the exported flows
-const newEdgeKeys = ["hidden", "realSource", "realTarget"];
+const newEdgeKeys = ["hidden", "realSource", "realTarget", "sourceHandle", "targetHandle"];
 // id: either missing, or overridden when importing/exporting
 const flowKeysToRemove: string[] = ["id"];
 // new (flow.data) keys that were not in the exported flows
@@ -74,11 +74,11 @@ const compareObjects = (json1: any, json2: any) => {
     });
     const agentTypes = ["users", "assistants", "managers", "rag_users", "swarm_agents"];
     agentTypes.forEach((agentType: any) => {
-        json1.data.agents[agentType].forEach((agent: any) => {
-            const agentId = agent.id;
+        json1.data.agents[agentType].forEach((agent1: any) => {
+            const agentId = agent1.id;
             const agent2 = json2.data.agents[agentType].find((a: any) => a.id === agentId);
             expect(agent2).toBeDefined();
-            expect(agent).toEqual(agent2);
+            expect(agent1).toEqual(agent2);
         });
     });
     json1.data.models.forEach((model1: any) => {
@@ -119,11 +119,13 @@ const compareObjects = (json1: any, json2: any) => {
 };
 
 const updateAgent = (agent: any) => {
-    agent.agentType = agent.data.agentType;
+    // "agentType" should not be in "data" it must be one level up
+    if (!agent.agentType && typeof agent.data.agentType === "string") {
+        agent.agentType = agent.data.agentType;
+    }
     deprecatedAgentDataKeys.forEach(key => {
         delete agent.data[key];
     });
-    // "agentType" is not in "data" it is one level up
     return agent;
 };
 

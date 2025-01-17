@@ -3,7 +3,7 @@ import { WaldiezNodeAgent, WaldiezNodeAgentSwarmData, WaldiezSwarmOnCondition } 
 export const getSourceAgentOnCondition = (sourceAgent: WaldiezNodeAgent, targetAgent: WaldiezNodeAgent) => {
     let onCondition = new WaldiezSwarmOnCondition({
         targetType: "agent",
-        target: targetAgent.id,
+        target: { id: targetAgent.id, order: 0 },
         condition: `Transfer to ${targetAgent.data.label}`,
         available: {
             type: "none",
@@ -22,7 +22,7 @@ export const getSourceAgentOnCondition = (sourceAgent: WaldiezNodeAgent, targetA
     for (const handoff of agentData.handoffs) {
         if (handoff instanceof WaldiezSwarmOnCondition) {
             // check if the target is the same as the targetAgent
-            if (handoff.target === targetAgent.id) {
+            if (handoff.target.id === targetAgent.id) {
                 onCondition = handoff as WaldiezSwarmOnCondition;
                 break;
             }

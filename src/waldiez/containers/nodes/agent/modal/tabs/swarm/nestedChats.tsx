@@ -1,115 +1,136 @@
-import { useState } from "react";
-
-import { TextInput } from "@waldiez/components";
+import { TabItem, TabItems } from "@waldiez/components";
+import { WaldiezAgentSwarmNestedChatCondition } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/nestedChatCondition";
 import { WaldiezAgentSwarmNestedChatsProps } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/types";
-import { WaldiezSwarmAfterWork, WaldiezSwarmHandoff, WaldiezSwarmOnCondition } from "@waldiez/models";
-import { getNestedChatOnConditionHandoffs, isAfterWork } from "@waldiez/store/utils";
+import {
+    WaldiezAgentNestedChat,
+    WaldiezNodeAgent,
+    WaldiezNodeAgentData,
+    WaldiezNodeAgentSwarmData,
+} from "@waldiez/models";
+
+const getNestedChats = (
+    agentData: WaldiezNodeAgentData,
+    agentConnections: { target: { nodes: WaldiezNodeAgent[]; edges: any[] } },
+) => {
+    const hasNestedChatsConfigured =
+        agentData.nestedChats.length > 0 && agentData.nestedChats[0].messages.length > 0;
+    const nonSwarmTargets = agentConnections.target.nodes.filter(node => node.data.agentType !== "swarm");
+    const nonSwarmTargetEdges = agentConnections.target.edges.filter(
+        edge => edge.type === "swarm" && nonSwarmTargets.some(target => target.id === edge.target),
+    );
+    const nestedChats: WaldiezAgentNestedChat[] = hasNestedChatsConfigured
+        ? structuredClone(agentData.nestedChats)
+        : [
+              {
+                  triggeredBy: [],
+                  messages: nonSwarmTargetEdges.map(edge => {
+                      return { id: edge.id, isReply: false };
+                  }),
+              },
+          ];
+    return nestedChats;
+};
 
 export const WaldiezAgentSwarmNestedChats = (props: WaldiezAgentSwarmNestedChatsProps) => {
-    const { data, agentConnections, onDataChange } = props;
-    const onConditions = getNestedChatOnConditionHandoffs(agentConnections, data);
-    const [onConditionsState, setOnConditionsState] = useState<WaldiezSwarmOnCondition[]>(onConditions);
-    const conditionsCount = onConditions.length;
-    const onConditionsChanged = () => {
-        const handoffs: WaldiezSwarmHandoff[] = [...onConditionsState];
-        const afterWorkHandoff = data.handoffs.find(handoff => isAfterWork(handoff));
-        if (afterWorkHandoff) {
-            handoffs.push(afterWorkHandoff as WaldiezSwarmAfterWork);
+    const { id, flowId, darkMode, agents, data, edges, agentConnections, onDataChange } = props;
+    const nonSwarmTargets = agentConnections.target.nodes.filter(node => node.data.agentType !== "swarm");
+    const nestedChats = getNestedChats(data, agentConnections);
+    const nestedChatMessagesCount = nestedChats.length > 0 ? nestedChats[0].messages.length : 0;
+    const onMoveNestedChatUp = (index: number) => {
+        const newNestedChats = [...nestedChats];
+        const temp = newNestedChats[0].messages[index];
+        newNestedChats[0].messages[index] = newNestedChats[0].messages[index - 1];
+        newNestedChats[0].messages[index - 1] = temp;
+        onDataChange({ nestedChats: [...newNestedChats] });
+    };
+    const onMoveNestedChatDown = (index: number) => {
+        const newNestedChats = [...nestedChats];
+        const temp = newNestedChats[0].messages[index];
+        newNestedChats[0].messages[index] = newNestedChats[0].messages[index + 1];
+        newNestedChats[0].messages[index + 1] = temp;
+        onDataChange({ nestedChats: [...newNestedChats] });
+    };
+    const getRecipientName = (edgeId: string, agents: WaldiezNodeAgent[]) => {
+        const edge = edges.find(edge => edge.id === edgeId);
+        if (!edge) {
+            return "";
         }
-        onDataChange({ handoffs });
-    };
-    const onMoveHandoffUp = (index: number) => {
-        const newOnConditions = [...onConditionsState];
-        const temp = newOnConditions[index];
-        newOnConditions[index] = newOnConditions[index - 1];
-        newOnConditions[index - 1] = temp;
-        (newOnConditions[index] as any).order = index;
-        (newOnConditions[index - 1] as any).order = index - 1;
-        setOnConditionsState(newOnConditions);
-        onConditionsChanged();
-    };
-    const onMoveHandoffDown = (index: number) => {
-        const newOnConditions = [...onConditionsState];
-        const temp = newOnConditions[index];
-        newOnConditions[index] = newOnConditions[index + 1];
-        newOnConditions[index + 1] = temp;
-        (newOnConditions[index] as any).order = index;
-        (newOnConditions[index + 1] as any).order = index + 1;
-        setOnConditionsState(newOnConditions);
-        onConditionsChanged();
-    };
-    const onConditionStringChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOnConditions = [...onConditionsState];
-        newOnConditions.forEach(onCondition => {
-            onCondition.condition = event.target.value;
-        });
-        setOnConditionsState(newOnConditions);
-        onConditionsChanged();
+        const target = agents.find(agent => agent.id === edge.target);
+        if (!target) {
+            return "";
+        }
+        return target.data.label;
     };
     return (
-        <div className="agent-panel agent-swarm-handoffs-panel">
-            {onConditions.length === 0 ? (
+        <div className="agent-panel agent-swarm-nestedChats-panel">
+            {nonSwarmTargets.length === 0 ? (
                 <div className="agent-no-agents margin-top-10 margin-bottom-10">
                     No nested chat handoffs found for this agent.
                 </div>
             ) : (
-                <div>
-                    <div className="flex-column margin-bottom-10">
-                        <TextInput
-                            label={"Condition:"}
-                            placeholder="Enter condition"
-                            value={onConditionsState[0].condition}
-                            onChange={onConditionStringChange}
-                        />
-                    </div>
-                    <div className="flex-column margin-bottom-10">
-                        <label>Chat queue:</label>
-                        <div className="agent-handoff-recipients flex-column">
-                            {onConditionsState.map((onCondition, index) => (
-                                <div key={index} className="agent-handoff-recipient">
+                <TabItems activeTabIndex={0}>
+                    <TabItem label="Queue" id={`wf-${flowId}-agent-swarm-nested-order-${id}`}>
+                        <div className="agent-swarm-nestedChat-recipients">
+                            <div className="flex-column margin-bottom-10">
+                                <label>Chat queue:</label>
+                                {nestedChats[0].messages.map((message, index) => (
                                     <div
-                                        style={
-                                            conditionsCount === 1
-                                                ? { marginLeft: -20 }
-                                                : conditionsCount === 2
-                                                  ? { width: 30 }
-                                                  : conditionsCount > 2
-                                                    ? { width: 50 }
-                                                    : {}
-                                        }
-                                        className="flex margin-right-10"
+                                        key={`agent-${id}-nestedChat-recipient-${index}`}
+                                        className="agent-swarm-nestedChat-recipient"
                                     >
-                                        {index > 0 && conditionsCount > 1 && (
-                                            <button
-                                                type="button"
-                                                title="Move up"
-                                                className="flow-order-item-action"
-                                                data-testid={`move-handoff-up-button-${index}`}
-                                                onClick={onMoveHandoffUp.bind(null, index)}
-                                            >
-                                                &#x2191;
-                                            </button>
-                                        )}
-                                        {index < conditionsCount - 1 && (
-                                            <button
-                                                title="Move down"
-                                                type="button"
-                                                className="flow-order-item-action"
-                                                data-testid={`move-handoff-down-button-${index}`}
-                                                onClick={onMoveHandoffDown.bind(null, index)}
-                                            >
-                                                &#x2193;
-                                            </button>
-                                        )}
+                                        <div
+                                            style={
+                                                nestedChatMessagesCount === 1
+                                                    ? { marginLeft: -20 }
+                                                    : nestedChatMessagesCount === 2
+                                                      ? { width: 30 }
+                                                      : nestedChatMessagesCount > 2
+                                                        ? { width: 60 }
+                                                        : {}
+                                            }
+                                            className="agent-swarm-order-actions margin-right-10"
+                                        >
+                                            {index > 0 && nestedChatMessagesCount > 1 && (
+                                                <button
+                                                    type="button"
+                                                    title="Move up"
+                                                    className="agent-swarm-order-action"
+                                                    data-testid={`move-nestedChat-up-button-${index}`}
+                                                    onClick={onMoveNestedChatUp.bind(null, index)}
+                                                >
+                                                    &#x2191;
+                                                </button>
+                                            )}
+                                            {index < nestedChatMessagesCount - 1 && (
+                                                <button
+                                                    title="Move down"
+                                                    type="button"
+                                                    className="agent-swarm-order-action"
+                                                    data-testid={`move-nestedChat-down-button-${index}`}
+                                                    onClick={onMoveNestedChatDown.bind(null, index)}
+                                                >
+                                                    &#x2193;
+                                                </button>
+                                            )}
+                                        </div>
+                                        <div className="agent-nestedChat-recipient-name">
+                                            {getRecipientName(message.id, agents)}
+                                        </div>
                                     </div>
-                                    <div className="agent-handoff-recipient-name">
-                                        {(onCondition.target as any).label}
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </TabItem>
+                    <TabItem label="Condition" id={`wf-${flowId}-agent-swarm-nested-condition-${id}`}>
+                        <WaldiezAgentSwarmNestedChatCondition
+                            data={data as WaldiezNodeAgentSwarmData}
+                            agentConnections={agentConnections}
+                            onDataChange={onDataChange}
+                            flowId={flowId}
+                            darkMode={darkMode}
+                        />
+                    </TabItem>
+                </TabItems>
             )}
         </div>
     );

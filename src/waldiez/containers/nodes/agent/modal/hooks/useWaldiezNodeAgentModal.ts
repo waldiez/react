@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import isEqual from "react-fast-compare";
 
 import {
-    WaldiezAgentNestedChat,
     WaldiezNodeAgentData,
     WaldiezNodeAgentRagUserData,
     WaldiezNodeAgentType,
@@ -21,7 +20,6 @@ export const useWaldiezNodeAgentModal = (
     onClose: () => void,
 ) => {
     const flowId = useWaldiez(s => s.flowId);
-    // const storageId = useWaldiez(s => s.storageId);
     const getAgentById = useWaldiez(s => s.getAgentById);
     const updateAgentData = useWaldiez(s => s.updateAgentData);
     const updateEdgeData = useWaldiez(s => s.updateEdgeData);
@@ -45,8 +43,6 @@ export const useWaldiezNodeAgentModal = (
     };
     useEffect(() => {
         setAgentData({ ...data });
-    }, [data, isOpen]);
-    useEffect(() => {
         setIsDirty(false);
         setFilesToUpload([]);
     }, [isOpen]);
@@ -213,21 +209,11 @@ export const useWaldiezNodeAgentModal = (
         setIsDirty(false);
         onClose();
     };
-    const onDataChange = (partialData: Partial<WaldiezNodeAgentData>, markDirty?: boolean) => {
-        let nestedChats: WaldiezAgentNestedChat[] = [];
-        if (
-            agentData.agentType !== "manager" &&
-            agentData.agentType !== "swarm_container" &&
-            agentData.agentType !== "swarm"
-        ) {
-            nestedChats = (partialData as any).nestedChats ?? agentData.nestedChats ?? [];
-        }
-        setAgentData({ ...agentData, ...partialData, nestedChats });
-        if (typeof markDirty === "boolean") {
-            setIsDirty(markDirty);
-            return;
-        }
+    const onDataChange = (partialData: Partial<WaldiezNodeAgentData>) => {
         const dirty = !isEqual({ ...agentData, ...partialData }, data);
+        setTimeout(() => {
+            setAgentData({ ...agentData, ...partialData });
+        }, 10);
         setIsDirty(dirty);
     };
     const toRagUser = () => {

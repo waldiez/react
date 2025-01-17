@@ -73,17 +73,14 @@ export class WaldiezAgentStore implements IWaldiezAgentStore {
         return null;
     };
     updateAgentData = (id: string, data: Partial<WaldiezNodeAgentData>) => {
-        const agent = this.get().nodes.find(node => node.id === id);
-        if (agent) {
-            this.set({
-                nodes: this.get().nodes.map(node =>
-                    node.id === id ? { ...node, data: { ...agent.data, ...data } } : node,
-                ),
-                updatedAt: new Date().toISOString(),
-            });
-            resetEdgePositions(this.get, this.set);
-            resetEdgeOrders(this.get, this.set);
-        }
+        this.set({
+            nodes: this.get().nodes.map(node =>
+                node.id === id ? { ...node, data: { ...node.data, ...data } } : node,
+            ),
+            updatedAt: new Date().toISOString(),
+        });
+        resetEdgePositions(this.get, this.set);
+        resetEdgeOrders(this.get, this.set);
     };
     deleteAgent = (id: string) => {
         const agent = this.get().nodes.find(node => node.id === id);

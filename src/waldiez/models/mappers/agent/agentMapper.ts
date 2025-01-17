@@ -88,7 +88,7 @@ export const agentMapper = {
             parentId: data.parentId,
             nestedChats: data.nestedChats,
         };
-        updateAgentData(agentType, agentData, data);
+        updateAgentDataToExport(agentType, agentData, data);
         for (const key of [
             "description",
             "name",
@@ -344,7 +344,7 @@ const getAgent = (
     });
 };
 
-const updateAgentData = (agentType: WaldiezNodeAgentType, agentData: any, data: any) => {
+const updateAgentDataToExport = (agentType: WaldiezNodeAgentType, agentData: any, data: any) => {
     if (agentType === "rag_user") {
         updateRagAgent(agentData, data);
         // agentData.retrieveConfig = getRetrieveConfig(data);

@@ -15,8 +15,11 @@ export type WaldiezAgentSwarmFunctionsProps = {
 
 export type WaldiezAgentSwarmNestedChatsProps = {
     id: string;
+    flowId: string;
+    darkMode: boolean;
     data: WaldiezNodeAgentSwarmData;
     agents: WaldiezNodeAgent[];
+    edges: WaldiezEdge[];
     agentConnections: {
         source: {
             nodes: WaldiezNodeAgent[];
@@ -27,7 +30,24 @@ export type WaldiezAgentSwarmNestedChatsProps = {
             edges: WaldiezEdge[];
         };
     };
-    onDataChange: (partialData: Partial<WaldiezNodeAgentSwarmData>, markDirty?: boolean) => void;
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>, markDirty?: boolean) => void;
+};
+
+export type WaldiezAgentSwarmNestedChatConditionProps = {
+    flowId: string;
+    darkMode: boolean;
+    data: WaldiezNodeAgentSwarmData;
+    agentConnections: {
+        source: {
+            nodes: WaldiezNodeAgent[];
+            edges: WaldiezEdge[];
+        };
+        target: {
+            nodes: WaldiezNodeAgent[];
+            edges: WaldiezEdge[];
+        };
+    };
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>) => void;
 };
 
 export type WaldiezAgentSwarmUpdateStateProps = {
@@ -41,6 +61,24 @@ export type WaldiezAgentSwarmAfterWorkProps = {
     id: string;
     data: WaldiezNodeAgentSwarmData;
     darkMode: boolean;
+    agentConnections: {
+        source: {
+            nodes: WaldiezNodeAgent[];
+            edges: WaldiezEdge[];
+        };
+        target: {
+            nodes: WaldiezNodeAgent[];
+            edges: WaldiezEdge[];
+        };
+    };
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>) => void;
+};
+
+export type WaldiezAgentSwarmHandoffsProps = {
+    id: string;
+    data: WaldiezNodeAgentSwarmData;
+    agents: WaldiezNodeAgent[];
+    edges: WaldiezEdge[];
     agentConnections: {
         source: {
             nodes: WaldiezNodeAgent[];

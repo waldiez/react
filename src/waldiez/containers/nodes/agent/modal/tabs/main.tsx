@@ -12,12 +12,14 @@ import { WaldiezAgentSkills } from "@waldiez/containers/nodes/agent/modal/tabs/s
 import {
     WaldiezAgentSwarmAfterWork,
     WaldiezAgentSwarmFunctions,
+    WaldiezAgentSwarmHandoffs,
     WaldiezAgentSwarmNestedChats,
     WaldiezAgentSwarmUpdateState,
 } from "@waldiez/containers/nodes/agent/modal/tabs/swarm";
 import { WaldiezAgentTermination } from "@waldiez/containers/nodes/agent/modal/tabs/termination";
 import { WaldiezNodeAgentModalTabsProps } from "@waldiez/containers/nodes/agent/modal/tabs/types";
 import {
+    WaldiezEdge,
     WaldiezNodeAgent,
     WaldiezNodeAgentData,
     WaldiezNodeAgentRagUserData,
@@ -45,11 +47,13 @@ export const WaldiezNodeAgentModalTabs = ({
     const getAgents = useWaldiez(s => s.getAgents);
     const getModels = useWaldiez(s => s.getModels);
     const getSkills = useWaldiez(s => s.getSkills);
+    const getEdges = useWaldiez(s => s.getEdges);
     const uploadHandler = useWaldiez(s => s.onUpload);
     const agentConnections = getAgentConnections(id);
     const models = getModels() as WaldiezNodeModel[];
     const agents = getAgents() as WaldiezNodeAgent[];
     const skills = getSkills() as WaldiezNodeSkill[];
+    const edges = getEdges() as WaldiezEdge[];
     const groupManagers = agents.filter(agent => agent.data.agentType === "manager");
     const connectionsCount = agentConnections.target.edges.length + agentConnections.source.edges.length;
     const showNestedChatsTab = !(isManager || connectionsCount === 0) && !isSwarm;
@@ -160,9 +164,12 @@ export const WaldiezNodeAgentModalTabs = ({
                 <TabItem label="Nested chat" id={`wf-${flowId}-agent-swarm-nestedChats-${id}`}>
                     <WaldiezAgentSwarmNestedChats
                         id={id}
+                        flowId={flowId}
+                        darkMode={isDarkMode}
                         data={data as WaldiezNodeAgentSwarmData}
                         agentConnections={agentConnections}
                         agents={agents}
+                        edges={edges}
                         onDataChange={onDataChange}
                     />
                 </TabItem>
@@ -170,6 +177,16 @@ export const WaldiezNodeAgentModalTabs = ({
             {isSwarm && (
                 <TabItem label="Swarm" id={`wf-${flowId}-agent-swarm-specific-${id}`}>
                     <TabItems activeTabIndex={0}>
+                        <TabItem label="Handoffs" id={`wf-${flowId}-agent-swarm-handoffs-${id}`}>
+                            <WaldiezAgentSwarmHandoffs
+                                id={id}
+                                data={data as WaldiezNodeAgentSwarmData}
+                                onDataChange={onDataChange}
+                                agents={agents}
+                                agentConnections={agentConnections}
+                                edges={edges}
+                            />
+                        </TabItem>
                         <TabItem label="Agent's State" id={`wf-${flowId}-agent-swarm-updateState-${id}`}>
                             <WaldiezAgentSwarmUpdateState
                                 id={id}

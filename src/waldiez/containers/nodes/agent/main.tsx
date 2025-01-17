@@ -94,8 +94,8 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentProps) => {
                 isConnectableStart
                 position={Position.Bottom}
                 onConnect={onEdgeConnection}
-                data-testid={`agent-handle-bottom-source${id}`}
-                id={`agent-handle-bottom-source${id}`}
+                data-testid={`agent-handle-bottom-source-${id}`}
+                id={`agent-handle-bottom-source-${id}`}
                 style={{ left: "75%" }}
             />
             <Handle

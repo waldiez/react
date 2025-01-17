@@ -25,7 +25,7 @@ const VALID_AGENT_TYPES: WaldiezNodeAgentType[] = [
     "swarm_container",
 ];
 export const getAgentId = (data: any, agentId?: string) => {
-    let id = "wa-" + getId();
+    let id = `wa-${getId()}`;
     if (!agentId || typeof agentId !== "string") {
         id = getIdFromJSON(data);
     } else {

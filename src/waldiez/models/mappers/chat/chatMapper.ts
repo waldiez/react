@@ -1,16 +1,30 @@
 import { Edge, MarkerType, Node } from "@xyflow/react";
 
-import { WaldiezNodeAgentType, WaldiezSwarmOnConditionAvailable } from "@waldiez/models";
+import { WaldiezNodeAgentSwarmContainer, WaldiezNodeAgentType } from "@waldiez/models";
 import {
     WaldiezChat,
     WaldiezChatData,
     WaldiezEdge,
     WaldiezEdgeData,
     WaldiezEdgeType,
-    WaldiezNestedChat,
 } from "@waldiez/models/Chat";
 import { messageMapper } from "@waldiez/models/mappers/chat/messageMapper";
 import { summaryMapper } from "@waldiez/models/mappers/chat/summaryMapper";
+import {
+    getAvailable,
+    getChatAfterWork,
+    getChatClearHistory,
+    getChatDescription,
+    getChatMaxRounds,
+    getChatMaxTurns,
+    getChatName,
+    getChatOrder,
+    getChatPosition,
+    getContextVariables,
+    getNestedChat,
+    getRealSource,
+    getRealTarget,
+} from "@waldiez/models/mappers/chat/utils";
 import {
     getDescriptionFromJSON,
     getNameFromJSON,
@@ -42,7 +56,7 @@ export const chatMapper = {
         const { edge, sourceNode, targetNode } = result;
         const id = jsonObject.id as string;
         const data = getChatData(jsonObject.data as any, index);
-        const rest = getChatRest(jsonObject);
+        const rest = getChatRest({ ...jsonObject, ...edge });
         const updatedEdge = updateEdge(edge as WaldiezEdge, data, jsonObject, sourceNode, targetNode, rest);
         Object.entries(updatedEdge).forEach(([key, value]) => {
             if (key !== "data" && key !== "source" && key !== "target" && key !== "id") {
@@ -162,6 +176,8 @@ const getChatRest = (json: { [key: string]: any }) => {
     delete rest.id;
     delete rest.data;
     delete rest.type;
+    delete rest.source;
+    delete rest.target;
     return rest;
 };
 
@@ -209,6 +225,27 @@ const updateEdge = (
     rest: { [key: string]: any },
 ) => {
     const sourceAgentType = sourceNode.data.agentType as WaldiezNodeAgentType;
+    const targetNodeType = targetNode.data.agentType as WaldiezNodeAgentType;
+    if (targetNodeType === "swarm_container") {
+        const swarmContainer = targetNode as WaldiezNodeAgentSwarmContainer;
+        let initialAgent = swarmContainer.data.initialAgent;
+        if (chatData.realTarget) {
+            initialAgent = chatData.realTarget;
+        }
+        if (!initialAgent) {
+            // search in json for json.swarm_agents, if found select the first one
+            if (json.swarm_agents && Array.isArray(json.swarm_agents) && json.swarm_agents.length > 0) {
+                const swarmAgent = json.swarm_agents[0];
+                if (typeof swarmAgent === "object" && swarmAgent && "id" in swarmAgent) {
+                    initialAgent = swarmAgent.id;
+                }
+            }
+        }
+        if (initialAgent) {
+            edge.target = initialAgent;
+            chatData.realTarget = initialAgent;
+        }
+    }
     const chatType = getChatType(edge, json, sourceNode, targetNode);
     const color = AGENT_COLORS[sourceAgentType];
     edge.type = chatType;
@@ -228,6 +265,8 @@ const updateEdge = (
     };
     delete (edge.data as any).name;
     chatData.order = chatType === "nested" ? -1 : chatData.order;
+    setEdgeSourceHandle(edge, rest);
+    setEdgeTargetHandle(edge, rest);
     return { ...edge, ...rest };
 };
 
@@ -251,143 +290,6 @@ const getChatType = (edge: WaldiezEdge, json: { [key: string]: any }, sourceNode
         chatType = "swarm";
     }
     return chatType as WaldiezEdgeType;
-};
-
-const getChatClearHistory = (data: { [key: string]: any }) => {
-    let clearHistory = true;
-    if ("clearHistory" in data && typeof data.clearHistory === "boolean") {
-        clearHistory = data.clearHistory;
-    }
-    return clearHistory;
-};
-
-const getChatName = (data: { [key: string]: any }) => {
-    let name = "Chat";
-    if ("label" in data && data.label) {
-        if (typeof data.label === "string") {
-            name = data.label;
-        }
-    }
-    return name;
-};
-
-const getChatDescription = (data: { [key: string]: any }) => {
-    let description = "Chat Description";
-    if ("description" in data && data.description) {
-        if (typeof data.description === "string") {
-            description = data.description;
-        }
-    }
-    return description;
-};
-
-const getChatPosition = (data: { [key: string]: any }, fallback: number) => {
-    let chatPosition = fallback;
-    if ("position" in data && typeof data.position === "number") {
-        chatPosition = data.position;
-    }
-    return chatPosition;
-};
-
-const getChatMaxTurns = (data: { [key: string]: any }) => {
-    let maxTurns = null;
-    if ("maxTurns" in data && typeof data.maxTurns === "number") {
-        maxTurns = data.maxTurns;
-    }
-    return maxTurns;
-};
-
-const getNestedChat = (data: { [key: string]: any }): WaldiezNestedChat => {
-    const nestedChat = {
-        message: null,
-        reply: null,
-    } as WaldiezNestedChat;
-    if ("nestedChat" in data && data.nestedChat) {
-        if ("message" in data.nestedChat && data.nestedChat.message) {
-            nestedChat.message = messageMapper.importMessage({ message: data.nestedChat.message });
-        }
-        if ("reply" in data.nestedChat && data.nestedChat.reply) {
-            nestedChat.reply = messageMapper.importMessage({ message: data.nestedChat.reply });
-        }
-    }
-    return nestedChat;
-};
-
-const getChatOrder = (data: { [key: string]: any }) => {
-    let order = -1;
-    if ("order" in data && typeof data.order === "number") {
-        order = data.order >= 0 ? data.order : -1;
-    }
-    return order;
-};
-
-const getChatMaxRounds = (data: { [key: string]: any }) => {
-    let maxRounds = 20;
-    if ("maxRounds" in data && typeof data.maxRounds === "number") {
-        maxRounds = data.maxRounds;
-    }
-    return maxRounds;
-};
-
-const getContextVariables = (data: { [key: string]: any }) => {
-    const contextVariables: { [key: string]: string } = {};
-    if ("contextVariables" in data && typeof data.contextVariables === "object") {
-        Object.entries(data.contextVariables).forEach(([key, value]) => {
-            if (
-                typeof value === "string" ||
-                typeof value === "number" ||
-                typeof value === "boolean" ||
-                value === null
-            ) {
-                contextVariables[key] = value !== null ? `${value}` : "";
-            }
-        });
-    }
-    return contextVariables;
-};
-
-const getAvailable = (data: { [key: string]: any }) => {
-    const available: WaldiezSwarmOnConditionAvailable = {
-        type: "none",
-        value: null,
-    };
-    if ("available" in data && typeof data.available === "object") {
-        if (
-            "type" in data.available &&
-            typeof data.available.type === "string" &&
-            ["string", "callable", "none"].includes(data.available.type)
-        ) {
-            available.type = data.available.type;
-        }
-        if ("value" in data.available && typeof data.available.value === "string") {
-            available.value = data.available.value;
-        }
-    }
-    return available;
-};
-
-const getChatAfterWork = (data: { [key: string]: any }) => {
-    let afterWorkData = null;
-    if ("afterWork" in data && typeof data.afterWork === "object") {
-        afterWorkData = swarmAfterWorkMapper.importSwarmAfterWork(data.afterWork);
-    }
-    return afterWorkData;
-};
-
-const getRealSource = (data: { [key: string]: any }) => {
-    let realSource = null;
-    if ("realSource" in data && typeof data.realSource === "string") {
-        realSource = data.realSource;
-    }
-    return realSource;
-};
-
-const getRealTarget = (data: { [key: string]: any }) => {
-    let realTarget = null;
-    if ("realTarget" in data && typeof data.realTarget === "string") {
-        realTarget = data.realTarget;
-    }
-    return realTarget;
 };
 
 const updateChatCommonStyle = (edge: WaldiezEdge, edgeType: WaldiezEdgeType, color: string) => {
@@ -417,4 +319,40 @@ const isChatAnimated = (chatType: WaldiezEdgeType, sourceNode: Node, targetNode:
         return true;
     }
     return false;
+};
+
+const setEdgeSourceHandle = (edge: WaldiezEdge, rest: { [key: string]: any }) => {
+    let sourceHandle: string | null = null;
+    if ("sourceHandle" in rest && typeof rest.sourceHandle === "string") {
+        // sourceHandle = rest.sourceHandle;
+        // format: id={`agent-handle-{top|left|right|bottom}-{source|target}-${agentId}`}
+        // so let's check for "{top|left|right|bottom}" and "source|target" in the handle id
+        if (rest.sourceHandle.includes("-source") || rest.sourceHandle.includes("-target")) {
+            const isSource = rest.sourceHandle.includes("-source");
+            const position = ["top", "left", "right", "bottom"].find(pos => rest.sourceHandle.includes(pos));
+            if (position) {
+                sourceHandle = `agent-handle-${position}-${isSource ? "source" : "target"}-${isSource ? edge.source : edge.target}`;
+            }
+        }
+    }
+    rest.sourceHandle = sourceHandle;
+    edge.sourceHandle = sourceHandle;
+};
+
+const setEdgeTargetHandle = (edge: WaldiezEdge, rest: { [key: string]: any }) => {
+    let targetHandle: string | null = null;
+    if ("targetHandle" in rest && typeof rest.targetHandle === "string") {
+        // targetHandle = rest.targetHandle;
+        // format: id={`agent-handle-{top|left|right|bottom}-{source|target}-${agentId}`}
+        // so let's check for "{top|left|right|bottom}" and "source|target" in the handle id
+        if (rest.targetHandle.includes("-source") || rest.targetHandle.includes("-target")) {
+            const isSource = rest.targetHandle.includes("source");
+            const position = ["top", "left", "right", "bottom"].find(pos => rest.targetHandle.includes(pos));
+            if (position) {
+                targetHandle = `agent-handle-${position}-${isSource ? "source" : "target"}-${isSource ? edge.source : edge.target}`;
+            }
+        }
+    }
+    rest.targetHandle = targetHandle;
+    edge.targetHandle = targetHandle;
 };

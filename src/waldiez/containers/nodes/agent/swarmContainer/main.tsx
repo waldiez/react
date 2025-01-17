@@ -1,4 +1,4 @@
-import { Handle, NodeResizer, Position } from "@xyflow/react";
+import { NodeResizer } from "@xyflow/react";
 
 import { useState } from "react";
 import { FaGear } from "react-icons/fa6";
@@ -41,12 +41,6 @@ export const WaldiezNodeSwarmContainer = (props: WaldiezSwarmContainerProps) => 
                 </div>
                 <SiSwarm size={22} color={AGENT_COLORS.swarm_container} />
             </div>
-            <Handle
-                type="target"
-                position={Position.Left}
-                id={`swarm-container-agent-handle-${id}-target`}
-                data-testid={`swarm-container-agent-handle-${id}-target`}
-            />
             <NodeResizer
                 color={AGENT_COLORS.swarm_container}
                 minWidth={482}

@@ -37,12 +37,10 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
     getRfInstance = () => this.get().rfInstance;
     setRfInstance = (instance: ReactFlowInstance) => {
         const currentInstance = this.get().rfInstance;
+        this.set({ rfInstance: instance });
         if (!currentInstance) {
-            this.set({ rfInstance: instance });
             reArrangeModels(this.get, this.set);
             reArrangeSkills(this.get, this.set);
-        } else {
-            this.set({ rfInstance: instance });
         }
     };
     getFlowInfo = () => {
@@ -144,9 +142,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
             flowData,
             typeShown,
         );
-        const viewport = rfInstance?.getViewport() ?? { x: 20, y: 20, zoom: 1 };
         this.set({
-            viewport,
             name,
             description,
             tags,
@@ -158,17 +154,17 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
             nodes,
             edges,
         });
-        rfInstance?.fitView({
-            minZoom: viewport?.zoom,
-            maxZoom: viewport?.zoom,
-            includeHiddenNodes: true,
-            padding: 0.2,
-            duration: 100,
-        });
         resetEdgePositions(this.get, this.set);
         resetEdgeOrders(this.get, this.set);
         reArrangeModels(this.get, this.set);
         reArrangeSkills(this.get, this.set);
+        setTimeout(() => {
+            rfInstance?.fitView({
+                includeHiddenNodes: true,
+                padding: 0.2,
+                duration: 100,
+            });
+        }, 100);
     };
     exportFlow = (hideSecrets: boolean) => {
         const {
@@ -187,7 +183,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
         const flow: WaldiezFlowProps = {
             nodes: this.get().nodes,
             edges: this.get().edges,
-            viewport: rfInstance?.getViewport() ?? viewport ?? { zoom: 1, x: 50, y: 50 },
+            viewport: rfInstance?.getViewport() ?? viewport ?? { zoom: 1, x: 20, y: 20 },
             name: name ?? "Untitled Flow",
             description: description ?? "A new Waldiez flow",
             tags: tags ?? [],

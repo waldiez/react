@@ -106,7 +106,7 @@ const getSwarmEdge = (edges: Edge[], sourceNode: Node, targetNode: Node) => {
 };
 
 const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
-    const edgeName = getNewEdgeName(sourceNode, targetNode);
+    // const edgeName = getNewEdgeName(sourceNode, targetNode);
     const sourceAgentType = sourceNode.data.agentType as WaldiezNodeAgentType;
     const targetAgentType = targetNode.data.agentType as WaldiezNodeAgentType;
     const source = sourceNode.id;
@@ -114,7 +114,7 @@ const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
     const chatData = new WaldiezChatData();
     chatData.source = source;
     chatData.target = target;
-    chatData.name = edgeName;
+    chatData.name = "...";
     chatData.description = `Transfer to ${targetNode.data.label}`;
     chatData.order = -1;
     chatData.position = 0;

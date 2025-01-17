@@ -89,7 +89,7 @@ export const WaldiezAgentSwarmUpdateState = (props: WaldiezAgentSwarmUpdateState
             </div>
             <div className="flex-column">
                 <label className="checkbox-label enable-checkbox">
-                    <div className="checkbox-label-view">Enable Update System Message</div>
+                    <div className="checkbox-label-view">Update system message before reply</div>
                     <input
                         type="checkbox"
                         checked={enabled}
@@ -100,7 +100,7 @@ export const WaldiezAgentSwarmUpdateState = (props: WaldiezAgentSwarmUpdateState
                 </label>
                 {enabled && (
                     <>
-                        <label>State update type</label>
+                        <label>Message update type</label>
                         <Select
                             options={updateSystemMessageTypeOptions}
                             value={{
@@ -109,12 +109,12 @@ export const WaldiezAgentSwarmUpdateState = (props: WaldiezAgentSwarmUpdateState
                             }}
                             onChange={onUpdateSystemMessageTypeChange}
                         />
-                        <label>State update</label>
+                        <label>Message update</label>
                         {currentUpdateAgentStateBeforeReply.updateFunctionType === "string" && (
                             <textarea
                                 rows={4}
                                 defaultValue={currentUpdateAgentStateBeforeReply.updateFunction}
-                                placeholder="Enter a string template"
+                                placeholder="Enter a string template with {variable}s"
                                 onChange={onUpdateSystemMessageStringChange}
                                 data-testid="update-system-message-string"
                             />

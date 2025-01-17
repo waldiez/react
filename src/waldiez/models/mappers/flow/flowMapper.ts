@@ -31,6 +31,7 @@ import { skillMapper } from "@waldiez/models/mappers/skill";
 import { isAfterWork } from "@waldiez/store/utils";
 import {
     WaldiezAgentSwarm,
+    WaldiezChat,
     WaldiezFlowProps,
     WaldiezNodeAgentSwarmContainer,
     WaldiezSwarmAfterWork,
@@ -163,6 +164,7 @@ const exportAgent = (agent: WaldiezNodeAgent, nodes: Node[], skipLinks: boolean)
             }
         });
     }
+    waldiezAgent.agentType = agent.data.agentType;
     return waldiezAgent;
 };
 
@@ -234,15 +236,54 @@ const getRFEdges = (flow: WaldiezFlow) => {
     const flowEdges: Edge[] = [];
     flow.data.chats.forEach(chat => {
         const edge = chatMapper.asEdge(chat);
-        if (edge.type === "swarm") {
-            if (edge.target.startsWith("swarm-container")) {
-                edge.target = `swarm-container-${flow.id}`;
-                edge.targetHandle = `swarm-container-agent-handle-swarm-container-${flow.id}-target`;
-            }
+        const { sourceHandle, targetHandle } = getEdgeHandles(flow, chat);
+        edge.sourceHandle = sourceHandle;
+        edge.targetHandle = targetHandle;
+        if (edge.type === "swarm" && edge.target.startsWith("swarm-container")) {
+            handleEdgeToSwarmContainer(edge, flow);
         }
         flowEdges.push(edge);
     });
     return flowEdges;
+};
+
+// eslint-disable-next-line max-statements
+const getEdgeHandles = (flow: WaldiezFlow, chat: WaldiezChat) => {
+    // if in chat.rest there is a "sourceHandle" and "targetHandle" use them
+    // else, check flow.edges (compare the id) and use the sourceHandle and targetHandle from there
+    // if not found, use the default ones
+    let sourceHandle; // = `agent-handle-right-source-${chat.source}`;
+    let targetHandle; // = `agent-handle-left-target-${chat.target}`;
+    if (chat.rest.sourceHandle && typeof chat.rest.sourceHandle === "string") {
+        sourceHandle = chat.rest.sourceHandle;
+    }
+    if (chat.rest.targetHandle && typeof chat.rest.targetHandle === "string") {
+        targetHandle = chat.rest.targetHandle;
+    }
+    if (!sourceHandle || !targetHandle) {
+        const edge = flow.data.edges.find(edge => edge.id === chat.id);
+        if (edge) {
+            sourceHandle = edge.sourceHandle || sourceHandle;
+            targetHandle = edge.targetHandle || targetHandle;
+        }
+    }
+    if (!sourceHandle) {
+        sourceHandle = `agent-handle-right-source-${chat.source}`;
+    }
+    if (!targetHandle) {
+        targetHandle = `agent-handle-left-target-${chat.target}`;
+    }
+    return { sourceHandle, targetHandle };
+};
+
+const handleEdgeToSwarmContainer = (edge: Edge, flow: WaldiezFlow) => {
+    const initialAgent = getSwarmInitialAgent(flow);
+    edge.target = initialAgent.id;
+    edge.sourceHandle = `agent-handle-right-source-${edge.source}`;
+    edge.targetHandle = `agent-handle-left-target-${initialAgent.id}`;
+    if (edge.data) {
+        edge.data.realTarget = initialAgent.id;
+    }
 };
 
 const getSwarmRFNodes = (flow: WaldiezFlow, edges: Edge[]) => {
