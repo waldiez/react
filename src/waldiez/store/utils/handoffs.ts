@@ -127,10 +127,7 @@ export const getNestedChatOnConditionHandoff: (
             return {
                 targetType: "nested_chat",
                 target: { id: edgeId, order: nonSwarmTargets.length },
-                condition:
-                    nestedChats[0].triggeredBy.length > 0
-                        ? nestedChats[0].triggeredBy[0]
-                        : `transfer_to_${nonSwarmTargets[0].data.label}`,
+                condition: `Transfer to ${nonSwarmTargets[0].data.label}`,
                 available: {
                     type: "none",
                     value: null,
@@ -144,7 +141,7 @@ export const getNestedChatOnConditionHandoff: (
         return {
             targetType: "nested_chat",
             target: { id: edgeId, order: nonSwarmTargets.length },
-            condition: `transfer_to_${nonSwarmTargets[0].data.label}`,
+            condition: `Transfer to ${nonSwarmTargets[0].data.label}`,
             available: {
                 type: "none",
                 value: null,
@@ -209,7 +206,7 @@ const getSwarmAgentHandoff: (
 };
 
 const getOnConditionFromEdge = (edge: WaldiezEdge, targetNode: WaldiezNodeAgent) => {
-    let condition = `transfer_to_${targetNode.data.label}`;
+    let condition = `Transfer to ${targetNode.data.label}`;
     if (
         edge.data?.description &&
         edge.data.description !== "" &&
