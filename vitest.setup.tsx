@@ -77,7 +77,7 @@ export const mockReactFlow = () => {
         height: 30,
     });
 };
-
+vi.setConfig({ testTimeout: 30_000 });
 vi.mock("zustand"); // __mocks__/zustand.ts
 vi.mock("@monaco-editor/react", async () => {
     return {

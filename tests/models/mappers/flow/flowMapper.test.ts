@@ -36,41 +36,35 @@ const getFlowStringFromUrl = (url: string) => {
     return fetch(url).then(response => response.text());
 };
 
-describe(
-    "flowMapper",
-    () => {
-        it("is compatible with exported flows", async () => {
-            for (const flowLink of flowLinks) {
-                const flowString = await getFlowStringFromUrl(flowLink);
-                const jsonFlow = JSON.parse(flowString);
-                const flow = flowMapper.importFlow(flowString);
-                const rfFlow = flowMapper.toReactFlow(flow);
-                const flowJson = flowMapper.exportFlow(rfFlow, false, false) as any;
-                flowKeysToRemove.forEach(key => {
-                    delete flowJson[key];
-                });
-                flowDataKeysToRemove.forEach(key => {
-                    delete flowJson.data[key];
-                });
-                jsonFlow.data.agents.users = jsonFlow.data.agents.users.map(updateAgent);
-                jsonFlow.data.agents.assistants = jsonFlow.data.agents.assistants.map(updateAgent);
-                jsonFlow.data.agents.managers = jsonFlow.data.agents.managers.map(updateAgent);
-                jsonFlow.data.agents.rag_users = jsonFlow.data.agents.rag_users.map(updateAgent);
-                jsonFlow.data.chats.forEach((chat: any) => updateChat(chat, flowJson));
-                jsonFlow.data.edges.forEach((edge: any) => updateEdge(edge, flowJson));
-                jsonFlow.data.models.forEach((model: any) => updateModel(model, flowJson));
-                newAgents.forEach((newAgent: any) => {
-                    jsonFlow.data.agents[newAgent] = [];
-                });
-                // console.error(flowLink);
-                compareObjects(jsonFlow, flowJson);
-            }
-        });
-    },
-    {
-        timeout: 30000,
-    },
-);
+describe("flowMapper", () => {
+    it("is compatible with exported flows", async () => {
+        for (const flowLink of flowLinks) {
+            const flowString = await getFlowStringFromUrl(flowLink);
+            const jsonFlow = JSON.parse(flowString);
+            const flow = flowMapper.importFlow(flowString);
+            const rfFlow = flowMapper.toReactFlow(flow);
+            const flowJson = flowMapper.exportFlow(rfFlow, false, false) as any;
+            flowKeysToRemove.forEach(key => {
+                delete flowJson[key];
+            });
+            flowDataKeysToRemove.forEach(key => {
+                delete flowJson.data[key];
+            });
+            jsonFlow.data.agents.users = jsonFlow.data.agents.users.map(updateAgent);
+            jsonFlow.data.agents.assistants = jsonFlow.data.agents.assistants.map(updateAgent);
+            jsonFlow.data.agents.managers = jsonFlow.data.agents.managers.map(updateAgent);
+            jsonFlow.data.agents.rag_users = jsonFlow.data.agents.rag_users.map(updateAgent);
+            jsonFlow.data.chats.forEach((chat: any) => updateChat(chat, flowJson));
+            jsonFlow.data.edges.forEach((edge: any) => updateEdge(edge, flowJson));
+            jsonFlow.data.models.forEach((model: any) => updateModel(model, flowJson));
+            newAgents.forEach((newAgent: any) => {
+                jsonFlow.data.agents[newAgent] = [];
+            });
+            // console.error(flowLink);
+            compareObjects(jsonFlow, flowJson);
+        }
+    });
+});
 
 const compareObjects = (json1: any, json2: any) => {
     Object.keys(json1).forEach(key => {
