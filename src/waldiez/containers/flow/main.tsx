@@ -1,9 +1,9 @@
 import { Background, BackgroundVariant, Controls, Panel, ReactFlow, Viewport } from "@xyflow/react";
 
 import { useEffect, useState } from "react";
+import { CiExport, CiImport } from "react-icons/ci";
 import { FaPlusCircle } from "react-icons/fa";
-import { FaFileExport, FaFileImport, FaMoon, FaPython, FaSun } from "react-icons/fa6";
-import { FaCirclePlay } from "react-icons/fa6";
+import { FaCirclePlay, FaMoon, FaPython, FaSun } from "react-icons/fa6";
 import { SiJupyter } from "react-icons/si";
 
 import {
@@ -170,6 +170,17 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                             <div className="editor-nav-actions">
                                 {(includeRunButton || includeConvertIcons) && (
                                     <>
+                                        {includeRunButton && (
+                                            <button
+                                                type="button"
+                                                className="editor-nav-action"
+                                                onClick={onRun}
+                                                title="Run flow"
+                                                data-testid={`run-${flowId}`}
+                                            >
+                                                <FaCirclePlay />
+                                            </button>
+                                        )}
                                         {includeConvertIcons && (
                                             <button
                                                 type="button"
@@ -192,17 +203,6 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                                                 <SiJupyter />
                                             </button>
                                         )}
-                                        {includeRunButton && (
-                                            <button
-                                                type="button"
-                                                className="editor-nav-action"
-                                                onClick={onRun}
-                                                title="Run flow"
-                                                data-testid={`run-${flowId}`}
-                                            >
-                                                <FaCirclePlay />
-                                            </button>
-                                        )}
                                     </>
                                 )}
                                 <button
@@ -212,7 +212,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                                     title="Import flow"
                                     data-testid={`import-flow-${flowId}-button`}
                                 >
-                                    <FaFileImport />
+                                    <CiImport style={{ strokeWidth: 2 }} />
                                 </button>
                                 <button
                                     type="button"
@@ -221,7 +221,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                                     title="Export flow"
                                     data-testid={`export-flow-${flowId}-button`}
                                 >
-                                    <FaFileExport />
+                                    <CiExport style={{ strokeWidth: 2 }} />
                                 </button>
                                 <button
                                     type="button"
