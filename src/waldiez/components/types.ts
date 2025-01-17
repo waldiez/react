@@ -1,4 +1,4 @@
-export type { AfterWorkProps } from "@waldiez/components/afterWork/types";
+export type { AfterWorkProps, OnConditionAvailableProps } from "@waldiez/components/swarm/types";
 export type { CollapsibleProps, CollapsibleViewProps } from "@waldiez/components/collapsible/types";
 export type { DictProps } from "@waldiez/components/dict/types";
 export type { DropZoneProps } from "@waldiez/components/dropZone/types";

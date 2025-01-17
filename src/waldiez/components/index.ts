@@ -1,4 +1,4 @@
-export { AfterWork } from "@waldiez/components/afterWork";
+export { AfterWork, OnConditionAvailable } from "@waldiez/components/swarm";
 export { Collapsible } from "@waldiez/components/collapsible";
 export { Dict } from "@waldiez/components/dict";
 export { InfoCheckbox } from "@waldiez/components/infoCheckBox";

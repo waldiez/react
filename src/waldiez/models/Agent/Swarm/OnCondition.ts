@@ -21,3 +21,22 @@ export class WaldiezSwarmOnCondition {
         this.available = props.available;
     }
 }
+
+export const DEFAULT_ON_CONDITION_AVAILABLE_METHOD_CONTENT = `"""Custom on condition availability check function."""
+# provide the function to determine if the agent should be available
+# complete the \`custom_on_condition_available\` below. Do not change the name or the arguments of the function.
+# only complete the function body and the docstring and return a boolean.
+# example:
+#    def custom_on_condition_available(
+#    agent: Agent,
+#    message: Dict[str, Any],
+# ) -> bool:
+#    return message.get("agent_name", "") == agent.name
+#
+def custom_on_condition_available(
+    agent: Agent,
+    message: Dict[str, Any],
+) -> bool:
+    """Complete the on condition availability check function"""
+    ...
+`;

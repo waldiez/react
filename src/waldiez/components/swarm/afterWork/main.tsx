@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import { AfterWorkProps } from "@waldiez/components/afterWork/types";
 import { Editor } from "@waldiez/components/editor";
 import { InfoCheckbox } from "@waldiez/components/infoCheckBox";
 import { Select, SingleValue } from "@waldiez/components/select";
+import { AfterWorkProps } from "@waldiez/components/swarm/afterWork/types";
+import { DEFAULT_CUSTOM_AFTER_WORK_RECIPIENT_METHOD_CONTENT } from "@waldiez/models/Agent/Swarm/AfterWork";
 import {
     WaldiezNodeAgentSwarm,
     WaldiezSwarmAfterWork,
@@ -208,27 +209,3 @@ export const AfterWork = (props: AfterWorkProps) => {
         </div>
     );
 };
-
-export const DEFAULT_CUSTOM_AFTER_WORK_RECIPIENT_METHOD_CONTENT = `"""Custom after work recipient function."""
-# provide the function to define the recipient of the after work property
-# complete the \`custom_after_work\` below. Do not change the name or the arguments of the function.
-# only complete the function body and the docstring and return the recipient.
-# example:
-# def custom_after_work(
-#     last_speaker: SwarmAgent,
-#     messages: List[Dict[str, Any]],
-#     groupchat: GroupChat,
-# ) -> Union[AfterWorkOption, SwarmAgent, str]:
-#     """Complete the custom after work recipient function"""
-#     # return last_speaker
-#     return "TERMINATE"
-#
-#
-def custom_after_work(
-    last_speaker: SwarmAgent,
-    messages: List[Dict[str, Any]],
-    groupchat: GroupChat,
-) -> Union[AfterWorkOption, SwarmAgent, str]:
-    """Complete the custom after work recipient function"""
-    ...
-`;
