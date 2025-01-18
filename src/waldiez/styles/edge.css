@@ -4,10 +4,9 @@
     align-items: stretch;
     resize: both;
     overflow: auto;
-    width: 100px;
-    height: 100px;
-    min-width: 120px;
-    min-height: 120px;
+    width: 80px;
+    min-width: 100px;
+    min-height: 100px;
     z-index: 10000;
 }
 
@@ -15,9 +14,9 @@
     font-size: small;
     font-weight: 500;
     border-radius: 4px;
-    padding: 8px;
-    min-width: 100px;
-    min-height: 80px;
+    padding: 8px 8px 0;
+    min-width: 80px;
+    min-height: 60px;
     width: calc(100% - 8px);
     display: flex;
     flex-direction: column;
