@@ -39,7 +39,7 @@ export const WaldiezNodeAgentView = (props: WaldiezNodeAgentProps) => {
             />
         );
     }
-    const handleClassNameBase = agentType === "swarm" ? "swarm-" : data.parentId ? "hidden" : "";
+    const handleClassNameBase = agentType === "swarm" ? "swarm-" : data.parentId ? "hidden " : "";
     return (
         <div className={className} data-testid={`agent-node-${id}-view`}>
             {!data.parentId && (
