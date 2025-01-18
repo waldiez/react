@@ -87,7 +87,6 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
                         data={data.available}
                         onDataChange={onConditionAvailableChange}
                         flowId={flowId}
-                        edgeId={edgeId}
                         darkMode={darkMode}
                     />
                 </div>

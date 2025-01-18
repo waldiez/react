@@ -15,7 +15,7 @@ import {
 const VALID_AFTER_WORK_OPTIONS = ["TERMINATE", "REVERT_TO_USER", "STAY", "SWARM_MANAGER"];
 
 export const AfterWork = (props: AfterWorkProps) => {
-    const { value, darkMode, onChange } = props;
+    const { agents, value, darkMode, onChange } = props;
     const [enabled, setEnabled] = useState(value !== null);
     const [afterWorkLocal, setAfterWorkLocal] = useState<WaldiezSwarmAfterWork>(
         value ?? {
@@ -63,15 +63,15 @@ export const AfterWork = (props: AfterWorkProps) => {
     const agentOptions: {
         label: string;
         value: WaldiezNodeAgentSwarm;
-    }[] = props.agents.map(agent => ({
+    }[] = agents.map(agent => ({
         label: agent.data.label,
         value: agent,
     }));
-    const agentOptionToLabel = props.agents.reduce<{ [key: string]: string }>((acc, agent) => {
+    const agentOptionToLabel = agents.reduce<{ [key: string]: string }>((acc, agent) => {
         acc[agent.id] = agent.data.label;
         return acc;
     }, {});
-    const agentOptionToValue = props.agents.reduce<{ [key: string]: WaldiezNodeAgentSwarm }>((acc, agent) => {
+    const agentOptionToValue = agents.reduce<{ [key: string]: WaldiezNodeAgentSwarm }>((acc, agent) => {
         acc[agent.id] = agent;
         return acc;
     }, {});
@@ -80,46 +80,43 @@ export const AfterWork = (props: AfterWorkProps) => {
     const onRecipientTypeChange = (
         option: SingleValue<{ value: WaldiezSwarmAfterWorkRecipientType; label: string }>,
     ) => {
-        if (!option) {
-            return;
+        if (option) {
+            const recipientType = option.value;
+            const recipient =
+                recipientType === "option"
+                    ? "TERMINATE"
+                    : recipientType === "agent"
+                      ? ""
+                      : DEFAULT_CUSTOM_AFTER_WORK_RECIPIENT_METHOD_CONTENT;
+            const newAfterWork = {
+                recipientType,
+                recipient,
+            };
+            setAfterWorkLocal(newAfterWork);
+            onChange(newAfterWork);
         }
-        const recipientType = option.value;
-        const recipient =
-            recipientType === "option"
-                ? "TERMINATE"
-                : recipientType === "agent"
-                  ? ""
-                  : DEFAULT_CUSTOM_AFTER_WORK_RECIPIENT_METHOD_CONTENT;
-        const newAfterWork = {
-            recipientType,
-            recipient,
-        };
-        setAfterWorkLocal(newAfterWork);
-        onChange(newAfterWork);
     };
     const onAfterWorkOptionChange = (
         option: SingleValue<{ value: WaldiezSwarmAfterWorkOption; label: string }>,
     ) => {
-        if (!option) {
-            return;
+        if (option) {
+            const newAfterWork = {
+                recipientType: "option" as WaldiezSwarmAfterWorkRecipientType,
+                recipient: option.value,
+            };
+            setAfterWorkLocal(newAfterWork);
+            onChange(newAfterWork);
         }
-        const newAfterWork = {
-            recipientType: "option" as WaldiezSwarmAfterWorkRecipientType,
-            recipient: option.value,
-        };
-        setAfterWorkLocal(newAfterWork);
-        onChange(newAfterWork);
     };
     const onAfterWorkAgentChange = (option: SingleValue<{ label: string; value: WaldiezNodeAgentSwarm }>) => {
-        if (!option) {
-            return;
+        if (option) {
+            const newAfterWork = {
+                recipientType: "agent" as WaldiezSwarmAfterWorkRecipientType,
+                recipient: option.value.id,
+            };
+            setAfterWorkLocal(newAfterWork);
+            onChange(newAfterWork);
         }
-        const newAfterWork = {
-            recipientType: "agent" as WaldiezSwarmAfterWorkRecipientType,
-            recipient: option.value.id,
-        };
-        setAfterWorkLocal(newAfterWork);
-        onChange(newAfterWork);
     };
     const onAfterWorkCallableChange = (value: string | undefined) => {
         const newAfterWork = {
@@ -171,6 +168,7 @@ export const AfterWork = (props: AfterWorkProps) => {
                                 }
                                 onChange={onAfterWorkOptionChange}
                                 data-testid="afterWorkOption"
+                                inputId="afterWorkOption"
                             />
                         </>
                     )}
@@ -189,6 +187,7 @@ export const AfterWork = (props: AfterWorkProps) => {
                                 }
                                 onChange={onAfterWorkAgentChange}
                                 inputId="afterWorkAgent"
+                                data-testid="afterWorkAgent"
                             />
                         </>
                     )}

@@ -12,6 +12,10 @@ describe("WaldiezChat", () => {
         expect(chat.target).toBe("target");
         expect(chat.data.name).toBe("Chat");
         expect(chat.data.description).toBe("New connection");
+        const chat2 = WaldiezChat.create({ source: "source1", target: "target1" });
+        expect(chat2).toBeTruthy();
+        expect(chat2.source).toBe("source1");
+        expect(chat2.target).toBe("target1");
     });
     it("should create an instance with custom data", () => {
         const message = new WaldiezMessage({

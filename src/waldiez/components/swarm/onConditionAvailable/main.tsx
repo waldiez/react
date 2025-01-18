@@ -7,7 +7,7 @@ import { WaldiezSwarmOnConditionAvailableCheckType } from "@waldiez/models";
 import { DEFAULT_ON_CONDITION_AVAILABLE_METHOD_CONTENT } from "@waldiez/models/Agent/Swarm/OnCondition";
 
 export const OnConditionAvailable = (props: OnConditionAvailableProps) => {
-    const { data, flowId, edgeId, darkMode, onDataChange } = props;
+    const { data, flowId, darkMode, onDataChange } = props;
     const onConditionAvailableEnabledChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const checked = event.target.checked;
         if (checked) {
@@ -58,8 +58,9 @@ export const OnConditionAvailable = (props: OnConditionAvailableProps) => {
             </div>
             {data.type !== "none" && (
                 <div>
+                    <div className="margin-top-10" />
                     <label htmlFor={`wf-${flowId}-handoff-select-availability-check`}>
-                        <div className="margin-top--10 margin-bottom--20">Availability Check Type:</div>
+                        Availability Check Type:
                     </label>
                     <Select
                         options={[
@@ -77,7 +78,7 @@ export const OnConditionAvailable = (props: OnConditionAvailableProps) => {
                             value: data.type,
                         }}
                         onChange={onConditionAvailableTypeChange}
-                        inputId={`wf-${flowId}-handoff-${edgeId}-select-availability-check`}
+                        inputId={`wf-${flowId}-handoff-select-availability-check`}
                     />
                 </div>
             )}
@@ -88,7 +89,7 @@ export const OnConditionAvailable = (props: OnConditionAvailableProps) => {
                         value={data.value ?? ""}
                         onChange={onConditionAvailableStringChange}
                         placeholder={"Enter a variable name"}
-                        data-testid={`edge-${edgeId}-availability-input`}
+                        dataTestId="onConditionAvailableVariableInput"
                     />
                 </div>
             )}

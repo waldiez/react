@@ -128,9 +128,32 @@ describe("Modal", () => {
         const closeButton = screen.getByTitle("Close");
         expect(closeButton).toBeTruthy();
         fireEvent.click(closeButton);
-        const dontCloseButton = screen.getByText("Don't Close");
-        expect(dontCloseButton).toBeTruthy();
-        fireEvent.click(dontCloseButton);
+        const doNotCloseButton = screen.getByText("Don't Close");
+        expect(doNotCloseButton).toBeTruthy();
+        fireEvent.click(doNotCloseButton);
         expect(onClose).not.toHaveBeenCalled();
+    });
+    it("should save and close", () => {
+        const onClose = vi.fn();
+        const onSave = vi.fn();
+        const onSaveAndClose = vi.fn();
+        const modalProps = {
+            title: "test",
+            isOpen: true,
+            onClose,
+            onSave,
+            onSaveAndClose,
+            children: "test",
+            preventCloseIfUnsavedChanges: true,
+            hasUnsavedChanges: true,
+        };
+        render(<Modal {...modalProps} />);
+        const closeButton = screen.getByTitle("Close");
+        expect(closeButton).toBeTruthy();
+        fireEvent.click(closeButton);
+        const saveAndCloseButton = screen.getByText("Save & Close");
+        expect(saveAndCloseButton).toBeTruthy();
+        fireEvent.click(saveAndCloseButton);
+        expect(onSaveAndClose).toHaveBeenCalled();
     });
 });

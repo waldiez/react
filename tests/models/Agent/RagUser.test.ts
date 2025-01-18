@@ -24,6 +24,9 @@ describe("WaldiezAgentRagUser", () => {
         expect(ragUser.id).toBe("1");
         expect(ragUser.data).toBe(ragUserData);
         expect(ragUser.agentType).toBe("rag_user");
+        const ragUser2 = WaldiezAgentRagUser.create("rag_user");
+        expect(ragUser2).toBeTruthy();
+        expect(ragUser2.data.humanInputMode).toBe("ALWAYS");
     });
     it("should create an instance of WaldiezAgentRagUser with custom data", () => {
         const ragUserData = new WaldiezAgentRagUserData({

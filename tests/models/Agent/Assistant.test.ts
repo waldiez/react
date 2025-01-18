@@ -19,6 +19,9 @@ describe("WaldiezAgentAssistant", () => {
 
         expect(assistant.id).toBe("wa-1");
         expect(assistant.data).toBe(assistantData);
+        const assistant2 = WaldiezAgentAssistant.create("assistant");
+        expect(assistant2).toBeTruthy();
+        expect(assistant2.data.humanInputMode).toBe("NEVER");
     });
     it("should be created with an id, data and rest", () => {
         const assistantData = new WaldiezAgentAssistantData();

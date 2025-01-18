@@ -93,7 +93,6 @@ export const WaldiezAgentSwarmNestedChatCondition = (props: WaldiezAgentSwarmNes
                     <OnConditionAvailable
                         data={onConditionAvailable}
                         flowId={flowId}
-                        edgeId={edgeId}
                         darkMode={darkMode}
                         onDataChange={onIsConditionAvailableChange}
                     />

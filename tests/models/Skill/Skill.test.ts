@@ -20,6 +20,9 @@ describe("WaldiezSkill", () => {
         expect(skill).toBeTruthy();
         expect(skill.id).toBe("1");
         expect(skill.data.content).toBe(DEFAULT_SKILL_CONTENT);
+        const skill2 = WaldiezSkill.create();
+        expect(skill2).toBeTruthy();
+        expect(skill2.data.content).toBe(DEFAULT_SKILL_CONTENT);
     });
     it("should create an instance with custom data", () => {
         const createdAt = new Date().toISOString();

@@ -36,6 +36,9 @@ describe("WaldiezModel", () => {
         expect(model.data.defaultHeaders).toEqual({});
         expect(model.data.price.promptPricePer1k).toBeNull();
         expect(model.data.price.completionTokenPricePer1k).toBeNull();
+        const model2 = WaldiezModel.create();
+        expect(model2).toBeTruthy();
+        expect(model2.data.apiType).toBe("openai");
     });
     it("should create an instance with custom data", () => {
         const modelData = new WaldiezModelData({

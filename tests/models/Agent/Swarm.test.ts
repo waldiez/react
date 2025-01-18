@@ -26,6 +26,9 @@ describe("WaldiezAgentSwarm", () => {
         expect(swarm.id).toBe("1");
         expect(swarm.data).toBe(swarmData);
         expect(swarm.agentType).toBe("swarm");
+        const swarm2 = WaldiezAgentSwarm.create("swarm");
+        expect(swarm2).toBeTruthy();
+        expect(swarm2.data.humanInputMode).toBe("NEVER");
     });
     it("should create an instance of WaldiezAgentSwarm with custom data", () => {
         const swarmData = new WaldiezAgentSwarmData({

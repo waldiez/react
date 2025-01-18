@@ -22,6 +22,9 @@ describe("WaldiezAgentGroupManager", () => {
 
         expect(groupManager).toBeDefined();
         expect(groupManager.id).toBe("groupManagerId");
+        const manager2 = WaldiezAgentGroupManager.create("manager");
+        expect(manager2).toBeDefined();
+        expect(manager2.data.humanInputMode).toBe("NEVER");
     });
     /* eslint-disable max-statements */
     it("should create a new instance with custom data", () => {

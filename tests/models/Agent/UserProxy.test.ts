@@ -21,6 +21,9 @@ describe("WaldiezAgentUserProxy", () => {
         expect(userProxy.id).toBe("1");
         expect(userProxy.name).toBe("User");
         expect(userProxy.data.humanInputMode).toBe("ALWAYS");
+        const userProxy2 = WaldiezAgentUserProxy.create("user");
+        expect(userProxy2).toBeTruthy();
+        expect(userProxy2.data.humanInputMode).toBe("ALWAYS");
     });
     it("should create a new instance of WaldiezAgentUserProxy with custom data", () => {
         const createdAt = new Date().toISOString();
