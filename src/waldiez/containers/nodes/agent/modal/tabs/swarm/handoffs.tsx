@@ -17,21 +17,31 @@ export const WaldiezAgentSwarmHandoffs = (props: WaldiezAgentSwarmHandoffsProps)
     const onConditionHandoffsCount = agentOnConditionHandoffs.length;
     const afterWorkHandoffs = agentHandoffs.filter(isAfterWork);
     const onMoveAgentHandoffUp = (index: number) => {
-        const onConditions = [...agentOnConditionHandoffs];
-        const temp = onConditions[index];
-        onConditions[index - 1].target.order = index;
-        onConditions[index] = onConditions[index - 1];
-        onConditions[index - 1] = temp;
+        const tmpConditions = [...agentOnConditionHandoffs] as WaldiezSwarmOnCondition[];
+        //swap the members and sort by .order
+        const prev = tmpConditions[index - 1];
+        const thisCondition = tmpConditions[index];
+        tmpConditions[index - 1] = thisCondition;
+        tmpConditions[index] = prev;
+        const onConditions = tmpConditions.map((condition, i) => {
+            condition.target.order = i;
+            return condition;
+        });
         setToSort([...onConditions]);
         const allHandoffs = [...onConditions, ...afterWorkHandoffs];
         onDataChange({ handoffs: allHandoffs });
     };
     const onMoveAgentHandoffDown = (index: number) => {
-        const onConditions = [...agentOnConditionHandoffs];
-        const temp = onConditions[index];
-        onConditions[index + 1].target.order = index;
-        onConditions[index] = onConditions[index + 1];
-        onConditions[index + 1] = temp;
+        const tmpConditions = [...agentOnConditionHandoffs];
+        //swap the members and sort by .order
+        const next = tmpConditions[index + 1];
+        const thisCondition = tmpConditions[index];
+        tmpConditions[index + 1] = thisCondition;
+        tmpConditions[index] = next;
+        const onConditions = tmpConditions.map((condition, i) => {
+            condition.target.order = i;
+            return condition;
+        });
         setToSort([...onConditions]);
         const allHandoffs = [...onConditions, ...afterWorkHandoffs];
         onDataChange({ handoffs: allHandoffs });

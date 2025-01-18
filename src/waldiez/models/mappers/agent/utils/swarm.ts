@@ -1,4 +1,9 @@
-import { WaldiezSwarmAfterWork, WaldiezSwarmUpdateSystemMessage } from "@waldiez/models";
+import {
+    WaldiezSwarmAfterWork,
+    WaldiezSwarmHandoff,
+    WaldiezSwarmOnCondition,
+    WaldiezSwarmUpdateSystemMessage,
+} from "@waldiez/models";
 
 export const getSwarmFunctions = (jsonData: any): string[] => {
     const functions: string[] = [];
@@ -47,10 +52,9 @@ export const getIsInitial = (jsonData: any): boolean => {
 };
 
 export const getSwarmHandoffs = (jsonData: any): any[] => {
-    // split into two functions
-    const handoffs: any[] = [];
+    const afterWorkHandoffs: WaldiezSwarmAfterWork[] = [];
+    const onConditionHandoffs: WaldiezSwarmOnCondition[] = [];
     if (jsonData && jsonData.handoffs && Array.isArray(jsonData.handoffs)) {
-        // export type WaldiezSwarmHandoff = WaldiezSwarmAfterWork | WaldiezSwarmOnCondition;
         jsonData.handoffs.forEach((handoff: any) => {
             if (typeof handoff === "object") {
                 if (
@@ -63,7 +67,7 @@ export const getSwarmHandoffs = (jsonData: any): any[] => {
                     // afterWork?
                     const afterWork = getSwarmAfterWorkHandoff(handoff);
                     if (afterWork) {
-                        handoffs.push(afterWork);
+                        afterWorkHandoffs.push(afterWork);
                     }
                 } else if (
                     "target" in handoff &&
@@ -74,12 +78,14 @@ export const getSwarmHandoffs = (jsonData: any): any[] => {
                     // onCondition ?
                     const onCondition = getSwarmOnConditionHandoff(handoff);
                     if (onCondition) {
-                        handoffs.push(onCondition);
+                        onConditionHandoffs.push(onCondition);
                     }
                 }
             }
         });
     }
+    const sortedOnConditions = onConditionHandoffs.sort((a, b) => a.target.order - b.target.order);
+    const handoffs: WaldiezSwarmHandoff[] = [...afterWorkHandoffs, ...sortedOnConditions];
     return handoffs;
 };
 
