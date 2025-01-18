@@ -164,19 +164,21 @@ export default defineConfig(({ command }) => ({
         browser: {
             provider: "playwright", // or 'webdriverio'
             enabled: isBrowserTest,
-            name: "chromium", // browser name is required
             headless: true,
             viewport,
-            providerOptions: {
-                context: {
-                    recordVideo: {
-                        dir: resolve(__dirname, ".local", "recordings"),
-                        size: viewport,
+            instances: [
+                {
+                    browser: "chromium",
+                    context: {
+                        recordVideo: {
+                            dir: recordingsDir,
+                            size: viewport,
+                        },
+                        viewport,
+                        reducedMotion: "reduce",
                     },
-                    viewport,
-                    reducedMotion: "reduce",
                 },
-            },
+            ],
         },
     },
 }));
