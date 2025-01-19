@@ -72,7 +72,8 @@ export const useKeys = (flowId: string, onSave?: ((flow: string) => void) | null
         }
     };
     const onKeyDown = (event: KeyboardEvent | undefined) => {
-        if (event?.key === "Delete") {
+        // also on Backspace
+        if (event?.key === "Delete" || event?.key === "Backspace") {
             if (isFlowVisible()) {
                 onDeleteKey(event);
             }
