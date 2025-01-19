@@ -120,10 +120,12 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
     updateEdgePath = (id: string, agentType: WaldiezNodeAgentType) => {
         const currentEdge = this.get().edges.find(edge => edge.id === id);
         if (!currentEdge) {
+            console.error(`Edge with id ${id} not found`);
             return;
         }
         const edgeType = currentEdge.type as WaldiezEdgeType;
         const color = AGENT_COLORS[agentType];
+        console.log("updateEdgePath", id, agentType, edgeType, color);
         const { style, markerEnd } = edgeCommonStyle(edgeType, color);
         this.set({
             edges: this.get().edges.map(edge => {

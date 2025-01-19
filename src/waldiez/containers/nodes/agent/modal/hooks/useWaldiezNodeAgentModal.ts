@@ -168,7 +168,7 @@ export const useWaldiezNodeAgentModal = (
     };
     const updateAgentConnections = (newAgentType: WaldiezNodeAgentType) => {
         const agentConnections = getAgentConnections(id, {
-            sourcesOnly: true,
+            targetsOnly: true,
         });
         agentConnections.target.edges.forEach(edge => {
             updateEdgePath(edge.id, newAgentType);

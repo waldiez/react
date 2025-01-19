@@ -8,7 +8,6 @@ import selectEvent from "react-select-event";
 describe("WaldiezEdgeModalTab basic", () => {
     it("changes edge type", async () => {
         renderEdge("chat");
-        fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
         // "Message" tab in the modal
         const chatTypeSelect = screen.getByLabelText("Chat Type:");
         expect(chatTypeSelect).toBeInTheDocument();
@@ -28,6 +27,8 @@ describe("WaldiezEdgeModalTab basic", () => {
         fireEvent.change(labelDescription, { target: { value: "Updated description" } });
         const cancelButton = screen.getByTestId("modal-cancel-btn");
         fireEvent.click(cancelButton);
+        const toGainFocus = screen.getByTestId(`edge-${edgeId}-box`);
+        fireEvent.click(toGainFocus);
         // open again the modal
         fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
         const labelDescriptionAfterCancel = screen.getByTestId(
@@ -51,6 +52,8 @@ describe("WaldiezEdgeModalTab basic", () => {
         const submitButton = screen.getByTestId("modal-submit-btn");
         fireEvent.click(submitButton);
         // open again the modal
+        const toGainFocus = screen.getByTestId(`edge-${edgeId}-box`);
+        fireEvent.click(toGainFocus);
         fireEvent.click(screen.getByTestId(`open-edge-modal-${edgeProps.id}`));
         const labelDescriptionAfterSubmit = screen.getByTestId(
             `edge-${edgeId}-description-input`,

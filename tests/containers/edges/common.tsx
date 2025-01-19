@@ -85,14 +85,10 @@ export const renderEdge = (
         );
     });
     if (openModal && edgeType !== "hidden") {
-        const idToClick =
-            edgeType !== "swarm"
-                ? `open-edge-modal-${edgeId}`
-                : swarmType === "trigger"
-                  ? `open-edge-modal-${edgeProps.id}`
-                  : `edge-label-${edgeProps.id}`;
+        const toGainFocus = screen.getByTestId(`edge-${edgeId}-box`);
+        fireEvent.click(toGainFocus);
+        const idToClick = `open-edge-modal-${edgeProps.id}`;
         fireEvent.click(screen.getByTestId(idToClick));
-        // `edge-modal-${edgeId}`
         const dialog = screen.getByTestId(`edge-modal-${edgeId}`);
         expect(dialog).not.toBeNull();
         const closeBtn = dialog.querySelector(".modal-close-btn");

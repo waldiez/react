@@ -73,6 +73,7 @@ export const useWaldiezEdge = (props: EdgeProps<WaldiezEdge> & { type: WaldiezEd
         labelY,
         sourceAgent,
         targetAgent,
+        getEdgeById,
         onOpenModal,
         onDelete,
         getEdgeColor,

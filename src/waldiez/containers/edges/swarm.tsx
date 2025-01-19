@@ -1,25 +1,30 @@
 import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react";
 
+import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { GiNestEggs } from "react-icons/gi";
 import { GiShakingHands } from "react-icons/gi";
 import { MdMessage } from "react-icons/md";
 
+import { EdgeLabel } from "@waldiez/containers/edges/edgeLabel";
 import { WaldiezEdgeProps } from "@waldiez/containers/edges/types";
 import { getEdgeTranslations } from "@waldiez/containers/edges/utils";
 import { useWaldiez } from "@waldiez/store";
 import { AGENT_COLORS } from "@waldiez/theme";
+import { WaldiezAgentType } from "@waldiez/types";
 
 export const WaldiezEdgeSwarmView = (
     props: WaldiezEdgeProps & {
-        swarmType: "handoff" | "nested" | "source";
+        sourceType: WaldiezAgentType;
+        targetType: WaldiezAgentType;
     },
 ) => {
-    const { swarmType, data } = props;
+    const { sourceType, targetType } = props;
+    const swarmType = sourceType !== "swarm" ? "source" : targetType !== "swarm" ? "nested" : "handoff";
+    const [focussed, setFocussed] = useState(false);
     const getEdgeById = useWaldiez(s => s.getEdgeById);
     const onEdgeDoubleClick = useWaldiez(s => s.onEdgeDoubleClick);
-    const updateEdgeData = useWaldiez(s => s.updateEdgeData);
     const deleteEdge = useWaldiez(s => s.deleteEdge);
     const {
         id,
@@ -56,89 +61,7 @@ export const WaldiezEdgeSwarmView = (
             onEdgeDoubleClick(event, edge);
         }
     };
-    const onDelete = () => {
-        deleteEdge(id);
-    };
-    const onMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const edge = getEdgeById(id);
-        if (edge) {
-            updateEdgeData(id, {
-                ...edge.data,
-                message: { type: "string", content: event.target.value, context: {}, use_carryover: false },
-            });
-        }
-    };
-    const getSwarmSourceView = () => {
-        return (
-            <div className="agent-edge-view">
-                <div className="edge-header">
-                    <div className="edge-position">1</div>
-                    <div className="edge-icon">
-                        <MdMessage color={edgeColor} size={size} />
-                    </div>
-                </div>
-                <div className="edge-body">
-                    <textarea
-                        placeholder="Message"
-                        value={data?.message.content ?? ""}
-                        rows={1}
-                        data-testid={`edge-${id}-description`}
-                        onChange={onMessageChange}
-                    />
-                </div>
-                <div className="edge-footer edge-actions">
-                    <div
-                        title="Delete"
-                        role="button"
-                        onClick={onDelete}
-                        className="delete-edge clickable"
-                        data-testid={`delete-edge-${id}`}
-                    >
-                        <FaTrashAlt />
-                    </div>
-                    <div
-                        title="Edit"
-                        role="button"
-                        className="open-edge-modal clickable"
-                        data-testid={`open-edge-modal-${id}`}
-                        onClick={onOpenModal}
-                    >
-                        <FaGear />
-                    </div>
-                </div>
-            </div>
-        );
-    };
-    const noOp = () => {};
-    const EdgeLabel = ({ transform }: { transform: string }) => {
-        const edge = getEdgeById(id);
-        if (!edge) {
-            return null;
-        }
-        const label = edge.data?.label ?? "";
-        if (label === "") {
-            return null;
-        }
-        const trimmedTo20 = label.length > 20 ? `${label.slice(0, 20)}...` : label;
-        return (
-            <div
-                style={{
-                    position: "absolute",
-                    // background: "red",
-                    padding: 10,
-                    color: "currentcolor",
-                    fontSize: 12,
-                    fontWeight: 700,
-                    zIndex: 10000,
-                    transform,
-                }}
-                className="nodrag nopan"
-            >
-                {trimmedTo20}
-            </div>
-        );
-    };
-    const className = swarmType === "source" ? "agent-edge-box" : "clickable agent-edge-swarm-box";
+    const className = `clickable agent-edge-box ${sourceType}`; // if source, also with position
     const translations = getEdgeTranslations(
         sourceX,
         sourceY,
@@ -147,28 +70,75 @@ export const WaldiezEdgeSwarmView = (
         sourcePosition,
         targetPosition,
     );
+    const edge = getEdgeById(id);
+    const onEdgeClick = (event: React.MouseEvent) => {
+        if (focussed) {
+            (event.target as HTMLDivElement).blur();
+            setFocussed(false);
+        } else {
+            (event.target as HTMLDivElement).focus();
+            setFocussed(true);
+        }
+    };
+
+    const onEdgeBlur = (event: React.FocusEvent) => {
+        (event.target as HTMLDivElement).blur();
+        setFocussed(false);
+    };
+    const onDelete = () => {
+        deleteEdge(id);
+    };
+
     return (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
             <EdgeLabelRenderer>
-                <EdgeLabel transform={translations.edgeStart} />
+                <EdgeLabel edge={edge} transform={translations.edgeStart} />
                 <div
-                    role="button"
                     style={{
                         position: "absolute",
-                        transform: `translate(-50%, -50%) translate(${labelX + 0}px,${labelY}px)`,
-                        pointerEvents: "all",
+                        transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
                         // everything inside EdgeLabelRenderer has no pointer events by default
                         // if you have an interactive element, set pointer-events: all
+                        pointerEvents: "all",
                     }}
-                    className={`nodrag nopan ${className}`}
-                    data-testid={`edge-label-${id}`}
-                    onClick={swarmType === "source" ? noOp : onOpenModal}
+                    className={className}
+                    onClick={onEdgeClick}
+                    data-testid={`edge-${id}-box`}
+                    tabIndex={0}
+                    onBlur={onEdgeBlur}
                 >
+                    {focussed && (
+                        <div className="edge-footer edge-actions">
+                            <div
+                                title="Delete"
+                                role="button"
+                                onClick={onDelete}
+                                className="delete-edge clickable"
+                                data-testid={`delete-edge-${id}`}
+                            >
+                                <FaTrashAlt />
+                            </div>
+                            <div
+                                title="Edit"
+                                role="button"
+                                onClick={onOpenModal}
+                                className="open-edge-modal clickable"
+                                data-testid={`open-edge-modal-${id}`}
+                            >
+                                <FaGear />
+                            </div>
+                        </div>
+                    )}
                     {swarmType === "source" ? (
-                        getSwarmSourceView()
+                        <div className="agent-edge-view with-position clickable">
+                            <div className="edge-position">1</div>
+                            <div className="edge-icon">
+                                <MdMessage color={edgeColor} size={size} />
+                            </div>
+                        </div>
                     ) : (
-                        <div className={"agent-edge-swarm-view clickable agent-edge-from-swarm"}>{icon}</div>
+                        <div className="agent-edge-view clickable">{icon}</div>
                     )}
                 </div>
                 {/* <EdgeLabel transform={translations.edgeEnd} /> */}
