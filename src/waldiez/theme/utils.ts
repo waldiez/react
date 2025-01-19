@@ -17,7 +17,7 @@ export const isInitiallyDark = () => {
     return darkQuery.matches;
 };
 
-export const setTheme = (isDark: boolean) => {
+export const setIsDarkMode = (isDark: boolean) => {
     setBodyClass(isDark);
     setStorageTheme(isDark);
 };

@@ -35,6 +35,7 @@ export const getSwarmContainer = (flow: WaldiezFlow, nodes: Node[]) => {
             "id",
             "parentId",
             "type",
+            "agentType",
             "name",
             "description",
             "tags",
@@ -49,8 +50,8 @@ export const getSwarmContainer = (flow: WaldiezFlow, nodes: Node[]) => {
     }
     const agent = new WaldiezAgent({
         id: `swarm-container-${flow.id}`,
-        name: "Swarm Container",
-        description: "Swarm Container",
+        name: "Swarm container",
+        description: "Swarm container",
         tags: [],
         requirements: [],
         createdAt: flow.createdAt,
@@ -59,8 +60,8 @@ export const getSwarmContainer = (flow: WaldiezFlow, nodes: Node[]) => {
         data: agentData,
         rest,
     });
-    const swarmNode = agentMapper.asNode(agent);
-    return swarmNode;
+    const swarmContainerNode = agentMapper.asNode(agent);
+    return swarmContainerNode;
 };
 
 export const exportSwarmAgents = (
@@ -92,7 +93,7 @@ export const exportSwarmAgents = (
         return { swarmAgents: [], edges };
     }
     if (!swarmContainerNode.data.label) {
-        swarmContainerNode.data.label = "Swarm Container";
+        swarmContainerNode.data.label = "Swarm container";
     }
     return _exportSwarmAgents(swarmAgentNodes, swarmContainerNode, agentNodes, edges, skipLinks);
 };

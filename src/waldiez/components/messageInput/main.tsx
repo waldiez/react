@@ -68,7 +68,7 @@ export const MessageInput = (props: MessageInputProps) => {
                         onTypeChange("none");
                     }
                 }}
-                inputId={`message-select-test-${props.selectTestId}`}
+                inputId={`message-select-test-${selectTestId}`}
             />
             {labelView}
             {current.type === "string" && (

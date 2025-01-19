@@ -10,10 +10,6 @@ import { exportItem, getDateString, importItem } from "@waldiez/utils";
 
 export const useWaldiezNodeSkill = (id: string, data: WaldiezNodeSkillData) => {
     const flowId = useWaldiez(state => state.flowId);
-    let storageId = useWaldiez(state => state.storageId);
-    if (!storageId) {
-        storageId = flowId;
-    }
     const [isModalOpen, setModalOpen] = useState(false);
     // tmp state to save on submit, discard on cancel
     const [skillData, setSkillData] = useState<WaldiezNodeSkillData>(data);

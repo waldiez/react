@@ -93,10 +93,12 @@ const getSwarmAfterWorkHandoff = (handoff: any): WaldiezSwarmAfterWork | null =>
     if (handoff.recipientType === "option") {
         if (["TERMINATE", "REVERT_TO_USER", "STAY", "SWARM_MANAGER"].includes(handoff.recipient)) {
             return handoff as WaldiezSwarmAfterWork;
-            // handoffs.push(handoff);
         }
-    } else if (handoff.recipientType === "callable" || handoff.recipientType === "agent") {
-        // handoffs.push(handoff);
+    }
+    if (handoff.recipientType === "callable" || handoff.recipientType === "agent") {
+        if (typeof handoff.recipient === "string") {
+            return handoff as WaldiezSwarmAfterWork;
+        }
     }
     return null;
 };
@@ -104,8 +106,8 @@ const getSwarmAfterWorkHandoff = (handoff: any): WaldiezSwarmAfterWork | null =>
 const getSwarmOnConditionHandoff = (handoff: any): any => {
     const targetType = handoff.targetType;
     if (["agent", "nested_chat"].includes(targetType)) {
-        // if the target type is nested chat, the target must be {id: string, order: number}
-        // if the target type is agent, the target must be a string
+        // the target must be {id: string, order: number}
+        // the agent handoffs are determined by the edges in the graph
         if (
             targetType === "nested_chat" &&
             typeof handoff.target === "object" &&

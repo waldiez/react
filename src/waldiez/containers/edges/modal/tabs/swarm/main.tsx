@@ -86,7 +86,7 @@ export const WaldiezEdgeSwarmTabs = (props: WaldiezEdgeSwarmTabsProps) => {
                                 label="Label:"
                                 value={edgeData.label}
                                 onChange={onLabelChange}
-                                data-testid={`edge-${edgeId}-label-input`}
+                                dataTestId={`edge-${edgeId}-label-input`}
                             />
                         </div>
                         <WaldiezEdgeBasicTab

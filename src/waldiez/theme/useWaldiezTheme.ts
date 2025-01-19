@@ -10,7 +10,7 @@ export const WaldiezThemeContext = createContext<WaldiezThemeContextType | undef
 export const useWaldiezTheme = (): WaldiezThemeContextType => {
     const context = useContext(WaldiezThemeContext);
     if (!context) {
-        throw new Error("useSidebar must be used within a Provider");
+        throw new Error("useWaldiezTheme must be used within a WaldiezThemeProvider context");
     }
     return context;
 };

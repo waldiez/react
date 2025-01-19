@@ -6,16 +6,9 @@ import { FaPlusCircle } from "react-icons/fa";
 import { FaCirclePlay, FaMoon, FaPython, FaSun } from "react-icons/fa6";
 import { SiJupyter } from "react-icons/si";
 
-import {
-    WaldiezEdgeChat,
-    WaldiezEdgeGroup,
-    WaldiezEdgeHidden,
-    WaldiezEdgeNested,
-    WaldiezEdgeSwarm,
-} from "@waldiez/containers/edges";
 import { useDnD, useFlowEvents, useKeys } from "@waldiez/containers/flow/hooks";
 import { ImportFlowModal, UserInputModal } from "@waldiez/containers/flow/modals";
-import { WaldiezNodeAgentView, WaldiezNodeModelView, WaldiezNodeSkillView } from "@waldiez/containers/nodes";
+import { edgeTypes, nodeTypes } from "@waldiez/containers/rfTypes";
 import { SideBar } from "@waldiez/containers/sidebar";
 import { useWaldiez } from "@waldiez/store";
 import { useWaldiezTheme } from "@waldiez/theme";
@@ -25,20 +18,6 @@ type WaldiezFlowViewProps = {
     flowId: string;
     onUserInput?: ((input: string) => void) | null;
     inputPrompt?: { previousMessages: string[]; prompt: string } | null;
-};
-
-const edgeTypes = {
-    chat: WaldiezEdgeChat,
-    group: WaldiezEdgeGroup,
-    hidden: WaldiezEdgeHidden,
-    nested: WaldiezEdgeNested,
-    swarm: WaldiezEdgeSwarm,
-};
-
-const nodeTypes = {
-    agent: WaldiezNodeAgentView,
-    model: WaldiezNodeModelView,
-    skill: WaldiezNodeSkillView,
 };
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {

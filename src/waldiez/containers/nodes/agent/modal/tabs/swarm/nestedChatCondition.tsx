@@ -88,6 +88,7 @@ export const WaldiezAgentSwarmNestedChatCondition = (props: WaldiezAgentSwarmNes
                     onChange={onConditionStringChange}
                     placeholder="Condition for this handoff..."
                     label={"Condition:"}
+                    dataTestId={`edge-${edgeId}-condition-input`}
                 />
                 {edgeId && (
                     <OnConditionAvailable

@@ -13,7 +13,7 @@ import { WaldiezFlowView } from "@waldiez/containers/flow";
 import { SidebarProvider } from "@waldiez/containers/sidebar";
 import { WaldiezProvider } from "@waldiez/store";
 import "@waldiez/styles/index.css";
-import { WaldiezThemeProvider, isInitiallyDark, setTheme } from "@waldiez/theme";
+import { WaldiezThemeProvider, isInitiallyDark, setIsDarkMode } from "@waldiez/theme";
 import { WaldiezProps } from "@waldiez/types";
 import { getId } from "@waldiez/utils";
 
@@ -73,7 +73,7 @@ const fallbackRender = (props: errorRenderProps) => {
 
 const checkInitialBodyThemeClass = () => {
     const isDark = isInitiallyDark();
-    setTheme(isDark);
+    setIsDarkMode(isDark);
 };
 
 const checkInitialBodySidebarClass = () => {

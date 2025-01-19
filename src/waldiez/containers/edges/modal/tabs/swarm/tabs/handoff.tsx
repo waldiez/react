@@ -13,7 +13,7 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
 
     const handoffTypeOptions: { label: string; value: "on_condition" | "after_work" }[] = [
         {
-            label: "On Condition",
+            label: "On condition",
             value: "on_condition",
         },
         {
@@ -57,9 +57,11 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
                             value={data.label}
                             placeholder={`Transfer to ${targetAgent.data.label}`}
                             onChange={onNameChange}
-                            data-testid={`edge-${edgeId}-description-input`}
+                            dataTestId={`edge-${edgeId}-description-input`}
                         />
-                        <label>Handoff Type:</label>
+                        <label htmlFor={`we-${flowId}-edge-handoff-${edgeId}-select-handoff-type`}>
+                            Handoff Type:
+                        </label>
                         <Select
                             options={handoffTypeOptions}
                             value={handoffTypeOptions.find(option => option.value === handoffType)}
@@ -81,7 +83,7 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
                     </div>
                 </div>
             </TabItem>
-            <TabItem label="Availability" id={`we-${flowId}-edge-handoff-${edgeId}`}>
+            <TabItem label="Availability" id={`we-${flowId}-edge-availability-${edgeId}`}>
                 <div className="modal-tab-body">
                     <OnConditionAvailable
                         data={data.available}

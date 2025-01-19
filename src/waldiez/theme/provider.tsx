@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 
 import { WaldiezThemeContext } from "@waldiez/theme/useWaldiezTheme";
-import { isInitiallyDark, setTheme } from "@waldiez/theme/utils";
+import { isInitiallyDark, setIsDarkMode } from "@waldiez/theme/utils";
 
 export const WaldiezThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isDark, setIsDark] = useState(isInitiallyDark());
@@ -11,7 +11,7 @@ export const WaldiezThemeProvider: React.FC<{ children: ReactNode }> = ({ childr
     }, []);
     const toggleTheme = () => {
         setIsDark(prev => {
-            setTheme(!prev);
+            setIsDarkMode(!prev);
             return !prev;
         });
     };

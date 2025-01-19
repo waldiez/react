@@ -141,21 +141,3 @@ export const SideBar = (props: SidebarViewProps) => {
         </div>
     );
 };
-
-/*
-
-                <div
-                    role="button"
-                    className={`${isCollapsed ? "hidden" : "clickable"}`}
-                    id={`edit-flow-${flowId}-sidebar-button`}
-                    data-testid={`edit-flow-${flowId}-sidebar-button`}
-                    onClick={onOpenEditModal}
-                    title="Edit flow"
-                >
-                    {!isCollapsed && (
-                        <>
-                            <FaEdit /> <span>Edit flow</span>
-                        </>
-                    )}
-                </div>
-*/

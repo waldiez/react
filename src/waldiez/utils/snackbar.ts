@@ -66,19 +66,18 @@ const createOrUpdateSnackbar = (
     includeCloseButton: boolean,
 ) => {
     const rootDiv = getFlowRoot(flowId, true);
-    if (!rootDiv) {
-        return;
-    }
-    const snackbar = getOrCreateSnackbarElement(flowId, rootDiv);
-    const haveDetails = checkForDetails(details);
-    snackbar.className = `show snackbar ${level} ${haveDetails ? "with-details" : ""}`;
+    if (rootDiv) {
+        const snackbar = getOrCreateSnackbarElement(flowId, rootDiv);
+        const haveDetails = checkForDetails(details);
+        snackbar.className = `show snackbar ${level} ${haveDetails ? "with-details" : ""}`;
 
-    snackbar.textContent = "";
-    appendSnackbarMessage(snackbar, message);
-    appendSnackbarDetails(snackbar, details);
+        snackbar.textContent = "";
+        appendSnackbarMessage(snackbar, message);
+        appendSnackbarDetails(snackbar, details);
 
-    if (includeCloseButton) {
-        addSnackbarCloseButton(snackbar, level, flowId);
+        if (includeCloseButton) {
+            addSnackbarCloseButton(snackbar, level, flowId);
+        }
     }
 };
 

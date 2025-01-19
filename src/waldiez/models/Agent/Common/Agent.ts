@@ -54,7 +54,7 @@ export class WaldiezAgent {
     static create(agentType: WaldiezAgentType | "swarm_container"): WaldiezAgent {
         const name = capitalize(agentType.replace("_", " "));
         let description = `A new ${name}`;
-        if (agentType !== "swarm") {
+        if (agentType !== "swarm_container") {
             description += " agent";
         }
         const agent = new WaldiezAgent({
@@ -68,9 +68,33 @@ export class WaldiezAgent {
             updatedAt: new Date().toISOString(),
             data: new WaldiezAgentData(),
         });
-        if (["user", "rag_user"].includes(agentType)) {
-            agent.data.humanInputMode = "ALWAYS";
-        }
+        updateAgentDataProps(agent, agentType);
         return agent;
     }
 }
+
+const updateAgentDataProps = (agent: WaldiezAgent, agentType: WaldiezAgentType | "swarm_container") => {
+    if (["user", "rag_user"].includes(agentType)) {
+        agent.data.humanInputMode = "ALWAYS";
+    }
+    if (agentType === "swarm_container") {
+        addSwarmContainerProps(agent.data);
+    }
+    if (agentType === "swarm") {
+        addSwarmProps(agent.data);
+    }
+};
+
+const addSwarmContainerProps = (agentData: WaldiezAgentData) => {
+    (agentData as any).initialAgent = null;
+    (agentData as any).maxRounds = 20;
+    (agentData as any).afterWork = null;
+    (agentData as any).contextVariables = {};
+};
+
+const addSwarmProps = (agentData: WaldiezAgentData) => {
+    (agentData as any).functions = [];
+    (agentData as any).updateAgentStateBeforeReply = [];
+    (agentData as any).handoffs = [];
+    (agentData as any).isInitial = false;
+};

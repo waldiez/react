@@ -58,8 +58,6 @@ export const setViewPortTopLeft = (rfInstance?: ReactFlowInstance) => {
             x: 20,
             y: 40,
         });
-    } else {
-        console.error("rfInstance is not available");
     }
 };
 

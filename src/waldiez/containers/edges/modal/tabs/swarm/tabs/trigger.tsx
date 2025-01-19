@@ -19,7 +19,7 @@ export const WaldiezEdgeSwarmTriggerTab = (props: WaldiezEdgeSwarmTriggerTabProp
                         label="Label:"
                         value={edgeData.label}
                         onChange={onLabelChange}
-                        data-testid={`edge-${edgeId}-label-input`}
+                        dataTestId={`edge-${edgeId}-label-input`}
                     />
                     <label>Message:</label>
                     <textarea
