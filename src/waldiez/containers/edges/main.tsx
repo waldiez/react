@@ -125,7 +125,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
                 style={{ ...style, color: AGENT_COLORS.rag_user }}
             />
             <EdgeLabelRenderer>
-                <EdgeLabel edge={edge} transform={translations.edgeStart} />
+                {/* <EdgeLabel edge={edge} transform={translations.edgeStart} /> */}
                 <div
                     style={{
                         position: "absolute",
@@ -177,6 +177,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
                         <div className="agent-edge-view clickable">{edgeIcon}</div>
                     )}
                 </div>
+                <EdgeLabel edge={edge} transform={translations.edgeEnd} />
             </EdgeLabelRenderer>
         </>
     );

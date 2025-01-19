@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react";
+import { BaseEdge, EdgeLabelRenderer, getSimpleBezierPath } from "@xyflow/react";
 
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
@@ -37,7 +37,7 @@ export const WaldiezEdgeSwarmView = (
         sourcePosition,
         targetPosition,
     } = props;
-    const [edgePath, labelX, labelY] = getSmoothStepPath({
+    const [edgePath, labelX, labelY] = getSimpleBezierPath({
         sourceX,
         sourceY,
         sourcePosition,
@@ -93,7 +93,7 @@ export const WaldiezEdgeSwarmView = (
         <>
             <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
             <EdgeLabelRenderer>
-                <EdgeLabel edge={edge} transform={translations.edgeStart} />
+                {/* <EdgeLabel edge={edge} transform={translations.edgeStart} /> */}
                 <div
                     style={{
                         position: "absolute",
@@ -141,7 +141,7 @@ export const WaldiezEdgeSwarmView = (
                         <div className="agent-edge-view clickable">{icon}</div>
                     )}
                 </div>
-                {/* <EdgeLabel transform={translations.edgeEnd} /> */}
+                <EdgeLabel edge={edge} transform={translations.edgeEnd} />
             </EdgeLabelRenderer>
         </>
     );

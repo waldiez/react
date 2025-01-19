@@ -1,4 +1,4 @@
-import { EdgeProps, getSmoothStepPath } from "@xyflow/react";
+import { EdgeProps, getSimpleBezierPath } from "@xyflow/react";
 
 import { WaldiezEdge, WaldiezEdgeType, WaldiezNodeAgent, WaldiezNodeAgentType } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
@@ -14,7 +14,7 @@ export const useWaldiezEdge = (props: EdgeProps<WaldiezEdge> & { type: WaldiezEd
     const updateEdgeData = useWaldiez(s => s.updateEdgeData);
     const sourceAgent = getAgentById(source) as WaldiezNodeAgent | null;
     const targetAgent = getAgentById(props.target) as WaldiezNodeAgent | null;
-    const [edgePath, labelX, labelY] = getSmoothStepPath({
+    const [edgePath, labelX, labelY] = getSimpleBezierPath({
         sourceX,
         sourceY,
         sourcePosition,

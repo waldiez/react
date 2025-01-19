@@ -15,12 +15,12 @@ export const getEdgeTranslations = (
     };
     if (sourcePosition === Position.Right && targetPosition === Position.Left) {
         translations.edgeStart = `translate(0%, 0%) translate(${sourceX - 10}px,${sourceY - 35}px)`;
-        translations.edgeEnd = `translate(-100%, -100%) translate(${targetX}px,${targetY}px)`;
+        translations.edgeEnd = `translate(-100%, 0%) translate(${targetX}px,${targetY - 35}px)`;
         return translations;
     }
     if (sourcePosition === Position.Right && targetPosition === Position.Top) {
         translations.edgeStart = `translate(0%, 0%) translate(${sourceX - 10}px,${sourceY}px)`;
-        translations.edgeEnd = `translate(-100%, 0%) translate(${targetX}px,${targetY}px)`;
+        translations.edgeEnd = `translate(-100%, 0%) translate(${targetX - 10}px,${targetY - 30}px)`;
         return translations;
     }
     if (sourcePosition === Position.Right && targetPosition === Position.Right) {
