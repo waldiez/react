@@ -38,7 +38,7 @@ export const getNewEdgeNodes = (allNodes: Node[], source: string, target: string
         targetNode,
     };
 };
-const getNewEdgeName = (sourceNode: Node, targetNode: Node) => {
+export const getNewEdgeName = (sourceNode: Node, targetNode: Node) => {
     const sourceLabel = (sourceNode.data.label as string).slice(0, 15);
     const targetLabel = (targetNode.data.label as string).slice(0, 15);
     const edgeName = `${sourceLabel} => ${targetLabel}`;

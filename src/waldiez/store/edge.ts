@@ -12,6 +12,7 @@ import {
     edgeCommonStyle,
     getNewEdge,
     getNewEdgeConnectionProps,
+    getNewEdgeName,
     getNewEdgeNodes,
     resetEdgeOrders,
     resetEdgePositions,
@@ -217,6 +218,13 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
         }
         if (!color) {
             return false;
+        }
+        const oldLabel = oldEdge.data?.label;
+        if (
+            oldEdge.data &&
+            oldLabel === `${oldSourceNode.data.agentType} => ${oldTargetNode.data.agentType}`
+        ) {
+            oldEdge.data.label = getNewEdgeName(newSourceNode, newTargetNode);
         }
         this.set({
             edges: [

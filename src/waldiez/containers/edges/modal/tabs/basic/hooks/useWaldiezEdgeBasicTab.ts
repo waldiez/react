@@ -7,6 +7,9 @@ export const useWaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
     const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         onDataChange({ description: e.target.value });
     };
+    const onLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onDataChange({ label: e.target.value });
+    };
     const onClearHistoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onDataChange({ clearHistory: e.target.checked });
     };
@@ -85,6 +88,7 @@ export const useWaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
         summaryRoleValue,
         summaryRoleLabel,
         currentSelectedChatType,
+        onLabelChange,
         onDescriptionChange,
         onClearHistoryChange,
         onMaxTurnsChange,

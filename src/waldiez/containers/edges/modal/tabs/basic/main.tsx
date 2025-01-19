@@ -1,4 +1,4 @@
-import { InfoLabel, NumberInput, Select } from "@waldiez/components";
+import { InfoLabel, NumberInput, Select, TextInput } from "@waldiez/components";
 import { useWaldiezEdgeBasicTab } from "@waldiez/containers/edges/modal/tabs/basic/hooks";
 import { WaldiezEdgeBasicTabProps } from "@waldiez/containers/edges/modal/tabs/basic/types";
 
@@ -12,6 +12,7 @@ export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
         summaryRoleValue,
         summaryRoleLabel,
         currentSelectedChatType,
+        onLabelChange,
         onDescriptionChange,
         onClearHistoryChange,
         onMaxTurnsChange,
@@ -41,6 +42,12 @@ export const WaldiezEdgeBasicTab = (props: WaldiezEdgeBasicTabProps) => {
             )}
             {edgeType !== "swarm" && (
                 <>
+                    <TextInput
+                        label="Label:"
+                        value={data.label}
+                        onChange={onLabelChange}
+                        dataTestId={`edge-${edgeId}-label-input`}
+                    />
                     <label>Description:</label>
                     <textarea
                         rows={2}
