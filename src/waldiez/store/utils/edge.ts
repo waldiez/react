@@ -114,7 +114,7 @@ const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
     const chatData = new WaldiezChatData();
     chatData.source = source;
     chatData.target = target;
-    chatData.name = "...";
+    chatData.name = getNewEdgeName(sourceNode, targetNode);
     chatData.description = `Transfer to ${targetNode.data.label}`;
     chatData.order = -1;
     chatData.position = 0;
