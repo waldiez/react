@@ -76,7 +76,12 @@ const getNewChatType: (sourceNode: Node, targetNode: Node, hidden: boolean) => W
     return chatType;
 };
 
-const getSwarmEdge = (edges: Edge[], sourceNode: Node, targetNode: Node) => {
+const getSwarmEdge = (
+    edges: Edge[],
+    sourceNode: Node,
+    targetNode: Node,
+    positionGetter: (chatType: string) => number,
+) => {
     // if the source is not swarm, it should not connect to any other node
     if (sourceNode.data.agentType !== "swarm") {
         const existing = edges.find(edge => edge.source === sourceNode.id);
@@ -84,7 +89,8 @@ const getSwarmEdge = (edges: Edge[], sourceNode: Node, targetNode: Node) => {
             return null;
         }
     }
-    const chatData = getSwarmChatData(sourceNode, targetNode);
+    const chatData = getSwarmChatData(sourceNode, targetNode, positionGetter);
+    chatData.position = positionGetter("swarm");
     const chat = new WaldiezChat({
         id: `we-${getId()}`,
         data: chatData,
@@ -105,7 +111,11 @@ const getSwarmEdge = (edges: Edge[], sourceNode: Node, targetNode: Node) => {
     };
 };
 
-const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
+const getSwarmChatData = (
+    sourceNode: Node,
+    targetNode: Node,
+    positionGetter: (chatType: string) => number,
+) => {
     // const edgeName = getNewEdgeName(sourceNode, targetNode);
     const sourceAgentType = sourceNode.data.agentType as WaldiezNodeAgentType;
     const targetAgentType = targetNode.data.agentType as WaldiezNodeAgentType;
@@ -117,7 +127,7 @@ const getSwarmChatData = (sourceNode: Node, targetNode: Node) => {
     chatData.name = getNewEdgeName(sourceNode, targetNode);
     chatData.description = `Transfer to ${targetNode.data.label}`;
     chatData.order = -1;
-    chatData.position = 0;
+    chatData.position = positionGetter("swarm");
     if (sourceAgentType !== "swarm") {
         chatData.message = {
             type: "string",
@@ -154,7 +164,7 @@ export const getNewEdge = (
     edges: Edge[],
 ) => {
     if (isSwarmEdge(sourceNode, targetNode)) {
-        return getSwarmEdge(edges, sourceNode, targetNode);
+        return getSwarmEdge(edges, sourceNode, targetNode, positionGetter);
     }
     if (["swarm", "swarm_container"].includes(targetNode.data.agentType as WaldiezNodeAgentType)) {
         return null;
