@@ -141,7 +141,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
                     onBlur={onEdgeBlur}
                 >
                     {focussed && (
-                        <div className="edge-actions">
+                        <div className="edge-actions with-position">
                             <div
                                 title="Delete"
                                 role="button"
