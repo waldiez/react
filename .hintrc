@@ -11,7 +11,8 @@
       {
         "ignore": [
           "scrollbar-width",
-          "scrollbar-width: thin"
+          "scrollbar-width: thin",
+          "width: stretch"
         ]
       }
     ]

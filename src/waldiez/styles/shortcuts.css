@@ -26,7 +26,7 @@
 .flow-wrapper .fill-available {
     width: -moz-available;
     width: -webkit-fill-available;
-    width: fill-available;
+    width: stretch;
 }
 
 .flow-wrapper .bold {

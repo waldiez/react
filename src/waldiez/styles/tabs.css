@@ -3,7 +3,7 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     /* stylelint-disable-next-line csstree/validator */
-    -ms-overflow-style: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .flow-wrapper .tab-list::-webkit-scrollbar {
