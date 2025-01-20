@@ -109,7 +109,7 @@ export const WaldiezEdgeSwarmView = (
                     onBlur={onEdgeBlur}
                 >
                     {focussed && (
-                        <div className="edge-footer edge-actions">
+                        <div className={`edge-actions${swarmType === "source" ? " with-position" : ""}`}>
                             <div
                                 title="Delete"
                                 role="button"

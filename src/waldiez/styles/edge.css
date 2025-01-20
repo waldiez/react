@@ -91,16 +91,21 @@
     fill: red;
 }
 
-.flow-wrapper .edge-footer {
+.flow-wrapper .edge-actions {
     position: absolute;
     top: -40px;
+    left: -50%;
     display: flex;
     justify-content: space-between;
     width: 50px;
     padding: 8px;
 }
 
-.flow-wrapper .edge-footer div {
+.flow-wrapper .edge-actions.with-position {
+    left: 0;
+}
+
+.flow-wrapper .edge-actions div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,10 +115,10 @@
     cursor: pointer;
 }
 
-.flow-wrapper.dark .edge-footer {
+.flow-wrapper.dark .edge-actions {
     background-color: #222;
 }
 
-.flow-wrapper.light .edge-footer {
+.flow-wrapper.light .edge-actions {
     background-color: #f8f8f8;
 }
