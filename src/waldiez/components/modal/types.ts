@@ -7,6 +7,7 @@ export type ModalProps = {
     hasCloseBtn?: boolean;
     hasMaximizeBtn?: boolean;
     onClose?: () => void;
+    onSaveAndClose?: () => void;
     children: React.ReactNode;
     className?: string;
     hasUnsavedChanges?: boolean;

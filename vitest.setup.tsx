@@ -4,11 +4,11 @@ import { afterEach, beforeAll, beforeEach, vi } from "vitest";
 
 import React from "react";
 
-const mockMatchMedia = () => {
+export const mockMatchMedia = (matches: boolean = false) => {
     Object.defineProperty(window, "matchMedia", {
         writable: true,
         value: vi.fn().mockImplementation(query => ({
-            matches: false,
+            matches,
             media: query,
             onchange: null,
             addListener: vi.fn(), // deprecated
@@ -77,7 +77,7 @@ export const mockReactFlow = () => {
         height: 30,
     });
 };
-
+vi.setConfig({ testTimeout: 30_000 });
 vi.mock("zustand"); // __mocks__/zustand.ts
 vi.mock("@monaco-editor/react", async () => {
     return {

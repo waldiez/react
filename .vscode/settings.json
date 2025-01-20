@@ -3,7 +3,10 @@
     "files.eol": "\n",
     "typescript.suggest.completeJSDocs": false,
     "javascript.suggest.completeJSDocs": false,
+    "css.lint.vendorPrefix": "ignore",
     "cSpell.words": [
+        "arrowclosed",
+        "boxshadow",
         "coverallsapp",
         "currentcolor",
         "eslintcache",
@@ -18,6 +21,7 @@
         "venv",
         "VITE",
         "waldiez",
+        "Xmark",
         "xyflow",
         "zundo"
     ]

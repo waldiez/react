@@ -183,7 +183,6 @@ const getProps = () => {
                         .then(response => response.json())
                         .then(flow => {
                             waldiezProps = {
-                                ...waldiezProps,
                                 ...importFlow(flow),
                             };
                             resolve(waldiezProps);
@@ -202,6 +201,7 @@ const getProps = () => {
 };
 
 export const startApp = (waldiezProps: Partial<WaldiezProps> = defaultWaldiezProps) => {
+    // console.log(waldiezProps);
     window.history.replaceState({}, document.title, window.location.pathname);
     ReactDOM.createRoot(document.getElementById("root")!).render(
         <React.StrictMode>

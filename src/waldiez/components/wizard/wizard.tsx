@@ -72,7 +72,7 @@ export const Wizard = (props: WizardProps) => {
                 </button>
                 <button
                     type="button"
-                    title={steps.length - 1 ? lastNextTitle : "Next"}
+                    title={currentStep === steps.length - 1 ? lastNextTitle : "Next"}
                     onClick={goForward}
                     disabled={isForwardDisabled}
                     data-testid="wizard-next-btn"

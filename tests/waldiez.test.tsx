@@ -3,7 +3,7 @@ import { Waldiez } from "@waldiez";
 import { describe, expect, it } from "vitest";
 
 describe("Waldiez", () => {
-    it("renders a Waldiez component", () => {
+    it("renders a Waldiez flow", () => {
         render(<Waldiez />);
         const agents = screen.getByText(/Agents/i);
         const models = screen.getByText(/Models/i);

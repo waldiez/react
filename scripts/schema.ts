@@ -11,7 +11,7 @@ const repositoryUrl = packageJson.repository.url.replace(".git", "");
 const schemaId = `${repositoryUrl}/tree/v${packageJson.version}/schema.json`;
 const config = {
     tsconfig: "tsconfig.docs.json",
-    type: "WaldiezFlow",
+    type: "WaldiezFlowSchema",
     expose: "export" as "all" | "none" | "export",
     jsDoc: "extended" as "none" | "extended" | "basic",
     schemaId,
@@ -20,6 +20,8 @@ const config = {
 };
 
 const schema = tsj.createGenerator(config).createSchema(config.type);
+schema.title = "Waldiez Flow";
+schema.description = "The schema for a Waldiez Flow";
 const schemaString = JSON.stringify(schema, null, 2);
 const outputPath = path.resolve(__dirname, "..", "schema.json");
 fs.writeFile(outputPath, schemaString, err => {

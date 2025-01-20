@@ -1,24 +1,10 @@
-import React, { useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 
-import { WaldiezContext, WaldiezStore, createWaldiezStore } from "@waldiez/store";
-import { WaldiezStoreProps } from "@waldiez/types";
+import { WaldiezContext } from "@waldiez/store/context";
+import { createWaldiezStore } from "@waldiez/store/creator";
+import { WaldiezProviderProps, WaldiezStore } from "@waldiez/store/types";
 
-export type WaldiezProviderProps = React.PropsWithChildren<WaldiezStoreProps>;
-
-/**
- * React Context Provider for Waldiez Store
- * @param children - ReactNode
- * @param props - WaldiezProviderProps
- * @returns React.JSX.Element
- */
-export function WaldiezProvider({
-    children,
-    ...props
-}: WaldiezProviderProps & {
-    storageId: string;
-    createdAt: string;
-    updatedAt: string;
-}): React.JSX.Element {
+export function WaldiezProvider({ children, ...props }: WaldiezProviderProps) {
     const storeRef = useRef<WaldiezStore | undefined>(undefined);
     const nodes = props.nodes;
     const edges = props.edges;
@@ -33,10 +19,14 @@ export function WaldiezProvider({
     const onUpload = props.onUpload ?? null;
     const onChange = props.onChange ?? null;
     const onSave = props.onSave ?? null;
+    const onRun = props.onRun ?? null;
+    const onConvert = props.onConvert ?? null;
     const rfInstance = props.rfInstance;
+    const isAsync = props.isAsync ?? false;
     const store = useMemo(() => {
         storeRef.current = createWaldiezStore({
             flowId,
+            isAsync,
             name,
             description,
             tags,
@@ -50,6 +40,8 @@ export function WaldiezProvider({
             onUpload,
             onChange,
             onSave,
+            onRun,
+            onConvert,
         });
         return storeRef.current;
     }, [flowId]);
