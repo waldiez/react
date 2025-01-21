@@ -43,6 +43,10 @@ const renderModel = (
                     isConnectable={true}
                     positionAbsoluteX={0}
                     positionAbsoluteY={0}
+                    deletable
+                    selectable
+                    draggable
+                    selected={false}
                 />
             </WaldiezProvider>
         </WaldiezThemeProvider>,

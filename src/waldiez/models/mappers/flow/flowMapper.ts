@@ -384,10 +384,10 @@ const updateSwarmContainerFromEdge = (edgeTrigger: Edge, agentNode: WaldiezNodeA
     } else {
         agentNode.data.maxRounds = edgeTrigger.data.maxRounds;
     }
-    if (!edgeTrigger.data?.afterWork) {
+    if (!edgeTrigger.data?.flowAfterWork) {
         agentNode.data.afterWork = null;
-    } else if (isAfterWork(edgeTrigger.data.afterWork)) {
-        agentNode.data.afterWork = edgeTrigger.data.afterWork as WaldiezSwarmAfterWork;
+    } else if (isAfterWork(edgeTrigger.data.flowAfterWork)) {
+        agentNode.data.afterWork = edgeTrigger.data.flowAfterWork as WaldiezSwarmAfterWork;
     }
     agentNode.data.contextVariables = {};
     if (edgeTrigger.data?.contextVariables && typeof edgeTrigger.data.contextVariables === "object") {

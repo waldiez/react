@@ -24,7 +24,15 @@ const flowLinks = [
 const deprecatedAgentDataKeys = ["teachability"];
 const newAgents = ["swarm_agents"];
 // added with swarm
-const newChatKeys = ["afterWork", "maxRounds", "realSource", "realTarget", "contextVariables", "available"];
+const newChatKeys = [
+    "afterWork",
+    "flowAfterWork",
+    "maxRounds",
+    "realSource",
+    "realTarget",
+    "contextVariables",
+    "available",
+];
 // these keys are not necessarily in the exported flows
 const newEdgeKeys = ["hidden", "realSource", "realTarget", "sourceHandle", "targetHandle"];
 // id: either missing, or overridden when importing/exporting

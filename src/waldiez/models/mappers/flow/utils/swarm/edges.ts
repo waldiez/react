@@ -26,21 +26,6 @@ export const getEdgeTrigger = (
     containerData: WaldiezNodeAgentSwarmContainerData,
     containerId: string,
 ) => {
-    let edgeTrigger: WaldiezEdge | null;
-    try {
-        edgeTrigger = findEdgeTrigger(allEdges, nodes, initialAgent, containerId);
-    } catch (_) {
-        return null;
-    }
-    return updateEdgeTrigger(edgeTrigger, containerData);
-};
-
-const findEdgeTrigger = (
-    allEdges: WaldiezEdge[],
-    nodes: Node[],
-    initialAgent: WaldiezNodeAgentSwarm,
-    containerId: string,
-) => {
     // search in nodes: node.type === "agent" && node.data.agentType === "user" || "rag_user"
     const userNodes = nodes.filter(
         node =>
@@ -64,28 +49,40 @@ const findEdgeTrigger = (
     );
     if (edgeFromUser && edgeFromUser.type === "swarm" && edgeFromUser.data) {
         edgeFromUser.data.realTarget = initialAgent.id;
+        edgeFromUser.data.flowAfterWork = containerData.afterWork;
         return edgeFromUser;
     }
-    // if not found, return the first edge that has as source the initialAgent and target a swarmAgent (not other agent [avoid edge with nested_chat])
+    return getOneSwarmEdge(nodes, initialAgent, allEdges, containerData);
+};
+
+const getOneSwarmEdge = (
+    nodes: Node[],
+    initialAgent: WaldiezNodeAgentSwarm,
+    allEdges: WaldiezEdge[],
+    containerData: WaldiezNodeAgentSwarmContainerData,
+) => {
+    // if not found, return the first edge that has as source the initialAgent and target
+    // a swarmAgent (not other agent [avoid edge with nested_chat])
     const initialAgentEdges = allEdges.filter(edge => edge.source === initialAgent.id);
     if (initialAgentEdges.length === 0) {
-        throw new Error("No edge found with initialAgent as source");
+        return null;
     }
     const edgeFromInitialAgent = initialAgentEdges.find(edge => {
         const targetAgent = nodes.find(node => node.id === edge.target);
         return targetAgent && targetAgent.type === "agent" && targetAgent.data.agentType === "swarm";
     });
-    return edgeFromInitialAgent || initialAgentEdges[0];
-};
-
-const updateEdgeTrigger = (edge: WaldiezEdge, data: WaldiezNodeAgentSwarmContainerData) => {
-    const edgeCopy = { ...edge };
-    if (!edgeCopy.data) {
-        const chatData = new WaldiezChatData();
-        edgeCopy.data = { ...chatData, label: "" };
-    }
-    edgeCopy.data.maxRounds = data.maxRounds;
-    edgeCopy.data.afterWork = data.afterWork;
-    edgeCopy.data.contextVariables = data.contextVariables;
-    return edgeCopy;
+    const selectedEdge = edgeFromInitialAgent || initialAgentEdges[0];
+    // but also update all edges that have as source the initialAgent
+    // so we can revert the "maxRounds" and "afterWork" and "contextVariables"
+    // on a later import if needed
+    allEdges.forEach(edge => {
+        if (!edge.data) {
+            const chatData = new WaldiezChatData();
+            edge.data = { ...chatData, label: "" };
+        }
+        edge.data.maxRounds = containerData.maxRounds;
+        edge.data.flowAfterWork = containerData.afterWork;
+        edge.data.contextVariables = containerData.contextVariables;
+    });
+    return selectedEdge;
 };

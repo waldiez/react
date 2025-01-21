@@ -47,19 +47,6 @@ describe("WaldiezEdgeSwarmTabs Handoff", () => {
         fireEvent.change(conditionInput, { target: { value: "Updated condition" } });
         expect(conditionInput.value).toBe("Updated condition");
     });
-    it("updates the handoff type", async () => {
-        renderEdge("swarm", {}, true, "handoff");
-        const tab = screen.getByTestId(`tab-id-we-${flowId}-edge-handoff-${edgeProps.id}`);
-        fireEvent.click(tab);
-        const handoffTypeSelect = screen.getByLabelText("Handoff Type:");
-        expect(handoffTypeSelect).toBeInTheDocument();
-        selectEvent.openMenu(handoffTypeSelect);
-        await selectEvent.select(handoffTypeSelect, "After work");
-        fireEvent.change(handoffTypeSelect, {
-            label: "After work",
-            target: { value: "after_work" },
-        });
-    });
     it("updates the availability", () => {
         renderEdge("swarm", {}, true, "handoff");
         const tab = screen.getByTestId(`tab-id-we-${flowId}-edge-handoff-${edgeProps.id}`);

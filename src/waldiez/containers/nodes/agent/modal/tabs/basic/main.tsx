@@ -37,7 +37,7 @@ export const WaldiezAgentBasic = (props: WaldiezAgentBasicProps) => {
             <textarea
                 title="Agent description"
                 rows={2}
-                value={data.description}
+                defaultValue={data.description}
                 onChange={onDescriptionChange}
                 data-testid={`agent-description-input-${id}`}
             />
@@ -45,7 +45,7 @@ export const WaldiezAgentBasic = (props: WaldiezAgentBasicProps) => {
             <textarea
                 title="System message"
                 rows={2}
-                value={data.systemMessage ?? ""}
+                defaultValue={data.systemMessage ?? ""}
                 onChange={onSystemMessageChange}
                 data-testid={`agent-system-message-input-${id}`}
             />

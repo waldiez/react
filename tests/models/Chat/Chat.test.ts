@@ -60,6 +60,7 @@ describe("WaldiezChat", () => {
             },
             maxRounds: 30,
             afterWork: null,
+            flowAfterWork: null,
             contextVariables: {},
             available: {
                 type: "none",

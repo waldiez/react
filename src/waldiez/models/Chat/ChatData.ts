@@ -17,6 +17,7 @@ import { WaldiezChatSummary, WaldiezNestedChat } from "@waldiez/models/Chat/type
  * @param nestedChat - The nested chat
  * @param maxRounds - The maximum rounds
  * @param afterWork - The after work
+ * @param flowAfterWork - The flow after work
  * @param contextVariables - The context variables
  * @param available - The available for handoff condition
  * @param realSource - The real source (overrides source)
@@ -44,6 +45,7 @@ export class WaldiezChatData {
     };
     maxRounds: number;
     afterWork: WaldiezSwarmAfterWork | null;
+    flowAfterWork: WaldiezSwarmAfterWork | null;
     contextVariables: { [key: string]: string } = {};
     available: WaldiezSwarmOnConditionAvailable = {
         type: "none",
@@ -66,6 +68,7 @@ export class WaldiezChatData {
             nestedChat: WaldiezNestedChat;
             maxRounds: number;
             afterWork: WaldiezSwarmAfterWork | null;
+            flowAfterWork: WaldiezSwarmAfterWork | null;
             contextVariables: { [key: string]: string };
             available: WaldiezSwarmOnConditionAvailable;
             realSource: string | null;
@@ -96,6 +99,7 @@ export class WaldiezChatData {
             },
             maxRounds: 20,
             afterWork: null,
+            flowAfterWork: null,
             contextVariables: {},
             available: {
                 type: "none",
@@ -119,6 +123,9 @@ export class WaldiezChatData {
             nestedChat,
             maxRounds,
             afterWork,
+            flowAfterWork,
+            contextVariables,
+            available,
             realSource,
             realTarget,
         } = props;
@@ -135,8 +142,9 @@ export class WaldiezChatData {
         this.nestedChat = nestedChat;
         this.maxRounds = maxRounds;
         this.afterWork = afterWork;
-        this.contextVariables = props.contextVariables;
-        this.available = props.available;
+        this.flowAfterWork = flowAfterWork;
+        this.contextVariables = contextVariables;
+        this.available = available;
         this.realSource = realSource;
         this.realTarget = realTarget;
     }

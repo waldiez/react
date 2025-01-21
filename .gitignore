@@ -29,5 +29,6 @@ public/monaco_latest_version
 **/.stylelintcache
 **/.eslintcache
 **/*db
+**/*mmd
 **/coverage/
 hint-report/

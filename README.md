@@ -22,7 +22,7 @@ bun add @waldiez/react
 ```json
 {
     "@monaco-editor/react": "^4.6.0",
-    "@xyflow/react": "^12.4.1",
+    "@xyflow/react": "^12.4.2",
     "microdiff": "^1.5.0",
     "nanoid": "^5.0.9",
     "rc-slider": "^11.1.8",

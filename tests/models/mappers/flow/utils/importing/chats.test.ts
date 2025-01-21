@@ -102,6 +102,7 @@ describe("getChats", () => {
                     },
                     maxRounds: 20,
                     afterWork: null,
+                    flowAfterWork: null,
                     contextVariables: {},
                     available: {
                         type: "none",

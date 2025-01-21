@@ -151,7 +151,9 @@ export const WaldiezAgentSwarmHandoffs = (props: WaldiezAgentSwarmHandoffsProps)
                         ))}
                         {afterWorkHandoffs.length > 0 && (
                             <div className="agent-swarm-handoff-recipient">
-                                <div className="agent-handoff-recipient-name">
+                                <div
+                                    className={`agent-handoff-recipient-name${onConditionHandoffsCount < 2 && " margin-left--10"}`}
+                                >
                                     {getHandoffName(afterWorkHandoffs[0])}
                                 </div>
                             </div>

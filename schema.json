@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/waldiez/react/tree/v0.3.3/schema.json",
+    "$id": "https://github.com/waldiez/react/tree/v0.3.4/schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "additionalProperties": false,
@@ -1519,6 +1519,16 @@
                         }
                     ]
                 },
+                "flowAfterWork": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/WaldiezSwarmAfterWork"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
                 "contextVariables": {
                     "type": "object",
                     "additionalProperties": {
@@ -1549,6 +1559,7 @@
                 "nestedChat",
                 "maxRounds",
                 "afterWork",
+                "flowAfterWork",
                 "contextVariables",
                 "available",
                 "realSource",

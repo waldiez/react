@@ -28,6 +28,7 @@ export type WaldiezChatDataCommon = {
     maxTurns: number | null;
     maxRounds: number;
     afterWork: WaldiezSwarmAfterWork | null;
+    flowAfterWork: WaldiezSwarmAfterWork | null;
     contextVariables: { [key: string]: string };
     available: WaldiezSwarmOnConditionAvailable;
     realSource: string | null;

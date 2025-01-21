@@ -135,6 +135,14 @@ export const getChatAfterWork = (data: { [key: string]: any }) => {
     return afterWorkData;
 };
 
+export const getChatFlowAfterWork = (data: { [key: string]: any }) => {
+    let flowAfterWorkData = null;
+    if ("flowAfterWork" in data && typeof data.flowAfterWork === "object") {
+        flowAfterWorkData = swarmAfterWorkMapper.importSwarmAfterWork(data.flowAfterWork);
+    }
+    return flowAfterWorkData;
+};
+
 export const getRealSource = (data: { [key: string]: any }) => {
     let realSource = null;
     if ("realSource" in data && typeof data.realSource === "string") {

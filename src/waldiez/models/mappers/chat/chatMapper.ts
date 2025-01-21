@@ -9,6 +9,7 @@ import {
     getChatAfterWork,
     getChatClearHistory,
     getChatDescription,
+    getChatFlowAfterWork,
     getChatMaxRounds,
     getChatMaxTurns,
     getChatName,
@@ -76,6 +77,9 @@ export const chatMapper = {
             nestedChat: getNestedChat(data),
             maxRounds: getChatMaxRounds(data),
             afterWork: data.afterWork ? swarmAfterWorkMapper.exportSwarmAfterWork(data.afterWork) : null,
+            flowAfterWork: data.flowAfterWork
+                ? swarmAfterWorkMapper.exportSwarmAfterWork(data.flowAfterWork)
+                : null,
             available: data.available,
             contextVariables: data.contextVariables,
             realSource: data.realSource,
@@ -109,6 +113,7 @@ export const chatMapper = {
             maxTurns: chat.data.maxTurns,
             maxRounds: chat.data.maxRounds,
             afterWork: chat.data.afterWork,
+            flowAfterWork: chat.data.flowAfterWork,
             contextVariables: chat.data.contextVariables,
             available: chat.data.available,
             realSource: chat.data.realSource,
@@ -138,6 +143,7 @@ const getChatData = (json: { [key: string]: any }, index: number): WaldiezChatDa
     const nestedChat = getNestedChat(json);
     const maxRounds = getChatMaxRounds(json);
     const afterWork = getChatAfterWork(json);
+    const flowAfterWork = getChatFlowAfterWork(json);
     const contextVariables = getContextVariables(json);
     const available = getAvailable(json);
     const realSource = getRealSource(json);
@@ -156,6 +162,7 @@ const getChatData = (json: { [key: string]: any }, index: number): WaldiezChatDa
         nestedChat,
         maxRounds,
         afterWork,
+        flowAfterWork,
         contextVariables,
         available,
         realSource,

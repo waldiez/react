@@ -127,6 +127,7 @@ export const updateData = {
             recipientType: "agent" as WaldiezSwarmAfterWorkRecipientType,
             recipient: "wa-2",
         },
+        flowAfterWork: null,
         contextVariables: {},
         available: {
             type: "none" as WaldiezSwarmOnConditionAvailableCheckType,
@@ -169,6 +170,7 @@ export const updateData = {
                 recipientType: "agent" as WaldiezSwarmAfterWorkRecipientType,
                 recipient: "wa-2",
             },
+            flowAfterWork: null,
             contextVariables: {},
             available: {
                 type: "none" as WaldiezSwarmOnConditionAvailableCheckType,
@@ -207,6 +209,7 @@ export const updateData = {
             recipientType: "agent",
             recipient: "wa-2",
         },
+        flowAfterWork: null,
         contextVariables: {},
         available: {
             type: "none",
@@ -249,6 +252,7 @@ export const updateData = {
                 recipientType: "agent",
                 recipient: "wa-2",
             },
+            flowAfterWork: null,
             contextVariables: {},
             available: {
                 type: "none",

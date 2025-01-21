@@ -28,7 +28,7 @@ export const WaldiezAgentRagUserAdvanced = (props: {
                 <textarea
                     title="Customized prompt"
                     rows={2}
-                    value={retrieveConfig.customizedPrompt ?? ""}
+                    defaultValue={retrieveConfig.customizedPrompt ?? ""}
                     onChange={onCustomizedPromptChange}
                     data-testid={`rag-customized-prompt-${id}`}
                 />
