@@ -25,7 +25,6 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
         option: SingleValue<{ label: string; value: "on_condition" | "after_work" }>,
     ) => {
         if (option) {
-            setHandoffType(option.value);
             if (option.value === "after_work") {
                 onDataChange({
                     afterWork: {
@@ -39,6 +38,7 @@ export const WaldiezEdgeSwarmHandoffTab = (props: WaldiezEdgeSwarmHandoffTabProp
                     afterWork: null,
                 });
             }
+            setHandoffType(option.value);
         }
     };
     const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {

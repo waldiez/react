@@ -214,7 +214,13 @@ const getOnConditionFromEdge = (edge: WaldiezEdge, targetNode: WaldiezNodeAgent)
     ) {
         condition = edge.data.description;
     }
-    const availableCheckType: WaldiezSwarmOnConditionAvailableCheckType = "none";
+    const availableCheckType: WaldiezSwarmOnConditionAvailableCheckType = [
+        "string",
+        "callable",
+        "none",
+    ].includes(edge.data?.available?.type || "none")
+        ? edge.data?.available?.type || "none"
+        : "none";
     const available = edge.data?.available.type === "none" ? null : edge.data?.available.value;
     if (!available) {
         return { condition, available: null, availableCheckType };
