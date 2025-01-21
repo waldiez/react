@@ -327,43 +327,57 @@ const updateSwarmContainer = (
     // - maxRounds: number;
     // - afterWork: WaldiezSwarmAfterWork | null;
     // - contextVariables: { [key: string]: string };
-    updateSwarmContainerFromEdgeTrigger(edges, agentNode, initialAgent, containerId);
+    updateSwarmContainerFromEdgeTrigger(flow, edges, agentNode, initialAgent, containerId);
+    // updateSwarmContainerFromEdgeTrigger(edges, agentNode, initialAgent, containerId);
     // let's try to get these from the edge trigger.
     // find the edge that has as target the swarm_container
     // if not found (no userAgent), find the edge that has as source the initialAgent of the swarm_container
     return agentNode;
 };
 
+// eslint-disable-next-line max-statements
 const updateSwarmContainerFromEdgeTrigger = (
+    flow: WaldiezFlow,
     edges: Edge[],
     agentNode: WaldiezNodeAgentSwarmContainer,
     initialAgent: WaldiezAgentSwarm,
     containerId: string,
 ) => {
-    const edgeTrigger = getEdgeTrigger(edges, agentNode, initialAgent, containerId);
-    if (edgeTrigger) {
-        updateSwarmContainerFromEdge(edgeTrigger, agentNode);
+    let foundUserTrigger = false;
+    const edgesWithInitialAgentAsSource: Edge[] = [];
+    for (const edge of edges) {
+        if (edge.type === "swarm") {
+            if (
+                edge.target === initialAgent.id ||
+                edge.data?.realTarget === initialAgent.id ||
+                edge.target === containerId
+            ) {
+                const userSource = flow.data.agents.users.find(user => user.id === edge.source);
+                if (userSource) {
+                    updateSwarmContainerFromEdge(edge, agentNode);
+                    foundUserTrigger = true;
+                    break;
+                }
+            }
+            if (edge.source === initialAgent.id) {
+                edgesWithInitialAgentAsSource.push(edge);
+            }
+        }
+    }
+    // the chat is not triggered by a user,
+    // so we need to find the edge that has as source the initialAgent
+    if (!foundUserTrigger) {
+        for (const edge of edgesWithInitialAgentAsSource) {
+            for (const agent of flow.data.agents.swarm_agents) {
+                if (edge.target === agent.id) {
+                    updateSwarmContainerFromEdge(edge, agentNode);
+                    break;
+                }
+            }
+        }
     }
 };
 
-const getEdgeTrigger = (
-    edges: Edge[],
-    agentNode: WaldiezNodeAgentSwarmContainer,
-    initialAgent: WaldiezAgentSwarm,
-    containerId: string,
-) => {
-    const edgeTrigger = edges.find(
-        edge =>
-            edge.target === initialAgent.id ||
-            edge.data?.realTarget === initialAgent.id ||
-            edge.target === containerId,
-    );
-    if (edgeTrigger && edgeTrigger.type === "swarm" && edgeTrigger.data) {
-        edgeTrigger.data.realTarget = initialAgent.id;
-        updateSwarmContainerFromEdge(edgeTrigger, agentNode);
-    }
-    return edgeTrigger;
-};
 const updateSwarmContainerFromEdge = (edgeTrigger: Edge, agentNode: WaldiezNodeAgentSwarmContainer) => {
     if (typeof edgeTrigger.data?.maxRounds !== "number") {
         agentNode.data.maxRounds = 20;
