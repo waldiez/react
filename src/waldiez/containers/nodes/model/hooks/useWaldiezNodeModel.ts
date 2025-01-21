@@ -15,7 +15,7 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
     const deleteModel = useWaldiez(s => s.deleteModel);
     const importModel = useWaldiez(s => s.importModel);
     const exportModel = useWaldiez(s => s.exportModel);
-    // const onFlowChanged = useWaldiez(s => s.onFlowChanged);
+    const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const flowId = useWaldiez(state => state.flowId);
     const [logo, setLogo] = useState<string>(LOGOS[data.apiType] as string);
     const [isOpen, setIsOpen] = useState(false);
@@ -28,12 +28,12 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
     const onDelete = () => {
         deleteModel(id);
         setIsDirty(false);
-        // onFlowChanged();
+        onFlowChanged();
     };
     const onClone = () => {
         cloneModel(id);
         setIsDirty(false);
-        // onFlowChanged();
+        onFlowChanged();
     };
     const onImportLoad = (model: Node, jsonData: { [key: string]: unknown }) => {
         const nodeModel = importModel(jsonData, id, model?.position);
@@ -65,7 +65,7 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
             setModelData(storedData as WaldiezNodeModelData);
         }
         setIsDirty(false);
-        // onFlowChanged();
+        onFlowChanged();
         // keep the modal open on save
         // onCloseModal(false);
     };
