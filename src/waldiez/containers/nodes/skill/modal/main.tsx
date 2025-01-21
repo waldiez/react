@@ -1,4 +1,4 @@
-import { Dict, Editor, InfoLabel, Modal } from "@waldiez/components";
+import { Dict, Editor, Modal } from "@waldiez/components";
 import { getImportExportView } from "@waldiez/containers/nodes/common";
 import { useSkillNodeModal } from "@waldiez/containers/nodes/skill/modal/hooks";
 import { WaldiezNodeSkillModalProps } from "@waldiez/containers/nodes/skill/modal/types";
@@ -36,15 +36,21 @@ export const WaldiezNodeSkillModal = (props: WaldiezNodeSkillModalProps) => {
             preventCloseIfUnsavedChanges
         >
             <div className="modal-body">
-                <InfoLabel
-                    label="Name:"
-                    info="Make sure a function with the same name is defined in the code."
-                />
+                <div className="info">
+                    Enter the skill details below. If the skill name is called{" "}
+                    <span className="bold italic">waldiez_shared</span> it will be placed before any other
+                    skill in the flow (for example additional imports to be used or variables that should be
+                    available to the entire flow). Otherwise, generate a function with the{" "}
+                    <span className="bold italic">name of the skill</span>. This function's contents will be
+                    included in the final flow.
+                </div>
+                <label htmlFor={`skill-label-input-${skillId}`}>Name:</label>
                 <input
                     title="Name"
                     type="text"
                     value={data.label}
                     data-testid={`skill-label-input-${skillId}`}
+                    id={`skill-label-input-${skillId}`}
                     onChange={onSkillLabelChange}
                 />
                 <label>Description:</label>
