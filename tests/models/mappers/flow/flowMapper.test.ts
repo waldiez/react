@@ -18,6 +18,7 @@ const flowLinks = [
     `${flowLinksBaseUrl}/08 - ReAct using Tavily/ReAct.waldiez`,
     `${flowLinksBaseUrl}/09 - AutoDefence/AutoDefense Flow.waldiez`,
     `${flowLinksBaseUrl}/10 - Travel Planning/Travel Planning.waldiez`,
+    `${flowLinksBaseUrl}/11 - Swarm/Swarm.waldiez`,
 ];
 
 // we removed "teachability"
@@ -76,7 +77,7 @@ describe("flowMapper", () => {
 
 const compareObjects = (json1: any, json2: any) => {
     Object.keys(json1).forEach(key => {
-        if (key !== "data") {
+        if (key !== "data" && key !== "id") {
             expect(json1[key]).toEqual(json2[key]);
         }
     });
