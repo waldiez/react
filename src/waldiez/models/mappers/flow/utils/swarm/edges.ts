@@ -49,6 +49,8 @@ export const getEdgeTrigger = (
     );
     if (edgeFromUser && edgeFromUser.type === "swarm" && edgeFromUser.data) {
         edgeFromUser.data.realTarget = initialAgent.id;
+        edgeFromUser.data.maxRounds = containerData.maxRounds;
+        edgeFromUser.data.contextVariables = containerData.contextVariables;
         edgeFromUser.data.flowAfterWork = containerData.afterWork;
         return edgeFromUser;
     }
