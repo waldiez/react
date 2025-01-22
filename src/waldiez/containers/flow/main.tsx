@@ -239,31 +239,3 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         </div>
     );
 };
-
-/*
-
-
-
-<div className="sidebar-footer">
-                <ul>
-                    <li
-                        className="clickable"
-                        onClick={onOpenImportModal}
-                        title="Import flow"
-                        data-testid={`import-flow-${flowId}-sidebar-button`}
-                    >
-                        <FaFileImport />
-                        {!isCollapsed && <span>Import Waldiez</span>}
-                    </li>
-                    <li
-                        className="clickable"
-                        onClick={onExport}
-                        title="Export flow"
-                        data-testid={`export-flow-${flowId}-sidebar-button`}
-                    >
-                        <FaFileExport />
-                        {!isCollapsed && <span>Export Waldiez</span>}
-                    </li>
-                </ul>
-            </div>
-*/

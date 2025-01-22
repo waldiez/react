@@ -158,16 +158,15 @@ export const useDnD = (onNewAgent: () => void) => {
         (event: React.DragEvent<HTMLDivElement>) => {
             event.preventDefault();
             const agentType = getAgentType(event);
-            if (!agentType) {
-                return;
+            if (agentType) {
+                if (agentType === "swarm") {
+                    const { parent } = ensureSwarmContainerNode(event);
+                    addSwarmNode(event, parent);
+                } else {
+                    addAgentNode(event, agentType);
+                }
+                onNewAgent();
             }
-            if (agentType === "swarm") {
-                const { parent } = ensureSwarmContainerNode(event);
-                addSwarmNode(event, parent);
-            } else {
-                addAgentNode(event, agentType);
-            }
-            onNewAgent();
         },
         [screenToFlowPosition],
     );

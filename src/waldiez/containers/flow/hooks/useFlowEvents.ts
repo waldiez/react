@@ -40,10 +40,6 @@ export const useFlowEvents = (flowId: string) => {
         onFlowChanged();
     };
     const onEdgeDoubleClick = (event: React.MouseEvent, edge: Edge) => {
-        const target = event.target;
-        if (target instanceof Element && target.tagName === "TEXTAREA") {
-            return;
-        }
         handleEdgeDoubleClick(event, edge as WaldiezEdge);
     };
     const onNodeDoubleClick = (event: React.MouseEvent, node: Node) => {

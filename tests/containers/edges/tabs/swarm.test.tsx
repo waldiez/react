@@ -11,6 +11,14 @@ describe("WaldiezEdgeSwarmTabs Trigger", () => {
         const tab = screen.getByTestId(`tab-id-we-${flowId}-edge-properties-${edgeProps.id}`);
         expect(tab).toBeInTheDocument();
     });
+    it("should blur on second click", () => {
+        renderEdge("swarm");
+        const toGainFocus = screen.getByTestId(`edge-${edgeProps.id}-box`);
+        fireEvent.click(toGainFocus);
+        expect(toGainFocus).toHaveFocus();
+        fireEvent.click(toGainFocus);
+        expect(toGainFocus).not.toHaveFocus();
+    });
     it("updates the label", () => {
         renderEdge("swarm");
         const labelInput = screen.getByTestId(`edge-${edgeProps.id}-label-input`) as HTMLInputElement;

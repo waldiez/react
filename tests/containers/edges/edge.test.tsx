@@ -20,6 +20,14 @@ describe("WaldiezEdgeChat", () => {
     it("should render", () => {
         renderEdge("chat", { order: "invalid" }, false);
     });
+    it("should blur on second click", () => {
+        renderEdge("chat", { order: 0 }, false);
+        const toGainFocus = screen.getByTestId(`edge-${edgeProps.id}-box`);
+        fireEvent.click(toGainFocus);
+        expect(toGainFocus).toHaveFocus();
+        fireEvent.click(toGainFocus);
+        expect(toGainFocus).not.toHaveFocus();
+    });
     it("should call delete edge", () => {
         renderEdge("chat", { order: 1 }, false);
         const toGainFocus = screen.getByTestId(`edge-${edgeProps.id}-box`);
