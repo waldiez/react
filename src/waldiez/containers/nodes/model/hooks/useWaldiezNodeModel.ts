@@ -36,7 +36,7 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         onFlowChanged();
     };
     const onImportLoad = (model: Node, jsonData: { [key: string]: unknown }) => {
-        const nodeModel = importModel(jsonData, id, model?.position);
+        const nodeModel = importModel(jsonData, id, model?.position, false);
         setModelData({ ...nodeModel.data });
         setIsDirty(!isEqual(data, nodeModel.data));
     };

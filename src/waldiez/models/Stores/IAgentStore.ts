@@ -22,6 +22,7 @@ export interface IWaldiezAgentStore {
         agentId: string,
         skipLinks: boolean,
         position: { x: number; y: number } | undefined,
+        save: boolean,
     ) => WaldiezNodeAgent;
     exportAgent: (agentId: string, hideSecrets: boolean) => { [key: string]: unknown };
     setAgentGroup: (agentId: string, groupId: string) => void;

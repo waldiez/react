@@ -113,6 +113,7 @@ export class WaldiezModelStore implements IWaldiezModelStore {
         model: { [key: string]: unknown },
         modelId: string,
         position: { x: number; y: number } | undefined,
+        save: boolean = true,
     ) => {
         const newModel = modelMapper.importModel(model);
         const modelNode = modelMapper.asNode(newModel, position);
@@ -120,7 +121,9 @@ export class WaldiezModelStore implements IWaldiezModelStore {
         if (position) {
             modelNode.position = position;
         }
-        this.set({ nodes: this.get().nodes.map(node => (node.id === modelId ? modelNode : node)) });
+        if (save) {
+            this.set({ nodes: this.get().nodes.map(node => (node.id === modelId ? modelNode : node)) });
+        }
         return modelNode;
     };
     exportModel = (modelId: string, hideSecrets: boolean) => {

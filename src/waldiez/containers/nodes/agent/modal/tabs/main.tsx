@@ -31,18 +31,18 @@ import { useWaldiez } from "@waldiez/store";
 
 export const WaldiezNodeAgentModalTabs = ({
     id,
-    data,
+    data: dataProp,
     flowId,
     isModalOpen,
     isDarkMode,
     filesToUpload,
-    onDataChange,
+    onDataChange: onDataChangeProp,
     onAgentTypeChange,
     onFilesToUploadChange,
 }: WaldiezNodeAgentModalTabsProps) => {
-    const isManager = data.agentType === "manager";
-    const isRagUser = data.agentType === "rag_user";
-    const isSwarm = data.agentType === "swarm";
+    const isManager = dataProp.agentType === "manager";
+    const isRagUser = dataProp.agentType === "rag_user";
+    const isSwarm = dataProp.agentType === "swarm";
     const getAgentConnections = useWaldiez(s => s.getAgentConnections);
     const getAgents = useWaldiez(s => s.getAgents);
     const getModels = useWaldiez(s => s.getModels);
@@ -62,6 +62,11 @@ export const WaldiezNodeAgentModalTabs = ({
     useEffect(() => {
         setActiveTabIndex(0);
     }, [isModalOpen]);
+    const [data, setLocalData] = useState<WaldiezNodeAgentData>(dataProp);
+    const onDataChange = (newData: Partial<WaldiezNodeAgentData>) => {
+        setLocalData({ ...data, ...newData });
+        onDataChangeProp(newData);
+    };
     return (
         <TabItems activeTabIndex={activeTabIndex}>
             <TabItem label="Agent" id={`wf-${flowId}-agent-config-${id}`}>

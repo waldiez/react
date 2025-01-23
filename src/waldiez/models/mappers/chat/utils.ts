@@ -332,21 +332,21 @@ export const checkChatData = (json: { [key: string]: any }, edges: Edge[], nodes
     }
     const edge = edges.find(e => e.id === json.id);
     if (!edge) {
-        throw new Error("Edge not found");
+        throw new Error(`Edge not found: ${json.id}`);
     }
     const sourceNode = nodes.find(n => n.id === json.data.source);
     if (!sourceNode || sourceNode.type !== "agent") {
-        throw new Error("Source node not found");
+        throw new Error(`Source node not found: ${json.data.source}`);
     }
     if (edge.source !== json.data.source) {
-        throw new Error("Source node does not match edge source");
+        throw new Error(`Source node does not match edge source: ${json.data.source}`);
     }
     const targetNode = nodes.find(n => n.id === json.data.target);
     if (!targetNode || targetNode.type !== "agent") {
-        throw new Error("Target node not found");
+        throw new Error(`Target node not found: ${json.data.target}`);
     }
     if (edge.target !== json.data.target) {
-        throw new Error("Target node does not match edge target");
+        throw new Error(`Target node does not match edge target: ${json.data.target}`);
     }
     return { edge, sourceNode, targetNode };
 };

@@ -118,15 +118,21 @@ export class WaldiezAgentStore implements IWaldiezAgentStore {
     importAgent = (
         agent: { [key: string]: unknown },
         agentId: string,
-        _skipLinks: boolean,
+        skipLinks: boolean,
         position: { x: number; y: number } | undefined,
+        save: boolean = true,
     ) => {
         const newAgent = agentMapper.importAgent(agent, agentId);
-        const newAgentNode = agentMapper.asNode(newAgent, position);
+        const newAgentNode = agentMapper.asNode(newAgent, position, skipLinks);
         if (position) {
             newAgentNode.position = position;
         }
-        this.set({ nodes: [...this.get().nodes, { ...newAgentNode }], updatedAt: new Date().toISOString() });
+        if (save) {
+            this.set({
+                nodes: [...this.get().nodes, { ...newAgentNode }],
+                updatedAt: new Date().toISOString(),
+            });
+        }
         return newAgentNode;
     };
     exportAgent = (agentId: string, hideSecrets: boolean) => {

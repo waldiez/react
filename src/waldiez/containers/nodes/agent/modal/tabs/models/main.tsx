@@ -1,15 +1,18 @@
+import { useState } from "react";
+
 import { MultiValue, Select, SingleValue } from "@waldiez/components";
 import { WaldiezAgentModelsProps } from "@waldiez/containers/nodes/agent/modal/tabs/models/types";
 
 export const WaldiezAgentModels = (props: WaldiezAgentModelsProps) => {
     const { id, data, models, onDataChange } = props;
+    const [localData, setLocalData] = useState(data);
     const modelOptions = models.map(model => {
         return {
             label: model.data.label as string,
             value: model.id,
         };
     });
-    const selectedModels = data.modelIds.map(modelId => {
+    const selectedModels = localData.modelIds.map(modelId => {
         const model = models.find(model => model.id === modelId);
         return {
             label: model?.data.label as string,
@@ -21,8 +24,16 @@ export const WaldiezAgentModels = (props: WaldiezAgentModelsProps) => {
     ) => {
         if (options) {
             const modelIds = (Array.isArray(options) ? options : [options]).map(option => option.value);
+            setLocalData({
+                ...localData,
+                modelIds,
+            });
             onDataChange({ modelIds });
         } else {
+            setLocalData({
+                ...localData,
+                modelIds: [],
+            });
             onDataChange({ modelIds: [] });
         }
     };
@@ -33,13 +44,13 @@ export const WaldiezAgentModels = (props: WaldiezAgentModelsProps) => {
             ) : (
                 <>
                     <label className="select-models-label" htmlFor={`select-agent-models-${id}`}>
-                        Model{data.agentType !== "rag_user" ? "s" : ""} to link to agent:
+                        Model{localData.agentType !== "rag_user" ? "s" : ""} to link to agent:
                     </label>
                     <Select
                         options={modelOptions}
                         value={selectedModels}
                         onChange={onModelsChange}
-                        isMulti={data.agentType !== "rag_user"}
+                        isMulti={localData.agentType !== "rag_user"}
                         inputId={`select-agent-models-${id}`}
                         isClearable
                     />

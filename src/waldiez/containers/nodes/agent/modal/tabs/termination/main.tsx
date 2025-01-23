@@ -3,8 +3,9 @@ import { useWaldiezAgentTermination } from "@waldiez/containers/nodes/agent/moda
 import { WaldiezAgentTerminationProps } from "@waldiez/containers/nodes/agent/modal/tabs/termination/types";
 
 export const WaldiezAgentTermination = (props: WaldiezAgentTerminationProps) => {
-    const { id, data, onDataChange } = props;
+    const { id } = props;
     const {
+        data,
         isDarkMode,
         terminationCriterionOptions,
         terminationTypeOptions,
@@ -15,7 +16,7 @@ export const WaldiezAgentTermination = (props: WaldiezAgentTerminationProps) => 
         onAddTerminationKeyword,
         onDeleteTerminationKeyword,
         onTerminationKeywordChange,
-    } = useWaldiezAgentTermination({ data, onDataChange });
+    } = useWaldiezAgentTermination(props);
     return (
         <div className="agent-panel agent-termination-panel margin-bottom-10 margin-top--10">
             <InfoLabel

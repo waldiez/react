@@ -166,7 +166,7 @@ const defaultWaldiezProps: Partial<WaldiezProps> = {
     storageId: flowId,
 };
 
-const getProps = () => {
+export const getProps = () => {
     return new Promise<Partial<WaldiezProps>>(resolve => {
         let waldiezProps = { ...defaultWaldiezProps };
         const haveFlowInQuery = window.location.search.includes("flow");

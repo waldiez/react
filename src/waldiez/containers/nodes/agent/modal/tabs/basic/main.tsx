@@ -4,8 +4,9 @@ import { WaldiezAgentBasicProps } from "@waldiez/containers/nodes/agent/modal/ta
 import { WaldiezAgentHumanInputMode } from "@waldiez/types";
 
 export const WaldiezAgentBasic = (props: WaldiezAgentBasicProps) => {
-    const { id, data } = props;
+    const { id } = props;
     const {
+        data,
         onRagChange,
         onNameChange,
         onDescriptionChange,
@@ -37,7 +38,7 @@ export const WaldiezAgentBasic = (props: WaldiezAgentBasicProps) => {
             <textarea
                 title="Agent description"
                 rows={2}
-                defaultValue={data.description}
+                value={data.description}
                 onChange={onDescriptionChange}
                 data-testid={`agent-description-input-${id}`}
             />
@@ -45,7 +46,7 @@ export const WaldiezAgentBasic = (props: WaldiezAgentBasicProps) => {
             <textarea
                 title="System message"
                 rows={2}
-                defaultValue={data.systemMessage ?? ""}
+                value={data.systemMessage ?? ""}
                 onChange={onSystemMessageChange}
                 data-testid={`agent-system-message-input-${id}`}
             />

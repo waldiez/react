@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { SingleValue } from "@waldiez/components";
 import { WaldiezNodeAgentData } from "@waldiez/models";
 import { useWaldiezTheme } from "@waldiez/theme";
@@ -8,6 +10,7 @@ export const useWaldiezAgentTermination = (props: {
 }) => {
     const { data, onDataChange } = props;
     const { isDark } = useWaldiezTheme();
+    const [localData, setLocalData] = useState<WaldiezNodeAgentData>(data);
     const onTerminationTypeChange = (
         option: SingleValue<{
             label: string;
@@ -15,6 +18,13 @@ export const useWaldiezAgentTermination = (props: {
         }>,
     ) => {
         if (option) {
+            setLocalData({
+                ...localData,
+                termination: {
+                    ...localData.termination,
+                    type: option.value,
+                },
+            });
             onDataChange({
                 termination: {
                     ...data.termination,
@@ -25,6 +35,13 @@ export const useWaldiezAgentTermination = (props: {
     };
     const onTerminationMethodChange = (content?: string) => {
         if (content) {
+            setLocalData({
+                ...localData,
+                termination: {
+                    ...localData.termination,
+                    methodContent: content,
+                },
+            });
             onDataChange({
                 termination: {
                     ...data.termination,
@@ -40,6 +57,13 @@ export const useWaldiezAgentTermination = (props: {
         }>,
     ) => {
         if (option) {
+            setLocalData({
+                ...localData,
+                termination: {
+                    ...localData.termination,
+                    criterion: option.value,
+                },
+            });
             onDataChange({
                 termination: {
                     ...data.termination,
@@ -49,6 +73,13 @@ export const useWaldiezAgentTermination = (props: {
         }
     };
     const onAddTerminationKeyword = (keyword: string) => {
+        setLocalData({
+            ...localData,
+            termination: {
+                ...localData.termination,
+                keywords: [...localData.termination.keywords, keyword],
+            },
+        });
         onDataChange({
             termination: {
                 ...data.termination,
@@ -57,6 +88,13 @@ export const useWaldiezAgentTermination = (props: {
         });
     };
     const onDeleteTerminationKeyword = (keyword: string) => {
+        setLocalData({
+            ...localData,
+            termination: {
+                ...localData.termination,
+                keywords: localData.termination.keywords.filter(k => k !== keyword),
+            },
+        });
         onDataChange({
             termination: {
                 ...data.termination,
@@ -65,6 +103,15 @@ export const useWaldiezAgentTermination = (props: {
         });
     };
     const onTerminationKeywordChange = (oldKeyword: string, newKeyword: string) => {
+        setLocalData({
+            ...localData,
+            termination: {
+                ...localData.termination,
+                keywords: localData.termination.keywords.map(keyword =>
+                    keyword === oldKeyword ? newKeyword : keyword,
+                ),
+            },
+        });
         onDataChange({
             termination: {
                 ...data.termination,
@@ -79,6 +126,7 @@ export const useWaldiezAgentTermination = (props: {
             ? data.termination.methodContent
             : DEFAULT_IS_TERMINATION_MESSAGE_METHOD_CONTENT;
     return {
+        data: localData,
         terminationCriterionOptions,
         terminationTypeOptions,
         defaultTerminationMethodContent,

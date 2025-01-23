@@ -110,11 +110,17 @@ export class WaldiezSkillStore implements IWaldiezSkillStore {
         skill: { [key: string]: unknown },
         skillId: string,
         position: { x: number; y: number } | undefined,
+        save: boolean,
     ) => {
         const newSkill = skillMapper.importSkill(skill);
         const skillNode = skillMapper.asNode(newSkill, position);
         skillNode.id = skillId;
-        this.set({ nodes: this.get().nodes.map(node => (node.id === skillId ? skillNode : node)) });
+        if (position) {
+            skillNode.position = position;
+        }
+        if (save) {
+            this.set({ nodes: this.get().nodes.map(node => (node.id === skillId ? skillNode : node)) });
+        }
         return skillNode;
     };
     exportSkill = (skillId: string, hideSecrets: boolean) => {

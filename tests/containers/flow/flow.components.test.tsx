@@ -92,12 +92,17 @@ describe("WaldiezFlow Nodes and Edges", () => {
         act(() => {
             renderFlow();
         });
-        const sourceHandle = screen.getByTestId("agent-handle-left-source-agent-0");
-        const targetHandle = screen.getByTestId("agent-handle-right-target-agent-3");
-        expect(sourceHandle).toBeTruthy();
-        expect(targetHandle).toBeTruthy();
-        fireEvent.click(sourceHandle);
-        fireEvent.click(targetHandle);
-        vi.advanceTimersByTime(500);
+        // ["source", "target"].forEach(type => {
+        ["left", "right", "top", "bottom"].forEach(sourcePosition => {
+            const sourceHandle = screen.getByTestId(`agent-handle-${sourcePosition}-source-agent-0`);
+            expect(sourceHandle).toBeTruthy();
+            ["left", "right", "top", "bottom"].forEach(targetPosition => {
+                const targetHandle = screen.getByTestId(`agent-handle-${targetPosition}-target-agent-3`);
+                expect(targetHandle).toBeTruthy();
+                fireEvent.click(sourceHandle);
+                fireEvent.click(targetHandle);
+                vi.advanceTimersByTime(500);
+            });
+        });
     });
 });

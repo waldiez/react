@@ -42,7 +42,6 @@ export const useWaldiezNodeAgentModal = (
         }
     };
     useEffect(() => {
-        setAgentData({ ...data });
         setIsDirty(false);
         setFilesToUpload([]);
     }, [isOpen]);
@@ -185,10 +184,8 @@ export const useWaldiezNodeAgentModal = (
         return dataToSubmit;
     };
     const onImportLoad = (agent: Node, jsonData: { [key: string]: unknown }) => {
-        const newAgent = importAgent(jsonData, id, true, agent?.position);
-        const dirty = !isEqual(newAgent.data, data);
+        const newAgent = importAgent(jsonData, id, true, agent?.position, false);
         onDataChange({ ...newAgent.data });
-        setIsDirty(dirty);
     };
     const onImport = (event: React.ChangeEvent<HTMLInputElement>) => {
         importItem(event, getAgentById.bind(null, id), onImportLoad);

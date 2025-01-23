@@ -11,6 +11,7 @@ export interface IWaldiezModelStore {
         model: { [key: string]: unknown },
         modelId: string,
         position: { x: number; y: number } | undefined,
+        save: boolean,
     ) => WaldiezNodeModel;
     exportModel: (modelId: string, hideSecrets: boolean) => { [key: string]: unknown };
 }

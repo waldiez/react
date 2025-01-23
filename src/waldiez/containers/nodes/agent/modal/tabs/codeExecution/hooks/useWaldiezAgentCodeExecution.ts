@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { MultiValue } from "@waldiez/components";
 import { WaldiezNodeAgentData, WaldiezNodeSkill } from "@waldiez/models";
 
@@ -7,7 +9,16 @@ export const useWaldiezAgentCodeExecution = (props: {
     skills: WaldiezNodeSkill[];
 }) => {
     const { data, onDataChange, skills } = props;
+    const [localData, setLocalData] = useState<WaldiezNodeAgentData>(data);
     const onUseCodeExecutionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLocalData({
+            ...localData,
+            codeExecutionConfig: event.target.checked
+                ? {
+                      ...data.codeExecutionConfig,
+                  }
+                : false,
+        });
         onDataChange({
             codeExecutionConfig: event.target.checked
                 ? {
@@ -17,6 +28,13 @@ export const useWaldiezAgentCodeExecution = (props: {
         });
     };
     const onCodeExecutionWorkDirChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLocalData({
+            ...localData,
+            codeExecutionConfig: {
+                ...data.codeExecutionConfig,
+                workDir: event.target.value,
+            },
+        });
         onDataChange({
             codeExecutionConfig: {
                 ...data.codeExecutionConfig,
@@ -25,6 +43,13 @@ export const useWaldiezAgentCodeExecution = (props: {
         });
     };
     const onCodeExecutionLastNMessagesChange = (value: number | "auto" | null) => {
+        setLocalData({
+            ...localData,
+            codeExecutionConfig: {
+                ...data.codeExecutionConfig,
+                lastNMessages: value ?? 0,
+            },
+        });
         onDataChange({
             codeExecutionConfig: {
                 ...data.codeExecutionConfig,
@@ -33,6 +58,13 @@ export const useWaldiezAgentCodeExecution = (props: {
         });
     };
     const onCodeExecutionTimeoutChange = (value: number | null) => {
+        setLocalData({
+            ...localData,
+            codeExecutionConfig: {
+                ...data.codeExecutionConfig,
+                timeout: value ?? 0,
+            },
+        });
         onDataChange({
             codeExecutionConfig: {
                 ...data.codeExecutionConfig,
@@ -41,6 +73,13 @@ export const useWaldiezAgentCodeExecution = (props: {
         });
     };
     const onCodeExecutionUseDockerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLocalData({
+            ...localData,
+            codeExecutionConfig: {
+                ...data.codeExecutionConfig,
+                useDocker: event.target.checked,
+            },
+        });
         onDataChange({
             codeExecutionConfig: {
                 ...data.codeExecutionConfig,
@@ -58,6 +97,13 @@ export const useWaldiezAgentCodeExecution = (props: {
             const isArray = Array.isArray(newValue);
             const selectedFunctions = isArray ? newValue : [newValue];
             const selectedFunctionIds = selectedFunctions.map(f => f.value as string);
+            setLocalData({
+                ...localData,
+                codeExecutionConfig: {
+                    ...data.codeExecutionConfig,
+                    functions: selectedFunctionIds,
+                },
+            });
             onDataChange({
                 codeExecutionConfig: {
                     ...data.codeExecutionConfig,
@@ -82,6 +128,7 @@ export const useWaldiezAgentCodeExecution = (props: {
                   value: func,
               })) ?? ([] as { label: string; value: string }[]));
     return {
+        data: localData,
         codeExecutionValue,
         codeExecutionFunctionOptions,
         getSkillName,

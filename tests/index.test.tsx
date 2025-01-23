@@ -1,5 +1,8 @@
-import { startApp } from "../src";
+import { getProps, startApp } from "../src";
 import { afterEach, vi } from "vitest";
+
+const flowLinksBaseUrl = "https://raw.githubusercontent.com/waldiez/examples/refs/heads/main";
+const flowLink = `${flowLinksBaseUrl}/01 - Standup Comedians/Standup Comedians 1.waldiez`;
 
 describe("index", () => {
     beforeEach(() => {
@@ -21,5 +24,19 @@ describe("index", () => {
         rootDiv.id = "root";
         document.body.appendChild(rootDiv);
         startApp();
+    });
+    it("should import a flow if it is provided in the URL", async () => {
+        const rootDiv = document.createElement("div");
+        rootDiv.id = "root";
+        document.body.appendChild(rootDiv);
+        Object.defineProperty(window, "location", {
+            value: {
+                search: `?flow=${flowLink}`,
+            },
+            writable: true,
+        });
+        const props = await getProps();
+        expect(props).toBeTruthy();
+        startApp(props);
     });
 });

@@ -6,8 +6,9 @@ import { WaldiezAgentCodeExecutionProps } from "@waldiez/containers/nodes/agent/
 const showDockerOption = false;
 
 export const WaldiezAgentCodeExecution = (props: WaldiezAgentCodeExecutionProps) => {
-    const { id, data, skills } = props;
+    const { id, skills } = props;
     const {
+        data,
         codeExecutionValue,
         codeExecutionFunctionOptions,
         onUseCodeExecutionChange,

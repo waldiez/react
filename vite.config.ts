@@ -120,7 +120,6 @@ export default defineConfig(({ command }) => ({
         // pool: 'vmThreads',
         // isolate: false,
         bail: 1,
-        // run tests in jsdom environment
         environment: "jsdom",
         coverage: {
             provider: "v8",
@@ -146,7 +145,8 @@ export default defineConfig(({ command }) => ({
                 "An update to FlowRenderer inside a test was not wrapped",
             );
             // SyntaxError: Unexpected token 'o', "not a json" is not valid JSON
-            const isNotValidJSON = log.includes("SyntaxError: Unexpected token");
+            // SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+            const isNotValidJSON = log.includes("SyntaxError: Expected property name or '}' in JSON");
             const isReceivedNaN = isReceivedNaNRexExp.test(log);
             const isErrorBoundary = log.includes("Cannot read properties of undefined (reading 'x')");
             if (

@@ -11,6 +11,7 @@ export interface IWaldiezSkillStore {
         skill: { [key: string]: unknown },
         skillId: string,
         position: { x: number; y: number } | undefined,
+        save: boolean,
     ) => WaldiezNodeSkill;
     exportSkill: (skillId: string, hideSecrets: boolean) => { [key: string]: unknown };
 }

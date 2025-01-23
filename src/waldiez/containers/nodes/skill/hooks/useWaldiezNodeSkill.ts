@@ -51,7 +51,7 @@ export const useWaldiezNodeSkill = (id: string, data: WaldiezNodeSkillData) => {
         exportItem(data.label, "skill", exportSkill.bind(null, id, true));
     };
     const onImportLoad = (skill: Node, jsonData: { [key: string]: unknown }) => {
-        const newSkill = importSkill(jsonData, id, skill?.position);
+        const newSkill = importSkill(jsonData, id, skill?.position, false);
         setSkillData({ ...newSkill.data });
         setIsDirty(!isEqual(data, newSkill.data));
     };

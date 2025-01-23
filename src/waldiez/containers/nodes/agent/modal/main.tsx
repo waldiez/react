@@ -30,7 +30,7 @@ export const WaldiezNodeAgentModal = (props: WaldiezNodeAgentModalProps) => {
     const importExportView = getImportExportView(flowId, id, "agent", onImport, onExport);
     return (
         <Modal
-            title={data.label}
+            title={agentData.label}
             isOpen={isOpen}
             onClose={onCancel}
             beforeTitle={importExportView}
