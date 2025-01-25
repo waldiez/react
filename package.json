@@ -202,7 +202,7 @@
             "^@waldiez/"
         ]
     },
-    "packageManager": "bun@1.1.45",
+    "packageManager": "bun@1.2.0",
     "publishConfig": {
         "access": "public"
     },
