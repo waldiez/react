@@ -94,7 +94,7 @@ export const renderFlow = (edgePositions: number[] = [0, 1, 2, 3]) => {
                     >
                         <div id={`rf-root-${flowId}`}>
                             <div className="flow-main">
-                                <SideBar onSelectNodeType={vi.fn()} />
+                                <SideBar onSelectNodeType={vi.fn()} selectedNodeType="agent" />
                                 <div className="react-flow-wrapper">
                                     <ReactFlow
                                         id={flowId}
