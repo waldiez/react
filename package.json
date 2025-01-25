@@ -55,7 +55,7 @@
         "lint": "bun typecheck && bun prettier:check && bun stylelint:check && bun eslint:check",
         "forlint": "bun format && bun lint",
         "eslint": "bun eslint:check --fix",
-        "eslint:check": "eslint --config ./eslint.config.mjs --report-unused-disable-directives --max-warnings 0 --cache --cache-location ./.eslintcache",
+        "eslint:check": "eslint --config ./eslint.config.mjs --report-unused-disable-directives --max-warnings 0 --no-warn-ignored --cache --cache-location ./.eslintcache",
         "prettier": "prettier \"**/*{.ts,.tsx,..css,.json,.md}\" --write --list-different",
         "prettier:check": "prettier \"src/**/*{.ts,.tsx,.css,.json,.md}\" --check",
         "stylelint": "bun stylelint:check --fix --ignore-path .gitignore",
