@@ -208,6 +208,17 @@ exports[`All > should render Waldiez components 1`] = `
                 />
                 Swarm Agent
               </div>
+              <div
+                class="dnd-area"
+                data-testid="reasoning-dnd"
+                draggable="true"
+              >
+                <img
+                  src="/src/waldiez/assets/reasoning.webp"
+                  title="Reasoning Agent"
+                />
+                Reasoning Agent
+              </div>
             </div>
             <div
               class="spacer"
@@ -743,6 +754,17 @@ exports[`All > should render Waldiez components 1`] = `
                 title="Swarm Agent"
               />
               Swarm Agent
+            </div>
+            <div
+              class="dnd-area"
+              data-testid="reasoning-dnd"
+              draggable="true"
+            >
+              <img
+                src="/src/waldiez/assets/reasoning.webp"
+                title="Reasoning Agent"
+              />
+              Reasoning Agent
             </div>
           </div>
           <div
