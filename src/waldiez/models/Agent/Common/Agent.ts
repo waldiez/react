@@ -2,7 +2,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import { WaldiezAgentData, WaldiezAgentType, WaldiezNodeAgentType } from "@waldiez/models/Agent/Common";
+import { WaldiezAgentData } from "@waldiez/models/Agent/Common/AgentData";
+import { WaldiezAgentType, WaldiezNodeAgentType } from "@waldiez/models/Agent/Common/types";
 import { capitalize, getId } from "@waldiez/utils";
 
 /**
@@ -77,15 +78,25 @@ export class WaldiezAgent {
     }
 }
 
+// eslint-disable-next-line max-statements
 const updateAgentDataProps = (agent: WaldiezAgent, agentType: WaldiezAgentType | "swarm_container") => {
     if (["user", "rag_user"].includes(agentType)) {
         agent.data.humanInputMode = "ALWAYS";
+        if (agentType === "rag_user") {
+            addRagUserProps(agent.data);
+        }
+    }
+    if (agentType === "manager") {
+        addGroupManagerProps(agent.data);
     }
     if (agentType === "swarm_container") {
         addSwarmContainerProps(agent.data);
     }
     if (agentType === "swarm") {
         addSwarmProps(agent.data);
+    }
+    if (agentType === "reasoning") {
+        addReasoningProps(agent.data);
     }
 };
 
@@ -101,4 +112,71 @@ const addSwarmProps = (agentData: WaldiezAgentData) => {
     (agentData as any).updateAgentStateBeforeReply = [];
     (agentData as any).handoffs = [];
     (agentData as any).isInitial = false;
+};
+
+const addRagUserProps = (agentData: WaldiezAgentData) => {
+    (agentData as any).retrieveConfig = {
+        task: "default" as "code" | "qa" | "default",
+        vectorDb: "chroma" as "chroma" | "pgvector" | "mongodb" | "qdrant",
+        dbConfig: {
+            model: "all-MiniLM-L6-v2",
+            useMemory: false,
+            useLocalStorage: false,
+            localStoragePath: null,
+            connectionUrl: null,
+        },
+        docsPath: [],
+        newDocs: true,
+        model: null,
+        chunkTokenSize: null,
+        contextMaxTokens: null,
+        chunkMode: "multi_lines" as "multi_lines" | "one_line",
+        mustBreakAtEmptyLine: true,
+        useCustomEmbedding: false,
+        embeddingFunction: null,
+        customizedPrompt: null,
+        customizedAnswerPrefix: null,
+        updateContext: true,
+        collectionName: "autogen-docs",
+        getOrCreate: true,
+        overwrite: false,
+        useCustomTokenCount: false,
+        customTokenCountFunction: null,
+        useCustomTextSplit: false,
+        customTextSplitFunction: null,
+        customTextTypes: [],
+        recursive: true,
+        distanceThreshold: -1,
+        n_results: null,
+    };
+};
+
+const addReasoningProps = (agentData: WaldiezAgentData) => {
+    (agentData as any).verbose = true;
+    (agentData as any).reasonConfig = {
+        method: "beam_search" as "beam_search" | "mcts" | "lats" | "dfs",
+        max_depth: 3,
+        forest_size: 1,
+        rating_scale: 10,
+        beam_size: 3,
+        answer_approach: "pool" as "pool" | "best",
+        nsim: 3,
+        exploration_constant: 1.41,
+    };
+};
+
+const addGroupManagerProps = (agentData: WaldiezAgentData) => {
+    (agentData as any).maxRound = null;
+    (agentData as any).adminName = null;
+    (agentData as any).speakers = {
+        selectionMethod: "auto",
+        selectionCustomMethod: "",
+        maxRetriesForSelecting: null,
+        selectionMode: "repeat",
+        allowRepeat: true,
+        allowedOrDisallowedTransitions: {},
+        transitionsType: "allowed",
+    };
+    (agentData as any).enableClearHistory = false;
+    (agentData as any).sendIntroductions = false;
 };

@@ -5,6 +5,7 @@
 import {
     assistantDataTransfer,
     managerDataTransfer,
+    reasoningDataTransfer,
     renderFlow,
     swarmDataTransfer,
     userDataTransfer,
@@ -104,6 +105,24 @@ describe("Flow DnD", () => {
         });
         fireEvent.drop(targetElement, {
             dataTransfer: swarmDataTransfer,
+        });
+        fireEvent.mouseUp(targetElement);
+    });
+    it("should add a reasoning agent node on drag and drop", async () => {
+        act(() => {
+            renderFlow();
+        });
+        const sourceElement = screen.getByTestId("reasoning-dnd");
+        const targetElement = screen.getByTestId(`drop-area-${flowId}`);
+        fireEvent.mouseDown(sourceElement);
+        fireEvent.dragStart(sourceElement, {
+            dataTransfer: reasoningDataTransfer,
+        });
+        fireEvent.dragOver(targetElement, {
+            dataTransfer: reasoningDataTransfer,
+        });
+        fireEvent.drop(targetElement, {
+            dataTransfer: reasoningDataTransfer,
         });
         fireEvent.mouseUp(targetElement);
     });

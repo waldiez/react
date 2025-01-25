@@ -135,3 +135,15 @@
 .flow-wrapper .flow-main .sidebar .dnd-area.rag-user {
     border-color: var(--rag-user-color);
 }
+
+.flow-wrapper .flow-main .sidebar .dnd-area.swarm {
+    border-color: var(--swarm-agent-color);
+}
+
+.flow-wrapper .flow-main .sidebar .dnd-area.reasoning {
+    border-color: var(--reasoning-agent-color);
+}
+
+.flow-wrapper .flow-main .sidebar .dnd-area.captain {
+    border-color: var(--captain-agent-color);
+}

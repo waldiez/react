@@ -59,6 +59,16 @@ export const swarmDataTransfer = {
     },
 };
 
+export const reasoningDataTransfer = {
+    setData: vi.fn(),
+    getData: (key: string) => {
+        if (key === "application/node") {
+            return "agent";
+        }
+        return "reasoning";
+    },
+};
+
 export const renderFlow = (
     options: {
         withLinkedModels?: boolean;

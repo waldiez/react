@@ -75,6 +75,14 @@
     box-shadow: 0 0 4px var(--swarm-agent-color);
 }
 
+.flow-wrapper .agent-edge-box.reasoning .agent-edge-view:hover {
+    box-shadow: 0 0 4px var(--reasoning-agent-color);
+}
+
+.flow-wrapper .agent-edge-box.captain .agent-edge-view:hover {
+    box-shadow: 0 0 4px var(--captain-agent-color);
+}
+
 .flow-wrapper .clear-history-checkbox {
     margin-top: 10px;
 }

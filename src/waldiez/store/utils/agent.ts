@@ -8,6 +8,7 @@ import {
     WaldiezAgent,
     WaldiezAgentGroupManagerData,
     WaldiezAgentRagUserData,
+    WaldiezAgentReasoningData,
     WaldiezAgentSwarmContainerData,
     WaldiezAgentSwarmData,
     WaldiezEdge,
@@ -34,6 +35,9 @@ export const getAgentNode = (
             agentNode.data = { ...agentNode.data, ...agentExtras };
         } else if (agentType === "swarm_container") {
             const agentExtras = new WaldiezAgentSwarmContainerData();
+            agentNode.data = { ...agentNode.data, ...agentExtras };
+        } else if (agentType === "reasoning") {
+            const agentExtras = new WaldiezAgentReasoningData();
             agentNode.data = { ...agentNode.data, ...agentExtras };
         }
     } else {

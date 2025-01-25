@@ -270,6 +270,14 @@
     border-color: var(--swarm-agent-color);
 }
 
+.flow-wrapper .agent-node.reasoning {
+    border-color: var(--reasoning-agent-color);
+}
+
+.flow-wrapper .agent-node.captain {
+    border-color: var(--captain-agent-color);
+}
+
 .flow-wrapper .group-member-entry {
     display: flex;
     align-items: center;

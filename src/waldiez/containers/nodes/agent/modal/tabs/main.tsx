@@ -12,6 +12,7 @@ import { WaldiezAgentGroupManager } from "@waldiez/containers/nodes/agent/modal/
 import { WaldiezAgentModels } from "@waldiez/containers/nodes/agent/modal/tabs/models";
 import { WaldiezAgentNestedChats } from "@waldiez/containers/nodes/agent/modal/tabs/nestedChats";
 import { WaldiezAgentRagUser } from "@waldiez/containers/nodes/agent/modal/tabs/ragUser";
+import { WaldiezAgentReasoning } from "@waldiez/containers/nodes/agent/modal/tabs/reasoning";
 import { WaldiezAgentSkills } from "@waldiez/containers/nodes/agent/modal/tabs/skills";
 import {
     WaldiezAgentSwarmAfterWork,
@@ -27,6 +28,7 @@ import {
     WaldiezNodeAgent,
     WaldiezNodeAgentData,
     WaldiezNodeAgentRagUserData,
+    WaldiezNodeAgentReasoningData,
     WaldiezNodeAgentSwarmData,
     WaldiezNodeModel,
     WaldiezNodeSkill,
@@ -47,6 +49,7 @@ export const WaldiezNodeAgentModalTabs = ({
     const isManager = dataProp.agentType === "manager";
     const isRagUser = dataProp.agentType === "rag_user";
     const isSwarm = dataProp.agentType === "swarm";
+    const isReasoning = dataProp.agentType === "reasoning";
     const getAgentConnections = useWaldiez(s => s.getAgentConnections);
     const getAgents = useWaldiez(s => s.getAgents);
     const getModels = useWaldiez(s => s.getModels);
@@ -94,6 +97,17 @@ export const WaldiezNodeAgentModalTabs = ({
                             onDataChange={onDataChange}
                             agents={agents}
                             agentConnections={agentConnections}
+                        />
+                    </div>
+                </TabItem>
+            )}
+            {isReasoning && (
+                <TabItem label="Reasoning" id={`wf-${flowId}-agent-reasoning-${id}`}>
+                    <div className="modal-tab-body">
+                        <WaldiezAgentReasoning
+                            id={id}
+                            data={data as WaldiezNodeAgentReasoningData}
+                            onDataChange={onDataChange}
                         />
                     </div>
                 </TabItem>

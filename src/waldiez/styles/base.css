@@ -4,6 +4,8 @@
     --group-manager-color: #ed8a34;
     --rag-user-color: #e34561;
     --swarm-agent-color: #f0c808;
+    --reasoning-agent-color: #63d0d4;
+    --captain-agent-color: #112044;
     --app-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
     --app-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
 }

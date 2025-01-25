@@ -56,6 +56,18 @@
     background-color: var(--rag-user-color);
 }
 
+.flow-wrapper .agent-node.swarm .react-flow__handle {
+    background-color: var(--swarm-agent-color);
+}
+
+.flow-wrapper .agent-node.reasoning .react-flow__handle {
+    background-color: var(--reasoning-agent-color);
+}
+
+.flow-wrapper .agent-node.captain .react-flow__handle {
+    background-color: var(--captain-agent-color);
+}
+
 .react-flow__resize-control.line {
     display: none;
 }

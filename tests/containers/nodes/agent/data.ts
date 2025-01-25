@@ -40,6 +40,9 @@ export const getAgentData = (agentType: WaldiezNodeAgentType) => {
     if (agentType === "swarm") {
         return WaldiezAgentSwarm.create("swarm").data;
     }
+    if (agentType === "reasoning") {
+        return WaldiezAgentUserProxy.create("reasoning").data;
+    }
 };
 
 export const getAgentNode = (
@@ -87,6 +90,15 @@ export const getAgentNode = (
             );
             break;
         case "swarm":
+            node = agentMapper.asNode(
+                agentMapper.importAgent({
+                    ...agentData,
+                    agentType: agentType as any,
+                    ...dataOverrides,
+                }),
+            );
+            break;
+        case "reasoning":
             node = agentMapper.asNode(
                 agentMapper.importAgent({
                     ...agentData,
