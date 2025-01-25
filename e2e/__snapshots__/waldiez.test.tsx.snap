@@ -170,7 +170,7 @@ exports[`All > should render Waldiez components 1`] = `
                 draggable="true"
               >
                 <img
-                  src="/src/waldiez/assets/user.svg"
+                  src="/src/waldiez/assets/user.webp"
                   title="User Proxy Agent"
                 />
                 User Proxy
@@ -181,7 +181,7 @@ exports[`All > should render Waldiez components 1`] = `
                 draggable="true"
               >
                 <img
-                  src="/src/waldiez/assets/assistant.svg"
+                  src="/src/waldiez/assets/assistant.webp"
                   title="Assistant Agent"
                 />
                 Assistant
@@ -192,7 +192,7 @@ exports[`All > should render Waldiez components 1`] = `
                 draggable="true"
               >
                 <img
-                  src="/src/waldiez/assets/manager.svg"
+                  src="/src/waldiez/assets/manager.webp"
                   title="Group Manager Agent"
                 />
                 Group Manager
@@ -203,7 +203,7 @@ exports[`All > should render Waldiez components 1`] = `
                 draggable="true"
               >
                 <img
-                  src="/src/waldiez/assets/swarm.svg"
+                  src="/src/waldiez/assets/swarm.webp"
                   title="Swarm Agent"
                 />
                 Swarm Agent
@@ -706,7 +706,7 @@ exports[`All > should render Waldiez components 1`] = `
               draggable="true"
             >
               <img
-                src="/src/waldiez/assets/user.svg"
+                src="/src/waldiez/assets/user.webp"
                 title="User Proxy Agent"
               />
               User Proxy
@@ -717,7 +717,7 @@ exports[`All > should render Waldiez components 1`] = `
               draggable="true"
             >
               <img
-                src="/src/waldiez/assets/assistant.svg"
+                src="/src/waldiez/assets/assistant.webp"
                 title="Assistant Agent"
               />
               Assistant
@@ -728,7 +728,7 @@ exports[`All > should render Waldiez components 1`] = `
               draggable="true"
             >
               <img
-                src="/src/waldiez/assets/manager.svg"
+                src="/src/waldiez/assets/manager.webp"
                 title="Group Manager Agent"
               />
               Group Manager
@@ -739,7 +739,7 @@ exports[`All > should render Waldiez components 1`] = `
               draggable="true"
             >
               <img
-                src="/src/waldiez/assets/swarm.svg"
+                src="/src/waldiez/assets/swarm.webp"
                 title="Swarm Agent"
               />
               Swarm Agent

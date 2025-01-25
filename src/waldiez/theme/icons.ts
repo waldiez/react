@@ -1,4 +1,4 @@
-import assistantSvg from "@waldiez/assets/assistant.svg";
+import assistantWebp from "@waldiez/assets/assistant.webp";
 import azure from "@waldiez/assets/logos/azure.svg";
 import anthropic from "@waldiez/assets/logos/claude.svg";
 import google from "@waldiez/assets/logos/gemini.svg";
@@ -7,9 +7,9 @@ import mistral from "@waldiez/assets/logos/mistral.svg";
 import nim from "@waldiez/assets/logos/nim.svg";
 import openai from "@waldiez/assets/logos/openai.svg";
 import together from "@waldiez/assets/logos/together.svg";
-import managerSvg from "@waldiez/assets/manager.svg";
-import swarmAgentSvg from "@waldiez/assets/swarm.svg";
-import userSvg from "@waldiez/assets/user.svg";
+import managerWebp from "@waldiez/assets/manager.webp";
+import swarmAgentWebp from "@waldiez/assets/swarm.webp";
+import userWebp from "@waldiez/assets/user.webp";
 
 export const LOGOS = {
     openai,
@@ -24,8 +24,8 @@ export const LOGOS = {
     other: openai,
 };
 export const AGENT_ICONS = {
-    user: userSvg,
-    assistant: assistantSvg,
-    manager: managerSvg,
-    swarm: swarmAgentSvg,
+    user: userWebp,
+    assistant: assistantWebp,
+    manager: managerWebp,
+    swarm: swarmAgentWebp,
 };
