@@ -8,17 +8,18 @@ import { Mock, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { SideBar, SidebarProvider } from "@waldiez/containers/sidebar";
 import { WaldiezProvider } from "@waldiez/store";
 import { WaldiezThemeProvider } from "@waldiez/theme";
+import { WaldiezNodeType } from "@waldiez/types";
 
 describe("SideBar", () => {
     let onSelectNodeType: Mock<any>;
 
-    const renderSidebar = () => {
+    const renderSidebar = (selectedNodeType: WaldiezNodeType = "agent") => {
         onSelectNodeType = vi.fn();
         return render(
             <WaldiezThemeProvider>
                 <SidebarProvider collapsed={false}>
                     <WaldiezProvider flowId="wf-1" nodes={[]} edges={[]}>
-                        <SideBar onSelectNodeType={onSelectNodeType} />
+                        <SideBar onSelectNodeType={onSelectNodeType} selectedNodeType={selectedNodeType} />
                     </WaldiezProvider>
                 </SidebarProvider>
             </WaldiezThemeProvider>,
@@ -50,7 +51,7 @@ describe("SideBar", () => {
         expect(screen.getByTestId("edit-flow-modal-wf-1")).toBeInTheDocument();
     });
     it("should call onNodeTypeSelected with agent", () => {
-        renderSidebar();
+        renderSidebar("model");
         fireEvent.click(screen.getByTestId("show-agents"));
         expect(onSelectNodeType).toBeCalledTimes(1);
     });
@@ -68,6 +69,7 @@ describe("SideBar", () => {
     });
     it("should drag start", () => {
         renderSidebar();
+        fireEvent.click(screen.getByTestId("show-agents"));
         fireEvent.dragStart(screen.getByTestId("user-dnd"), {
             dataTransfer: { setData: vi.fn() },
         });

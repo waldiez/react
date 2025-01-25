@@ -6,6 +6,7 @@ import { AiFillOpenAI } from "react-icons/ai";
 import { AiFillCode } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { FaBars, FaRobot } from "react-icons/fa6";
+import { GoChevronDown, GoChevronUp } from "react-icons/go";
 
 import { useSidebar, useSidebarView } from "@waldiez/containers/sidebar/hooks";
 import { EditFlowModal } from "@waldiez/containers/sidebar/modals";
@@ -16,6 +17,7 @@ export const SideBar = (props: SidebarViewProps) => {
     const {
         flowId,
         isEditModalOpen,
+        isAgentsViewCollapsed,
         onOpenEditModal,
         onCloseEditModal,
         onShowAgents,
@@ -69,15 +71,6 @@ export const SideBar = (props: SidebarViewProps) => {
                     </li>
                     <li
                         className="clickable"
-                        data-node-type="agent"
-                        data-testid="show-agents"
-                        onClick={onShowAgents}
-                    >
-                        <FaRobot />
-                        {!isCollapsed && <span>Agents</span>}
-                    </li>
-                    <li
-                        className="clickable"
                         data-node-type="model"
                         data-testid="show-models"
                         onClick={onShowModels}
@@ -94,8 +87,24 @@ export const SideBar = (props: SidebarViewProps) => {
                         <AiFillCode />
                         {!isCollapsed && <span>Skills</span>}
                     </li>
+                    <li
+                        className="clickable expandable"
+                        data-node-type="agent"
+                        data-testid="show-agents"
+                        onClick={onShowAgents}
+                    >
+                        <div className="flex">
+                            <FaRobot />
+                            {!isCollapsed && <span>Agents</span>}
+                        </div>
+                        {!isCollapsed && (
+                            <div className="expand-icon">
+                                {isAgentsViewCollapsed ? <GoChevronDown /> : <GoChevronUp />}
+                            </div>
+                        )}
+                    </li>
                 </ul>
-                {!isCollapsed && (
+                {!isCollapsed && !isAgentsViewCollapsed && (
                     <>
                         <div className="dnd-description">
                             <p>Drag n' drop an agent to the canvas to add it to the flow</p>

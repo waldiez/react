@@ -67,6 +67,11 @@
     cursor: pointer;
 }
 
+.flow-wrapper .flow-main .sidebar ul li.expandable {
+    display: flex;
+    justify-content: space-between;
+}
+
 .flow-wrapper .flow-main .sidebar ul li :first-child {
     margin-right: 10px;
 }

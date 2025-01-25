@@ -100,7 +100,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
             data-testid={`rf-root-${flowId}`}
         >
             <div className="flow-main">
-                <SideBar onSelectNodeType={onTypeShownChange} />
+                <SideBar onSelectNodeType={onTypeShownChange} selectedNodeType={selectedNodeType} />
                 <div className="react-flow-wrapper" data-testid={`rf-wrapper-${flowId}`}>
                     <ReactFlow
                         id={flowId}

@@ -90,28 +90,6 @@ exports[`All > should render Waldiez components 1`] = `
                 </li>
                 <li
                   class="clickable"
-                  data-node-type="agent"
-                  data-testid="show-agents"
-                >
-                  <svg
-                    fill="currentColor"
-                    height="1em"
-                    stroke="currentColor"
-                    stroke-width="0"
-                    viewBox="0 0 640 512"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
-                    />
-                  </svg>
-                  <span>
-                    Agents
-                  </span>
-                </li>
-                <li
-                  class="clickable"
                   data-node-type="model"
                   data-testid="show-models"
                 >
@@ -156,69 +134,50 @@ exports[`All > should render Waldiez components 1`] = `
                     Skills
                   </span>
                 </li>
+                <li
+                  class="clickable expandable"
+                  data-node-type="agent"
+                  data-testid="show-agents"
+                >
+                  <div
+                    class="flex"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 640 512"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
+                      />
+                    </svg>
+                    <span>
+                      Agents
+                    </span>
+                  </div>
+                  <div
+                    class="expand-icon"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.22 8.22a.749.749 0 0 0 0 1.06l6.25 6.25a.749.749 0 0 0 1.06 0l6.25-6.25a.749.749 0 1 0-1.06-1.06L12 13.939 6.28 8.22a.749.749 0 0 0-1.06 0Z"
+                      />
+                    </svg>
+                  </div>
+                </li>
               </ul>
-              <div
-                class="dnd-description"
-              >
-                <p>
-                  Drag n' drop an agent to the canvas to add it to the flow
-                </p>
-              </div>
-              <div
-                class="dnd-area"
-                data-testid="user-dnd"
-                draggable="true"
-              >
-                <img
-                  src="/src/waldiez/assets/user.webp"
-                  title="User Proxy Agent"
-                />
-                User Proxy
-              </div>
-              <div
-                class="dnd-area"
-                data-testid="assistant-dnd"
-                draggable="true"
-              >
-                <img
-                  src="/src/waldiez/assets/assistant.webp"
-                  title="Assistant Agent"
-                />
-                Assistant
-              </div>
-              <div
-                class="dnd-area"
-                data-testid="manager-dnd"
-                draggable="true"
-              >
-                <img
-                  src="/src/waldiez/assets/manager.webp"
-                  title="Group Manager Agent"
-                />
-                Group Manager
-              </div>
-              <div
-                class="dnd-area"
-                data-testid="swarm-dnd"
-                draggable="true"
-              >
-                <img
-                  src="/src/waldiez/assets/swarm.webp"
-                  title="Swarm Agent"
-                />
-                Swarm Agent
-              </div>
-              <div
-                class="dnd-area"
-                data-testid="reasoning-dnd"
-                draggable="true"
-              >
-                <img
-                  src="/src/waldiez/assets/reasoning.webp"
-                  title="Reasoning Agent"
-                />
-                Reasoning Agent
-              </div>
             </div>
             <div
               class="spacer"
@@ -637,28 +596,6 @@ exports[`All > should render Waldiez components 1`] = `
               </li>
               <li
                 class="clickable"
-                data-node-type="agent"
-                data-testid="show-agents"
-              >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  stroke="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 640 512"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
-                  />
-                </svg>
-                <span>
-                  Agents
-                </span>
-              </li>
-              <li
-                class="clickable"
                 data-node-type="model"
                 data-testid="show-models"
               >
@@ -703,69 +640,50 @@ exports[`All > should render Waldiez components 1`] = `
                   Skills
                 </span>
               </li>
+              <li
+                class="clickable expandable"
+                data-node-type="agent"
+                data-testid="show-agents"
+              >
+                <div
+                  class="flex"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 640 512"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
+                    />
+                  </svg>
+                  <span>
+                    Agents
+                  </span>
+                </div>
+                <div
+                  class="expand-icon"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.22 8.22a.749.749 0 0 0 0 1.06l6.25 6.25a.749.749 0 0 0 1.06 0l6.25-6.25a.749.749 0 1 0-1.06-1.06L12 13.939 6.28 8.22a.749.749 0 0 0-1.06 0Z"
+                    />
+                  </svg>
+                </div>
+              </li>
             </ul>
-            <div
-              class="dnd-description"
-            >
-              <p>
-                Drag n' drop an agent to the canvas to add it to the flow
-              </p>
-            </div>
-            <div
-              class="dnd-area"
-              data-testid="user-dnd"
-              draggable="true"
-            >
-              <img
-                src="/src/waldiez/assets/user.webp"
-                title="User Proxy Agent"
-              />
-              User Proxy
-            </div>
-            <div
-              class="dnd-area"
-              data-testid="assistant-dnd"
-              draggable="true"
-            >
-              <img
-                src="/src/waldiez/assets/assistant.webp"
-                title="Assistant Agent"
-              />
-              Assistant
-            </div>
-            <div
-              class="dnd-area"
-              data-testid="manager-dnd"
-              draggable="true"
-            >
-              <img
-                src="/src/waldiez/assets/manager.webp"
-                title="Group Manager Agent"
-              />
-              Group Manager
-            </div>
-            <div
-              class="dnd-area"
-              data-testid="swarm-dnd"
-              draggable="true"
-            >
-              <img
-                src="/src/waldiez/assets/swarm.webp"
-                title="Swarm Agent"
-              />
-              Swarm Agent
-            </div>
-            <div
-              class="dnd-area"
-              data-testid="reasoning-dnd"
-              draggable="true"
-            >
-              <img
-                src="/src/waldiez/assets/reasoning.webp"
-                title="Reasoning Agent"
-              />
-              Reasoning Agent
-            </div>
           </div>
           <div
             class="spacer"

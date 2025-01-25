@@ -19,6 +19,8 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
         const sourceElement = screen.getByTestId("user-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -37,6 +39,8 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
         const sourceElement = screen.getByTestId("assistant-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -55,6 +59,8 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
         const sourceElement = screen.getByTestId("manager-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -75,7 +81,8 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
-        vi.advanceTimersByTime(500);
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
         const sourceElement = screen.getByTestId("user-dnd");
         const targetElement = screen.getByTestId(`rf__node-agent-${edgesCount}`);
         fireEvent.mouseDown(sourceElement);
@@ -94,6 +101,8 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
         const sourceElement = screen.getByTestId("swarm-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -112,6 +121,8 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
         const sourceElement = screen.getByTestId("reasoning-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
