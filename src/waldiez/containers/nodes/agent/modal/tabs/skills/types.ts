@@ -9,5 +9,5 @@ export type WaldiezAgentSkillsProps = {
     data: WaldiezNodeAgentData;
     skills: WaldiezNodeSkill[];
     agents: WaldiezNodeAgent[];
-    onDataChange: (partialData: Partial<WaldiezNodeAgentData>, persist?: boolean) => void;
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>) => void;
 };

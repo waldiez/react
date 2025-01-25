@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 
 import { WaldiezAgentSkillsProps } from "@waldiez/containers/nodes/agent/modal/tabs/skills/types";
 import { WaldiezAgentLinkedSkill, WaldiezNodeAgent, WaldiezNodeSkill } from "@waldiez/models";
+import { useWaldiez } from "@waldiez/store";
 
 export const useWaldiezAgentSkills = (props: WaldiezAgentSkillsProps) => {
-    const { data, skills, agents, onDataChange } = props;
+    const { id, data, skills, agents, onDataChange } = props;
+    const updateAgentData = useWaldiez(state => state.updateAgentData);
     const [selectedSkill, setSelectedSkill] = useState<{
         label: string;
         value: WaldiezNodeSkill;
@@ -23,7 +25,8 @@ export const useWaldiezAgentSkills = (props: WaldiezAgentSkillsProps) => {
         const currentSkillIds = skills.map(skill => skill.id);
         const newSkills = currentSkills.filter(skill => currentSkillIds.includes(skill.id));
         if (newSkills.length !== currentSkills.length) {
-            onDataChange({ skills: newSkills }, true);
+            // onDataChange({ skills: newSkills });
+            updateAgentData(id, { skills: newSkills });
         }
     }, [data.skills]);
     const skillOptions: { label: string; value: WaldiezNodeSkill }[] = skills.map(skill => {

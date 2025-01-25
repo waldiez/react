@@ -9,7 +9,7 @@ export type WaldiezAgentCodeExecutionProps = {
     id: string;
     data: WaldiezNodeAgentData;
     skills: WaldiezNodeSkill[];
-    onDataChange: (partialData: Partial<WaldiezNodeAgentData>, persist?: boolean) => void;
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>) => void;
 };
 export type CodeExecutionAgentConfigTabViewProps = {
     id: string;

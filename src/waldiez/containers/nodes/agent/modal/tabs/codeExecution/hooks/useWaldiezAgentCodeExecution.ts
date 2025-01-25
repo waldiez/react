@@ -9,7 +9,7 @@ import { WaldiezNodeAgentData, WaldiezNodeSkill } from "@waldiez/models";
 
 export const useWaldiezAgentCodeExecution = (props: {
     data: WaldiezNodeAgentData;
-    onDataChange: (partialData: Partial<WaldiezNodeAgentData>, persist?: boolean) => void;
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>) => void;
     skills: WaldiezNodeSkill[];
 }) => {
     const { data, onDataChange, skills } = props;

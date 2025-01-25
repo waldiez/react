@@ -18,5 +18,5 @@ export type WaldiezAgentGroupManagerProps = {
             nodes: WaldiezNodeAgent[];
         };
     };
-    onDataChange: (partialData: Partial<WaldiezNodeAgentData>, persist?: boolean) => void;
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>) => void;
 };

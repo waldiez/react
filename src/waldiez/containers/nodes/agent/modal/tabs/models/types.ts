@@ -8,5 +8,5 @@ export type WaldiezAgentModelsProps = {
     id: string;
     data: WaldiezNodeAgentData;
     models: WaldiezNodeModel[];
-    onDataChange: (partialData: Partial<WaldiezNodeAgentData>, persist?: boolean) => void;
+    onDataChange: (partialData: Partial<WaldiezNodeAgentData>) => void;
 };
