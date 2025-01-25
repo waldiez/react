@@ -11,6 +11,8 @@ import {
     WaldiezAgentGroupManagerData,
     WaldiezAgentRagUser,
     WaldiezAgentRagUserData,
+    WaldiezAgentReasoning,
+    WaldiezAgentReasoningData,
     WaldiezAgentSwarm,
     WaldiezAgentSwarmData,
     WaldiezAgentUserProxy,
@@ -35,6 +37,7 @@ import {
     getModelIds,
     getNestedChats,
     getParentId,
+    getReasonConfig,
     getRetrieveConfig,
     getSendIntroductions,
     getSkills,
@@ -44,6 +47,7 @@ import {
     getSwarmUpdateAgentStateBeforeReply,
     getSystemMessage,
     getTermination,
+    getVerbose,
 } from "@waldiez/models/mappers/agent/utils";
 import { getNodePositionFromJSON, getRestFromJSON } from "@waldiez/models/mappers/common";
 
@@ -186,6 +190,9 @@ const getKeysToExclude = (agentType: WaldiezNodeAgentType) => {
     if (agentType === "swarm") {
         toExclude.push("functions", "updateAgentStateBeforeReply", "handoffs");
     }
+    if (agentType === "reasoning") {
+        toExclude.push("verbose", "reasonConfig");
+    }
     return toExclude;
 };
 
@@ -217,6 +224,13 @@ const getAgentData = (
             functions: getSwarmFunctions(jsonData),
             updateAgentStateBeforeReply: getSwarmUpdateAgentStateBeforeReply(jsonData),
             handoffs: getSwarmHandoffs(jsonData),
+        });
+    }
+    if (agentType === "reasoning") {
+        return new WaldiezAgentReasoningData({
+            ...data,
+            verbose: getVerbose(jsonData),
+            reasonConfig: getReasonConfig(jsonData),
         });
     }
     return data;
@@ -252,6 +266,7 @@ const removeLinks: (agent: WaldiezNodeAgent) => WaldiezNodeAgent = agent => {
     return agentCopy;
 };
 
+// eslint-disable-next-line max-statements
 const getAgent = (
     agentType: WaldiezNodeAgentType,
     id: string,
@@ -334,6 +349,20 @@ const getAgent = (
             rest,
         });
     }
+    if (agentType === "reasoning") {
+        return new WaldiezAgentReasoning({
+            id,
+            agentType,
+            name,
+            description,
+            tags,
+            requirements,
+            createdAt,
+            updatedAt,
+            data: data as WaldiezAgentReasoningData,
+            rest,
+        });
+    }
     return new WaldiezAgent({
         id,
         agentType,
@@ -351,13 +380,15 @@ const getAgent = (
 const updateAgentDataToExport = (agentType: WaldiezNodeAgentType, agentData: any, data: any) => {
     if (agentType === "rag_user") {
         updateRagAgent(agentData, data);
-        // agentData.retrieveConfig = getRetrieveConfig(data);
     }
     if (agentType === "manager") {
         updateGroupManager(agentData, data);
     }
     if (agentType === "swarm") {
         updateSwarmAgent(agentData, data);
+    }
+    if (agentType === "reasoning") {
+        updateReasoningAgent(agentData, data);
     }
 };
 
@@ -378,4 +409,9 @@ const updateSwarmAgent = (agentData: WaldiezAgentSwarmData, data: any) => {
     agentData.updateAgentStateBeforeReply = (data as WaldiezAgentSwarmData).updateAgentStateBeforeReply;
     agentData.handoffs = (data as WaldiezAgentSwarmData).handoffs;
     agentData.isInitial = (data as WaldiezAgentSwarmData).isInitial;
+};
+
+const updateReasoningAgent = (agentData: WaldiezAgentReasoningData, data: any) => {
+    agentData.verbose = getVerbose(data);
+    agentData.reasonConfig = getReasonConfig(data);
 };

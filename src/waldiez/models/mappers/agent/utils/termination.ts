@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import { WaldiezAgentTerminationMessageCheck } from "@waldiez/models/Agent";
+import { WaldiezAgentTerminationMessageCheck } from "@waldiez/models/Agent/Common";
 
 export const getTermination = (data: Record<string, unknown>): WaldiezAgentTerminationMessageCheck => {
     if ("termination" in data && typeof data.termination === "object" && data.termination) {

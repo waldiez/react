@@ -4,6 +4,7 @@
  */
 export * from "@waldiez/models/mappers/agent/utils/common";
 export { getTermination } from "@waldiez/models/mappers/agent/utils/termination";
+export { getVerbose, getReasonConfig } from "@waldiez/models/mappers/agent/utils/reasonConfig";
 export { getRetrieveConfig } from "@waldiez/models/mappers/agent/utils/retrieveConfig";
 export {
     getSpeakers,

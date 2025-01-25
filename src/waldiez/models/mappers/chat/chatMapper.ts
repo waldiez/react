@@ -90,6 +90,9 @@ export const chatMapper = {
             realTarget: data.realTarget,
         };
         const rest = { ...edge } as any;
+        if (rest.type === "hidden") {
+            rest.hidden = true;
+        }
         delete rest.data;
         delete rest.type;
         delete rest.source;
@@ -128,6 +131,7 @@ export const chatMapper = {
             source: chat.source,
             target: chat.target,
             data,
+            hidden: chat.rest.hidden === true || chat.rest.type === "hidden",
             ...chat.rest,
         };
     },

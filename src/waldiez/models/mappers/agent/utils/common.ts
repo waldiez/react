@@ -8,7 +8,7 @@ import {
     WaldiezAgentLinkedSkill,
     WaldiezAgentNestedChat,
     WaldiezNodeAgentType,
-} from "@waldiez/models/Agent";
+} from "@waldiez/models/Agent/Common";
 import {
     getCreatedAtFromJSON,
     getDescriptionFromJSON,
@@ -25,6 +25,7 @@ const VALID_AGENT_TYPES: WaldiezNodeAgentType[] = [
     "assistant",
     "manager",
     "rag_user",
+    "reasoning",
     "swarm",
     "swarm_container",
 ];
@@ -71,8 +72,10 @@ export const getFallbackDescription = (agentType: WaldiezNodeAgentType) => {
         fallbackDescription = "A RAG user agent";
     } else if (agentType === "swarm") {
         fallbackDescription = "A Swarm agent";
-    } else {
+    } else if (agentType === "swarm_container") {
         fallbackDescription = "A Swarm container";
+    } else if (agentType === "reasoning") {
+        fallbackDescription = "A reasoning agent";
     }
     return fallbackDescription;
 };

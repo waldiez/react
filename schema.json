@@ -109,9 +109,22 @@
                             "items": {
                                 "$ref": "#/definitions/WaldiezAgentSwarm"
                             }
+                        },
+                        "reasoning_agents": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/WaldiezAgentReasoning"
+                            }
                         }
                     },
-                    "required": ["users", "assistants", "managers", "rag_users", "swarm_agents"],
+                    "required": [
+                        "users",
+                        "assistants",
+                        "managers",
+                        "rag_users",
+                        "swarm_agents",
+                        "reasoning_agents"
+                    ],
                     "additionalProperties": false
                 },
                 "models": {
@@ -1243,6 +1256,178 @@
         "WaldiezSwarmOnConditionAvailableCheckType": {
             "type": "string",
             "enum": ["string", "callable", "none"]
+        },
+        "WaldiezAgentReasoning": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "agentType": {
+                    "$ref": "#/definitions/WaldiezNodeAgentType"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "requirements": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/WaldiezAgentReasoningData"
+                },
+                "rest": {
+                    "type": "object",
+                    "additionalProperties": {}
+                }
+            },
+            "required": [
+                "agentType",
+                "createdAt",
+                "data",
+                "description",
+                "id",
+                "name",
+                "requirements",
+                "tags",
+                "type",
+                "updatedAt"
+            ],
+            "additionalProperties": false,
+            "description": "WaldiezAgentReasoning"
+        },
+        "WaldiezAgentReasoningData": {
+            "type": "object",
+            "properties": {
+                "systemMessage": {
+                    "type": ["string", "null"]
+                },
+                "humanInputMode": {
+                    "$ref": "#/definitions/WaldiezAgentHumanInputMode"
+                },
+                "codeExecutionConfig": {
+                    "$ref": "#/definitions/WaldiezAgentCodeExecutionConfig"
+                },
+                "agentDefaultAutoReply": {
+                    "type": ["string", "null"]
+                },
+                "maxConsecutiveAutoReply": {
+                    "type": ["number", "null"]
+                },
+                "termination": {
+                    "$ref": "#/definitions/WaldiezAgentTerminationMessageCheck"
+                },
+                "modelIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "skills": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WaldiezAgentLinkedSkill"
+                    }
+                },
+                "parentId": {
+                    "type": ["string", "null"]
+                },
+                "nestedChats": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/WaldiezAgentNestedChat"
+                    }
+                },
+                "verbose": {
+                    "type": "boolean"
+                },
+                "reasonConfig": {
+                    "$ref": "#/definitions/WaldiezReasoningAgentReasonConfig"
+                }
+            },
+            "required": [
+                "agentDefaultAutoReply",
+                "codeExecutionConfig",
+                "humanInputMode",
+                "maxConsecutiveAutoReply",
+                "modelIds",
+                "nestedChats",
+                "parentId",
+                "reasonConfig",
+                "skills",
+                "systemMessage",
+                "termination",
+                "verbose"
+            ],
+            "additionalProperties": false
+        },
+        "WaldiezReasoningAgentReasonConfig": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "$ref": "#/definitions/ReasoningConfigMethod"
+                },
+                "max_depth": {
+                    "type": "number"
+                },
+                "forest_size": {
+                    "type": "number"
+                },
+                "rating_scale": {
+                    "type": "number"
+                },
+                "beam_size": {
+                    "type": "number"
+                },
+                "answer_approach": {
+                    "$ref": "#/definitions/ReasoningConfigAnswerApproach"
+                },
+                "nsim": {
+                    "type": "number"
+                },
+                "exploration_constant": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "method",
+                "max_depth",
+                "forest_size",
+                "rating_scale",
+                "beam_size",
+                "answer_approach",
+                "nsim",
+                "exploration_constant"
+            ],
+            "additionalProperties": false
+        },
+        "ReasoningConfigMethod": {
+            "type": "string",
+            "enum": ["beam_search", "mcts", "lats", "dfs"]
+        },
+        "ReasoningConfigAnswerApproach": {
+            "type": "string",
+            "enum": ["pool", "best"]
         },
         "WaldiezModel": {
             "type": "object",

@@ -7,7 +7,7 @@ import {
     GroupChatSpeakerSelectionMode,
     GroupChatSpeakerTransitionsType,
     WaldiezAgentGroupManagerSpeakers,
-} from "@waldiez/models";
+} from "@waldiez/models/Agent/GroupManager";
 
 export const getSpeakers: (json: Record<string, unknown>) => WaldiezAgentGroupManagerSpeakers = json => {
     let speakers: WaldiezAgentGroupManagerSpeakers = {

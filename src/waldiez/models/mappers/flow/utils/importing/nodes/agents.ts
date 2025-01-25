@@ -9,6 +9,7 @@ import {
     WaldiezAgentAssistant,
     WaldiezAgentGroupManager,
     WaldiezAgentRagUser,
+    WaldiezAgentReasoning,
     WaldiezAgentSwarm,
     WaldiezAgentType,
     WaldiezAgentUserProxy,
@@ -30,6 +31,7 @@ export const getAgents = (
             managers: [],
             rag_users: [],
             swarm_agents: [],
+            reasoning_agents: [],
         };
     }
     const agentsJson = json.agents as Record<string, unknown>;
@@ -39,6 +41,7 @@ export const getAgents = (
         managers: WaldiezAgentGroupManager[];
         rag_users: WaldiezAgentRagUser[];
         swarm_agents: WaldiezAgentSwarm[];
+        reasoning_agents: WaldiezAgentReasoning[];
     } = {
         users: getFlowAgents(
             "user",
@@ -80,6 +83,14 @@ export const getAgents = (
             skillIds,
             chatIds,
         ) as WaldiezAgentSwarm[],
+        reasoning_agents: getFlowAgents(
+            "reasoning",
+            agentsJson,
+            nodes,
+            modelIds,
+            skillIds,
+            chatIds,
+        ) as WaldiezAgentReasoning[],
     };
     return agents;
 };
@@ -142,8 +153,10 @@ const validateAgents = (
     if (agentType === "manager") {
         return filterGroupManagerSpeakers(agents as WaldiezAgentGroupManager[], nodeIds);
     }
+    if (agentType === "swarm") {
+        return filterSwarmAgentFunctions(agents as WaldiezAgentSwarm[], skillIds);
+    }
     return agents;
-    // TODO: also check swarm agents (functions => skillIds)
 };
 
 const filterAgentModelIds = (agent: WaldiezAgent, modelIds: string[]) => {
@@ -230,5 +243,19 @@ const filterGroupManagerSpeakers = (managers: WaldiezAgentGroupManager[], agentI
             }
         }
         return manager;
+    });
+};
+
+const filterSwarmAgentFunctions = (agents: WaldiezAgentSwarm[], skillIds: string[]) => {
+    return agents.map(agent => {
+        if (
+            "data" in agent &&
+            typeof agent.data === "object" &&
+            "functions" in agent.data &&
+            Array.isArray(agent.data.functions)
+        ) {
+            agent.data.functions = agent.data.functions.filter(func => skillIds.includes(func));
+        }
+        return agent;
     });
 };

@@ -8,6 +8,7 @@ import {
     WaldiezAgentAssistant,
     WaldiezAgentGroupManager,
     WaldiezAgentRagUser,
+    WaldiezAgentReasoning,
     WaldiezAgentSwarm,
     WaldiezAgentUserProxy,
 } from "@waldiez/models/Agent";
@@ -45,6 +46,7 @@ export class WaldiezFlowData {
         managers: WaldiezAgentGroupManager[];
         rag_users: WaldiezAgentRagUser[];
         swarm_agents: WaldiezAgentSwarm[];
+        reasoning_agents: WaldiezAgentReasoning[];
     };
     models: WaldiezModel[];
     skills: WaldiezSkill[];
@@ -62,6 +64,7 @@ export class WaldiezFlowData {
                 managers: WaldiezAgentGroupManager[];
                 rag_users: WaldiezAgentRagUser[];
                 swarm_agents: WaldiezAgentSwarm[];
+                reasoning_agents: WaldiezAgentReasoning[];
             };
             models: WaldiezModel[];
             skills: WaldiezSkill[];
@@ -81,6 +84,7 @@ export class WaldiezFlowData {
                 managers: [],
                 rag_users: [],
                 swarm_agents: [],
+                reasoning_agents: [],
             },
             models: [],
             skills: [],

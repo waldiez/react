@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import { Node } from "@xyflow/react";
+import { Edge, Node } from "@xyflow/react";
 
 import {
     WaldiezAgent,
@@ -14,11 +14,17 @@ import {
     WaldiezNodeAgentSwarm,
     WaldiezNodeAgentSwarmContainer,
     WaldiezNodeAgentSwarmContainerData,
+    WaldiezSwarmAfterWork,
 } from "@waldiez/models";
 import { agentMapper } from "@waldiez/models/mappers/agent";
 import { getRestFromJSON } from "@waldiez/models/mappers/common";
 import { getEdgeTrigger } from "@waldiez/models/mappers/flow/utils/swarm/edges";
-import { getAgentConnections, getSwarmAgentHandoffs } from "@waldiez/store/utils";
+import { getAgentConnections, getSwarmAgentHandoffs, isAfterWork } from "@waldiez/store/utils";
+
+export const getSwarmInitialFlowAgent = (flow: WaldiezFlow) => {
+    const initialAgent = flow.data.agents.swarm_agents.find(agent => agent.data.isInitial);
+    return initialAgent || flow.data.agents.swarm_agents[0];
+};
 
 export const getSwarmContainer = (flow: WaldiezFlow, nodes: Node[]) => {
     const agentData = new WaldiezAgentSwarmContainerData();
@@ -165,4 +171,127 @@ const getSwarmInitialAgent = (data: WaldiezNodeAgentSwarmContainerData, agents: 
         agent.data.isInitial = agent.id === selectedAgent.id;
     });
     return selectedAgent;
+};
+
+export const getSwarmRFNodes = (flow: WaldiezFlow, edges: Edge[]) => {
+    const nodes: Node[] = [];
+    if (flow.data.agents.swarm_agents.length > 0) {
+        const containerNode = getSwarmContainerNode(flow, edges);
+        nodes.push(containerNode);
+        flow.data.agents.swarm_agents.forEach(swarmAgent => {
+            const swarmNode = agentMapper.asNode(swarmAgent);
+            swarmNode.parentId = containerNode.id;
+            nodes.push(swarmNode);
+        });
+    }
+    return nodes;
+};
+
+const getSwarmContainerNode = (flow: WaldiezFlow, edges: Edge[]) => {
+    const parentId = getSwarmContainerId(flow);
+    if (parentId) {
+        const agentNode = flow.data.nodes.find(node => node.id === parentId);
+        if (agentNode) {
+            const agentData = new WaldiezAgentSwarmContainerData() as any;
+            agentNode.data = agentData;
+            return updateSwarmContainer(flow, agentNode as WaldiezNodeAgentSwarmContainer, edges);
+        }
+    }
+    return getSwarmContainer(flow, []);
+};
+
+const updateSwarmContainer = (
+    flow: WaldiezFlow,
+    agentNode: WaldiezNodeAgentSwarmContainer,
+    edges: Edge[],
+) => {
+    const initialAgent = getSwarmInitialFlowAgent(flow);
+    const containerId = getSwarmContainerId(flow);
+    agentNode.data.initialAgent = initialAgent.id;
+    agentNode.id = `swarm-container-${flow.id}`;
+    agentNode.data.agentType = "swarm_container";
+    // missing:
+    // - maxRounds: number;
+    // - afterWork: WaldiezSwarmAfterWork | null;
+    // - contextVariables: { [key: string]: string };
+    updateSwarmContainerFromEdgeTrigger(flow, edges, agentNode, initialAgent, containerId);
+    // updateSwarmContainerFromEdgeTrigger(edges, agentNode, initialAgent, containerId);
+    // let's try to get these from the edge trigger.
+    // find the edge that has as target the swarm_container
+    // if not found (no userAgent), find the edge that has as source the initialAgent of the swarm_container
+    return agentNode;
+};
+
+// eslint-disable-next-line max-statements
+const updateSwarmContainerFromEdgeTrigger = (
+    flow: WaldiezFlow,
+    edges: Edge[],
+    agentNode: WaldiezNodeAgentSwarmContainer,
+    initialAgent: WaldiezAgentSwarm,
+    containerId: string,
+) => {
+    let foundUserTrigger = false;
+    const edgesWithInitialAgentAsSource: Edge[] = [];
+    for (const edge of edges) {
+        if (edge.type === "swarm") {
+            if (
+                edge.target === initialAgent.id ||
+                edge.data?.realTarget === initialAgent.id ||
+                edge.target === containerId
+            ) {
+                const userSource = flow.data.agents.users.find(user => user.id === edge.source);
+                if (userSource) {
+                    updateSwarmContainerFromEdge(edge, agentNode);
+                    foundUserTrigger = true;
+                    break;
+                }
+            }
+            if (edge.source === initialAgent.id) {
+                edgesWithInitialAgentAsSource.push(edge);
+            }
+        }
+    }
+    // the chat is not triggered by a user,
+    // so we need to find the edge that has as source the initialAgent
+    if (!foundUserTrigger) {
+        for (const edge of edgesWithInitialAgentAsSource) {
+            for (const agent of flow.data.agents.swarm_agents) {
+                if (edge.target === agent.id) {
+                    updateSwarmContainerFromEdge(edge, agentNode);
+                    break;
+                }
+            }
+        }
+    }
+};
+
+const updateSwarmContainerFromEdge = (edgeTrigger: Edge, agentNode: WaldiezNodeAgentSwarmContainer) => {
+    if (typeof edgeTrigger.data?.maxRounds !== "number") {
+        agentNode.data.maxRounds = 20;
+    } else {
+        agentNode.data.maxRounds = edgeTrigger.data.maxRounds;
+    }
+    if (!edgeTrigger.data?.flowAfterWork) {
+        agentNode.data.afterWork = null;
+    } else if (isAfterWork(edgeTrigger.data.flowAfterWork)) {
+        agentNode.data.afterWork = edgeTrigger.data.flowAfterWork as WaldiezSwarmAfterWork;
+    }
+    agentNode.data.contextVariables = {};
+    if (edgeTrigger.data?.contextVariables && typeof edgeTrigger.data.contextVariables === "object") {
+        agentNode.data.contextVariables = edgeTrigger.data.contextVariables as Record<string, string>;
+    }
+};
+
+const getSwarmContainerId = (flow: WaldiezFlow) => {
+    let parentId = `swarm-container-${flow.id}`;
+    for (const agent of flow.data.agents.swarm_agents) {
+        if (agent.data.parentId && typeof agent.data.parentId === "string") {
+            parentId = agent.data.parentId;
+            break;
+        } else if (agent.rest?.parentId && typeof agent.rest.parentId === "string") {
+            parentId = agent.rest.parentId as string;
+            break;
+        }
+    }
+    return parentId;
 };

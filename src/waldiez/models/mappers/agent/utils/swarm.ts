@@ -7,7 +7,7 @@ import {
     WaldiezSwarmHandoff,
     WaldiezSwarmOnCondition,
     WaldiezSwarmUpdateSystemMessage,
-} from "@waldiez/models";
+} from "@waldiez/models/Agent/Swarm";
 
 export const getSwarmFunctions = (jsonData: any): string[] => {
     const functions: string[] = [];

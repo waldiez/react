@@ -182,6 +182,7 @@ export const getChatType = (
         chatType = "chat";
     }
     if (chatType === "group" && targetNode.data.parentId && targetNode.data.parentId === sourceNode.id) {
+        edge.hidden = true;
         chatType = "hidden";
     }
     if (sourceNode.data.agentType === "swarm" || targetNode.data.agentType === "swarm") {

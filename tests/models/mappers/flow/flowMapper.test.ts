@@ -4,6 +4,7 @@
  */
 import { describe, expect, it } from "vitest";
 
+import { emptyFlow } from "@waldiez/models/Flow";
 import { flowMapper } from "@waldiez/models/mappers";
 
 /* cspell: disable */
@@ -27,7 +28,7 @@ const flowLinks = [
 
 // we removed "teachability"
 const deprecatedAgentDataKeys = ["teachability"];
-const newAgents = ["swarm_agents"];
+const newAgents = ["reasoning_agents"];
 // added with swarm
 const newChatKeys = [
     "afterWork",
@@ -39,7 +40,8 @@ const newChatKeys = [
     "available",
 ];
 // these keys are not necessarily in the exported flows
-const newEdgeKeys = ["hidden", "realSource", "realTarget", "sourceHandle", "targetHandle"];
+// const newEdgeKeys = ["hidden", "realSource", "realTarget", "sourceHandle", "targetHandle"];
+const edgeKeysToIgnore: string[] = ["hidden"]; // this is determined by the source, the target and the parenntId (if any)
 // id: either missing, or overridden when importing/exporting
 const flowKeysToRemove: string[] = ["id"];
 // new (flow.data) keys that were not in the exported flows
@@ -50,6 +52,10 @@ const getFlowStringFromUrl = (url: string) => {
 };
 
 describe("flowMapper", () => {
+    it("should return an empty flow if no json is provided", () => {
+        const flow = flowMapper.importFlow("'");
+        expect(flow).toEqual(emptyFlow);
+    });
     it("is compatible with exported flows", async () => {
         for (const flowLink of flowLinks) {
             const flowString = await getFlowStringFromUrl(flowLink);
@@ -85,7 +91,7 @@ const compareObjects = (json1: any, json2: any) => {
             expect(json1[key]).toEqual(json2[key]);
         }
     });
-    const agentTypes = ["users", "assistants", "managers", "rag_users", "swarm_agents"];
+    const agentTypes = ["users", "assistants", "managers", "rag_users", "swarm_agents", "reasoning_agents"];
     agentTypes.forEach((agentType: any) => {
         json1.data.agents[agentType].forEach((agent1: any) => {
             const agentId = agent1.id;
@@ -149,7 +155,7 @@ const updateChat = (chat: any, oldJson: any) => {
 };
 
 const updateEdge = (edge: any, oldJson: any) => {
-    newEdgeKeys.forEach(key => {
+    edgeKeysToIgnore.forEach(key => {
         oldJson.data.edges.find((e: any) => e.id === edge.id)[key] = edge[key];
     });
 };

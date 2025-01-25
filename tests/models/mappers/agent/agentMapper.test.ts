@@ -20,6 +20,8 @@ import {
     WaldiezAgentGroupManagerData,
     WaldiezAgentRagUser,
     WaldiezAgentRagUserData,
+    WaldiezAgentReasoning,
+    WaldiezAgentReasoningData,
     WaldiezAgentSwarm,
     WaldiezAgentSwarmData,
     WaldiezAgentUserProxy,
@@ -69,6 +71,31 @@ describe("agentMapper", () => {
         expect(agent.agentType).toBe("swarm");
         expect((agent as WaldiezAgentSwarm).data.handoffs.length).toBe(swarmJson.data.handoffs.length);
     });
+    it("should import a reasoning agent", () => {
+        const reasoningJson = {
+            ...assistantJson,
+            agentType: "reasoning",
+            data: {
+                ...userJson.data,
+                verbose: true,
+                reasonConfig: {
+                    method: "beam_search",
+                    max_depth: 3,
+                    forest_size: 4,
+                    rating_scale: 5,
+                    beam_size: 6,
+                    answer_approach: "pool",
+                    nsim: 7,
+                    exploration_constant: 1.6,
+                },
+            },
+        };
+        const agent = agentMapper.importAgent(reasoningJson);
+        expect(agent).toBeInstanceOf(WaldiezAgentReasoning);
+        expect(agent.data).toBeInstanceOf(WaldiezAgentReasoningData);
+        expect(agent.agentType).toBe("reasoning");
+        expect((agent.data as any).reasonConfig).toBeTruthy();
+    });
     it("should import, convert and export a user agent node", () => {
         const agent = agentMapper.importAgent(userJson);
         const agentNode = agentMapper.asNode(agent, undefined, false);
@@ -104,6 +131,30 @@ describe("agentMapper", () => {
         const agentNode = agentMapper.asNode(agent, undefined, false);
         const exported = agentMapper.exportAgent(agentNode, false);
         expect(exported).toEqual(swarmJson);
+    });
+    it("should import, convert and export a reasoning agent node", () => {
+        const reasoningJson = {
+            ...assistantJson,
+            agentType: "reasoning",
+            data: {
+                ...userJson.data,
+                verbose: true,
+                reasonConfig: {
+                    method: "beam_search",
+                    max_depth: 3,
+                    forest_size: 4,
+                    rating_scale: 5,
+                    beam_size: 6,
+                    answer_approach: "pool",
+                    nsim: 7,
+                    exploration_constant: 1.6,
+                },
+            },
+        };
+        const agent = agentMapper.importAgent(reasoningJson);
+        const agentNode = agentMapper.asNode(agent, undefined, false);
+        const exported = agentMapper.exportAgent(agentNode, false);
+        expect(exported).toEqual(reasoningJson);
     });
     it("should import, convert and export an agent node without links", () => {
         const managerWithoutLinks = {
