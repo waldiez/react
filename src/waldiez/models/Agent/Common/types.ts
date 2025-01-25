@@ -113,6 +113,6 @@ export type WaldiezAgentCommonData = {
     updatedAt: string;
 };
 
-export type WaldiezAgentType = "user" | "assistant" | "manager" | "rag_user" | "swarm";
+export type WaldiezAgentType = "user" | "assistant" | "manager" | "rag_user" | "swarm" | "reasoning";
 
 export type WaldiezNodeAgentType = WaldiezAgentType | "swarm_container";

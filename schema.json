@@ -210,7 +210,7 @@
         },
         "WaldiezAgentType": {
             "type": "string",
-            "enum": ["user", "assistant", "manager", "rag_user", "swarm"]
+            "enum": ["user", "assistant", "manager", "rag_user", "swarm", "reasoning"]
         },
         "WaldiezAgentUserProxyData": {
             "type": "object",
