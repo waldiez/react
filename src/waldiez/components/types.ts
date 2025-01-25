@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 export type { AfterWorkProps, OnConditionAvailableProps } from "@waldiez/components/swarm/types";
 export type { CollapsibleProps, CollapsibleViewProps } from "@waldiez/components/collapsible/types";
 export type { DictProps } from "@waldiez/components/dict/types";

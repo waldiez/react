@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezSwarmAfterWork, WaldiezSwarmOnConditionAvailable } from "@waldiez/models/Agent";
 import { WaldiezMessage } from "@waldiez/models/Chat/Message";
 import { WaldiezChatSummary, WaldiezNestedChat } from "@waldiez/models/Chat/types";

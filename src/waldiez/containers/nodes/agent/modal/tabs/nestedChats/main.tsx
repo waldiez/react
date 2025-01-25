@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { useWaldiezAgentNestedChats } from "@waldiez/containers/nodes/agent/modal/tabs/nestedChats/hooks";
 import { WaldiezAgentNestedChatsMessages } from "@waldiez/containers/nodes/agent/modal/tabs/nestedChats/messages";
 import { WaldiezAgentNestedChatsTriggers } from "@waldiez/containers/nodes/agent/modal/tabs/nestedChats/triggers";

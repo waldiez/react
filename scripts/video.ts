@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { exec } from "child_process";
 import fs from "fs";
 import { lookpath } from "lookpath";

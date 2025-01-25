@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Background, BackgroundVariant, Controls, Panel, ReactFlow, Viewport } from "@xyflow/react";
 
 import { useEffect, useState } from "react";

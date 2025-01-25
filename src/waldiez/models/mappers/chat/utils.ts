@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 /* eslint-disable max-statements */
 import { Edge, MarkerType, Node } from "@xyflow/react";
 

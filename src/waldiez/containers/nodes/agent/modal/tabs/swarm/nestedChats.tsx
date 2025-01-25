@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { TabItem, TabItems } from "@waldiez/components";
 import { WaldiezAgentSwarmNestedChatCondition } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/nestedChatCondition";
 import { WaldiezAgentSwarmNestedChatsProps } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/types";

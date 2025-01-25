@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Editor, InfoLabel, Select } from "@waldiez/components";
 import { useGroupManagerSpeakers } from "@waldiez/containers/nodes/agent/modal/tabs/groupManager/tabs/speakers/hooks";
 import { GroupManagerSpeakersTransition } from "@waldiez/containers/nodes/agent/modal/tabs/groupManager/tabs/speakers/speakersTransition";

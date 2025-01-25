@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { InfoCheckbox, InfoLabel } from "@waldiez/components";
 import { useWaldiezAgentRagUserAdvanced } from "@waldiez/containers/nodes/agent/modal/tabs/ragUser/tabs/advanced/hooks";
 import { WaldiezNodeAgentData, WaldiezNodeAgentRagUserData } from "@waldiez/models";

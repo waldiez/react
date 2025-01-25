@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance } from "@xyflow/react";
 
 import { WaldiezEdge } from "@waldiez/models";

@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import react from "@vitejs/plugin-react";
 import fs from "fs-extra";
 import { resolve } from "path";

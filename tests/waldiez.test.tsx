@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { render, screen } from "@testing-library/react";
 import { Waldiez } from "@waldiez";
 import { describe, expect, it } from "vitest";

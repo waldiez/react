@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Dict } from "@waldiez/components/dict";
 import { Editor } from "@waldiez/components/editor";
 import { InfoCheckbox } from "@waldiez/components/infoCheckBox";

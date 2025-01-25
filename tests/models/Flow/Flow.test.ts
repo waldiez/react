@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 /* eslint-disable max-statements */
 import { describe, expect, it } from "vitest";
 

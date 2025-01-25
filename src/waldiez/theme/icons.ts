@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import assistantWebp from "@waldiez/assets/assistant.webp";
 import azure from "@waldiez/assets/logos/azure.svg";
 import anthropic from "@waldiez/assets/logos/claude.svg";

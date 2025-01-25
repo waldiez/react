@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Editor, InfoLabel, Select, StringList } from "@waldiez/components";
 import { useWaldiezAgentTermination } from "@waldiez/containers/nodes/agent/modal/tabs/termination/hooks";
 import { WaldiezAgentTerminationProps } from "@waldiez/containers/nodes/agent/modal/tabs/termination/types";

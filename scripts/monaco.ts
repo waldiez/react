@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 // ensure monaco loader files are present in the public folder (public/vs)
 import crypto from "crypto";
 import fs from "fs-extra";

@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 export { AfterWork, OnConditionAvailable } from "@waldiez/components/swarm";
 export { Collapsible } from "@waldiez/components/collapsible";
 export { Dict } from "@waldiez/components/dict";

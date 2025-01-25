@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Modal } from "@waldiez/components";
 import { useWaldiezNodeAgentModal } from "@waldiez/containers/nodes/agent/modal/hooks";
 import { WaldiezNodeAgentModalTabs } from "@waldiez/containers/nodes/agent/modal/tabs";

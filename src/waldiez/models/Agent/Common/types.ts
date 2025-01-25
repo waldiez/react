@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+// types for WaldiezAgentCommonData
 export type WaldiezAgentHumanInputMode = "ALWAYS" | "NEVER" | "TERMINATE";
 export type WaldiezAgentCodeExecutionConfigDict = {
     workDir?: string;

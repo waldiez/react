@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezMessage } from "@waldiez/models/Chat";
 
 const VALID_CHAT_MESSAGE_TYPES = ["string", "method", "rag_message_generator", "none"];

@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 export const AGENT_COLORS = {
     agent: "#005490",
     assistant: "#66bc57",

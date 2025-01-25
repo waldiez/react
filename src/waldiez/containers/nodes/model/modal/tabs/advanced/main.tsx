@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Dict, NumberInput, StringList } from "@waldiez/components";
 import { useModelModalAdvancedTab } from "@waldiez/containers/nodes/model/modal/tabs/advanced/hooks";
 import { WaldiezNodeModelModalAdvancedTabProps } from "@waldiez/containers/nodes/model/modal/tabs/advanced/types";

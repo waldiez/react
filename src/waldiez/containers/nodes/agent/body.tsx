@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { AiFillCode } from "react-icons/ai";
 import { FaMinusCircle } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";

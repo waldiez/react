@@ -41,6 +41,7 @@
         "dist"
     ],
     "scripts": {
+        "prepare": "node .husky/install.mjs",
         "dev": "bun monaco && vite",
         "typecheck": "tsc --noEmit",
         "monaco": "bun scripts/monaco.ts",
@@ -54,7 +55,7 @@
         "lint": "bun typecheck && bun prettier:check && bun stylelint:check && bun eslint:check",
         "forlint": "bun format && bun lint",
         "eslint": "bun eslint:check --fix",
-        "eslint:check": "eslint --config ./eslint.config.mjs --report-unused-disable-directives --max-warnings 0 --cache --cache-location ./.eslintcache src tests",
+        "eslint:check": "eslint --config ./eslint.config.mjs --report-unused-disable-directives --max-warnings 0 --cache --cache-location ./.eslintcache",
         "prettier": "prettier \"**/*{.ts,.tsx,..css,.json,.md}\" --write --list-different",
         "prettier:check": "prettier \"src/**/*{.ts,.tsx,.css,.json,.md}\" --check",
         "stylelint": "bun stylelint:check --fix --ignore-path .gitignore",
@@ -83,10 +84,12 @@
         "changelog": "bun scripts/changelog.ts",
         "all": "bun clean && bun forlint && bun schema && bun test:coverage && bun run build && bun archive && bun docs"
     },
-    "pre-commit": [
-        "format",
-        "lint"
-    ],
+    "lint-staged": {
+        "*": [
+            "bun run format",
+            "bun run lint"
+        ]
+    },
     "dependencies": {
         "@monaco-editor/react": "^4.6.0",
         "@xyflow/react": "^12.4.2",
@@ -144,10 +147,11 @@
         "got": "^14.4.5",
         "gunzip-maybe": "^1.4.2",
         "hint": "^7.1.13",
+        "husky": "^9.1.7",
         "jsdom": "^26.0.0",
+        "lint-staged": "^15.4.2",
         "lookpath": "^1.2.3",
         "playwright": "^1.49.1",
-        "pre-commit": "^1.2.2",
         "prettier": "^3.4.2",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",

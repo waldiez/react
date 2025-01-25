@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Dict, Editor, Modal } from "@waldiez/components";
 import { getImportExportView } from "@waldiez/containers/nodes/common";
 import { useSkillNodeModal } from "@waldiez/containers/nodes/skill/modal/hooks";

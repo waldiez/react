@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { useState } from "react";
 
 import { MultiValue, Select, SingleValue } from "@waldiez/components";

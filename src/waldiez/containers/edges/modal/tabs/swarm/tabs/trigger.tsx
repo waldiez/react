@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { TabItem, TabItems, TextInput } from "@waldiez/components";
 import { WaldiezEdgeSwarmTriggerTabProps } from "@waldiez/containers/edges/modal/tabs/swarm/tabs/types";
 

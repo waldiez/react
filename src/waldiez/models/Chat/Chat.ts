@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezChatData } from "@waldiez/models/Chat/ChatData";
 import { getId } from "@waldiez/utils";
 

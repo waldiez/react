@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Node, ReactFlowInstance } from "@xyflow/react";
 
 import { WaldiezModel, WaldiezNodeAgent, WaldiezNodeModel, WaldiezNodeModelData } from "@waldiez/models";

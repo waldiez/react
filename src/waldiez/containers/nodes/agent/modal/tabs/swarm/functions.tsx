@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { MultiValue, Select } from "@waldiez/components";
 import { WaldiezAgentSwarmFunctionsProps } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/types";
 

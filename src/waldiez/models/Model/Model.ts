@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezModelData } from "@waldiez/models/Model/ModelData";
 import { getId } from "@waldiez/utils";
 

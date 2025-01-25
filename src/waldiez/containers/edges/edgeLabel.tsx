@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezEdge } from "@waldiez/models";
 
 export const EdgeLabel = ({ edge, transform }: { edge: WaldiezEdge | undefined; transform: string }) => {

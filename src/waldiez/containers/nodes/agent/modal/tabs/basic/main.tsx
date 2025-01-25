@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { InfoCheckbox, InfoLabel, NumberInput, Select, TextInput } from "@waldiez/components";
 import { useWaldiezAgentBasic } from "@waldiez/containers/nodes/agent/modal/tabs/basic/hooks";
 import { WaldiezAgentBasicProps } from "@waldiez/containers/nodes/agent/modal/tabs/basic/types";

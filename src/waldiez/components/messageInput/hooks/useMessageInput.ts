@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { MessageInputProps } from "@waldiez/components/messageInput/types";
 import { WaldiezMessage } from "@waldiez/models";
 

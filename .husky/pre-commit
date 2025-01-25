@@ -1,0 +1,3 @@
+# npx lint-staged
+bun run format
+bun run lint

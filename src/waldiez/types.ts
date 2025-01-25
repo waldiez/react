@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Edge, Node, ReactFlowJsonObject, Viewport } from "@xyflow/react";
 
 export type * from "@waldiez/models";

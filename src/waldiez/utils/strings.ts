@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 export const capitalize = (s: string) => {
     return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 };

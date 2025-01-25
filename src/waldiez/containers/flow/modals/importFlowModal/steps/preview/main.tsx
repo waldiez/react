@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { FlowAgents } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/flowAgents";
 import { FlowInfo } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/flowInfo";
 import { FlowModels } from "@waldiez/containers/flow/modals/importFlowModal/steps/preview/flowModels";

@@ -1,4 +1,9 @@
 /**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+
+/**
  * Shows a snackbar message for a given flow view.
  * @param flowId - The id of the flow to show the snackbar for.
  * @param message - The message to show in the snackbar.

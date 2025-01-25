@@ -1,4 +1,8 @@
 /**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+/**
  * simple `mkdir -p` using fsPromises.mkdir
  */
 import { promises as fs } from "fs";

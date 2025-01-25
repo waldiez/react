@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { SingleValue } from "@waldiez/components";
 import { WaldiezEdgeBasicTabProps } from "@waldiez/containers/edges/modal/tabs/basic/types";
 import { WaldiezChatLlmSummaryMethod, WaldiezEdgeType } from "@waldiez/models";

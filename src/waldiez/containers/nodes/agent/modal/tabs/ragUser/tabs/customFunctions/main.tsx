@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Collapsible, Editor, InfoCheckbox } from "@waldiez/components";
 import { useWaldiezAgentRagUserCustomFunctions } from "@waldiez/containers/nodes/agent/modal/tabs/ragUser/tabs/customFunctions/hooks";
 import { WaldiezNodeAgentData, WaldiezNodeAgentRagUserData } from "@waldiez/models";

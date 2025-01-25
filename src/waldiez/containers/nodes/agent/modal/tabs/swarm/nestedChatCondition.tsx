@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { OnConditionAvailable, TextInput } from "@waldiez/components";
 import { WaldiezAgentSwarmNestedChatConditionProps } from "@waldiez/containers/nodes/agent/modal/tabs/swarm/types";
 import {

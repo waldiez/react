@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Select, SingleValue } from "@waldiez/components";
 import { WaldiezAgentNestedChat } from "@waldiez/models";
 

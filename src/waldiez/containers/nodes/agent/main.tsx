@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Handle, NodeResizer, Position } from "@xyflow/react";
 
 import { WaldiezEdgeModal } from "@waldiez/containers/edges/modal";

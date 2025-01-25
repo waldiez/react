@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import React, { ReactElement, useEffect, useState } from "react";
 
 import { WizardProps, WizardStepProps } from "@waldiez/components/wizard/types";

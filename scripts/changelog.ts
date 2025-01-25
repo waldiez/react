@@ -1,7 +1,7 @@
-/*
-Read the changelog file
-and output the current tag's changes
-*/
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { readFileSync } from "fs";
 import { resolve } from "path";
 

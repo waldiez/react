@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezRagUserRetrieveConfig, defaultRetrieveConfig } from "@waldiez/models";
 
 export const getRetrieveConfig: (json: { [key: string]: any }) => WaldiezRagUserRetrieveConfig = json => {

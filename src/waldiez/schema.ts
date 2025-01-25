@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezFlowData as FlowData, WaldiezFlow } from "@waldiez/models";
 
 export type WaldiezFlowData = Omit<FlowData, "nodes" | "edges" | "viewport"> & {

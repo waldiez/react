@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { onChange, renderFlow } from "../common";
 import { description, flowId, name } from "../data";
 import { act, fireEvent, screen } from "@testing-library/react";

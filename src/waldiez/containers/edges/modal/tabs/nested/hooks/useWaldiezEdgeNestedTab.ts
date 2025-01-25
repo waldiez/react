@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezEdgeNestedTabProps } from "@waldiez/containers/edges/modal/tabs/nested/types";
 import { WaldiezMessage, WaldiezMessageType } from "@waldiez/models";
 

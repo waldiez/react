@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { agentNodes, createdAt, edges, flowId, nodes, updatedAt, userInput } from "../data";
 import { render } from "@testing-library/react";
 

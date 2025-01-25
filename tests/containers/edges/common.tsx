@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { createdAt, edgeData, edgeId, edgeProps, flowId, nodes, updatedAt } from "./data";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 

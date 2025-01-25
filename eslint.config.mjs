@@ -6,6 +6,7 @@ import stylistic from "@stylistic/eslint-plugin";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import eslintPluginTsDoc from "eslint-plugin-tsdoc";
+import headers from "eslint-plugin-headers";
 import path from "path";
 import eslintTs from "typescript-eslint";
 import { fileURLToPath } from "url";
@@ -52,6 +53,7 @@ const defaultConfig = eslintTs.config({
         "react-refresh": eslintPluginReactRefresh,
         import: legacyPlugin("eslint-plugin-import", "import"),
         tsdoc: eslintPluginTsDoc,
+        headers,
     },
     rules: {
         "prettier/prettier": [
@@ -106,7 +108,7 @@ const defaultConfig = eslintTs.config({
                 allowTemplateLiterals: false,
             },
         ],
-        curly: ["error", "all"],
+        curly: ["error", "all"], 
         eqeqeq: "error",
         "prefer-arrow-callback": "error",
         "tsdoc/syntax": "warn",
@@ -116,10 +118,28 @@ const defaultConfig = eslintTs.config({
         "max-statements": ["error", 11, { ignoreTopLevelFunctions: true }],
         "max-lines": ["error", { max: 400, skipBlankLines: true, skipComments: true }],
         "max-lines-per-function": ["error", { max: 300, skipBlankLines: true, skipComments: true }],
+        "headers/header-format": [
+            "error",
+            {
+                source: "string",
+                content: "SPDX-License-Identifier: {spdxIdentifier}\nCopyright {startYear} - {currentYear} {owner}",
+                variables: {
+                    "spdxIdentifier": "Apache-2.0",
+                    "startYear": "2024",
+                    "currentYear": `${new Date().getFullYear()}`,
+                    "owner": "Waldiez & contributors",
+                },
+            },
+        ],
     },
 });
 
 export default [
+    ...defaultConfig.map(config => ({
+        ...config,
+        files: ["**/*.{ts,tsx}"],
+        ignores: ["node_modules/**/*", ".local/**/*", "dist/**/*", "public/**/*", ".git/**/*", ".github/**/*", ".husky/**/*", ".vscode/**/*"],
+    })),
     ...defaultConfig.map(config => ({
         ...config,
         files: ["src/**/*.{ts,tsx}", "scripts/**/*.{ts,tsx}"],

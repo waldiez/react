@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { flowId } from "../data";
 import { renderFlow } from "./common";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";

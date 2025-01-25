@@ -1,5 +1,6 @@
 /**
- * Skill entity.
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
  */
 import { WaldiezSkillData } from "@waldiez/models/Skill/SkillData";
 import { getId } from "@waldiez/utils";

@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { ImportFlowState } from "@waldiez/containers/flow/modals/importFlowModal/types";
 import { flowMapper } from "@waldiez/models/mappers";
 import { ImportedFlow, ThingsToImport } from "@waldiez/types";

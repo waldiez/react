@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezNodeAgentAssistantData } from "@waldiez/models/Agent/Assistant";
 import { WaldiezNodeAgentGroupManagerData } from "@waldiez/models/Agent/GroupManager";
 import { WaldiezNodeAgentRagUserData } from "@waldiez/models/Agent/RagUser";

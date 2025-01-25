@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { WaldiezAgent, WaldiezNodeAgentType } from "@waldiez/models/Agent/Common";
 import { WaldiezAgentSwarmContainerData } from "@waldiez/models/Agent/Swarm/SwarmContainerData";
 

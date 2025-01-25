@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { SingleValue } from "@waldiez/components";
 import { EditFlowModalData } from "@waldiez/containers/sidebar/modals/editFlowModal/types";
 import { WaldiezEdge } from "@waldiez/models";

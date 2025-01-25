@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 //MonacoEditor with standard options
 import { Editor as MonacoEditor } from "@monaco-editor/react";
 

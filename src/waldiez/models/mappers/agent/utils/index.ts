@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 export * from "@waldiez/models/mappers/agent/utils/common";
 export { getTermination } from "@waldiez/models/mappers/agent/utils/termination";
 export { getRetrieveConfig } from "@waldiez/models/mappers/agent/utils/retrieveConfig";

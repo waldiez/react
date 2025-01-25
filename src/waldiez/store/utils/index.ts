@@ -1,3 +1,7 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 export * from "@waldiez/store/utils/agent";
 export * from "@waldiez/store/utils/common";
 export * from "@waldiez/store/utils/edge";
