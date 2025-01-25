@@ -30,7 +30,7 @@ bun add @waldiez/react
     "react-fast-compare": "^3.2.2",
     "react-hotkeys-hook": "^4.6.1",
     "react-icons": "^5.4.0",
-    "react-select": "^5.9.0",
+    "react-select": "^5.10.0",
     "zundo": "^2.3.0",
     "zustand": "^5.0.3"
 }

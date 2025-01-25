@@ -272,7 +272,8 @@
         },
         "WaldiezAgentHumanInputMode": {
             "type": "string",
-            "enum": ["ALWAYS", "NEVER", "TERMINATE"]
+            "enum": ["ALWAYS", "NEVER", "TERMINATE"],
+            "description": "Human input mode."
         },
         "WaldiezAgentCodeExecutionConfig": {
             "anyOf": [
@@ -283,7 +284,8 @@
                     "type": "boolean",
                     "const": false
                 }
-            ]
+            ],
+            "description": "Code execution configuration. either a  {@link  WaldiezAgentCodeExecutionConfigDict }  or false (to disable)"
         },
         "WaldiezAgentCodeExecutionConfigDict": {
             "type": "object",
@@ -328,7 +330,8 @@
                     }
                 }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "description": "Code execution configuration."
         },
         "WaldiezAgentTerminationMessageCheck": {
             "type": "object",
@@ -357,15 +360,18 @@
                 }
             },
             "required": ["type", "keywords", "criterion", "methodContent"],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "description": "Waldiez agent termination message check."
         },
         "WaldiezAgentTypeTerminationTypeOption": {
             "type": "string",
-            "enum": ["none", "keyword", "method"]
+            "enum": ["none", "keyword", "method"],
+            "description": "Termination type."
         },
         "WaldiezAgentTerminationCriterionOption": {
             "type": "string",
-            "enum": ["found", "ending", "exact"]
+            "enum": ["found", "ending", "exact"],
+            "description": "Termination criterion (if the termination type is \"keyword\")."
         },
         "WaldiezAgentLinkedSkill": {
             "type": "object",
@@ -378,7 +384,8 @@
                 }
             },
             "required": ["id", "executorId"],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "description": "Waldiez agent linked skill."
         },
         "WaldiezAgentNestedChat": {
             "type": "object",
@@ -407,7 +414,8 @@
                 }
             },
             "required": ["triggeredBy", "messages"],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "description": "Waldiez agent nested chat."
         },
         "WaldiezAgentAssistant": {
             "type": "object",
