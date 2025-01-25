@@ -1,3 +1,1 @@
-# npx lint-staged
-bun run format
-bun run lint
+npx lint-staged --relative
