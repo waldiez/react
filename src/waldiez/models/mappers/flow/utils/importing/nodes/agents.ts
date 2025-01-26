@@ -103,7 +103,10 @@ const getFlowAgents = (
     skillIds: string[],
     chatIds: string[],
 ) => {
-    const keyToCheck = agentType !== "swarm" ? `${agentType}s` : "swarm_agents";
+    let keyToCheck = `${agentType}s`;
+    if (["swarm", "reasoning"].includes(agentType)) {
+        keyToCheck = `${agentType}_agents`;
+    }
     if (!(keyToCheck in json) || !Array.isArray(json[keyToCheck])) {
         return [] as WaldiezAgent[];
     }
