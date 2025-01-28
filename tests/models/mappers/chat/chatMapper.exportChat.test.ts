@@ -25,10 +25,6 @@ describe("chatMapper.exportChat", () => {
                     content: null,
                     context: {},
                 },
-                nestedChat: {
-                    message: null,
-                    reply: null,
-                },
                 summary: {
                     method: "last_msg",
                     prompt: "summarize the conversation",
@@ -36,6 +32,11 @@ describe("chatMapper.exportChat", () => {
                         summary_role: "user",
                     },
                 },
+                nestedChat: {
+                    message: null,
+                    reply: null,
+                },
+                prerequisites: [],
                 maxTurns: 0,
                 maxRounds: 0,
                 afterWork: {
@@ -108,6 +109,7 @@ describe("chatMapper.exportChat", () => {
                     message: null,
                     reply: null,
                 },
+                prerequisites: [],
                 summary: {
                     method: "last_msg",
                     prompt: "summarize the conversation",

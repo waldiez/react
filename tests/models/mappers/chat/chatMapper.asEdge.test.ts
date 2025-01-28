@@ -34,6 +34,7 @@ describe("chatMapper.asEdge", () => {
                     summary_role: "user",
                 },
             },
+            prerequisites: [],
             maxTurns: 0,
             maxRounds: 0,
             afterWork: {

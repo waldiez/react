@@ -19,6 +19,7 @@ import { WaldiezChatSummary, WaldiezNestedChat } from "@waldiez/models/Chat/type
  * @param order - The order
  * @param message - The message
  * @param nestedChat - The nested chat
+ * @param prerequisites - The prerequisites (chat ids) for async mode
  * @param maxRounds - The maximum rounds
  * @param afterWork - The after work
  * @param flowAfterWork - The flow after work
@@ -47,6 +48,7 @@ export class WaldiezChatData {
         message: WaldiezMessage | null;
         reply: WaldiezMessage | null;
     };
+    prerequisites: string[] = [];
     maxRounds: number;
     afterWork: WaldiezSwarmAfterWork | null;
     flowAfterWork: WaldiezSwarmAfterWork | null;
@@ -70,6 +72,7 @@ export class WaldiezChatData {
             order: number;
             message: WaldiezMessage;
             nestedChat: WaldiezNestedChat;
+            prerequisites: string[];
             maxRounds: number;
             afterWork: WaldiezSwarmAfterWork | null;
             flowAfterWork: WaldiezSwarmAfterWork | null;
@@ -101,6 +104,7 @@ export class WaldiezChatData {
                 message: null,
                 reply: null,
             },
+            prerequisites: [],
             maxRounds: 20,
             afterWork: null,
             flowAfterWork: null,
@@ -125,6 +129,7 @@ export class WaldiezChatData {
             position,
             order,
             nestedChat,
+            prerequisites,
             maxRounds,
             afterWork,
             flowAfterWork,
@@ -144,6 +149,7 @@ export class WaldiezChatData {
         this.position = position;
         this.order = order;
         this.nestedChat = nestedChat;
+        this.prerequisites = prerequisites;
         this.maxRounds = maxRounds;
         this.afterWork = afterWork;
         this.flowAfterWork = flowAfterWork;

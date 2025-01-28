@@ -45,6 +45,7 @@ export const apiTypeOptions: { label: string; value: WaldiezModelAPIType }[] = [
     { label: "OpenAI", value: "openai" },
     { label: "Azure", value: "azure" },
     { label: "Gemini", value: "google" },
+    { label: "DeepSeek", value: "deepseek" },
     { label: "Claude", value: "anthropic" },
     { label: "Mistral", value: "mistral" },
     { label: "Groq", value: "groq" },

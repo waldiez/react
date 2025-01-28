@@ -27,8 +27,9 @@ export type WaldiezChatDataCommon = {
     order: number;
     clearHistory: boolean;
     message: WaldiezMessage;
-    nestedChat: WaldiezNestedChat;
     summary: WaldiezChatSummary;
+    nestedChat: WaldiezNestedChat;
+    prerequisites: string[];
     maxTurns: number | null;
     maxRounds: number;
     afterWork: WaldiezSwarmAfterWork | null;

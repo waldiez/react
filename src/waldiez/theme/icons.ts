@@ -6,6 +6,7 @@ import assistantWebp from "@waldiez/assets/assistant.webp";
 import captainWebp from "@waldiez/assets/captain.webp";
 import azure from "@waldiez/assets/logos/azure.svg";
 import anthropic from "@waldiez/assets/logos/claude.svg";
+import deepseek from "@waldiez/assets/logos/deepseek.svg";
 import google from "@waldiez/assets/logos/gemini.svg";
 import groq from "@waldiez/assets/logos/groq.svg";
 import mistral from "@waldiez/assets/logos/mistral.svg";
@@ -20,6 +21,7 @@ import userWebp from "@waldiez/assets/user.webp";
 export const LOGOS = {
     openai,
     azure,
+    deepseek,
     google,
     gemini: google,
     anthropic,

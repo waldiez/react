@@ -24,24 +24,17 @@ const flowLinks = [
     `${flowLinksBaseUrl}/09 - AutoDefence/AutoDefense Flow.waldiez`,
     `${flowLinksBaseUrl}/10 - Travel Planning/Travel Planning.waldiez`,
     `${flowLinksBaseUrl}/11 - Swarm/Swarm.waldiez`,
+    `${flowLinksBaseUrl}/12 - Reasoning/Chain-of-Thought Reasoning with DFS.waldiez`,
 ];
 
 // we removed "teachability"
 const deprecatedAgentDataKeys = ["teachability"];
 const newAgents = ["reasoning_agents"];
-// added with swarm
-const newChatKeys = [
-    "afterWork",
-    "flowAfterWork",
-    "maxRounds",
-    "realSource",
-    "realTarget",
-    "contextVariables",
-    "available",
-];
+// flowAfterWork, added with swarm, "prerequisites" added with async
+const newChatKeys = ["prerequisites", "flowAfterWork"];
 // these keys are not necessarily in the exported flows
-// const newEdgeKeys = ["hidden", "realSource", "realTarget", "sourceHandle", "targetHandle"];
-const edgeKeysToIgnore: string[] = ["hidden"]; // this is determined by the source, the target and the parenntId (if any)
+// "hidden" is determined by the source, the target and the parenntId (if any)
+const edgeKeysToIgnore: string[] = ["hidden"];
 // id: either missing, or overridden when importing/exporting
 const flowKeysToRemove: string[] = ["id"];
 // new (flow.data) keys that were not in the exported flows

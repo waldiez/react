@@ -403,6 +403,11 @@
     max-width: 14px !important;
 }
 
+.flow-wrapper .agent-model-preview .agent-model-img.deepseek img {
+    width: 18px !important;
+    max-width: 18px !important;
+}
+
 .flow-wrapper.dark .agent-model-preview .agent-model-img.other img,
 .flow-wrapper.dark .agent-model-preview .agent-model-img.openai img {
     filter: invert(1);

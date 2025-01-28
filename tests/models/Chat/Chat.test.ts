@@ -62,6 +62,7 @@ describe("WaldiezChat", () => {
                 message: nestedChatMessage,
                 reply: nestedChatReply,
             },
+            prerequisites: [],
             maxRounds: 30,
             afterWork: null,
             flowAfterWork: null,

@@ -77,6 +77,18 @@ export const getNestedChat = (data: { [key: string]: any }): WaldiezNestedChat =
     return nestedChat;
 };
 
+export const getChatPrerequisites = (data: { [key: string]: any }): string[] => {
+    const prerequisites: string[] = [];
+    if ("prerequisites" in data && Array.isArray(data.prerequisites)) {
+        data.prerequisites.forEach(prerequisite => {
+            if (typeof prerequisite === "string") {
+                prerequisites.push(prerequisite);
+            }
+        });
+    }
+    return prerequisites;
+};
+
 export const getChatOrder = (data: { [key: string]: any }) => {
     let order = -1;
     if ("order" in data && typeof data.order === "number") {

@@ -153,9 +153,18 @@ const getApiType = (json: Record<string, unknown>): WaldiezModelAPIType => {
     if (
         "apiType" in json &&
         typeof json.apiType === "string" &&
-        ["openai", "azure", "google", "anthropic", "mistral", "groq", "together", "nim", "other"].includes(
-            json.apiType,
-        )
+        [
+            "openai",
+            "azure",
+            "deepseek",
+            "google",
+            "anthropic",
+            "mistral",
+            "groq",
+            "together",
+            "nim",
+            "other",
+        ].includes(json.apiType)
     ) {
         apiType = json.apiType as WaldiezModelAPIType;
     }

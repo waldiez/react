@@ -118,6 +118,7 @@ export const updateData = {
             message: null,
             reply: null,
         },
+        prerequisites: [],
         summary: {
             method: "last_msg" as WaldiezChatLlmSummaryMethod,
             prompt: "summarize the conversation",
@@ -161,6 +162,7 @@ export const updateData = {
                 message: null,
                 reply: null,
             },
+            prerequisites: [],
             summary: {
                 method: "last_msg" as WaldiezChatLlmSummaryMethod,
                 prompt: "summarize the conversation",
@@ -200,6 +202,7 @@ export const updateData = {
             message: null,
             reply: null,
         },
+        prerequisites: [],
         summary: {
             method: "last_msg",
             prompt: "summarize the conversation",
@@ -243,6 +246,7 @@ export const updateData = {
                 message: null,
                 reply: null,
             },
+            prerequisites: [],
             summary: {
                 method: "last_msg",
                 prompt: "summarize the conversation",

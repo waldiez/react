@@ -55,6 +55,11 @@
     max-width: 22px !important;
 }
 
+.flow-wrapper .model-logo.deepseek img {
+    width: 22px !important;
+    max-width: 22px !important;
+}
+
 .flow-wrapper .model-logo.mistral img {
     width: 22px !important;
     max-width: 22px !important;

@@ -19,6 +19,7 @@ import {
     getChatName,
     getChatOrder,
     getChatPosition,
+    getChatPrerequisites,
     getChatRest,
     getContextVariables,
     getNestedChat,
@@ -79,6 +80,7 @@ export const chatMapper = {
             message: messageMapper.exportMessage(data.message),
             summary: summaryMapper.exportSummary(data.summary),
             nestedChat: getNestedChat(data),
+            prerequisites: getChatPrerequisites(data),
             maxRounds: getChatMaxRounds(data),
             afterWork: data.afterWork ? swarmAfterWorkMapper.exportSwarmAfterWork(data.afterWork) : null,
             flowAfterWork: data.flowAfterWork
@@ -116,6 +118,7 @@ export const chatMapper = {
             clearHistory: chat.data.clearHistory,
             message: chat.data.message,
             nestedChat: chat.data.nestedChat,
+            prerequisites: chat.data.prerequisites,
             summary: chat.data.summary,
             maxTurns: chat.data.maxTurns,
             maxRounds: chat.data.maxRounds,
@@ -149,6 +152,7 @@ const getChatData = (json: { [key: string]: any }, index: number): WaldiezChatDa
     const message = messageMapper.importMessage(json);
     const summary = summaryMapper.importSummary(json);
     const nestedChat = getNestedChat(json);
+    const prerequisites = getChatPrerequisites(json);
     const maxRounds = getChatMaxRounds(json);
     const afterWork = getChatAfterWork(json);
     const flowAfterWork = getChatFlowAfterWork(json);
@@ -168,6 +172,7 @@ const getChatData = (json: { [key: string]: any }, index: number): WaldiezChatDa
         message,
         summary,
         nestedChat,
+        prerequisites,
         maxRounds,
         afterWork,
         flowAfterWork,

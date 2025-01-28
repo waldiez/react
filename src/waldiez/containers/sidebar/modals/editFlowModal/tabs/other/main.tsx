@@ -60,19 +60,3 @@ export const EditFlowModalModalTabOther = (props: EditFlowModalModalTabOtherProp
         </div>
     );
 };
-
-/*
-const onAsyncChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onDataChange({ isAsync: e.target.checked });
-};
-<label className="checkbox-label margin-left-10">
-                <div className="checkbox-label-view">Async Mode</div>
-                <input
-                    type="checkbox"
-                    defaultChecked={isAsync}
-                    onChange={onAsyncChange}
-                    data-testid={`edit-flow-${flowId}-modal-async-mode`}
-                />
-                <div className="checkbox"></div>
-            </label>
-*/

@@ -7,6 +7,7 @@ import type { Node } from "@xyflow/react";
 export type WaldiezModelAPIType =
     | "openai"
     | "azure"
+    | "deepseek"
     | "google"
     | "anthropic"
     | "mistral"

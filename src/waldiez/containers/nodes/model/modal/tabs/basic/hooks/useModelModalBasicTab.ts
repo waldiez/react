@@ -17,6 +17,9 @@ export const useModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps)
         if (text === "anthropic") {
             return "Claude";
         }
+        if (text === "deepseek") {
+            return "DeepSeek";
+        }
         if (text === "google") {
             return "Gemini";
         }
@@ -41,6 +44,7 @@ export const useModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps)
         { label: "Azure", value: "azure" },
         { label: "Gemini", value: "google" },
         { label: "Claude", value: "anthropic" },
+        { label: "DeepSeek", value: "deepseek" },
         { label: "Mistral", value: "mistral" },
         { label: "Groq", value: "groq" },
         { label: "Together", value: "together" },
@@ -51,6 +55,7 @@ export const useModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps)
     const apiKeyEnvs = {
         openai: "OPENAI_API_KEY",
         azure: "AZURE_API_KEY",
+        deepseek: "DEEPSEEK_API_KEY",
         google: "GOOGLE_GEMINI_API_KEY",
         anthropic: "ANTHROPIC_API_KEY",
         mistral: "MISTRAL_API_KEY",
@@ -63,6 +68,7 @@ export const useModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps)
         openai: "https://api.openai.com/v1",
         google: "https://generativelanguage.googleapis.com/v1beta",
         anthropic: "https://api.anthropic.com/v1",
+        deepseek: "https://api.deepseek.com/v1",
         mistral: "https://api.mistral.ai/v1",
         groq: "https://api.groq.com/openai/v1",
         together: "https://api.together.xyz/v1",

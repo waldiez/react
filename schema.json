@@ -1,5 +1,5 @@
 {
-    "$id": "https://github.com/waldiez/react/tree/v0.3.7/schema.json",
+    "$id": "https://github.com/waldiez/react/tree/v0.3.8/schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "additionalProperties": false,
@@ -1534,7 +1534,18 @@
         },
         "WaldiezModelAPIType": {
             "type": "string",
-            "enum": ["openai", "azure", "google", "anthropic", "mistral", "groq", "together", "nim", "other"]
+            "enum": [
+                "openai",
+                "azure",
+                "deepseek",
+                "google",
+                "anthropic",
+                "mistral",
+                "groq",
+                "together",
+                "nim",
+                "other"
+            ]
         },
         "WaldiezModelPrice": {
             "type": "object",
@@ -1699,6 +1710,12 @@
                     "required": ["message", "reply"],
                     "additionalProperties": false
                 },
+                "prerequisites": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "maxRounds": {
                     "type": "number"
                 },
@@ -1750,6 +1767,7 @@
                 "maxTurns",
                 "summary",
                 "nestedChat",
+                "prerequisites",
                 "maxRounds",
                 "afterWork",
                 "flowAfterWork",

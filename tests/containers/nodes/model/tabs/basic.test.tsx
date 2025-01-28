@@ -205,6 +205,7 @@ describe("WaldiezNodeModel Modal Base Tab", () => {
         for (const apiType of [
             "openai",
             "azure",
+            "deepseek",
             "google",
             "anthropic",
             "mistral",

@@ -34,7 +34,7 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
     // tmp state (to save onSubmit, discard onCancel)
     const [sortedEdgesState, setSortedEdgesState] = useState<WaldiezEdge[]>(sortedEdges);
     const [remainingEdgesState, setRemainingEdgeState] = useState<WaldiezEdge[]>(remainingEdges);
-    const isDataDirty = !isEqual(flowData, { name, description, requirements, tags });
+    const isDataDirty = !isEqual(flowData, { name, description, requirements, tags, isAsync });
     const isEdgesDirty = !isEqual(sortedEdgesState, sortedEdges);
     const [isDirty, setIsDirty] = useState<boolean>(isDataDirty || isEdgesDirty);
     useEffect(() => {
@@ -70,12 +70,12 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
         onClose();
     };
     const onDataChange = (partialData: Partial<EditFlowModalData>) => {
-        setFlowData({ ...flowData, ...partialData });
         const isDataDirty = !isEqual(
             { ...flowData, ...partialData },
-            { name, description, requirements, tags },
+            { name, description, requirements, tags, isAsync },
         );
         const isEdgesDirty = !isEqual(sortedEdgesState, sortedEdges);
+        setFlowData({ ...flowData, ...partialData });
         setIsDirty(isDataDirty || isEdgesDirty);
     };
     const onSelectedNewEdgeChange = (option: SingleValue<{ label: string; value: WaldiezEdge }>) => {

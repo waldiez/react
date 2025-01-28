@@ -41,7 +41,7 @@ export const EditFlowModal = (props: EditFlowModalProps) => {
             preventCloseIfUnsavedChanges
         >
             <TabItems activeTabIndex={0}>
-                <TabItem label="Edit Flow" id={`rf-${flowId}-edit-flow-modal`}>
+                <TabItem label="Properties" id={`rf-${flowId}-edit-flow-modal`}>
                     <EditFlowModalModalTabBasic
                         flowId={flowId}
                         data={flowData}
