@@ -358,7 +358,7 @@ exports[`All > should render Waldiez components 1`] = `
                   <button
                     class="editor-nav-action"
                     data-testid="toggle-theme-test-flow"
-                    title="Run flow"
+                    title="Toggle theme"
                     type="button"
                   >
                     <svg
@@ -864,7 +864,7 @@ exports[`All > should render Waldiez components 1`] = `
                 <button
                   class="editor-nav-action"
                   data-testid="toggle-theme-test-flow"
-                  title="Run flow"
+                  title="Toggle theme"
                   type="button"
                 >
                   <svg

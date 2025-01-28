@@ -216,7 +216,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                                     type="button"
                                     className="editor-nav-action"
                                     onClick={toggleTheme}
-                                    title="Run flow"
+                                    title="Toggle theme"
                                     data-testid={`toggle-theme-${flowId}`}
                                 >
                                     {isDark ? <FaSun /> : <FaMoon />}
