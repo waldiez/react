@@ -48,11 +48,27 @@
     align-items: center;
 }
 
+.flow-wrapper .agent-header img {
+    max-width: 30px;
+    max-height: 30px;
+}
+
 .flow-wrapper .agent-skill-preview svg,
 .flow-wrapper .agent-model-preview img {
-    width: 12px !important;
-    max-width: 12px !important;
+    width: 18px !important;
+    max-width: 18px !important;
     margin-right: 4px;
+}
+
+.flow-wrapper .agent-model-preview .other img,
+.flow-wrapper .agent-model-preview .openai img {
+    width: 16px !important;
+    max-width: 16px !important;
+}
+
+.flow-wrapper .agent-model-preview .nim img {
+    width: 16px !important;
+    max-width: 16px !important;
 }
 
 .flow-wrapper .group-member-entry svg {
@@ -77,11 +93,6 @@
     border: none;
     background-color: transparent;
     text-wrap: nowrap;
-}
-
-.flow-wrapper .agent-header img {
-    max-width: 30px;
-    max-height: 30px;
 }
 
 .flow-wrapper .agent-content {
@@ -396,16 +407,6 @@
 .flow-wrapper .agent-model-preview .agent-model-img,
 .flow-wrapper .agent-skill-preview .agent-skill-img {
     display: flex;
-}
-
-.flow-wrapper .agent-model-preview .nim img {
-    width: 14px !important;
-    max-width: 14px !important;
-}
-
-.flow-wrapper .agent-model-preview .agent-model-img.deepseek img {
-    width: 18px !important;
-    max-width: 18px !important;
 }
 
 .flow-wrapper.dark .agent-model-preview .agent-model-img.other img,
