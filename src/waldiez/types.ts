@@ -28,6 +28,7 @@ export type WaldiezProps = WaldiezFlowProps & {
         previousMessages: string[];
         prompt: string;
     } | null;
+    readOnly?: boolean | null;
     onUpload?: ((files: File[]) => Promise<string[]>) | null;
     onChange?: ((flow: string) => void) | null;
     onRun?: ((flow: string) => void) | null;

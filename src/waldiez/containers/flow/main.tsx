@@ -20,12 +20,13 @@ import { WaldiezNodeType } from "@waldiez/types";
 
 type WaldiezFlowViewProps = {
     flowId: string;
+    readOnly?: boolean;
     onUserInput?: ((input: string) => void) | null;
     inputPrompt?: { previousMessages: string[]; prompt: string } | null;
 };
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
-    const { flowId, inputPrompt, onUserInput } = props;
+    const { flowId, inputPrompt, onUserInput, readOnly } = props;
     const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
@@ -56,6 +57,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const includeConvertIcons = typeof onConvert === "function";
     const { isDark, toggleTheme } = useWaldiezTheme();
     const colorMode = isDark ? "dark" : "light";
+    const isReadOnly = typeof readOnly === "boolean" ? readOnly : false;
 
     const onOpenImportModal = () => {
         setIsImportModalOpen(true);
@@ -188,24 +190,28 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                                         )}
                                     </>
                                 )}
-                                <button
-                                    type="button"
-                                    className="editor-nav-action"
-                                    onClick={onOpenImportModal}
-                                    title="Import flow"
-                                    data-testid={`import-flow-${flowId}-button`}
-                                >
-                                    <CiImport style={{ strokeWidth: 2 }} />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="editor-nav-action"
-                                    onClick={onExport}
-                                    title="Export flow"
-                                    data-testid={`export-flow-${flowId}-button`}
-                                >
-                                    <CiExport style={{ strokeWidth: 2 }} />
-                                </button>
+                                {!isReadOnly && (
+                                    <button
+                                        type="button"
+                                        className="editor-nav-action"
+                                        onClick={onOpenImportModal}
+                                        title="Import flow"
+                                        data-testid={`import-flow-${flowId}-button`}
+                                    >
+                                        <CiImport style={{ strokeWidth: 2 }} />
+                                    </button>
+                                )}
+                                {!isReadOnly && (
+                                    <button
+                                        type="button"
+                                        className="editor-nav-action"
+                                        onClick={onExport}
+                                        title="Export flow"
+                                        data-testid={`export-flow-${flowId}-button`}
+                                    >
+                                        <CiExport style={{ strokeWidth: 2 }} />
+                                    </button>
+                                )}
                                 <button
                                     type="button"
                                     className="editor-nav-action"

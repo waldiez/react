@@ -92,6 +92,12 @@ const onConvertDev = (_flowString: string, to: "py" | "ipynb") => {
 const onConvert = isProd ? null : onConvertDev;
 
 /**
+ * readOnly
+ * if true, the "import/export" buttons are not displayed
+ */
+const readOnly: boolean | undefined | null = null;
+
+/**
  * OnUpload
  * on RAG user: adds a dropzone to upload files
  * when triggered, the files are sent to the backend,
@@ -209,7 +215,7 @@ export const startApp = (waldiezProps: Partial<WaldiezProps> = defaultWaldiezPro
     window.history.replaceState({}, document.title, window.location.pathname);
     ReactDOM.createRoot(document.getElementById("root")!).render(
         <React.StrictMode>
-            <Waldiez {...waldiezProps} />
+            <Waldiez {...waldiezProps} readOnly={readOnly} />
         </React.StrictMode>,
     );
 };

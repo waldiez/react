@@ -25,6 +25,7 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
     const flowId: string = props.flowId ?? `wf-${getId()}`;
     const nodes = props.nodes ?? [];
     const edges = props.edges ?? [];
+    const readOnly = props.readOnly ?? false;
     const { inputPrompt, monacoVsPath, onUserInput } = props;
     useEffect(() => {
         checkInitialBodyThemeClass();
@@ -45,6 +46,7 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
                         <SidebarProvider>
                             <WaldiezProvider {...props} flowId={flowId} nodes={nodes} edges={edges}>
                                 <WaldiezFlowView
+                                    readOnly={readOnly}
                                     flowId={flowId}
                                     inputPrompt={inputPrompt}
                                     onUserInput={onUserInput}
