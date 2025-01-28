@@ -28,13 +28,24 @@ export class WaldiezNodeStore implements IWaldiezNodeStore {
             }),
         });
         const rfInstance = this.get().rfInstance;
-        if (rfInstance && nodeType !== "agent") {
-            const zoom = rfInstance.getZoom();
-            rfInstance.setViewport({
-                zoom,
-                x: 20,
-                y: 40,
-            });
+        if (rfInstance) {
+            if (nodeType !== "agent") {
+                const zoom = rfInstance.getZoom();
+                rfInstance.setViewport({
+                    zoom,
+                    x: 20,
+                    y: 40,
+                });
+            } else {
+                const zoom = rfInstance.getZoom();
+                this.get().rfInstance?.fitView({
+                    includeHiddenNodes: true,
+                    maxZoom: zoom,
+                    minZoom: zoom,
+                    padding: 0.2,
+                    duration: 100,
+                });
+            }
         }
     };
     onNodesChange = (changes: NodeChange[]) => {

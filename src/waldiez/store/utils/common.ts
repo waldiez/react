@@ -59,7 +59,7 @@ export const setViewPortTopLeft = (rfInstance?: ReactFlowInstance) => {
         const zoom = rfInstance.getZoom();
         rfInstance.setViewport({
             zoom,
-            x: 40,
+            x: 20,
             y: 40,
         });
     }
