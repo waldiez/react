@@ -37,11 +37,8 @@ export class WaldiezNodeStore implements IWaldiezNodeStore {
                     y: 40,
                 });
             } else {
-                const zoom = rfInstance.getZoom();
                 this.get().rfInstance?.fitView({
                     includeHiddenNodes: true,
-                    maxZoom: zoom,
-                    minZoom: zoom,
                     padding: 0.2,
                     duration: 100,
                 });
