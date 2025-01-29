@@ -4,6 +4,7 @@
  */
 import { Node, NodeChange, applyNodeChanges } from "@xyflow/react";
 
+import { setViewPortTopLeft } from "@waldiez/store/utils";
 import { IWaldiezNodeStore, WaldiezNodeType, typeOfGet, typeOfSet } from "@waldiez/types";
 import { getFlowRoot } from "@waldiez/utils";
 
@@ -28,19 +29,17 @@ export class WaldiezNodeStore implements IWaldiezNodeStore {
             }),
         });
         const rfInstance = this.get().rfInstance;
-        if (rfInstance) {
-            if (nodeType !== "agent") {
+        if (nodeType !== "agent") {
+            setViewPortTopLeft(rfInstance);
+        } else {
+            if (rfInstance) {
                 const zoom = rfInstance.getZoom();
-                rfInstance.setViewport({
-                    zoom,
-                    x: 20,
-                    y: 40,
-                });
-            } else {
-                this.get().rfInstance?.fitView({
-                    includeHiddenNodes: true,
-                    padding: 0.2,
-                    duration: 100,
+                rfInstance?.fitView({
+                    padding: 20,
+                    includeHiddenNodes: false,
+                    minZoom: zoom,
+                    maxZoom: zoom,
+                    duration: 200,
                 });
             }
         }

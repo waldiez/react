@@ -4,7 +4,7 @@
  */
 import { Background, BackgroundVariant, Controls, Panel, ReactFlow, Viewport } from "@xyflow/react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiExport, CiImport } from "react-icons/ci";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaCirclePlay, FaMoon, FaPython, FaSun } from "react-icons/fa6";
@@ -27,7 +27,8 @@ type WaldiezFlowViewProps = {
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const { flowId, inputPrompt, onUserInput, readOnly } = props;
-    const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
+    // const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
+    const selectedNodeType = useRef<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
     const edges = useWaldiez(s => s.edges);
@@ -58,7 +59,9 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const { isDark, toggleTheme } = useWaldiezTheme();
     const colorMode = isDark ? "dark" : "light";
     const isReadOnly = typeof readOnly === "boolean" ? readOnly : false;
-
+    const setSelectedNodeType = (nodeType: WaldiezNodeType) => {
+        selectedNodeType.current = nodeType;
+    };
     const onOpenImportModal = () => {
         setIsImportModalOpen(true);
     };
@@ -66,29 +69,31 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         setIsImportModalOpen(false);
     };
     const onTypeShownChange = (nodeType: WaldiezNodeType) => {
-        if (nodeType !== selectedNodeType) {
-            showNodes(nodeType);
+        if (selectedNodeType.current !== nodeType) {
             setSelectedNodeType(nodeType);
+            showNodes(nodeType);
         }
     };
 
     const onAddNode = () => {
-        if (selectedNodeType === "model") {
+        if (selectedNodeType.current === "model") {
             addModel();
             onFlowChanged();
-        } else if (selectedNodeType === "skill") {
+        } else if (selectedNodeType.current === "skill") {
             addSkill();
             onFlowChanged();
         }
     };
     const onNewAgent = () => {
-        setSelectedNodeType("agent");
-        showNodes("agent");
+        if (selectedNodeType.current !== "agent") {
+            setSelectedNodeType("agent");
+            showNodes("agent");
+        }
         onFlowChanged();
     };
     const { onDragOver, onDrop } = useDnD(onNewAgent);
     const onViewportChange = (viewport: Viewport) => {
-        handleViewportChange(viewport, selectedNodeType);
+        handleViewportChange(viewport, selectedNodeType.current);
         // onFlowChanged();
     };
     useEffect(() => {
@@ -102,7 +107,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
             data-testid={`rf-root-${flowId}`}
         >
             <div className="flow-main">
-                <SideBar onSelectNodeType={onTypeShownChange} selectedNodeType={selectedNodeType} />
+                <SideBar onSelectNodeType={onTypeShownChange} selectedNodeType={selectedNodeType.current} />
                 <div className="react-flow-wrapper" data-testid={`rf-wrapper-${flowId}`}>
                     <ReactFlow
                         id={flowId}
@@ -137,17 +142,17 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                         // debug
                     >
                         <Controls showInteractive={true} />
-                        {selectedNodeType !== "agent" && (
+                        {selectedNodeType.current !== "agent" && (
                             <Panel position="top-left">
                                 <button
                                     type="button"
                                     className="editor-nav-action add-node currentColor"
                                     onClick={onAddNode}
-                                    title={`Add ${selectedNodeType}`}
-                                    data-testid={`add-${selectedNodeType}-node`}
+                                    title={`Add ${selectedNodeType.current}`}
+                                    data-testid={`add-${selectedNodeType.current}-node`}
                                 >
                                     <FaPlusCircle />
-                                    Add {selectedNodeType}
+                                    Add {selectedNodeType.current}
                                 </button>
                             </Panel>
                         )}
@@ -242,7 +247,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                     flowId={flowId}
                     isOpen={isImportModalOpen}
                     onClose={onCloseImportModal}
-                    typeShown={selectedNodeType}
+                    typeShown={selectedNodeType.current}
                     onTypeShownChange={onTypeShownChange}
                 />
             )}
