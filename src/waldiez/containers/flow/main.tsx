@@ -28,6 +28,7 @@ type WaldiezFlowViewProps = {
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const { flowId, inputPrompt, onUserInput, readOnly } = props;
     // const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
+    const rfParent = useRef<HTMLDivElement | null>(null);
     const selectedNodeType = useRef<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
@@ -108,7 +109,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         >
             <div className="flow-main">
                 <SideBar onSelectNodeType={onTypeShownChange} selectedNodeType={selectedNodeType.current} />
-                <div className="react-flow-wrapper" data-testid={`rf-wrapper-${flowId}`}>
+                <div className="react-flow-wrapper" data-testid={`rf-wrapper-${flowId}`} ref={rfParent}>
                     <ReactFlow
                         id={flowId}
                         nodeTypes={nodeTypes}
@@ -134,6 +135,8 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                         connectOnClick
                         zoomOnDoubleClick={false}
                         noWheelClassName="no-wheel"
+                        width={rfParent.current?.clientWidth}
+                        height={rfParent.current?.clientHeight}
                         // noPanClassName="no-pan"
                         // noDragClassName="no-drag"
                         // nodesDraggable

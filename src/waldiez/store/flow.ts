@@ -163,7 +163,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
         reArrangeSkills(this.get, this.set);
         setTimeout(() => {
             rfInstance?.fitView({
-                includeHiddenNodes: true,
+                includeHiddenNodes: false,
                 padding: 0.2,
                 duration: 100,
             });

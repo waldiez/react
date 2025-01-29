@@ -30,7 +30,7 @@ export const useFlowEvents = (flowId: string) => {
                 minZoom: viewport.zoom,
                 maxZoom: viewport.zoom,
                 includeHiddenNodes: false,
-                padding: 10,
+                padding: 0.2,
                 duration: 100,
             });
         }

@@ -28,20 +28,8 @@ export class WaldiezNodeStore implements IWaldiezNodeStore {
                 return { ...node, hidden: true };
             }),
         });
-        const rfInstance = this.get().rfInstance;
         if (nodeType !== "agent") {
-            setViewPortTopLeft(rfInstance);
-        } else {
-            if (rfInstance) {
-                const zoom = rfInstance.getZoom();
-                rfInstance?.fitView({
-                    padding: 20,
-                    includeHiddenNodes: false,
-                    minZoom: zoom,
-                    maxZoom: zoom,
-                    duration: 200,
-                });
-            }
+            setViewPortTopLeft(this.get().rfInstance);
         }
     };
     onNodesChange = (changes: NodeChange[]) => {
