@@ -28,11 +28,17 @@ export const EditFlowModal = (props: EditFlowModalProps) => {
         onRemoveEdge,
         onMoveEdgeUp,
         onMoveEdgeDown,
+        onPrerequisitesChange,
     } = useEditFlowModal(props);
+    const onSaveAndClose = () => {
+        onSubmit();
+        onClose();
+    };
     return (
         <Modal
             title="Edit Flow"
             isOpen={isOpen}
+            onSaveAndClose={onSaveAndClose}
             onClose={onClose}
             className="edit-flow-modal"
             hasMaximizeBtn={false}
@@ -48,6 +54,7 @@ export const EditFlowModal = (props: EditFlowModalProps) => {
                         remainingEdges={remainingEdgesState}
                         sortedEdges={sortedEdgesState}
                         selectedNewEdge={selectedNewEdge}
+                        onPrerequisitesChange={onPrerequisitesChange}
                         onSelectedNewEdgeChange={onSelectedNewEdgeChange}
                         onAddEdge={onAddEdge}
                         onRemoveEdge={onRemoveEdge}

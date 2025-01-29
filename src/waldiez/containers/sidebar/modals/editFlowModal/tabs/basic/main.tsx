@@ -6,8 +6,6 @@ import { HandleASyncChatOrderAndPrerequisites } from "@waldiez/containers/sideba
 import { HandleSyncChatOrder } from "@waldiez/containers/sidebar/modals/editFlowModal/tabs/basic/syncChat";
 import { EditFlowModalModalTabBasicProps } from "@waldiez/containers/sidebar/modals/editFlowModal/tabs/basic/types";
 
-const INCLUDE_ASYNC = false;
-
 export const EditFlowModalModalTabBasic = (props: EditFlowModalModalTabBasicProps) => {
     const { flowId, data, sortedEdges, remainingEdges, onDataChange } = props;
     const { name, description, isAsync } = data;
@@ -43,22 +41,20 @@ export const EditFlowModalModalTabBasic = (props: EditFlowModalModalTabBasicProp
                 onChange={onDescriptionChange}
                 data-testid={`edit-flow-${flowId}-description-input`}
             />
-            {INCLUDE_ASYNC && (
-                <label className="checkbox-label margin-left-5">
-                    <div className="checkbox-label-view">Async Mode</div>
-                    <input
-                        type="checkbox"
-                        defaultChecked={isAsync}
-                        onChange={onAsyncChange}
-                        data-testid={`edit-flow-${flowId}-modal-async-mode`}
-                    />
-                    <div className="checkbox"></div>
-                </label>
-            )}
+            <label className="checkbox-label margin-left-5">
+                <div className="checkbox-label-view">Async Mode</div>
+                <input
+                    type="checkbox"
+                    defaultChecked={isAsync}
+                    onChange={onAsyncChange}
+                    data-testid={`edit-flow-${flowId}-modal-async-mode`}
+                />
+                <div className="checkbox"></div>
+            </label>
             <label>Chat order {isAsync && "& prerequisites"} </label>
             {edgesCount === 0 ? (
                 <div className="info">No chats added to the flow yet.</div>
-            ) : isAsync && INCLUDE_ASYNC ? (
+            ) : isAsync ? (
                 <HandleASyncChatOrderAndPrerequisites {...props} />
             ) : (
                 <HandleSyncChatOrder {...props} />

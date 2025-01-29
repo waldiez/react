@@ -18,6 +18,7 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
     const getFlowInfo = useWaldiez(s => s.getFlowInfo);
     const updateFlowInfo = useWaldiez(s => s.updateFlowInfo);
     const updateFlowOrder = useWaldiez(s => s.updateFlowOrder);
+    const updateFlowPrerequisites = useWaldiez(s => s.updateFlowPrerequisites);
     const flowInfo = getFlowInfo();
     const { name, description, requirements, tags, isAsync } = flowInfo;
     const [flowData, setFlowData] = useState<EditFlowModalData>({
@@ -41,19 +42,23 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
         reset();
     }, [isOpen]);
     const onSubmit = () => {
-        const edgeOrders = sortedEdgesState
-            .map((edge, index) => ({
-                id: edge.id,
-                order: index + 1,
-            }))
-            .concat(
-                remainingEdgesState.map(edge => ({
-                    id: edge.id,
-                    order: -1,
-                })),
-            );
         updateFlowInfo(flowData);
-        updateFlowOrder(edgeOrders);
+        if (!flowData.isAsync) {
+            const edgeOrders = sortedEdgesState
+                .map((edge, index) => ({
+                    id: edge.id,
+                    order: index,
+                }))
+                .concat(
+                    remainingEdgesState.map(edge => ({
+                        id: edge.id,
+                        order: -1,
+                    })),
+                );
+            updateFlowOrder(edgeOrders);
+        } else {
+            updateFlowPrerequisites(sortedEdgesState);
+        }
         onFlowChanged();
         setIsDirty(false);
     };
@@ -125,7 +130,7 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
             setSortedEdgesState(sortedEdgesState.filter(e => e.id !== edge.id));
             setRemainingEdgeState([
                 ...remainingEdgesState,
-                { ...edge, data: { ...edge.data, order: -1 } as any },
+                { ...edge, data: { ...edge.data, order: -1, prerequisites: [] } as any },
             ]);
             setIsDirty(true);
         }
@@ -135,21 +140,42 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
         if (sortedEdgesState.find(e => e.id === sortedEdgesState[index].id)) {
             // swap the order between the current and the previous edge
             const previousEdge = sortedEdgesState[index - 1];
-            const previousOrder = previousEdge.data?.order;
             const currentEdge = sortedEdgesState[index];
-            const currentOrder = currentEdge.data?.order;
             const newSortedEdges = sortedEdgesState.slice();
-            newSortedEdges[index - 1] = {
-                ...currentEdge,
-                data: { ...currentEdge.data, order: previousOrder },
-            } as WaldiezEdge;
-            newSortedEdges[index] = {
-                ...previousEdge,
-                data: { ...previousEdge.data, order: currentOrder },
-            } as WaldiezEdge;
-            setSortedEdgesState(newSortedEdges);
+            newSortedEdges[index - 1] = currentEdge;
+            newSortedEdges[index] = previousEdge;
+            setSortedEdgesState(setSyncPrerequisites(newSortedEdges));
+            // setSortedEdgesState(newSortedEdges);
             setIsDirty(true);
         }
+    };
+    const setSyncPrerequisites = (newSortedEdges: WaldiezEdge[]) => {
+        // if order > 0: set the prerequisites to the previous [edge.id]
+        // if order === 0: set the prerequisites to []
+        return newSortedEdges.map((edge, index) => {
+            if (index === 0) {
+                return { ...edge, data: { ...edge.data, order: 0, prerequisites: [] } } as WaldiezEdge;
+            }
+            const previousEdge = newSortedEdges[index - 1];
+            return {
+                ...edge,
+                data: {
+                    ...edge.data,
+                    order: index,
+                    prerequisites: [previousEdge.id],
+                },
+            } as WaldiezEdge;
+        });
+    };
+    const onPrerequisitesChange = (edge: WaldiezEdge, prerequisites: string[]) => {
+        const newSortedEdges = sortedEdgesState.map(e => {
+            if (e.id === edge.id) {
+                return { ...e, data: { ...e.data, prerequisites } } as WaldiezEdge;
+            }
+            return e;
+        });
+        setSortedEdgesState(newSortedEdges);
+        setIsDirty(true);
     };
     const onMoveEdgeDown = (index: number) => {
         // it should be in the 'sorted' list
@@ -168,7 +194,7 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
                 ...nextEdge,
                 data: { ...nextEdge.data, order: currentOrder },
             } as WaldiezEdge;
-            setSortedEdgesState(newSortedEdges);
+            setSortedEdgesState(setSyncPrerequisites(newSortedEdges));
             setIsDirty(true);
         }
     };
@@ -188,5 +214,6 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
         onRemoveEdge,
         onMoveEdgeUp,
         onMoveEdgeDown,
+        onPrerequisitesChange,
     };
 };

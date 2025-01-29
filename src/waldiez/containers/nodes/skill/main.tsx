@@ -23,6 +23,7 @@ export const WaldiezNodeSkillView = ({ id, data }: NodeProps<WaldiezNodeSkill>) 
         onDelete,
         onCancel,
         onSave,
+        onSaveAndClose,
         onChange,
         onExport,
         onImport,
@@ -83,6 +84,7 @@ export const WaldiezNodeSkillView = ({ id, data }: NodeProps<WaldiezNodeSkill>) 
                 onClose={onCancel}
                 onCancel={onCancel}
                 onSave={onSave}
+                onSaveAndClose={onSaveAndClose}
                 onDataChange={onChange}
                 onImport={onImport}
                 onExport={onExport}

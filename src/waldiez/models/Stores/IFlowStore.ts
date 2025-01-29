@@ -25,6 +25,7 @@ export interface IWaldiezFlowStore {
     importFlow: (items: ThingsToImport, flowData: ImportedFlow, typeShown: WaldiezNodeType) => void;
     exportFlow: (hideSecrets: boolean, skipLinks: boolean) => WaldiezFlow;
     updateFlowOrder: (data: { id: string; order: number }[]) => void;
+    updateFlowPrerequisites: (edges: WaldiezEdge[]) => void;
     updateFlowInfo: (data: {
         name: string;
         description: string;

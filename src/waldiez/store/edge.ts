@@ -18,8 +18,7 @@ import {
     getNewEdgeConnectionProps,
     getNewEdgeName,
     getNewEdgeNodes,
-    resetEdgeOrders,
-    resetEdgePositions,
+    resetEdgeOrdersAndPositions,
     setSwarmInitialAgent,
     shouldReconnect,
 } from "@waldiez/store/utils";
@@ -84,8 +83,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
             }),
             updatedAt: new Date().toISOString(),
         });
-        this.resetEdgePositions();
-        this.resetEdgeOrders();
+        this.resetEdgeOrdersAndPositions();
     };
     updateEdgeData = (id: string, data: Partial<WaldiezEdge["data"]>) => {
         const edge = this.get().edges.find(edge => edge.id === id);
@@ -93,8 +91,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
             const updatedEdge = { ...edge, data: { ...edge.data, ...data } };
             const edges = this.get().edges.map(edge => (edge.id === id ? updatedEdge : edge));
             this.set({ edges, updatedAt: new Date().toISOString() });
-            this.resetEdgePositions();
-            this.resetEdgeOrders();
+            this.resetEdgeOrdersAndPositions();
         }
     };
     updateEdgeType = (id: string, edgeType: WaldiezEdgeType) => {
@@ -110,7 +107,11 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
                         ...edge,
                         type: edgeType,
                         hidden: false,
-                        order: -1,
+                        data: {
+                            ...edge.data,
+                            order: edgeType === "nested" ? -1 : (edge.data?.order ?? -1),
+                            prerequisites: edgeType === "nested" ? [] : (edge.data?.prerequisites ?? []),
+                        },
                         animated: edgeType === "nested",
                         ...edgeCommonStyle(edgeType, color),
                     };
@@ -119,8 +120,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
             }),
             updatedAt: new Date().toISOString(),
         });
-        this.resetEdgePositions();
-        this.resetEdgeOrders();
+        this.resetEdgeOrdersAndPositions();
     };
     updateEdgePath = (id: string, agentType: WaldiezNodeAgentType) => {
         const currentEdge = this.get().edges.find(edge => edge.id === id);
@@ -130,7 +130,6 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
         }
         const edgeType = currentEdge.type as WaldiezEdgeType;
         const color = AGENT_COLORS[agentType];
-        console.log("updateEdgePath", id, agentType, edgeType, color);
         const { style, markerEnd } = edgeCommonStyle(edgeType, color);
         this.set({
             edges: this.get().edges.map(edge => {
@@ -141,8 +140,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
             }),
             updatedAt: new Date().toISOString(),
         });
-        this.resetEdgePositions();
-        this.resetEdgeOrders();
+        this.resetEdgeOrdersAndPositions();
     };
     addEdge = (connection: Connection, hidden: boolean) => {
         const nodes = this.get().nodes as WaldiezNodeAgent[];
@@ -161,7 +159,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
             edges: [...this.get().edges, { ...newEdge, sourceHandle, targetHandle }],
             updatedAt: new Date().toISOString(),
         });
-        this.resetEdgePositions();
+        this.resetEdgeOrdersAndPositions();
         const newStoredEdge = this.get().edges.find(edge => edge.id === newEdge.id);
         if (sourceNode.data.agentType !== "swarm" && targetNode.data.agentType === "swarm") {
             setSwarmInitialAgent(targetNode.id, this.get, this.set);
@@ -248,8 +246,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
             ],
             updatedAt: new Date().toISOString(),
         });
-        this.resetEdgePositions();
-        this.resetEdgeOrders();
+        this.resetEdgeOrdersAndPositions();
     };
     onEdgesChange = (changes: EdgeChange[]) => {
         const edges = applyEdgeChanges(changes, this.get().edges);
@@ -258,10 +255,7 @@ export class WaldiezEdgeStore implements IWaldiezEdgeStore {
     getSwarmEdges: () => WaldiezEdge[] = () => {
         return this.get().edges.filter(edge => edge.type === "swarm") as WaldiezEdge[];
     };
-    private resetEdgePositions = () => {
-        resetEdgePositions(this.get, this.set);
-    };
-    private resetEdgeOrders = () => {
-        resetEdgeOrders(this.get, this.set);
+    private resetEdgeOrdersAndPositions = () => {
+        resetEdgeOrdersAndPositions(this.get, this.set);
     };
 }

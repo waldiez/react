@@ -9,10 +9,11 @@ import { WaldiezEdge } from "@waldiez/models";
 export type EditFlowModalModalTabBasicProps = {
     flowId: string;
     data: EditFlowModalData;
-    onDataChange: (data: Partial<EditFlowModalData>) => void;
     remainingEdges: WaldiezEdge[];
     sortedEdges: WaldiezEdge[];
     selectedNewEdge: WaldiezEdge | null;
+    onPrerequisitesChange: (edge: WaldiezEdge, prerequisites: string[]) => void;
+    onDataChange: (data: Partial<EditFlowModalData>) => void;
     onSelectedNewEdgeChange: (option: SingleValue<{ label: string; value: WaldiezEdge }>) => void;
     onAddEdge: () => void;
     onRemoveEdge: (edge: WaldiezEdge) => void;

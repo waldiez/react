@@ -14,6 +14,7 @@ export type WaldiezNodeSkillModalProps = {
     onClose: () => void;
     onCancel: () => void;
     onSave: () => void;
+    onSaveAndClose: () => void;
     onDataChange: (data: Partial<WaldiezNodeSkillData>) => void;
     onImport: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onExport: () => void;

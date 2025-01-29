@@ -10,8 +10,8 @@ import {
     reArrangeModels,
     reArrangeNodes,
     reArrangeSkills,
-    resetEdgeOrders,
-    resetEdgePositions,
+    resetEdgeOrdersAndPositions,
+    resetEdgePrerequisites,
     setViewPortTopLeft,
 } from "@waldiez/store/utils";
 import {
@@ -158,8 +158,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
             nodes,
             edges,
         });
-        resetEdgePositions(this.get, this.set);
-        resetEdgeOrders(this.get, this.set);
+        resetEdgeOrdersAndPositions(this.get, this.set);
         reArrangeModels(this.get, this.set);
         reArrangeSkills(this.get, this.set);
         setTimeout(() => {
@@ -212,6 +211,9 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
             }),
             updatedAt,
         });
+    };
+    updateFlowPrerequisites: (edges: WaldiezEdge[]) => void = edges => {
+        resetEdgePrerequisites(edges, this.get, this.set);
     };
     updateFlowInfo: (data: {
         name: string;

@@ -15,8 +15,7 @@ import { agentMapper, chatMapper } from "@waldiez/models/mappers";
 import {
     getAgentConnections,
     getAgentNode,
-    resetEdgeOrders,
-    resetEdgePositions,
+    resetEdgeOrdersAndPositions,
     setSwarmInitialAgent,
 } from "@waldiez/store/utils";
 import { typeOfGet, typeOfSet } from "@waldiez/types";
@@ -83,8 +82,7 @@ export class WaldiezAgentStore implements IWaldiezAgentStore {
             ),
             updatedAt: new Date().toISOString(),
         });
-        resetEdgePositions(this.get, this.set);
-        resetEdgeOrders(this.get, this.set);
+        resetEdgeOrdersAndPositions(this.get, this.set);
     };
     deleteAgent = (id: string) => {
         const agent = this.get().nodes.find(node => node.id === id);
@@ -116,8 +114,7 @@ export class WaldiezAgentStore implements IWaldiezAgentStore {
                 updatedAt: new Date().toISOString(),
             });
         }
-        resetEdgePositions(this.get, this.set);
-        resetEdgeOrders(this.get, this.set);
+        resetEdgeOrdersAndPositions(this.get, this.set);
     };
     importAgent = (
         agent: { [key: string]: unknown },
@@ -171,8 +168,7 @@ export class WaldiezAgentStore implements IWaldiezAgentStore {
             edges: [...remainingEdges, ...[innerEdge]],
             updatedAt: new Date().toISOString(),
         });
-        resetEdgePositions(this.get, this.set);
-        resetEdgeOrders(this.get, this.set);
+        resetEdgeOrdersAndPositions(this.get, this.set);
     };
     removeGroupMember = (groupId: string, memberId: string) => {
         const nodes = [
@@ -193,8 +189,7 @@ export class WaldiezAgentStore implements IWaldiezAgentStore {
             edges,
             updatedAt: new Date().toISOString(),
         });
-        resetEdgePositions(this.get, this.set);
-        resetEdgeOrders(this.get, this.set);
+        resetEdgeOrdersAndPositions(this.get, this.set);
     };
     setAgentGroup = (agentId: string, groupId: string) => {
         this.set({

@@ -74,6 +74,10 @@ export const useWaldiezNodeSkill = (id: string, data: WaldiezNodeSkillData) => {
         // setModalOpen(false);
         // keep modal open after save
     };
+    const onSaveAndClose = () => {
+        onSave();
+        setModalOpen(false);
+    };
     return {
         flowId,
         isModalOpen,
@@ -86,6 +90,7 @@ export const useWaldiezNodeSkill = (id: string, data: WaldiezNodeSkillData) => {
         onDelete,
         onCancel,
         onSave,
+        onSaveAndClose,
         onChange,
         onExport,
         onImport,

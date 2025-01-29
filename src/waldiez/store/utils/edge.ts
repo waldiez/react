@@ -230,48 +230,9 @@ export const getNewGroupEdges = (allEdges: Edge[]) => {
 export const getNewHiddenEdges = (allEdges: Edge[]) => {
     return getNewChatsOfType(allEdges, "hidden");
 };
-export const resetEdgeOrders: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
-    // if the edge.data.order is < 0, leave it as is
-    // else start counting from 1 (not 0)
-    const edges = get().edges as WaldiezEdge[];
-    const newEdges = edges.map((edge, index) => {
-        let edgeOrder = edge.data?.order;
-        if (edgeOrder === undefined) {
-            edgeOrder = -1;
-        }
-        return {
-            ...edge,
-            data: { ...edge.data, order: edgeOrder < 0 ? edgeOrder : index + 1 },
-        };
-    });
-    set({
-        edges: newEdges,
-        updatedAt: new Date().toISOString(),
-    });
-};
-export const resetEdgePositions = (get: typeOfGet, set: typeOfSet) => {
-    const edges = get().edges as WaldiezEdge[];
-    const swarmEdges = edges.filter(edge => edge.type === "swarm");
-    const newEdges = edges.map(edge => {
-        return {
-            ...edge,
-            data: { ...edge.data, position: 1 },
-        };
-    });
-    const newChatEdges = getNewChatEdges(newEdges);
-    const newNestedEdges = getNewNestedEdges(newEdges);
-    const newGroupEdges = getNewGroupEdges(newEdges);
-    const newHiddenEdges = getNewHiddenEdges(newEdges);
-    // ensure no dupe ids
-    const allEdges = [...newChatEdges, ...newNestedEdges, ...newGroupEdges, ...newHiddenEdges, ...swarmEdges];
-    const edgeIds = allEdges.map(edge => edge.id);
-    const uniqueEdgeIds = Array.from(new Set(edgeIds));
-    const uniqueEdges = allEdges.filter(edge => uniqueEdgeIds.includes(edge.id));
-    set({
-        edges: uniqueEdges,
-        updatedAt: new Date().toISOString(),
-    });
-    updateNestedEdges(get, set);
+export const resetEdgeOrdersAndPositions = (get: typeOfGet, set: typeOfSet) => {
+    resetEdgePositions(get, set);
+    resetEdgeOrders(get, set);
 };
 export const shouldReconnect = (newConnection: Connection, nodes: Node[]): boolean => {
     const newTarget = nodes.find(node => node.id === newConnection.target);
@@ -361,4 +322,109 @@ const updateNestedEdges = (get: typeOfGet, set: typeOfSet) => {
         edges: [...otherEdges, ...nestedEdges],
         updatedAt: new Date().toISOString(),
     });
+};
+
+const resetSyncEdgeOrders: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
+    // if the edge.data.order is < 0, leave it as is
+    // else start counting from 0
+    const edges = get().edges as WaldiezEdge[];
+    const newEdges = edges.map((edge, index) => {
+        let edgeOrder = edge.data?.order;
+        if (edgeOrder === undefined) {
+            edgeOrder = -1;
+        }
+        return {
+            ...edge,
+            data: { ...edge.data, order: edgeOrder < 0 ? edgeOrder : index },
+        };
+    });
+    set({
+        edges: newEdges,
+        updatedAt: new Date().toISOString(),
+    });
+};
+const resetAsyncEdgeOrders = (get: typeOfGet, set: typeOfSet) => {
+    const usedEdges = (get().edges as WaldiezEdge[]).filter(
+        edge => edge.data?.order !== undefined && edge.data.order >= 0,
+    );
+    resetEdgePrerequisites(usedEdges, get, set);
+};
+export const resetEdgePrerequisites: (edges: WaldiezEdge[], get: typeOfGet, set: typeOfSet) => void = (
+    edges,
+    get,
+    set,
+) => {
+    const updatedAt = new Date().toISOString();
+    // const allEdges = get().edges as WaldiezEdge[];
+    // const usedEdges = allEdges.filter(edge => edge.data?.order !== undefined && edge.data.order >= 0);
+    // these edges should have order >= 0, and prerequisites a list of ids (could be empty)
+    // all the other edges should have order = -1 and prerequisites = []
+    // the order should be determined based on (and after setting) the prerequisites (of all affected edges)
+    const edgesMap = new Map<string, WaldiezEdge>(edges.map(edge => [edge.id, edge]));
+    const computeOrder = (edge: WaldiezEdge): number => {
+        if (!edge.data || !edge.data.prerequisites || edge.data.prerequisites.length === 0) {
+            return 0;
+        }
+        return (
+            Math.max(
+                ...edge.data.prerequisites.map(id => {
+                    const edge = edges.find(e => e.id === id);
+                    return edge?.data?.order ?? 0;
+                }),
+            ) + 1
+        );
+    };
+    // Process until no changes occur
+    let changed = true;
+    while (changed) {
+        changed = false;
+        for (const edge of edges) {
+            const newOrder = computeOrder(edge);
+            if (edgesMap.get(edge.id)!.data?.order !== newOrder) {
+                edgesMap.get(edge.id)!.data!.order = newOrder;
+                changed = true;
+            }
+        }
+    }
+    const updatedEdges = Array.from(edgesMap.values());
+    const remainingEdges = get()
+        .edges.filter(edge => !updatedEdges.find(e => e.id === edge.id))
+        .map(edge => {
+            return {
+                ...edge,
+                data: { ...edge.data, order: -1, prerequisites: [] },
+            };
+        });
+    set({
+        edges: [...updatedEdges, ...remainingEdges],
+        updatedAt,
+    });
+};
+const resetEdgeOrders: (get: typeOfGet, set: typeOfSet) => void = (get, set) => {
+    const isAsync = get().isAsync;
+    isAsync === true ? resetAsyncEdgeOrders(get, set) : resetSyncEdgeOrders(get, set);
+};
+const resetEdgePositions = (get: typeOfGet, set: typeOfSet) => {
+    const edges = get().edges as WaldiezEdge[];
+    const swarmEdges = edges.filter(edge => edge.type === "swarm");
+    const newEdges = edges.map(edge => {
+        return {
+            ...edge,
+            data: { ...edge.data, position: 1 },
+        };
+    });
+    const newChatEdges = getNewChatEdges(newEdges);
+    const newNestedEdges = getNewNestedEdges(newEdges);
+    const newGroupEdges = getNewGroupEdges(newEdges);
+    const newHiddenEdges = getNewHiddenEdges(newEdges);
+    // ensure no dupe ids
+    const allEdges = [...newChatEdges, ...newNestedEdges, ...newGroupEdges, ...newHiddenEdges, ...swarmEdges];
+    const edgeIds = allEdges.map(edge => edge.id);
+    const uniqueEdgeIds = Array.from(new Set(edgeIds));
+    const uniqueEdges = allEdges.filter(edge => uniqueEdgeIds.includes(edge.id));
+    set({
+        edges: uniqueEdges,
+        updatedAt: new Date().toISOString(),
+    });
+    updateNestedEdges(get, set);
 };

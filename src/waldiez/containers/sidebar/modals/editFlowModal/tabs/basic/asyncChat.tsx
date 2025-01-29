@@ -7,10 +7,26 @@ import { EditFlowModalModalTabBasicProps } from "@waldiez/containers/sidebar/mod
 import { WaldiezEdge } from "@waldiez/models";
 
 export const HandleASyncChatOrderAndPrerequisites = (props: EditFlowModalModalTabBasicProps) => {
-    const { sortedEdges, remainingEdges, selectedNewEdge, onSelectedNewEdgeChange, onAddEdge, onRemoveEdge } =
-        props;
-    const onSetChatPrerequisitesChange = (options: MultiValue<{ label: string; value: WaldiezEdge }>) => {
-        console.log(options);
+    const {
+        sortedEdges,
+        remainingEdges,
+        selectedNewEdge,
+        onSelectedNewEdgeChange,
+        onAddEdge,
+        onRemoveEdge,
+        onPrerequisitesChange,
+    } = props;
+
+    const onSetChatPrerequisitesChange = (
+        edge: WaldiezEdge,
+        options: MultiValue<{ label: string; value: WaldiezEdge }>,
+    ) => {
+        if (options) {
+            const prerequisites = options.map(option => option.value.id);
+            onPrerequisitesChange(edge, prerequisites);
+        } else {
+            onPrerequisitesChange(edge, []);
+        }
     };
 
     return (
@@ -26,34 +42,47 @@ export const HandleASyncChatOrderAndPrerequisites = (props: EditFlowModalModalTa
                         <div className="flow-chat-prerequisite-source">
                             <span>{edge.data?.label as string}</span>
                         </div>
-                        <div className="flow-chat-prerequisite-actions">
-                            <label htmlFor="chat-pre-requisites-select">Prerequisites:</label>
-                            <Select
-                                options={sortedEdges.map(edge => ({
-                                    value: edge,
-                                    label: edge.data?.label as string,
-                                }))}
-                                value={{ value: edge, label: edge.data?.label as string }}
-                                onChange={onSetChatPrerequisitesChange}
-                                isMulti
-                                inputId="chat-pre-requisites-select"
-                            />
-                            {sortedEdges.length > 1 && (
-                                <div className="flow-chat-remove">
-                                    {sortedEdges.length > 1 && (
-                                        <button
-                                            type="button"
-                                            title="Remove"
-                                            className="flow-order-item-action"
-                                            data-testid={`remove-edge-button-${index}`}
-                                            onClick={onRemoveEdge.bind(null, edge)}
-                                        >
-                                            Remove
-                                        </button>
-                                    )}
-                                </div>
-                            )}
-                        </div>
+                        {sortedEdges.length > 1 && (
+                            <div className="flow-chat-prerequisite-actions">
+                                <label htmlFor="chat-pre-requisites-select">Prerequisites:</label>
+                                <Select
+                                    placeholder="Select prerequisites..."
+                                    options={sortedEdges
+                                        .filter(e => e.id !== edge.id)
+                                        .map(edge => ({
+                                            value: edge,
+                                            label: edge.data?.label as string,
+                                        }))}
+                                    value={edge.data?.prerequisites.map(prerequisite => {
+                                        const edge = sortedEdges.find(e => e.id === prerequisite);
+                                        return edge
+                                            ? {
+                                                  value: edge,
+                                                  label: edge.data?.label as string,
+                                              }
+                                            : ([] as any);
+                                    })}
+                                    onChange={onSetChatPrerequisitesChange.bind(null, edge)}
+                                    isMulti
+                                    inputId="chat-pre-requisites-select"
+                                />
+                                {sortedEdges.length > 1 && (
+                                    <div className="flow-chat-remove">
+                                        {sortedEdges.length > 1 && (
+                                            <button
+                                                type="button"
+                                                title="Remove"
+                                                className="flow-order-item-action"
+                                                data-testid={`remove-edge-button-${index}`}
+                                                onClick={onRemoveEdge.bind(null, edge)}
+                                            >
+                                                Remove
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 );
             })}

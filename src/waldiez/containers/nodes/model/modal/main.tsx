@@ -23,6 +23,7 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
         onLogoChange,
         onClose,
         onSave,
+        onSaveAndClose,
         onCancel,
     } = props;
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -36,6 +37,7 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
             dataTestId={`model-modal-${modelId}`}
             isOpen={isOpen}
             onClose={onClose}
+            onSaveAndClose={onSaveAndClose}
             hasUnsavedChanges={isDirty}
             preventCloseIfUnsavedChanges
         >

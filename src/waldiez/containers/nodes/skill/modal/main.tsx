@@ -18,6 +18,7 @@ export const WaldiezNodeSkillModal = (props: WaldiezNodeSkillModalProps) => {
         onClose,
         onCancel,
         onSave,
+        onSaveAndClose,
         onImport,
         onExport,
     } = props;
@@ -35,6 +36,7 @@ export const WaldiezNodeSkillModal = (props: WaldiezNodeSkillModalProps) => {
             beforeTitle={importExportView}
             title={data.label}
             isOpen={isModalOpen}
+            onSaveAndClose={onSaveAndClose}
             onClose={onClose}
             hasUnsavedChanges={isDirty}
             preventCloseIfUnsavedChanges

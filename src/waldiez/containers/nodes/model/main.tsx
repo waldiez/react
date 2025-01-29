@@ -27,6 +27,7 @@ export const WaldiezNodeModelView = ({ id, data }: NodeProps<WaldiezNodeModel>) 
         onDelete,
         onClone,
         onSave,
+        onSaveAndClose,
         onCancel,
     } = useWaldiezNodeModel(id, data);
     const importExportView = getImportExportView(flowId, id, "model", onImport, onExport);
@@ -88,6 +89,7 @@ export const WaldiezNodeModelView = ({ id, data }: NodeProps<WaldiezNodeModel>) 
                 onClose={onCancel}
                 onCancel={onCancel}
                 onSave={onSave}
+                onSaveAndClose={onSaveAndClose}
             />
         </div>
     );

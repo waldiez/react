@@ -51,14 +51,7 @@ export const useWaldiezEdge = (props: EdgeProps<WaldiezEdge> & { type: WaldiezEd
             return edgeNumber;
         }
         if (type === "chat") {
-            edgeNumber =
-                typeof data.order === "number"
-                    ? data.order >= 1
-                        ? `${data.order}`
-                        : data.order === 0
-                          ? "1"
-                          : "0"
-                    : "0";
+            edgeNumber = typeof data.order === "number" ? (data.order >= 0 ? `${data.order + 1}` : "0") : "0";
         } else if (type === "nested") {
             const sourceInitial = (sourceAgent.data.label as string).charAt(0).toUpperCase();
             edgeNumber = `${sourceInitial}.${data.position}`;

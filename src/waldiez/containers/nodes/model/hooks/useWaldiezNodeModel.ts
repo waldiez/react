@@ -70,8 +70,10 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         }
         setIsDirty(false);
         onFlowChanged();
-        // keep the modal open on save
-        // onCloseModal(false);
+    };
+    const onSaveAndClose = () => {
+        onSave();
+        setIsOpen(false);
     };
     return {
         flowId,
@@ -87,6 +89,7 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         onDelete,
         onClone,
         onSave,
+        onSaveAndClose,
         onCancel,
     };
 };
