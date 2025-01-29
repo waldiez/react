@@ -1,7 +1,7 @@
 {
     "name": "@waldiez/react",
     "license": "Apache-2.0",
-    "version": "0.3.9",
+    "version": "0.3.10",
     "type": "module",
     "main": "./dist/@waldiez.umd.cjs",
     "module": "./dist/@waldiez.js",
