@@ -15,7 +15,7 @@ bun add @waldiez/react
 ## Requirements for development
 
 - Node.js (version 20.x or later)
-- bun@1.2.0
+- bun@1.2.1
 
 ## Libraries
 
