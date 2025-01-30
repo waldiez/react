@@ -234,6 +234,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
         tags: string[];
         requirements: string[];
         isAsync: boolean;
+        cacheSeed: number | null;
     }) => void = data => {
         this.set({
             name: data.name,
@@ -242,6 +243,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
             requirements: data.requirements,
             updatedAt: new Date().toISOString(),
             isAsync: data.isAsync,
+            cacheSeed: data.cacheSeed,
         });
     };
 }

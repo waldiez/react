@@ -32,5 +32,6 @@ export interface IWaldiezFlowStore {
         tags: string[];
         requirements: string[];
         isAsync: boolean;
+        cacheSeed: number | null;
     }) => void;
 }

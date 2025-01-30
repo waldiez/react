@@ -21,7 +21,7 @@ export const EditFlowModalModalTabBasic = (props: EditFlowModalModalTabBasicProp
         onDataChange({ isAsync: e.target.checked });
     };
     const onCacheSeedToggleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onDataChange({ cacheSeed: e.target.checked ? undefined : 41 });
+        onDataChange({ cacheSeed: e.target.checked ? null : 41 });
     };
     const onCacheSeedValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         try {

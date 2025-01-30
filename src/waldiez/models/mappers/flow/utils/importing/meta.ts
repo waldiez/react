@@ -77,7 +77,7 @@ export const getCacheSeed = (json: Record<string, unknown>) => {
     let cacheSeed: number | null = 41;
     if ("cacheSeed" in json) {
         if (typeof json.cacheSeed === "number") {
-            cacheSeed = json.cacheSeed;
+            cacheSeed = parseInt(`${json.cacheSeed}`, 10);
         } else if (json.cacheSeed === null) {
             cacheSeed = null;
         } else if (typeof json.cacheSeed === "string") {
