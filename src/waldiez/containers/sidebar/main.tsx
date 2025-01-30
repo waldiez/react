@@ -33,7 +33,7 @@ export const SideBar = (props: SidebarViewProps) => {
     const { isCollapsed, toggleSidebar } = useSidebar();
     return (
         <div
-            className={`sidebar ${isReadonly ? "hidden" : ""}`}
+            className={`sidebar${isReadonly ? " hidden" : ""}`}
             data-testid={`sidebar-${flowId}`}
             style={{ width: isCollapsed ? "40px" : "200px" }}
         >
