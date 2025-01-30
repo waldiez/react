@@ -21,6 +21,7 @@ export type WaldiezStoreProps = {
     edges: Edge[];
     nodes: Node[];
     isAsync?: boolean;
+    isReadOnly?: boolean;
     name?: string;
     description?: string;
     requirements?: string[];

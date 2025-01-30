@@ -5,6 +5,7 @@
 import { WaldiezNodeType } from "@waldiez/types";
 
 export type SidebarViewProps = {
+    isReadonly: boolean;
     selectedNodeType: WaldiezNodeType;
     onSelectNodeType: (nodeType: WaldiezNodeType) => void;
 };

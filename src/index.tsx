@@ -93,9 +93,10 @@ const onConvert = isProd ? null : onConvertDev;
 
 /**
  * readOnly
- * if true, the "import/export" buttons are not displayed
+ * if true, only the theme button is shown
+ * only zoom and viewport are enabled, no further actions are allowed
  */
-const readOnly: boolean | undefined | null = null;
+const readOnly: boolean | undefined | null = true;
 
 /**
  * OnUpload

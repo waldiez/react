@@ -13,17 +13,21 @@ export const useWaldiezNodeAgent = () => {
     const getEdgeById = useWaldiez(s => s.getEdgeById);
     const addEdge = useWaldiez(s => s.addEdge);
     const flowId = useWaldiez(s => s.flowId);
+    const readOnly = useWaldiez(s => s.isReadOnly);
+    const isReadOnly = readOnly === true;
     const [isNodeModalOpen, setIsNodeModalOpen] = useState(false);
     const [isEdgeModalOpen, setIsEdgeModalOpen] = useState(false);
     const [edge, setEdge] = useState<WaldiezEdge | null>(null);
     const onOpenNodeModal = () => {
-        setIsNodeModalOpen(true);
+        if (!isReadOnly) {
+            setIsNodeModalOpen(true);
+        }
     };
     const onCloseNodeModal = () => {
         setIsNodeModalOpen(false);
     };
     const onOpenEdgeModal = (event: React.MouseEvent) => {
-        if (!isNodeModalOpen && !isEdgeModalOpen) {
+        if (!isReadOnly && !isNodeModalOpen && !isEdgeModalOpen) {
             const dataEdgeId = event.currentTarget.getAttribute("data-edge-id");
             if (dataEdgeId) {
                 const existingEdge = getEdgeById(dataEdgeId);
@@ -39,7 +43,7 @@ export const useWaldiezNodeAgent = () => {
         setEdge(null);
     };
     const onEdgeConnection = (connection: Connection) => {
-        if (!isNodeModalOpen) {
+        if (!isReadOnly && !isNodeModalOpen) {
             const newEdge = addEdge(connection, false);
             setEdge(newEdge as WaldiezEdge);
             // setEdgeModalOpen(true);
@@ -50,6 +54,7 @@ export const useWaldiezNodeAgent = () => {
         edge,
         isNodeModalOpen,
         isEdgeModalOpen,
+        isReadOnly,
         onOpenNodeModal,
         onCloseNodeModal,
         onOpenEdgeModal,

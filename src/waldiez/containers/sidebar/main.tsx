@@ -14,6 +14,7 @@ import { SidebarViewProps } from "@waldiez/containers/sidebar/types";
 import { AGENT_ICONS } from "@waldiez/theme";
 
 export const SideBar = (props: SidebarViewProps) => {
+    const { isReadonly } = props;
     const {
         flowId,
         isEditModalOpen,
@@ -32,7 +33,7 @@ export const SideBar = (props: SidebarViewProps) => {
     const { isCollapsed, toggleSidebar } = useSidebar();
     return (
         <div
-            className="sidebar"
+            className={`sidebar ${isReadonly ? "hidden" : ""}`}
             data-testid={`sidebar-${flowId}`}
             style={{ width: isCollapsed ? "40px" : "200px" }}
         >

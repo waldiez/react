@@ -44,9 +44,14 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
                 <HotkeysProvider initiallyActiveScopes={[flowId]}>
                     <ReactFlowProvider>
                         <SidebarProvider>
-                            <WaldiezProvider {...props} flowId={flowId} nodes={nodes} edges={edges}>
+                            <WaldiezProvider
+                                {...props}
+                                flowId={flowId}
+                                nodes={nodes}
+                                edges={edges}
+                                isReadOnly={readOnly}
+                            >
                                 <WaldiezFlowView
-                                    readOnly={readOnly}
                                     flowId={flowId}
                                     inputPrompt={inputPrompt}
                                     onUserInput={onUserInput}

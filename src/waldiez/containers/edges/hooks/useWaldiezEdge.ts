@@ -11,6 +11,7 @@ import { AGENT_COLORS } from "@waldiez/theme";
 export const useWaldiezEdge = (props: EdgeProps<WaldiezEdge> & { type: WaldiezEdgeType }) => {
     const { id, source, type, data, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition } =
         props;
+    const isReadOnly = useWaldiez(s => s.isReadOnly);
     const deleteEdge = useWaldiez(s => s.deleteEdge);
     const getEdgeById = useWaldiez(s => s.getEdgeById);
     const getAgentById = useWaldiez(s => s.getAgentById);
@@ -70,6 +71,7 @@ export const useWaldiezEdge = (props: EdgeProps<WaldiezEdge> & { type: WaldiezEd
         labelY,
         sourceAgent,
         targetAgent,
+        isReadOnly,
         getEdgeById,
         onOpenModal,
         onDelete,

@@ -21,10 +21,11 @@ type WaldiezNodeAgentBodyProps = {
     id: string;
     data: WaldiezNodeAgentData;
     isModalOpen: boolean;
+    isReadOnly: boolean;
 };
 
 export const WaldiezNodeAgentBody = (props: WaldiezNodeAgentBodyProps) => {
-    const { id, flowId, data } = props;
+    const { id, flowId, data, isReadOnly } = props;
     const agentType = data.agentType;
     const agentModelsView = getAgentModelsView(id, data);
     const agentSkillsView =
@@ -72,6 +73,7 @@ export const WaldiezNodeAgentBody = (props: WaldiezNodeAgentBodyProps) => {
                         rows={2}
                         defaultValue={data.description}
                         onChange={onDescriptionChange}
+                        readOnly={isReadOnly}
                         id={`flow-${flowId}-agent-description-${id}`}
                         data-testid={`agent-description-${id}`}
                     />

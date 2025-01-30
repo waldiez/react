@@ -39,6 +39,7 @@ for (let i = 0; i < edgesCount; i++) {
                 args: {},
             },
             position: i,
+            prerequisites: [],
             order: i > 4 ? (i > 6 ? -2 : -1) : i,
         },
     });
@@ -94,7 +95,11 @@ export const renderFlow = (edgePositions: number[] = [0, 1, 2, 3]) => {
                     >
                         <div id={`rf-root-${flowId}`}>
                             <div className="flow-main">
-                                <SideBar onSelectNodeType={vi.fn()} selectedNodeType="agent" />
+                                <SideBar
+                                    onSelectNodeType={vi.fn()}
+                                    selectedNodeType="agent"
+                                    isReadonly={false}
+                                />
                                 <div className="react-flow-wrapper">
                                     <ReactFlow
                                         id={flowId}

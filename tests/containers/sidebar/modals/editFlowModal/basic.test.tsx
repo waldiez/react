@@ -33,6 +33,16 @@ describe("Sidebar Edit flow modal config tab", () => {
         fireEvent.change(flowDescriptionInput, { target: { value: "New Flow Description" } });
         expect(flowDescriptionInput).toHaveValue("New Flow Description");
     });
+    it("should toggle async mode", () => {
+        act(() => {
+            renderFlow();
+        });
+        fireEvent.click(screen.getByTestId(`edit-flow-${flowId}-sidebar-button`));
+        const asyncModeToggle = screen.getByTestId(`edit-flow-${flowId}-modal-async-mode`);
+        expect(asyncModeToggle).toBeTruthy();
+        fireEvent.click(asyncModeToggle);
+        expect(asyncModeToggle).toBeChecked();
+    });
     it("should handle adding a new edge to the flow", async () => {
         act(() => {
             renderFlow([-2, -1, 0, 1, 2]);

@@ -60,6 +60,7 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
         labelY,
         sourceAgent,
         targetAgent,
+        isReadOnly,
         onOpenModal,
         onDelete,
         getEdgeById,
@@ -107,6 +108,9 @@ const WaldiezEdgeCommon = (props: WaldiezEdgeProps) => {
     );
 
     const onEdgeClick = (event: React.MouseEvent) => {
+        if (isReadOnly === true) {
+            return;
+        }
         if (focussed) {
             (event.target as HTMLDivElement).blur();
             setFocussed(false);

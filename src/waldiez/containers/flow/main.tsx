@@ -20,19 +20,18 @@ import { WaldiezNodeType } from "@waldiez/types";
 
 type WaldiezFlowViewProps = {
     flowId: string;
-    readOnly?: boolean;
     onUserInput?: ((input: string) => void) | null;
     inputPrompt?: { previousMessages: string[]; prompt: string } | null;
 };
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
-    const { flowId, inputPrompt, onUserInput, readOnly } = props;
-    // const [selectedNodeType, setSelectedNodeType] = useState<WaldiezNodeType>("agent");
+    const { flowId, inputPrompt, onUserInput } = props;
     const rfParent = useRef<HTMLDivElement | null>(null);
     const selectedNodeType = useRef<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
     const edges = useWaldiez(s => s.edges);
+    const readOnly = useWaldiez(s => s.isReadOnly);
     const viewport = useWaldiez(s => s.viewport);
     const addModel = useWaldiez(s => s.addModel);
     const addSkill = useWaldiez(s => s.addSkill);
@@ -55,11 +54,11 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         onNodeDoubleClick,
         onEdgeDoubleClick,
     } = useFlowEvents(flowId);
-    const includeRunButton = typeof runner === "function";
-    const includeConvertIcons = typeof onConvert === "function";
+    const isReadOnly = typeof readOnly === "boolean" ? readOnly : false;
+    const includeRunButton = isReadOnly === false && typeof runner === "function";
+    const includeConvertIcons = isReadOnly === false && typeof onConvert === "function";
     const { isDark, toggleTheme } = useWaldiezTheme();
     const colorMode = isDark ? "dark" : "light";
-    const isReadOnly = typeof readOnly === "boolean" ? readOnly : false;
     const setSelectedNodeType = (nodeType: WaldiezNodeType) => {
         selectedNodeType.current = nodeType;
     };
@@ -108,7 +107,11 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
             data-testid={`rf-root-${flowId}`}
         >
             <div className="flow-main">
-                <SideBar onSelectNodeType={onTypeShownChange} selectedNodeType={selectedNodeType.current} />
+                <SideBar
+                    onSelectNodeType={onTypeShownChange}
+                    selectedNodeType={selectedNodeType.current}
+                    isReadonly={isReadOnly}
+                />
                 <div className="react-flow-wrapper" data-testid={`rf-wrapper-${flowId}`} ref={rfParent}>
                     <ReactFlow
                         id={flowId}
@@ -145,7 +148,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                         // debug
                     >
                         <Controls showInteractive={true} />
-                        {selectedNodeType.current !== "agent" && (
+                        {selectedNodeType.current !== "agent" && readOnly === false && (
                             <Panel position="top-left">
                                 <button
                                     type="button"

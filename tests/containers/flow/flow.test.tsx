@@ -24,6 +24,7 @@ const renderFlow = (
     includeUserInput: boolean = false,
     singleAgent: boolean = false,
     noAgents: boolean = false,
+    readOnly: boolean = false,
 ) => {
     const nodesToUse = noAgents ? [] : singleAgent ? [agentNodes[0]] : nodes;
     const edgesToUse = singleAgent ? [] : edges;
@@ -46,6 +47,7 @@ const renderFlow = (
                             updatedAt={updatedAt}
                             onChange={onChange}
                             onRun={onRun}
+                            isReadOnly={readOnly}
                         >
                             <WaldiezFlowView
                                 flowId={flowId}
@@ -176,5 +178,64 @@ describe("WaldiezFlow", () => {
         expect(zoomInButton).toBeTruthy();
         fireEvent.click(zoomInButton as Element);
         vi.advanceTimersByTime(200);
+    });
+});
+
+describe("WaldiezFlow - ReadOnly", () => {
+    it("should render the component", () => {
+        renderFlow(false, false, false, true);
+        expect(screen.getByTestId(`rf-root-${flowId}`)).toBeTruthy();
+    });
+    it("should not show add model node button", () => {
+        renderFlow(false, false, false, true);
+        fireEvent.click(screen.getByTestId("show-models"));
+        expect(screen.queryByTestId("add-model-node")).toBeNull();
+    });
+    it("should not show add skill node button", () => {
+        renderFlow(false, false, false, true);
+        fireEvent.click(screen.getByTestId("show-skills"));
+        expect(screen.queryByTestId("add-skill-node")).toBeNull();
+    });
+    it("should not show run button", () => {
+        renderFlow(false, false, false, true);
+        expect(screen.queryByTestId(`run-${flowId}`)).toBeNull();
+    });
+    it("should not show export button", () => {
+        renderFlow(false, false, false, true);
+        expect(screen.queryByTestId(`export-flow-${flowId}-button`)).toBeNull();
+    });
+    it("should not delete agent node", () => {
+        renderFlow(false, false, false, true);
+        fireEvent.keyDown(screen.getByTestId("rf__node-agent-0"), {
+            key: "Delete",
+            code: "Delete",
+        });
+        expect(screen.queryByTestId("rf__node-agent-0")).toBeTruthy();
+    });
+    it("should not delete model node", () => {
+        renderFlow(false, false, false, true);
+        fireEvent.click(screen.getByTestId("show-models"));
+        fireEvent.keyDown(screen.getByTestId("rf__node-model-0"), {
+            key: "Delete",
+            code: "Delete",
+        });
+        expect(screen.queryByTestId("rf__node-model-0")).toBeTruthy();
+    });
+    it("should not delete skill node", () => {
+        renderFlow(false, false, false, true);
+        fireEvent.click(screen.getByTestId("show-skills"));
+        fireEvent.keyDown(screen.getByTestId("rf__node-skill-0"), {
+            key: "Delete",
+            code: "Delete",
+        });
+        expect(screen.queryByTestId("rf__node-skill-0")).toBeTruthy();
+    });
+    it("should not delete edge", () => {
+        renderFlow(false, false, false, true);
+        fireEvent.keyDown(screen.getByTestId("rf__edge-edge-0"), {
+            key: "Delete",
+            code: "Delete",
+        });
+        expect(screen.queryByTestId("rf__edge-edge-0")).toBeTruthy();
     });
 });

@@ -10,6 +10,7 @@ import { WaldiezProviderProps, WaldiezStore } from "@waldiez/store/types";
 
 export function WaldiezProvider({ children, ...props }: WaldiezProviderProps) {
     const storeRef = useRef<WaldiezStore | undefined>(undefined);
+    const isReadOnly = typeof props.isReadOnly === "boolean" ? props.isReadOnly : false;
     const nodes = props.nodes;
     const edges = props.edges;
     const flowId = props.flowId;
@@ -31,6 +32,7 @@ export function WaldiezProvider({ children, ...props }: WaldiezProviderProps) {
         storeRef.current = createWaldiezStore({
             flowId,
             isAsync,
+            isReadOnly,
             name,
             description,
             tags,

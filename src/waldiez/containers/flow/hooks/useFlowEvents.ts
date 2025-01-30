@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
+/* eslint-disable max-statements */
 import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance } from "@xyflow/react";
 
 import { WaldiezEdge } from "@waldiez/models";
@@ -9,6 +10,8 @@ import { useWaldiez } from "@waldiez/store";
 import { downloadFile, getFlowRoot, showSnackbar } from "@waldiez/utils";
 
 export const useFlowEvents = (flowId: string) => {
+    const readOnly = useWaldiez(s => s.isReadOnly);
+    const isReadOnly = readOnly === true;
     const runner = useWaldiez(s => s.onRun);
     const onConvert = useWaldiez(s => s.onConvert);
     const setRfInstance = useWaldiez(s => s.setRfInstance);
@@ -36,32 +39,47 @@ export const useFlowEvents = (flowId: string) => {
         }
     };
     const onNodesChange = (changes: NodeChange<Node>[]) => {
-        handleNodesChange(changes);
+        if (!isReadOnly) {
+            handleNodesChange(changes);
+        }
         // onFlowChanged();
     };
     const onEdgesChange = (changes: EdgeChange<Edge>[]) => {
-        handleEdgesChange(changes);
-        onFlowChanged();
+        if (!isReadOnly) {
+            handleEdgesChange(changes);
+            onFlowChanged();
+        }
     };
     const onEdgeDoubleClick = (event: React.MouseEvent, edge: Edge) => {
-        handleEdgeDoubleClick(event, edge as WaldiezEdge);
+        if (!isReadOnly) {
+            handleEdgeDoubleClick(event, edge as WaldiezEdge);
+        }
     };
     const onNodeDoubleClick = (event: React.MouseEvent, node: Node) => {
-        const target = event.target;
-        if (target instanceof Element && target.tagName === "TEXTAREA") {
-            return;
+        if (!isReadOnly) {
+            const target = event.target;
+            if (target instanceof Element && target.tagName === "TEXTAREA") {
+                return;
+            }
+            handleNodeDoubleClick(event, node);
         }
-        handleNodeDoubleClick(event, node);
     };
     const convertToPy = () => {
-        const flow = onFlowChanged();
-        onConvert?.(JSON.stringify(flow), "py");
+        if (!isReadOnly) {
+            const flow = onFlowChanged();
+            onConvert?.(JSON.stringify(flow), "py");
+        }
     };
     const convertToIpynb = () => {
-        const flow = onFlowChanged();
-        onConvert?.(JSON.stringify(flow), "ipynb");
+        if (!isReadOnly) {
+            const flow = onFlowChanged();
+            onConvert?.(JSON.stringify(flow), "ipynb");
+        }
     };
     const canRun = () => {
+        if (isReadOnly) {
+            return false;
+        }
         const allAgents = getAgents();
         const agentsCount = allAgents.length;
         if (agentsCount < 2) {
@@ -77,6 +95,9 @@ export const useFlowEvents = (flowId: string) => {
         return used.length > 0;
     };
     const onRun = () => {
+        if (isReadOnly) {
+            return;
+        }
         if (typeof runner === "function") {
             if (runner) {
                 if (canRun()) {
@@ -96,6 +117,9 @@ export const useFlowEvents = (flowId: string) => {
     };
 
     const onExport = (_e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        if (isReadOnly) {
+            return;
+        }
         const flow = exportFlow(true, false);
         const { name } = getFlowInfo();
         if (flow) {

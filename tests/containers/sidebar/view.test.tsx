@@ -19,7 +19,11 @@ describe("SideBar", () => {
             <WaldiezThemeProvider>
                 <SidebarProvider collapsed={false}>
                     <WaldiezProvider flowId="wf-1" nodes={[]} edges={[]}>
-                        <SideBar onSelectNodeType={onSelectNodeType} selectedNodeType={selectedNodeType} />
+                        <SideBar
+                            onSelectNodeType={onSelectNodeType}
+                            selectedNodeType={selectedNodeType}
+                            isReadonly={false}
+                        />
                     </WaldiezProvider>
                 </SidebarProvider>
             </WaldiezThemeProvider>,
@@ -82,5 +86,27 @@ describe("SideBar", () => {
         fireEvent.dragStart(screen.getByTestId("swarm-dnd"), {
             dataTransfer: { setData: vi.fn() },
         });
+    });
+});
+
+describe("SideBar Read Only", () => {
+    it("should not be visible", () => {
+        const onSelectNodeType = vi.fn();
+        render(
+            <WaldiezThemeProvider>
+                <SidebarProvider collapsed={false}>
+                    <WaldiezProvider flowId="wf-1" nodes={[]} edges={[]} isReadOnly>
+                        <SideBar onSelectNodeType={onSelectNodeType} selectedNodeType={"agent"} isReadonly />
+                    </WaldiezProvider>
+                </SidebarProvider>
+            </WaldiezThemeProvider>,
+        );
+        const sidebar = screen.queryByTestId("sidebar-wf-1");
+        // it is in the document, but it should have visibility: hidden (and with,height,margin,padding 0)
+        expect(sidebar).toBeInTheDocument();
+        // className={`sidebar ${isReadonly ? "hidden" : ""}`}
+        // data-testid={`sidebar-${flowId}`}
+        const className = sidebar?.getAttribute("class");
+        expect(className).toContain("hidden");
     });
 });

@@ -20,6 +20,7 @@ export const createWaldiezStore = (props: WaldiezStoreProps) => {
     const {
         flowId = `wf-${getId()}`,
         isAsync = false,
+        isReadOnly = false,
         edges = [],
         nodes = [],
         name = "Untitled Flow",
@@ -42,6 +43,7 @@ export const createWaldiezStore = (props: WaldiezStoreProps) => {
                 rfInstance: props?.rfInstance,
                 flowId,
                 isAsync,
+                isReadOnly,
                 storageId,
                 name: name,
                 description: description,
