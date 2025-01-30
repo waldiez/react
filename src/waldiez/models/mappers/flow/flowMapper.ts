@@ -47,10 +47,15 @@ export const flowMapper = {
         const { id, storageId, name, description, tags, requirements, createdAt, updatedAt, rest } =
             importFlowMeta(flowJson);
         const flowData = (flowJson.data || flowJson) as Record<string, unknown>;
-        const data = getFlowDataToImport(flowData);
+        const flowId = newId || id;
+        const data = getFlowDataToImport(flowData, flowId);
+        let flowStorageId = storageId;
+        if (storageId === id && typeof newId === "string") {
+            flowStorageId = newId;
+        }
         return new WaldiezFlow({
-            id: newId || id,
-            storageId,
+            id: flowId,
+            storageId: flowStorageId,
             name,
             description,
             tags,
@@ -98,7 +103,7 @@ export const flowMapper = {
     },
 };
 
-const getFlowDataToImport = (json: Record<string, unknown>) => {
+const getFlowDataToImport = (json: Record<string, unknown>, flowId: string) => {
     const isAsync = getIsAsync(json);
     const viewport = getFlowViewport(json);
     const nodes = getNodes(json);
@@ -115,6 +120,20 @@ const getFlowDataToImport = (json: Record<string, unknown>) => {
         skills.map(skill => skill.id),
         edges.map(edge => edge.id),
     );
+    agents.swarm_agents.forEach(agent => {
+        if (agent.agentType === "swarm_container" && agent.id.startsWith("swarm-container")) {
+            agent.id = `swarm-container-${flowId}`;
+        }
+    });
+    nodes.forEach(node => {
+        if (node.id.startsWith("swarm-container")) {
+            node.id = `swarm-container-${flowId}`;
+        }
+        if (node.parentId && node.parentId.startsWith("swarm-container")) {
+            node.parentId = `swarm-container-${flowId}`;
+        }
+    });
+
     return new WaldiezFlowData({ nodes, edges, agents, models, skills, chats, isAsync, viewport });
 };
 
