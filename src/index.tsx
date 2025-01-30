@@ -96,7 +96,7 @@ const onConvert = isProd ? null : onConvertDev;
  * if true, only the theme button is shown
  * only zoom and viewport are enabled, no further actions are allowed
  */
-const readOnly: boolean | undefined | null = true;
+const readOnly: boolean | undefined | null = undefined;
 
 /**
  * OnUpload
