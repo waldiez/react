@@ -9,6 +9,7 @@ export type EditFlowModalData = {
     tags: string[];
     requirements: string[];
     isAsync: boolean;
+    cacheSeed: number | null;
 };
 
 export type EditFlowModalProps = {

@@ -147,6 +147,9 @@
                 },
                 "isAsync": {
                     "type": "boolean"
+                },
+                "cacheSeed": {
+                    "type": ["number", "null"]
                 }
             },
             "required": ["agents", "chats", "edges", "models", "nodes", "skills"]

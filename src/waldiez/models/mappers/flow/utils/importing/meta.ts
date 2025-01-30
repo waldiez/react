@@ -72,3 +72,24 @@ export const getIsAsync = (json: Record<string, unknown>) => {
     }
     return isAsync;
 };
+
+export const getCacheSeed = (json: Record<string, unknown>) => {
+    let cacheSeed: number | null = 41;
+    if ("cacheSeed" in json) {
+        if (typeof json.cacheSeed === "number") {
+            cacheSeed = json.cacheSeed;
+        } else if (json.cacheSeed === null) {
+            cacheSeed = null;
+        } else if (typeof json.cacheSeed === "string") {
+            try {
+                const parsed = parseInt(json.cacheSeed, 10);
+                if (!isNaN(parsed)) {
+                    cacheSeed = parsed;
+                }
+            } catch (_) {
+                // ignore
+            }
+        }
+    }
+    return cacheSeed;
+};

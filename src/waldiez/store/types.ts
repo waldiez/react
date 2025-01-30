@@ -22,6 +22,7 @@ export type WaldiezStoreProps = {
     nodes: Node[];
     isAsync?: boolean;
     isReadOnly?: boolean;
+    cacheSeed?: number | null;
     name?: string;
     description?: string;
     requirements?: string[];
@@ -46,6 +47,7 @@ export type WaldiezFlowInfo = {
     tags: string[];
     requirements: string[];
     isAsync: boolean;
+    cacheSeed: number | null;
 };
 
 export type ImportedFlow = {
@@ -55,6 +57,7 @@ export type ImportedFlow = {
     createdAt?: string;
     updatedAt?: string;
     isAsync?: boolean;
+    cacheSeed?: number | null;
     tags: string[];
     nodes: Node[];
     edges: Edge[];
@@ -68,6 +71,7 @@ export type ThingsToImport = {
     tags: boolean;
     requirements: boolean;
     isAsync: boolean;
+    cacheSeed?: boolean | null;
     nodes: {
         models: Node[];
         skills: Node[];

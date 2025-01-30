@@ -25,6 +25,7 @@ import { WaldiezSkill } from "@waldiez/models/Skill";
  * @param skills - The skills
  * @param chats - The chats
  * @param isAsync - Is async
+ * @param cacheSeed - The cache seed
  * @param viewport - The viewport
  * @see {@link WaldiezAgentUserProxy}
  * @see {@link WaldiezAgentAssistant}
@@ -52,6 +53,7 @@ export class WaldiezFlowData {
     skills: WaldiezSkill[];
     chats: WaldiezChat[];
     isAsync?: boolean = false;
+    cacheSeed?: number | null = 41;
 
     constructor(
         props: {
@@ -70,6 +72,7 @@ export class WaldiezFlowData {
             skills: WaldiezSkill[];
             chats: WaldiezChat[];
             isAsync?: boolean;
+            cacheSeed?: number | null;
         } = {
             nodes: [],
             edges: [],
@@ -90,6 +93,7 @@ export class WaldiezFlowData {
             skills: [],
             chats: [],
             isAsync: false,
+            cacheSeed: 41,
         },
     ) {
         this.nodes = props.nodes;
@@ -100,5 +104,6 @@ export class WaldiezFlowData {
         this.skills = props.skills;
         this.chats = props.chats;
         this.isAsync = props.isAsync;
+        this.cacheSeed = props.cacheSeed;
     }
 }

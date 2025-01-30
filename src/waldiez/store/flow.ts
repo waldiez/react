@@ -48,8 +48,18 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
         }
     };
     getFlowInfo = () => {
-        const { flowId, storageId, name, description, tags, requirements, createdAt, updatedAt, isAsync } =
-            this.get();
+        const {
+            flowId,
+            storageId,
+            name,
+            description,
+            tags,
+            requirements,
+            createdAt,
+            updatedAt,
+            isAsync,
+            cacheSeed,
+        } = this.get();
         return {
             flowId,
             storageId: storageId ?? flowId,
@@ -60,6 +70,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
             createdAt,
             updatedAt,
             isAsync: isAsync ?? false,
+            cacheSeed: cacheSeed ?? 41,
         };
     };
     onFlowChanged = () => {
@@ -172,6 +183,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
     exportFlow = (hideSecrets: boolean) => {
         const {
             isAsync,
+            cacheSeed,
             viewport,
             rfInstance,
             name,
@@ -196,6 +208,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
             flowId,
             storageId: storageId ?? flowId,
             isAsync: isAsync ?? false,
+            cacheSeed,
         };
         return flowMapper.exportFlow(flow, hideSecrets, false);
     };

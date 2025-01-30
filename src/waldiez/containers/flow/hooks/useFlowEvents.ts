@@ -28,14 +28,28 @@ export const useFlowEvents = (flowId: string) => {
         setRfInstance(instance);
         const rootDiv = getFlowRoot(flowId);
         if (rootDiv) {
-            const viewport = instance.getViewport();
-            instance.fitView({
-                minZoom: viewport.zoom,
-                maxZoom: viewport.zoom,
-                includeHiddenNodes: false,
-                padding: 0.2,
-                duration: 100,
-            });
+            if (!isReadOnly) {
+                const viewport = instance.getViewport();
+                instance.fitView({
+                    minZoom: viewport.zoom,
+                    maxZoom: viewport.zoom,
+                    includeHiddenNodes: false,
+                    padding: 0.2,
+                    duration: 100,
+                });
+            } else {
+                // lock interactivity by default (can be later toggled back)
+                const interactiveControl = rootDiv.querySelector(".react-flow__controls-interactive");
+                if (interactiveControl) {
+                    (interactiveControl as HTMLButtonElement).click();
+                }
+                // react-flow__controls-interactive
+                instance.fitView({
+                    includeHiddenNodes: false,
+                    padding: 0.2,
+                    duration: 100,
+                });
+            }
         }
     };
     const onNodesChange = (changes: NodeChange<Node>[]) => {

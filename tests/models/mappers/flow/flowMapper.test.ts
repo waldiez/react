@@ -72,6 +72,7 @@ describe("flowMapper", () => {
             newAgents.forEach((newAgent: any) => {
                 jsonFlow.data.agents[newAgent] = [];
             });
+            expect(flow.data.cacheSeed).toEqual(41);
             // console.error(flowLink);
             compareObjects(jsonFlow, flowJson);
         }

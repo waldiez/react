@@ -10,6 +10,7 @@ export type * from "@waldiez/store";
 export type WaldiezFlowProps = ReactFlowJsonObject & {
     flowId: string;
     isAsync?: boolean;
+    cacheSeed?: number | null;
     storageId: string;
     name: string;
     description: string;

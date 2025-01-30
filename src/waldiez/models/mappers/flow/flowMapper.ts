@@ -23,6 +23,7 @@ import {
     exportSwarmAgents,
     getAgentNodes,
     getAgents,
+    getCacheSeed,
     getChats,
     getEdges,
     getFlowViewport,
@@ -72,6 +73,7 @@ export const flowMapper = {
         const flowProps: WaldiezFlowProps = {
             flowId: flow.id,
             isAsync: flow.data.isAsync ?? false,
+            cacheSeed: flow.data.cacheSeed,
             storageId: flow.storageId,
             name: flow.name,
             description: flow.description,
@@ -105,6 +107,7 @@ export const flowMapper = {
 
 const getFlowDataToImport = (json: Record<string, unknown>, flowId: string) => {
     const isAsync = getIsAsync(json);
+    const cacheSeed = getCacheSeed(json);
     const viewport = getFlowViewport(json);
     const nodes = getNodes(json);
     let edges = getEdges(json);
@@ -134,7 +137,7 @@ const getFlowDataToImport = (json: Record<string, unknown>, flowId: string) => {
         }
     });
 
-    return new WaldiezFlowData({ nodes, edges, agents, models, skills, chats, isAsync, viewport });
+    return new WaldiezFlowData({ nodes, edges, agents, models, skills, chats, isAsync, cacheSeed, viewport });
 };
 
 const getFlowDataToExport = (flow: WaldiezFlowProps, hideSecrets: boolean, skipLinks: boolean) => {
@@ -179,6 +182,7 @@ const getFlowDataToExport = (flow: WaldiezFlowProps, hideSecrets: boolean, skipL
         skills: skillNodes.map(skillNode => exportSkill(skillNode, nodes, hideSecrets)),
         chats: edges.map((edge, index) => exportChat(edge, edges, index)),
         isAsync: flow.isAsync,
+        cacheSeed: flow.cacheSeed,
         viewport: flow.viewport,
     });
 };

@@ -20,13 +20,14 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
     const updateFlowOrder = useWaldiez(s => s.updateFlowOrder);
     const updateFlowPrerequisites = useWaldiez(s => s.updateFlowPrerequisites);
     const flowInfo = getFlowInfo();
-    const { name, description, requirements, tags, isAsync } = flowInfo;
+    const { name, description, requirements, tags, isAsync, cacheSeed } = flowInfo;
     const [flowData, setFlowData] = useState<EditFlowModalData>({
         name,
         description,
         requirements,
         tags,
         isAsync,
+        cacheSeed,
     });
     const [selectedNewEdge, setSelectedNewEdge] = useState<WaldiezEdge | null>(null);
     const getFlowEdges = useWaldiez(s => s.getFlowEdges);
@@ -35,7 +36,7 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
     // tmp state (to save onSubmit, discard onCancel)
     const [sortedEdgesState, setSortedEdgesState] = useState<WaldiezEdge[]>(sortedEdges);
     const [remainingEdgesState, setRemainingEdgeState] = useState<WaldiezEdge[]>(remainingEdges);
-    const isDataDirty = !isEqual(flowData, { name, description, requirements, tags, isAsync });
+    const isDataDirty = !isEqual(flowData, { name, description, requirements, tags, isAsync, cacheSeed });
     const isEdgesDirty = !isEqual(sortedEdgesState, sortedEdges);
     const [isDirty, setIsDirty] = useState<boolean>(isDataDirty || isEdgesDirty);
     useEffect(() => {
@@ -63,8 +64,8 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
         setIsDirty(false);
     };
     const reset = () => {
-        const { name, description, requirements, tags, isAsync } = getFlowInfo();
-        setFlowData({ name, description, requirements, tags, isAsync });
+        const { name, description, requirements, tags, isAsync, cacheSeed } = getFlowInfo();
+        setFlowData({ name, description, requirements, tags, isAsync, cacheSeed });
         const { used, remaining } = getFlowEdges(true);
         setSortedEdgesState(used);
         setRemainingEdgeState(remaining);
@@ -77,7 +78,7 @@ export const useEditFlowModal = (props: EditFlowModalProps) => {
     const onDataChange = (partialData: Partial<EditFlowModalData>) => {
         const isDataDirty = !isEqual(
             { ...flowData, ...partialData },
-            { name, description, requirements, tags, isAsync },
+            { name, description, requirements, tags, isAsync, cacheSeed },
         );
         const isEdgesDirty = !isEqual(sortedEdgesState, sortedEdges);
         setFlowData({ ...flowData, ...partialData });
