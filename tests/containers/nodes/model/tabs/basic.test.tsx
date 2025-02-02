@@ -208,6 +208,7 @@ describe("WaldiezNodeModel Modal Base Tab", () => {
             "deepseek",
             "google",
             "anthropic",
+            "cohere",
             "mistral",
             "groq",
             "together",

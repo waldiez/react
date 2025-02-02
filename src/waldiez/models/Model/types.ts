@@ -10,6 +10,7 @@ export type WaldiezModelAPIType =
     | "deepseek"
     | "google"
     | "anthropic"
+    | "cohere"
     | "mistral"
     | "groq"
     | "together"

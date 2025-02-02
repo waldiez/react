@@ -40,6 +40,11 @@
     max-width: 20px !important;
 }
 
+.flow-wrapper .model-logo.cohere img {
+    width: 24px !important;
+    max-width: 24px !important;
+}
+
 .flow-wrapper .model-logo.anthropic img {
     width: 24px !important;
     max-width: 24px !important;

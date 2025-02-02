@@ -6,6 +6,7 @@ import assistantWebp from "@waldiez/assets/assistant.webp";
 import captainWebp from "@waldiez/assets/captain.webp";
 import azure from "@waldiez/assets/logos/azure.svg";
 import anthropic from "@waldiez/assets/logos/claude.svg";
+import cohere from "@waldiez/assets/logos/cohere.svg";
 import deepseek from "@waldiez/assets/logos/deepseek.svg";
 import google from "@waldiez/assets/logos/gemini.svg";
 import groq from "@waldiez/assets/logos/groq.svg";
@@ -25,6 +26,7 @@ export const LOGOS = {
     google,
     gemini: google,
     anthropic,
+    cohere,
     mistral,
     groq,
     together,

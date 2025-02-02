@@ -47,6 +47,7 @@ export const apiTypeOptions: { label: string; value: WaldiezModelAPIType }[] = [
     { label: "Gemini", value: "google" },
     { label: "DeepSeek", value: "deepseek" },
     { label: "Claude", value: "anthropic" },
+    { label: "Cohere", value: "cohere" },
     { label: "Mistral", value: "mistral" },
     { label: "Groq", value: "groq" },
     { label: "Together", value: "together" },

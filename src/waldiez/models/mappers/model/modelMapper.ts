@@ -159,6 +159,7 @@ const getApiType = (json: Record<string, unknown>): WaldiezModelAPIType => {
             "deepseek",
             "google",
             "anthropic",
+            "cohere",
             "mistral",
             "groq",
             "together",
