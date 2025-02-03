@@ -29,7 +29,7 @@ const flowLinks = [
 
 // we removed "teachability"
 const deprecatedAgentDataKeys = ["teachability"];
-const newAgents = ["reasoning_agents"];
+const newAgents = ["reasoning_agents", "captain_agents"];
 // flowAfterWork, added with swarm, "prerequisites" added with async
 const newChatKeys = ["prerequisites", "flowAfterWork"];
 // these keys are not necessarily in the exported flows

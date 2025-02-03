@@ -46,6 +46,9 @@ export const useSidebarView = (props: SidebarViewProps) => {
     const onReasoningDragStart = (event: React.DragEvent<HTMLDivElement>) => {
         onDragStart(event, "agent", "reasoning");
     };
+    const onCaptainDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+        onDragStart(event, "agent", "captain");
+    };
     const onOpenEditModal = () => {
         setIsEditModalOpen(true);
     };
@@ -66,5 +69,6 @@ export const useSidebarView = (props: SidebarViewProps) => {
         onManagerDragStart,
         onSwarmDragStart,
         onReasoningDragStart,
+        onCaptainDragStart,
     };
 };

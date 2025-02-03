@@ -34,10 +34,14 @@ export const getSpeakers: (json: Record<string, unknown>) => WaldiezAgentGroupMa
     return speakers;
 };
 
-export const getMaxRound: (json: Record<string, unknown>) => number | null = json => {
+export const getGroupChatMaxRound: (json: Record<string, unknown>) => number | null = json => {
     let maxRound: number | null = null;
     if ("maxRound" in json && typeof json.maxRound === "number") {
-        maxRound = json.maxRound;
+        try {
+            maxRound = parseInt(json.maxRound.toString(), 10);
+        } catch (_) {
+            maxRound = null;
+        }
     }
     return maxRound;
 };

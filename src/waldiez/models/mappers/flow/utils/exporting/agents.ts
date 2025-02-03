@@ -7,6 +7,7 @@ import { Node } from "@xyflow/react";
 import {
     WaldiezNodeAgent,
     WaldiezNodeAgentAssistant,
+    WaldiezNodeAgentCaptain,
     WaldiezNodeAgentGroupManager,
     WaldiezNodeAgentRagUser,
     WaldiezNodeAgentUserProxy,
@@ -55,6 +56,14 @@ export const getAgentNodes = (nodes: Node[]) => {
             "agentType" in node.data &&
             node.data.agentType === "reasoning",
     );
+    const captainAgentNodes = agentNodes.filter(
+        node =>
+            "data" in node &&
+            typeof node.data === "object" &&
+            node.data &&
+            "agentType" in node.data &&
+            node.data.agentType === "captain",
+    ) as WaldiezNodeAgentCaptain[];
     return {
         agentNodes,
         userAgentNodes,
@@ -62,6 +71,7 @@ export const getAgentNodes = (nodes: Node[]) => {
         managerNodes,
         ragUserNodes,
         reasoningAgentNodes,
+        captainAgentNodes,
     };
 };
 

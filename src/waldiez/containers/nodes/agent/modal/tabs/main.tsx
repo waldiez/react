@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { TabItem, TabItems } from "@waldiez/components";
 import { WaldiezAgentBasic } from "@waldiez/containers/nodes/agent/modal/tabs/basic";
+import { WaldiezAgentCaptainTab } from "@waldiez/containers/nodes/agent/modal/tabs/captain";
 import { WaldiezAgentCodeExecution } from "@waldiez/containers/nodes/agent/modal/tabs/codeExecution";
 import { WaldiezAgentGroup } from "@waldiez/containers/nodes/agent/modal/tabs/group";
 import { WaldiezAgentGroupManager } from "@waldiez/containers/nodes/agent/modal/tabs/groupManager";
@@ -26,6 +27,7 @@ import { WaldiezNodeAgentModalTabsProps } from "@waldiez/containers/nodes/agent/
 import {
     WaldiezEdge,
     WaldiezNodeAgent,
+    WaldiezNodeAgentCaptainData,
     WaldiezNodeAgentData,
     WaldiezNodeAgentRagUserData,
     WaldiezNodeAgentReasoningData,
@@ -50,6 +52,7 @@ export const WaldiezNodeAgentModalTabs = ({
     const isRagUser = dataProp.agentType === "rag_user";
     const isSwarm = dataProp.agentType === "swarm";
     const isReasoning = dataProp.agentType === "reasoning";
+    const isCaptain = dataProp.agentType === "captain";
     const getAgentConnections = useWaldiez(s => s.getAgentConnections);
     const getAgents = useWaldiez(s => s.getAgents);
     const getModels = useWaldiez(s => s.getModels);
@@ -238,6 +241,18 @@ export const WaldiezNodeAgentModalTabs = ({
                             data={data as WaldiezNodeAgentData}
                             onDataChange={onDataChange}
                             agentConnections={agentConnections}
+                        />
+                    </div>
+                </TabItem>
+            )}
+            {isCaptain && (
+                <TabItem label="Captain" id={`wf-${flowId}-agent-captain-${id}`}>
+                    <div className="modal-tab-body">
+                        <WaldiezAgentCaptainTab
+                            id={id}
+                            flowId={flowId}
+                            data={data as WaldiezNodeAgentCaptainData}
+                            onDataChange={onDataChange}
                         />
                     </div>
                 </TabItem>

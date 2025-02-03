@@ -84,6 +84,14 @@
     border-color: var(--manager-agent-color);
 }
 
+.react-flow__resize-control.nodrag.bottom.right.handle.reasoning {
+    border-color: var(--captain-agent-color);
+}
+
+.react-flow__resize-control.nodrag.bottom.right.handle.captain {
+    border-color: var(--captain-agent-color);
+}
+
 .react-flow__resize-control.nodrag.bottom.right.handle.swarm_container {
     width: 8px;
     height: 8px;

@@ -10,7 +10,7 @@ import { capitalize, getId } from "@waldiez/utils";
  * Waldiez Agent.
  * @param id - The id of the agent
  * @param type - The type of the node in a graph (agent)
- * @param agentType - The type of the agent ("user" | "assistant" | "manager" | "rag_user" | "swarm")
+ * @param agentType - The type of the agent ("user" | "assistant" | "manager" | "rag_user" | "swarm" | "reasoning" | "captain")
  * @param name - The name of the agent
  * @param description - The description of the agent
  * @param tags - The tags of the agent
@@ -98,6 +98,9 @@ const updateAgentDataProps = (agent: WaldiezAgent, agentType: WaldiezAgentType |
     if (agentType === "reasoning") {
         addReasoningProps(agent.data);
     }
+    if (agentType === "captain") {
+        addCaptainProps(agent.data);
+    }
 };
 
 const addSwarmContainerProps = (agentData: WaldiezAgentData) => {
@@ -179,4 +182,11 @@ const addGroupManagerProps = (agentData: WaldiezAgentData) => {
     };
     (agentData as any).enableClearHistory = false;
     (agentData as any).sendIntroductions = false;
+};
+
+const addCaptainProps = (agentData: WaldiezAgentData) => {
+    (agentData as any).agentLib = [];
+    (agentData as any).toolLib = null;
+    (agentData as any).maxRound = 10;
+    (agentData as any).maxTurns = 5;
 };

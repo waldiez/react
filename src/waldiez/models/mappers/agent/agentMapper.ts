@@ -4,19 +4,12 @@
  */
 import {
     WaldiezAgent,
-    WaldiezAgentAssistant,
-    WaldiezAgentAssistantData,
+    WaldiezAgentCaptainData,
     WaldiezAgentData,
-    WaldiezAgentGroupManager,
     WaldiezAgentGroupManagerData,
-    WaldiezAgentRagUser,
     WaldiezAgentRagUserData,
-    WaldiezAgentReasoning,
     WaldiezAgentReasoningData,
-    WaldiezAgentSwarm,
     WaldiezAgentSwarmData,
-    WaldiezAgentUserProxy,
-    WaldiezAgentUserProxyData,
     WaldiezNodeAgent,
     WaldiezNodeAgentGroupManager,
     WaldiezNodeAgentRagUser,
@@ -24,15 +17,20 @@ import {
 } from "@waldiez/models/Agent";
 import {
     getAdminName,
+    getAgent,
     getAgentDefaultAutoReply,
     getAgentId,
     getAgentMeta,
     getAgentType,
+    getCaptainAgentLib,
+    getCaptainMaxRound,
+    getCaptainMaxTurns,
+    getCaptainToolLib,
     getCodeExecutionConfig,
     getEnableClearHistory,
+    getGroupChatMaxRound,
     getHumanInputMode,
     getIsInitial,
-    getMaxRound,
     getMaximumConsecutiveAutoReply,
     getModelIds,
     getNestedChats,
@@ -61,7 +59,7 @@ export const agentMapper = {
         const agentType = getAgentType(json);
         const { name, description, tags, requirements, createdAt, updatedAt } = getAgentMeta(json, agentType);
         const jsonData = (json.data || json) as Record<string, unknown>;
-        const data = getAgentData(jsonData, agentType);
+        const data = getAgentDataToImport(jsonData, agentType);
         const toExclude = getKeysToExclude(agentType);
         const rest = getRestFromJSON(json, toExclude);
         return getAgent(
@@ -179,6 +177,7 @@ const getCommonAgentData = (
     });
 };
 
+// eslint-disable-next-line max-statements
 const getKeysToExclude = (agentType: WaldiezNodeAgentType) => {
     const toExclude = ["id", "name", "description", "tags", "requirements", "createdAt", "updatedAt", "data"];
     if (agentType === "rag_user") {
@@ -193,10 +192,14 @@ const getKeysToExclude = (agentType: WaldiezNodeAgentType) => {
     if (agentType === "reasoning") {
         toExclude.push("verbose", "reasonConfig");
     }
+    if (agentType === "captain") {
+        toExclude.push("agentLib", "toolLib", "maxRound", "maxTurns");
+    }
     return toExclude;
 };
 
-const getAgentData = (
+// eslint-disable-next-line max-statements
+const getAgentDataToImport = (
     jsonData: Record<string, unknown>,
     agentType: WaldiezNodeAgentType,
 ): WaldiezAgentData => {
@@ -210,7 +213,7 @@ const getAgentData = (
     if (agentType === "manager") {
         return new WaldiezAgentGroupManagerData({
             ...data,
-            maxRound: getMaxRound(jsonData),
+            maxRound: getGroupChatMaxRound(jsonData),
             adminName: getAdminName(jsonData),
             speakers: getSpeakers(jsonData),
             enableClearHistory: getEnableClearHistory(jsonData),
@@ -231,6 +234,15 @@ const getAgentData = (
             ...data,
             verbose: getVerbose(jsonData),
             reasonConfig: getReasonConfig(jsonData),
+        });
+    }
+    if (agentType === "captain") {
+        return new WaldiezAgentCaptainData({
+            ...data,
+            agentLib: getCaptainAgentLib(jsonData),
+            toolLib: getCaptainToolLib(jsonData),
+            maxRound: getCaptainMaxRound(jsonData),
+            maxTurns: getCaptainMaxTurns(jsonData),
         });
     }
     return data;
@@ -266,117 +278,6 @@ const removeLinks: (agent: WaldiezNodeAgent) => WaldiezNodeAgent = agent => {
     return agentCopy;
 };
 
-// eslint-disable-next-line max-statements
-const getAgent = (
-    agentType: WaldiezNodeAgentType,
-    id: string,
-    name: string,
-    description: string,
-    tags: string[],
-    requirements: string[],
-    createdAt: string,
-    updatedAt: string,
-    data: WaldiezAgentData,
-    rest: { [key: string]: any },
-) => {
-    if (agentType === "user") {
-        return new WaldiezAgentUserProxy({
-            id,
-            agentType,
-            name,
-            description,
-            tags,
-            requirements,
-            createdAt,
-            updatedAt,
-            data: data as WaldiezAgentUserProxyData,
-            rest,
-        });
-    }
-    if (agentType === "assistant") {
-        return new WaldiezAgentAssistant({
-            id,
-            agentType,
-            name,
-            description,
-            tags,
-            requirements,
-            createdAt,
-            updatedAt,
-            data: data as WaldiezAgentAssistantData,
-            rest,
-        });
-    }
-    if (agentType === "manager") {
-        return new WaldiezAgentGroupManager({
-            id,
-            agentType,
-            name,
-            description,
-            tags,
-            requirements,
-            createdAt,
-            updatedAt,
-            data: data as WaldiezAgentGroupManagerData,
-            rest,
-        });
-    }
-    if (agentType === "rag_user") {
-        return new WaldiezAgentRagUser({
-            id,
-            agentType,
-            name,
-            description,
-            tags,
-            requirements,
-            createdAt,
-            updatedAt,
-            data: data as WaldiezAgentRagUserData,
-            rest,
-        });
-    }
-    if (agentType === "swarm") {
-        return new WaldiezAgentSwarm({
-            id,
-            agentType,
-            name,
-            description,
-            tags,
-            requirements,
-            createdAt,
-            updatedAt,
-            data: data as WaldiezAgentSwarmData,
-            rest,
-        });
-    }
-    if (agentType === "reasoning") {
-        return new WaldiezAgentReasoning({
-            id,
-            agentType,
-            name,
-            description,
-            tags,
-            requirements,
-            createdAt,
-            updatedAt,
-            data: data as WaldiezAgentReasoningData,
-            rest,
-        });
-    }
-    return new WaldiezAgent({
-        id,
-        agentType,
-        name,
-        description,
-        tags,
-        requirements,
-        createdAt,
-        updatedAt,
-        data,
-        rest,
-    });
-};
-
 const updateAgentDataToExport = (agentType: WaldiezNodeAgentType, agentData: any, data: any) => {
     if (agentType === "rag_user") {
         updateRagAgent(agentData, data);
@@ -390,6 +291,9 @@ const updateAgentDataToExport = (agentType: WaldiezNodeAgentType, agentData: any
     if (agentType === "reasoning") {
         updateReasoningAgent(agentData, data);
     }
+    if (agentType === "captain") {
+        updateCaptainAgent(agentData, data);
+    }
 };
 
 const updateRagAgent = (agentData: WaldiezAgentRagUserData, data: any) => {
@@ -397,7 +301,7 @@ const updateRagAgent = (agentData: WaldiezAgentRagUserData, data: any) => {
 };
 
 const updateGroupManager = (agentData: WaldiezAgentGroupManagerData, data: any) => {
-    agentData.maxRound = getMaxRound(data);
+    agentData.maxRound = getGroupChatMaxRound(data);
     agentData.adminName = getAdminName(data);
     agentData.speakers = getSpeakers(data);
     agentData.enableClearHistory = getEnableClearHistory(data);
@@ -414,4 +318,11 @@ const updateSwarmAgent = (agentData: WaldiezAgentSwarmData, data: any) => {
 const updateReasoningAgent = (agentData: WaldiezAgentReasoningData, data: any) => {
     agentData.verbose = getVerbose(data);
     agentData.reasonConfig = getReasonConfig(data);
+};
+
+const updateCaptainAgent = (agentData: WaldiezAgentCaptainData, data: any) => {
+    agentData.agentLib = getCaptainAgentLib(data);
+    agentData.toolLib = getCaptainToolLib(data);
+    agentData.maxRound = getCaptainMaxRound(data);
+    agentData.maxTurns = getCaptainMaxTurns(data);
 };

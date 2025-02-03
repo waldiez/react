@@ -7,6 +7,7 @@ import { Node } from "@xyflow/react";
 import {
     WaldiezAgent,
     WaldiezAgentAssistant,
+    WaldiezAgentCaptain,
     WaldiezAgentGroupManager,
     WaldiezAgentRagUser,
     WaldiezAgentReasoning,
@@ -32,6 +33,7 @@ export const getAgents = (
             rag_users: [],
             swarm_agents: [],
             reasoning_agents: [],
+            captain_agents: [],
         };
     }
     const agentsJson = json.agents as Record<string, unknown>;
@@ -42,6 +44,7 @@ export const getAgents = (
         rag_users: WaldiezAgentRagUser[];
         swarm_agents: WaldiezAgentSwarm[];
         reasoning_agents: WaldiezAgentReasoning[];
+        captain_agents: WaldiezAgentCaptain[];
     } = {
         users: getFlowAgents(
             "user",
@@ -91,6 +94,14 @@ export const getAgents = (
             skillIds,
             chatIds,
         ) as WaldiezAgentReasoning[],
+        captain_agents: getFlowAgents(
+            "captain",
+            agentsJson,
+            nodes,
+            modelIds,
+            skillIds,
+            chatIds,
+        ) as WaldiezAgentCaptain[],
     };
     return agents;
 };
@@ -104,7 +115,7 @@ const getFlowAgents = (
     chatIds: string[],
 ) => {
     let keyToCheck = `${agentType}s`;
-    if (["swarm", "reasoning"].includes(agentType)) {
+    if (["swarm", "reasoning", "captain"].includes(agentType)) {
         keyToCheck = `${agentType}_agents`;
     }
     if (!(keyToCheck in json) || !Array.isArray(json[keyToCheck])) {

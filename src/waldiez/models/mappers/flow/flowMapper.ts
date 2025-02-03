@@ -157,6 +157,7 @@ const getFlowDataToExport = (flow: WaldiezFlowProps, hideSecrets: boolean, skipL
         managerNodes,
         ragUserNodes,
         reasoningAgentNodes,
+        captainAgentNodes,
     } = getAgentNodes(nodes);
     const { edges, swarmAgents } = exportSwarmAgents(agentNodes, flowEdges, skipLinks);
     return new WaldiezFlowData({
@@ -181,6 +182,9 @@ const getFlowDataToExport = (flow: WaldiezFlowProps, hideSecrets: boolean, skipL
             swarm_agents: swarmAgents,
             reasoning_agents: reasoningAgentNodes.map(reasoningAgentNode =>
                 exportAgent(reasoningAgentNode, nodes, skipLinks),
+            ),
+            captain_agents: captainAgentNodes.map(captainAgentNode =>
+                exportAgent(captainAgentNode, nodes, skipLinks),
             ),
         },
         models: modelNodes.map(modelNode => exportModel(modelNode, nodes, hideSecrets)),
@@ -214,6 +218,9 @@ const getRFNodes = (flow: WaldiezFlow, edges: Edge[]) => {
     });
     flow.data.agents.reasoning_agents.forEach(reasoningAgent => {
         nodes.push(agentMapper.asNode(reasoningAgent));
+    });
+    flow.data.agents.captain_agents.forEach(captainAgent => {
+        nodes.push(agentMapper.asNode(captainAgent));
     });
     const swarmNodes = getSwarmRFNodes(flow, edges);
     nodes.push(...swarmNodes);

@@ -5,7 +5,9 @@
     --rag-user-color: #e34561;
     --swarm-agent-color: #f0c808;
     --reasoning-agent-color: #63d0d4;
-    --captain-agent-color: #112044;
+    --captain-agent-color: #0e2766;
+
+    /* --captain-agent-color: #112044; */
     --app-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
     --app-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
 }

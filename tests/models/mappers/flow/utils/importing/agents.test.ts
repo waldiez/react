@@ -18,6 +18,7 @@ describe("getAgents", () => {
             rag_users: [],
             swarm_agents: [],
             reasoning_agents: [],
+            captain_agents: [],
         });
     });
     it("should not import agents if agents is not in the json", () => {
@@ -31,6 +32,7 @@ describe("getAgents", () => {
             rag_users: [],
             swarm_agents: [],
             reasoning_agents: [],
+            captain_agents: [],
         });
     });
     it("should return empty arrays if there are no nodes", () => {
@@ -42,6 +44,7 @@ describe("getAgents", () => {
                 rag_users: [{ id: "wa-4", type: "agent", agentType: "rag_user" }],
                 swarm_agents: [{ id: "wa-5", type: "agent", agentType: "swarm" }],
                 reasoning_agents: [{ id: "wa-6", type: "agent", agentType: "reasoning" }],
+                captain_agents: [{ id: "wa-7", type: "agent", agentType: "captain" }],
             },
         };
         const nodes: any[] = [];
@@ -53,6 +56,7 @@ describe("getAgents", () => {
             rag_users: [],
             swarm_agents: [],
             reasoning_agents: [],
+            captain_agents: [],
         });
     });
     it("should not return agents if there is no match in the nodes", () => {
@@ -63,6 +67,7 @@ describe("getAgents", () => {
                 rag_users: [{ id: "wa-4", type: "agent", agentType: "rag_user" }],
                 swarm_agents: [{ id: "wa-5", type: "agent", agentType: "swarm" }],
                 reasoning_agents: [{ id: "wa-6", type: "agent", agentType: "reasoning" }],
+                captain_agents: [{ id: "wa-7", type: "agent", agentType: "captain" }],
             },
         };
         const nodes: any[] = [{ id: "wa-2", type: "agent", data: {} }];
@@ -74,6 +79,7 @@ describe("getAgents", () => {
             rag_users: [],
             swarm_agents: [],
             reasoning_agents: [],
+            captain_agents: [],
         });
     });
 });

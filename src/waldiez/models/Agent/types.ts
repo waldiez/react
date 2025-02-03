@@ -3,6 +3,7 @@
  * Copyright 2024 - 2025 Waldiez & contributors
  */
 import { WaldiezNodeAgentAssistant, WaldiezNodeAgentAssistantData } from "@waldiez/models/Agent/Assistant";
+import { WaldiezNodeAgentCaptain, WaldiezNodeAgentCaptainData } from "@waldiez/models/Agent/Captain";
 import {
     WaldiezNodeAgentGroupManager,
     WaldiezNodeAgentGroupManagerData,
@@ -18,6 +19,7 @@ import {
 import { WaldiezNodeAgentUserProxy, WaldiezNodeAgentUserProxyData } from "@waldiez/models/Agent/UserProxy";
 
 export type * from "@waldiez/models/Agent/Assistant/types";
+export type * from "@waldiez/models/Agent/Captain/types";
 export type * from "@waldiez/models/Agent/Common/types";
 export type * from "@waldiez/models/Agent/GroupManager/types";
 export type * from "@waldiez/models/Agent/RagUser/types";
@@ -31,7 +33,8 @@ export type WaldiezNodeAgentData =
     | WaldiezNodeAgentRagUserData
     | WaldiezNodeAgentReasoningData
     | WaldiezNodeAgentSwarmData
-    | WaldiezNodeAgentSwarmContainerData;
+    | WaldiezNodeAgentSwarmContainerData
+    | WaldiezNodeAgentCaptainData;
 
 export type WaldiezNodeAgent =
     | WaldiezNodeAgentAssistant
@@ -40,4 +43,5 @@ export type WaldiezNodeAgent =
     | WaldiezNodeAgentReasoning
     | WaldiezNodeAgentSwarm
     | WaldiezNodeAgentSwarmContainer
-    | WaldiezNodeAgentUserProxy;
+    | WaldiezNodeAgentUserProxy
+    | WaldiezNodeAgentCaptain;

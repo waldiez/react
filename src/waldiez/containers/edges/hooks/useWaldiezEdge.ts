@@ -6,7 +6,7 @@ import { EdgeProps, getSimpleBezierPath } from "@xyflow/react";
 
 import { WaldiezEdge, WaldiezEdgeType, WaldiezNodeAgent, WaldiezNodeAgentType } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
-import { AGENT_COLORS } from "@waldiez/theme";
+import { AGENT_COLORS_ALT } from "@waldiez/theme";
 
 export const useWaldiezEdge = (props: EdgeProps<WaldiezEdge> & { type: WaldiezEdgeType }) => {
     const { id, source, type, data, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition } =
@@ -40,8 +40,12 @@ export const useWaldiezEdge = (props: EdgeProps<WaldiezEdge> & { type: WaldiezEd
         let edgeColor;
         if (sourceAgent) {
             const agentType = sourceAgent.data.agentType as WaldiezNodeAgentType;
-            if (["user", "assistant", "manager", "rag_user", "swarm", "reasoning"].includes(agentType)) {
-                edgeColor = AGENT_COLORS[agentType];
+            if (
+                ["user", "assistant", "manager", "rag_user", "swarm", "reasoning", "captain"].includes(
+                    agentType,
+                )
+            ) {
+                edgeColor = AGENT_COLORS_ALT[agentType];
             }
         }
         return edgeColor;
