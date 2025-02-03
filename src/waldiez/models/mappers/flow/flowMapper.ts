@@ -124,8 +124,13 @@ const getFlowDataToImport = (json: Record<string, unknown>, flowId: string) => {
         edges.map(edge => edge.id),
     );
     agents.swarm_agents.forEach(agent => {
-        if (agent.agentType === "swarm_container" && agent.id.startsWith("swarm-container")) {
-            agent.id = `swarm-container-${flowId}`;
+        if (
+            agent.rest &&
+            agent.rest.parentId &&
+            typeof agent.rest.parentId === "string" &&
+            agent.rest.parentId.startsWith("swarm-container")
+        ) {
+            agent.rest.parentId = `swarm-container-${flowId}`;
         }
     });
     nodes.forEach(node => {
