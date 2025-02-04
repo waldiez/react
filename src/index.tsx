@@ -99,6 +99,13 @@ const onConvert = isProd ? null : onConvertDev;
 const readOnly: boolean | undefined | null = undefined;
 
 /**
+ * skipImport and skipExport
+ * if true, the import and export buttons are not added to the main panel
+ */
+const skipImport = false;
+const skipExport = false;
+
+/**
  * OnUpload
  * on RAG user: adds a dropzone to upload files
  * when triggered, the files are sent to the backend,
@@ -216,7 +223,7 @@ export const startApp = (waldiezProps: Partial<WaldiezProps> = defaultWaldiezPro
     window.history.replaceState({}, document.title, window.location.pathname);
     ReactDOM.createRoot(document.getElementById("root")!).render(
         <React.StrictMode>
-            <Waldiez {...waldiezProps} readOnly={readOnly} />
+            <Waldiez {...waldiezProps} readOnly={readOnly} skipExport={skipExport} skipImport={skipImport} />
         </React.StrictMode>,
     );
 };

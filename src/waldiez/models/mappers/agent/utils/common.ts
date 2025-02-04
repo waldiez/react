@@ -23,6 +23,7 @@ import { getId } from "@waldiez/utils";
 const VALID_AGENT_TYPES: WaldiezNodeAgentType[] = [
     "user",
     "assistant",
+    "captain",
     "manager",
     "rag_user",
     "reasoning",
@@ -76,6 +77,8 @@ export const getFallbackDescription = (agentType: WaldiezNodeAgentType) => {
         fallbackDescription = "A Swarm container";
     } else if (agentType === "reasoning") {
         fallbackDescription = "A reasoning agent";
+    } else if (agentType === "captain") {
+        fallbackDescription = "A captain agent";
     }
     return fallbackDescription;
 };
@@ -176,6 +179,10 @@ export const getAgentName = (data: Record<string, unknown>, agentType: WaldiezNo
         fallbackName = "Swarm Agent";
     } else if (agentType === "swarm_container") {
         fallbackName = "Swarm Container";
+    } else if (agentType === "reasoning") {
+        fallbackName = "Reasoning Agent";
+    } else if (agentType === "captain") {
+        fallbackName = "Captain";
     }
     return getNameFromJSON(data, fallbackName)!;
 };

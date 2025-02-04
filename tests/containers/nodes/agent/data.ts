@@ -6,6 +6,7 @@ import { Node } from "@xyflow/react";
 
 import {
     WaldiezAgentAssistant,
+    WaldiezAgentCaptain,
     WaldiezAgentGroupManager,
     WaldiezAgentRagUser,
     WaldiezAgentSwarm,
@@ -42,6 +43,9 @@ export const getAgentData = (agentType: WaldiezNodeAgentType) => {
     }
     if (agentType === "reasoning") {
         return WaldiezAgentUserProxy.create("reasoning").data;
+    }
+    if (agentType === "captain") {
+        return WaldiezAgentCaptain.create("captain").data;
     }
 };
 
@@ -99,6 +103,15 @@ export const getAgentNode = (
             );
             break;
         case "reasoning":
+            node = agentMapper.asNode(
+                agentMapper.importAgent({
+                    ...agentData,
+                    agentType: agentType as any,
+                    ...dataOverrides,
+                }),
+            );
+            break;
+        case "captain":
             node = agentMapper.asNode(
                 agentMapper.importAgent({
                     ...agentData,

@@ -4,6 +4,7 @@
  */
 import {
     assistantJson,
+    captainJson,
     groupManagerJson,
     ragUserJson,
     swarmContainerJson,
@@ -15,6 +16,8 @@ import { describe, expect, it } from "vitest";
 import {
     WaldiezAgent,
     WaldiezAgentAssistant,
+    WaldiezAgentCaptain,
+    WaldiezAgentCaptainData,
     WaldiezAgentData,
     WaldiezAgentGroupManager,
     WaldiezAgentGroupManagerData,
@@ -96,6 +99,12 @@ describe("agentMapper", () => {
         expect(agent.agentType).toBe("reasoning");
         expect((agent.data as any).reasonConfig).toBeTruthy();
     });
+    it("should import a captain agent", () => {
+        const agent = agentMapper.importAgent(captainJson);
+        expect(agent).toBeInstanceOf(WaldiezAgentCaptain);
+        expect(agent.data).toBeInstanceOf(WaldiezAgentCaptainData);
+        expect(agent.agentType).toBe("captain");
+    });
     it("should import, convert and export a user agent node", () => {
         const agent = agentMapper.importAgent(userJson);
         const agentNode = agentMapper.asNode(agent, undefined, false);
@@ -155,6 +164,12 @@ describe("agentMapper", () => {
         const agentNode = agentMapper.asNode(agent, undefined, false);
         const exported = agentMapper.exportAgent(agentNode, false);
         expect(exported).toEqual(reasoningJson);
+    });
+    it("should import, convert and export a captain agent node", () => {
+        const agent = agentMapper.importAgent(captainJson);
+        const agentNode = agentMapper.asNode(agent, undefined, false);
+        const exported = agentMapper.exportAgent(agentNode, false);
+        expect(exported).toEqual(captainJson);
     });
     it("should import, convert and export an agent node without links", () => {
         const managerWithoutLinks = {

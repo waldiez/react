@@ -8,7 +8,7 @@ import { useDropZone } from "@waldiez/components/dropZone/hooks";
 import { DropZoneProps } from "@waldiez/components/dropZone/types";
 
 export const DropZone = (props: DropZoneProps) => {
-    const { multiple = false } = props;
+    const { flowId, multiple = false } = props;
     const { onFileDragOver, onFileDragLeave, onOpenUploadDialog, onFileDrop } = useDropZone(props);
     const instruction = multiple
         ? "Drop files here or click to upload"
@@ -20,7 +20,7 @@ export const DropZone = (props: DropZoneProps) => {
             onDragOver={onFileDragOver}
             onClick={onOpenUploadDialog}
             onDragLeave={onFileDragLeave}
-            data-testid="drop-zone-area"
+            data-testid={`drop-zone-${flowId}`}
         >
             <div className="drop_zone_content">
                 <div className="drop_zone_icon">

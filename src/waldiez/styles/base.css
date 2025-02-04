@@ -32,6 +32,14 @@
     outline: none;
 }
 
+.flow-wrapper a {
+    color: #007bff;
+}
+
+.flow-wrapper a:visited {
+    color: #007bff;
+}
+
 .flow-wrapper input[type="file"] {
     display: none;
 }

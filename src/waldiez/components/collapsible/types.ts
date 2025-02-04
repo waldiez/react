@@ -8,6 +8,7 @@ export type CollapsibleProps = {
     title: string;
     children: ReactNode;
     expanded?: boolean;
+    fullWidth?: boolean;
     dataTestId?: string;
 };
 export type CollapsibleViewProps = {

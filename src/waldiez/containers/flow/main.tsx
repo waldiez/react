@@ -22,10 +22,13 @@ type WaldiezFlowViewProps = {
     flowId: string;
     onUserInput?: ((input: string) => void) | null;
     inputPrompt?: { previousMessages: string[]; prompt: string } | null;
+    skipImport?: boolean;
+    skipExport?: boolean;
 };
 
+// eslint-disable-next-line complexity
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
-    const { flowId, inputPrompt, onUserInput } = props;
+    const { flowId, inputPrompt, onUserInput, skipExport, skipImport } = props;
     const rfParent = useRef<HTMLDivElement | null>(null);
     const selectedNodeType = useRef<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
@@ -55,6 +58,8 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         onEdgeDoubleClick,
     } = useFlowEvents(flowId);
     const isReadOnly = typeof readOnly === "boolean" ? readOnly : false;
+    const includeImportButton = isReadOnly ? false : typeof skipImport === "boolean" ? !skipImport : true;
+    const includeExportButton = isReadOnly ? false : typeof skipExport === "boolean" ? !skipExport : true;
     const includeRunButton = isReadOnly === false && typeof runner === "function";
     const includeConvertIcons = isReadOnly === false && typeof onConvert === "function";
     const { isDark, toggleTheme } = useWaldiezTheme();
@@ -201,7 +206,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                                         )}
                                     </>
                                 )}
-                                {!isReadOnly && (
+                                {includeImportButton && (
                                     <button
                                         type="button"
                                         className="editor-nav-action"
@@ -212,7 +217,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                                         <CiImport style={{ strokeWidth: 2 }} />
                                     </button>
                                 )}
-                                {!isReadOnly && (
+                                {includeExportButton && (
                                     <button
                                         type="button"
                                         className="editor-nav-action"

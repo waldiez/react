@@ -205,3 +205,38 @@ export const swarmContainerJson = {
     key: "value",
     position: { x: 60, y: 61 },
 };
+
+export const captainJson = {
+    id: "captain",
+    type: "agent",
+    agentType: "captain",
+    name: "Captain",
+    description: "A captain agent",
+    tags: [],
+    requirements: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    data: {
+        humanInputMode: "NEVER",
+        systemMessage: null,
+        codeExecutionConfig: false,
+        agentDefaultAutoReply: null,
+        maxConsecutiveAutoReply: null,
+        termination: {
+            type: "none",
+            keywords: [],
+            criterion: null,
+            methodContent: null,
+        },
+        modelIds: [],
+        skills: [],
+        parentId: null,
+        nestedChats: [],
+        agentLib: [],
+        toolLib: null,
+        maxRound: 10,
+        maxTurns: 5,
+    },
+    key: "value",
+    position: { x: 70, y: 71 },
+};

@@ -17,7 +17,7 @@ export const loadFlow = async () => {
     const modalElement = screen.getByTestId(modalTestId) as HTMLDialogElement;
     expect(modalElement).toBeTruthy();
     expect(screen.queryByTestId(`import-flow-modal-preview-step-${flowId}-view`)).not.toBeTruthy();
-    const dropZone = screen.getByTestId("drop-zone-area");
+    const dropZone = screen.getByTestId(`drop-zone-${flowId}`);
     expect(dropZone).toBeTruthy();
     fireEvent.click(dropZone);
     const file = new File([JSON.stringify(flow)], "test.waldiez");

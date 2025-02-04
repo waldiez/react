@@ -8,10 +8,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { DropZone } from "@waldiez/components/dropZone";
 
 const onUpload = vi.fn();
+const flowId = "test";
 
 const renderDropZone = (overrides: { [key: string]: any } = {}) => {
     const dropZoneProps = {
-        flowId: "test",
+        flowId,
         onUpload,
         allowedFileExtensions: [".jpg", ".txt"],
         ...overrides,
@@ -33,7 +34,7 @@ describe("DropZone", () => {
         act(() => {
             renderDropZone();
         });
-        const dropZone = screen.getByTestId("drop-zone-area");
+        const dropZone = screen.getByTestId(`drop-zone-${flowId}`);
         const files = [new File(["file1"], "file1.txt")];
         fireEvent.drop(dropZone, {
             dataTransfer: {
@@ -49,7 +50,7 @@ describe("DropZone", () => {
         act(() => {
             renderDropZone();
         });
-        const dropZone = screen.getByTestId("drop-zone-area");
+        const dropZone = screen.getByTestId(`drop-zone-${flowId}`);
         fireEvent.dragOver(dropZone);
         expect(dropZone.classList.contains("drag-over")).toBeTruthy();
         fireEvent.dragLeave(dropZone);
@@ -60,7 +61,7 @@ describe("DropZone", () => {
         act(() => {
             renderDropZone();
         });
-        const dropZone = screen.getByTestId("drop-zone-area");
+        const dropZone = screen.getByTestId(`drop-zone-${flowId}`);
         fireEvent.click(dropZone);
         const input = screen.getByTestId("drop-zone-file-input");
         const file = new File(["file1"], "file1.txt");
@@ -104,7 +105,7 @@ describe("DropZone", () => {
             type: "text/plain",
         });
         const files = [largeFile, pngFile, docFile, validImage, validText];
-        const dropZone = screen.getByTestId("drop-zone-area");
+        const dropZone = screen.getByTestId(`drop-zone-${flowId}`);
         fireEvent.click(dropZone);
         const input = screen.getByTestId("drop-zone-file-input");
         Object.defineProperty(input, "files", {

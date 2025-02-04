@@ -69,6 +69,16 @@ export const reasoningDataTransfer = {
     },
 };
 
+export const captainDataTransfer = {
+    setData: vi.fn(),
+    getData: (key: string) => {
+        if (key === "application/node") {
+            return "agent";
+        }
+        return "captain";
+    },
+};
+
 export const renderFlow = (
     options: {
         withLinkedModels?: boolean;

@@ -21,19 +21,18 @@ export const getCaptainAgentLib: (json: { [key: string]: any }) => WaldiezCaptai
     return agentLib;
 };
 
-export const getCaptainToolLib: (json: { [key: string]: any }) => "default" | null = json => {
-    if ("toolLib" in json && (json.toolLib === "default" || json.toolLib === null)) {
-        return json.toolLib;
-    }
+export const getCaptainToolLib: (json: { [key: string]: any }) => "default" | null = _json => {
+    // if ("toolLib" in json && (json.toolLib === "default" || json.toolLib === null)) {
+    //     return json.toolLib;
+    // }
     return null;
 };
 
 export const getCaptainMaxRound: (json: { [key: string]: any }) => number = json => {
     if ("maxRound" in json && typeof json.maxRound === "number") {
-        try {
-            return parseInt(json.maxRound.toString(), 10);
-        } catch (_) {
-            return 10;
+        const parsed = parseInt(json.maxRound.toString(), 10);
+        if (parsed > 0) {
+            return parsed;
         }
     }
     return 10;
@@ -41,10 +40,9 @@ export const getCaptainMaxRound: (json: { [key: string]: any }) => number = json
 
 export const getCaptainMaxTurns: (json: { [key: string]: any }) => number = json => {
     if ("maxTurns" in json && typeof json.maxTurns === "number") {
-        try {
-            return parseInt(json.maxTurns.toString(), 10);
-        } catch (_) {
-            return 5;
+        const parsed = parseInt(json.maxTurns.toString(), 10);
+        if (parsed > 0) {
+            return parsed;
         }
     }
     return 5;

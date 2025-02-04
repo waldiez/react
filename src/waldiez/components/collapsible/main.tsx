@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { CollapsibleProps } from "@waldiez/components/collapsible/types";
 
 export const Collapsible = (props: CollapsibleProps) => {
-    const { title, children, dataTestId, expanded = false } = props;
+    const { title, children, dataTestId, fullWidth = false, expanded = false } = props;
     const [isOpen, setIsOpen] = useState(expanded);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ export const Collapsible = (props: CollapsibleProps) => {
         setIsOpen(!isOpen);
     };
     return (
-        <div className="collapsible" data-testid={dataTestId}>
+        <div className={`collapsible ${fullWidth && "full-width"}`} data-testid={dataTestId}>
             <div className="collapsible-header" onClick={onToggle}>
                 <span>{title}</span>
                 <span className="margin-left-5">{isOpen ? "▲" : "▼"}</span>

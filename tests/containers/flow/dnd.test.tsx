@@ -4,6 +4,7 @@
  */
 import {
     assistantDataTransfer,
+    captainDataTransfer,
     managerDataTransfer,
     reasoningDataTransfer,
     renderFlow,
@@ -134,6 +135,26 @@ describe("Flow DnD", () => {
         });
         fireEvent.drop(targetElement, {
             dataTransfer: reasoningDataTransfer,
+        });
+        fireEvent.mouseUp(targetElement);
+    });
+    it("should add a captain agent node on drag and drop", async () => {
+        act(() => {
+            renderFlow();
+        });
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
+        const sourceElement = screen.getByTestId("captain-dnd");
+        const targetElement = screen.getByTestId(`drop-area-${flowId}`);
+        fireEvent.mouseDown(sourceElement);
+        fireEvent.dragStart(sourceElement, {
+            dataTransfer: captainDataTransfer,
+        });
+        fireEvent.dragOver(targetElement, {
+            dataTransfer: captainDataTransfer,
+        });
+        fireEvent.drop(targetElement, {
+            dataTransfer: captainDataTransfer,
         });
         fireEvent.mouseUp(targetElement);
     });
