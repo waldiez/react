@@ -10,6 +10,7 @@ import { StringListProps } from "@waldiez/components/stringList/types";
 
 export const StringList = (props: StringListProps) => {
     const { viewLabel, viewLabelInfo, items, itemsType } = props;
+    const placeholder = props.placeholder || "...";
     const { newEntry, onAddEntry, onDeleteEntry, onEntryChange, onNewEntryChange } = useStringList(props);
     const labelElement = typeof viewLabel === "function" ? viewLabel() : viewLabel;
     return (
@@ -24,7 +25,7 @@ export const StringList = (props: StringListProps) => {
                 {items?.map((item, index) => (
                     <div className="list-entry" key={index}>
                         <input
-                            placeholder="..."
+                            placeholder={placeholder}
                             type="text"
                             value={item}
                             data-value={item}
@@ -45,7 +46,7 @@ export const StringList = (props: StringListProps) => {
             </div>
             <div className="add-list-entry-view">
                 <input
-                    placeholder="..."
+                    placeholder={placeholder}
                     type="text"
                     value={newEntry}
                     onChange={onNewEntryChange}

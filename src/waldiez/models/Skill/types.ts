@@ -4,8 +4,11 @@
  */
 import type { Node } from "@xyflow/react";
 
+export type WaldiezSkillType = "shared" | "custom" | "langchain" | "crewai";
+
 export type WaldiezSkillDataCommon = {
     content: string;
+    skillType: WaldiezSkillType;
     description: string;
     secrets: { [key: string]: string };
     requirements: string[];

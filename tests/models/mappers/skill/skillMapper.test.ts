@@ -4,7 +4,12 @@
  */
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_SKILL_CONTENT, WaldiezNodeSkill, WaldiezSkill, WaldiezSkillData } from "@waldiez/models";
+import {
+    DEFAULT_CUSTOM_SKILL_CONTENT,
+    WaldiezNodeSkill,
+    WaldiezSkill,
+    WaldiezSkillData,
+} from "@waldiez/models";
 import { skillMapper } from "@waldiez/models/mappers";
 
 describe("skillMapper", () => {
@@ -40,7 +45,7 @@ describe("skillMapper", () => {
         expect(skill).toBeTruthy();
         expect(skill.id).toBeTypeOf("string");
         expect(skill.name).toBe("new_skill");
-        expect(skill.data.content).toBe(DEFAULT_SKILL_CONTENT);
+        expect(skill.data.content).toBe(DEFAULT_CUSTOM_SKILL_CONTENT);
     });
     it("should import a skill with no data in json", () => {
         const skill = skillMapper.importSkill({
@@ -50,7 +55,7 @@ describe("skillMapper", () => {
         expect(skill).toBeTruthy();
         expect(skill.id).toBe("1");
         expect(skill.name).toBe("new_skill");
-        expect(skill.data.content).toBe(DEFAULT_SKILL_CONTENT);
+        expect(skill.data.content).toBe(DEFAULT_CUSTOM_SKILL_CONTENT);
     });
     it("should use the label when no name is provided", () => {
         const skill = skillMapper.importSkill({
@@ -61,7 +66,7 @@ describe("skillMapper", () => {
         expect(skill).toBeTruthy();
         expect(skill.id).toBe("1");
         expect(skill.name).toBe("custom_label");
-        expect(skill.data.content).toBe(DEFAULT_SKILL_CONTENT);
+        expect(skill.data.content).toBe(DEFAULT_CUSTOM_SKILL_CONTENT);
     });
     it("should export a skill node", () => {
         const skillData = new WaldiezSkillData();

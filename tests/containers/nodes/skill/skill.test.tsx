@@ -11,7 +11,7 @@ import { WaldiezNodeSkillView } from "@waldiez/containers/nodes";
 import { WaldiezProvider } from "@waldiez/store";
 import { WaldiezThemeProvider } from "@waldiez/theme";
 
-const renderSkillNode = (skipStoredNodes = false, includeSecrets = false) => {
+const renderSkillNode = (skipStoredNodes = false, includeSecrets = false, goToAdvancedTab = false) => {
     render(
         <WaldiezThemeProvider>
             <WaldiezProvider
@@ -43,6 +43,12 @@ const renderSkillNode = (skipStoredNodes = false, includeSecrets = false) => {
             </WaldiezProvider>
         </WaldiezThemeProvider>,
     );
+    if (goToAdvancedTab) {
+        const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
+        fireEvent.click(openButton);
+        const advancedTab = screen.getByTestId(`tab-id-skill-advanced-tab-${skillId}`);
+        fireEvent.click(advancedTab);
+    }
 };
 
 const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
@@ -128,7 +134,7 @@ describe("WaldiezNodeSkill", () => {
         getItemSpy.mockReset();
     });
 });
-describe("WaldiezNodeSkill data", () => {
+describe("WaldiezNodeSkill basic tab", () => {
     it("should update skill label", () => {
         renderSkillNode();
         const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
@@ -155,10 +161,10 @@ describe("WaldiezNodeSkill data", () => {
         fireEvent.change(contentInput, { target: { value: "new content" } });
         expect(contentInput).toHaveValue("new content");
     });
+});
+describe("WaldiezNodeSkill advanced tab", () => {
     it("should add secret", () => {
-        renderSkillNode();
-        const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
-        fireEvent.click(openButton);
+        renderSkillNode(false, true, true);
         const secretKeyInput = screen.getByTestId("new-dict-skill-secret-key");
         const secretValueInput = screen.getByTestId("new-dict-skill-secret-value");
         fireEvent.change(secretKeyInput, { target: { value: "new key" } });
@@ -169,24 +175,23 @@ describe("WaldiezNodeSkill data", () => {
         fireEvent.click(addSecretButton);
     });
     it("should delete secret", () => {
-        renderSkillNode(false, true);
-        const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
-        fireEvent.click(openButton);
+        renderSkillNode(false, true, true);
         const deleteSecretButton = screen.getByTestId("delete-dict-item-skill-secret-1");
         fireEvent.click(deleteSecretButton);
     });
     it("should update secrets", () => {
-        renderSkillNode(false, true);
-        const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
-        fireEvent.click(openButton);
+        renderSkillNode(false, true, true);
         const secretKeyInput = screen.getByTestId("key-input-skill-secret-1");
         fireEvent.change(secretKeyInput, { target: { value: "new key" } });
         expect(secretKeyInput).toHaveValue("new key");
         const saveChangesButton = screen.getByTestId("save-dict-item-skill-secret-1");
         fireEvent.click(saveChangesButton); // to trigger onUpdateSecrets
     });
+});
+
+describe("WaldiezNodeSkill modal actions", () => {
     it("should discard changes on cancel", () => {
-        renderSkillNode();
+        renderSkillNode(false, true);
         const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
         fireEvent.click(openButton);
         // make a change
@@ -203,7 +208,7 @@ describe("WaldiezNodeSkill data", () => {
         expect(descriptionInput).toHaveValue(skillData.description);
     });
     it("should save changes on submit", () => {
-        renderSkillNode();
+        renderSkillNode(false, true);
         const openButton = screen.getByTestId(`open-skill-node-modal-${skillId}`);
         fireEvent.click(openButton);
         // make a change

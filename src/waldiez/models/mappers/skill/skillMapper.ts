@@ -3,10 +3,11 @@
  * Copyright 2024 - 2025 Waldiez & contributors
  */
 import {
-    DEFAULT_SKILL_CONTENT,
+    DEFAULT_CUSTOM_SKILL_CONTENT,
     WaldiezNodeSkill,
     WaldiezSkill,
     WaldiezSkillData,
+    WaldiezSkillType,
 } from "@waldiez/models/Skill";
 import {
     getCreatedAtFromJSON,
@@ -49,9 +50,11 @@ export const skillMapper = {
             "updatedAt",
             "data",
         ]);
+        const skillType = getSkillDataType(jsonObject.data || (jsonObject as any), name);
         const content = getSkillDataContent(jsonObject.data || (jsonObject as any));
         const secrets = getSkillDataSecrets(jsonObject.data || (jsonObject as any));
         const data = new WaldiezSkillData({
+            skillType,
             content,
             secrets,
         });
@@ -77,10 +80,12 @@ export const skillMapper = {
             }
         }
         const rest = getRestFromJSON(skillNode, ["id", "type", "parentId", "data"]);
+        const skillName = skillNode.data.label;
+        const skillType = skillName === "waldiez_shared" ? "shared" : skillNode.data.skillType;
         return {
             id: skillNode.id,
             type: "skill",
-            name: skillNode.data.label,
+            name: skillName,
             description: skillNode.data.description,
             tags: skillNode.data.tags,
             requirements: skillNode.data.requirements,
@@ -88,6 +93,7 @@ export const skillMapper = {
             updatedAt: skillNode.data.updatedAt,
             data: {
                 content: skillNode.data.content,
+                skillType,
                 secrets,
             },
             ...rest,
@@ -119,7 +125,7 @@ export const skillMapper = {
 };
 
 const getSkillDataContent = (json: Record<string, unknown>): string => {
-    let content = DEFAULT_SKILL_CONTENT;
+    let content = DEFAULT_CUSTOM_SKILL_CONTENT;
     if ("content" in json && typeof json.content === "string") {
         content = json.content;
     }
@@ -159,4 +165,19 @@ const getNodeMeta = (
     const createdAt = getCreatedAtFromJSON(json);
     const updatedAt = getUpdatedAtFromJSON(json);
     return { name, description, tags, requirements, createdAt, updatedAt };
+};
+
+const getSkillDataType = (json: Record<string, unknown>, skillName: string): WaldiezSkillType => {
+    let skillType: WaldiezSkillType = "custom";
+    if (
+        "skillType" in json &&
+        typeof json.skillType === "string" &&
+        ["shared", "custom", "langchain", "crewai"].includes(json.skillType)
+    ) {
+        skillType = json.skillType as WaldiezSkillType;
+    }
+    if (skillName === "waldiez_shared") {
+        skillType = "shared";
+    }
+    return skillType;
 };

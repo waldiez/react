@@ -4,7 +4,7 @@
  */
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_SKILL_CONTENT, WaldiezSkill, WaldiezSkillData } from "@waldiez/models/Skill";
+import { DEFAULT_CUSTOM_SKILL_CONTENT, WaldiezSkill, WaldiezSkillData } from "@waldiez/models/Skill";
 
 describe("WaldiezSkill", () => {
     it("should create an instance", () => {
@@ -23,10 +23,10 @@ describe("WaldiezSkill", () => {
         });
         expect(skill).toBeTruthy();
         expect(skill.id).toBe("1");
-        expect(skill.data.content).toBe(DEFAULT_SKILL_CONTENT);
+        expect(skill.data.content).toBe(DEFAULT_CUSTOM_SKILL_CONTENT);
         const skill2 = WaldiezSkill.create();
         expect(skill2).toBeTruthy();
-        expect(skill2.data.content).toBe(DEFAULT_SKILL_CONTENT);
+        expect(skill2.data.content).toBe(DEFAULT_CUSTOM_SKILL_CONTENT);
     });
     it("should create an instance with custom data", () => {
         const createdAt = new Date().toISOString();
@@ -34,6 +34,7 @@ describe("WaldiezSkill", () => {
         const skillData = new WaldiezSkillData({
             content: "custom_content",
             secrets: { secret: "value" },
+            skillType: "custom",
         });
         const skill = new WaldiezSkill({
             id: "1",

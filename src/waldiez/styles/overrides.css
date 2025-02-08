@@ -113,6 +113,11 @@
     background: transparent;
 }
 
+.react-flow__attribution a {
+    color: currentcolor;
+    opacity: 0.6;
+}
+
 .flow-wrapper .rc-slider {
     width: calc(100% - 20px);
     margin: 0 10px;

@@ -2,9 +2,11 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import { Dict, Editor, Modal } from "@waldiez/components";
+import { useEffect, useState } from "react";
+
+import { Modal, TabItem, TabItems } from "@waldiez/components";
 import { getImportExportView } from "@waldiez/containers/nodes/common";
-import { useSkillNodeModal } from "@waldiez/containers/nodes/skill/modal/hooks";
+import { WaldiezSkillAdvancedTab, WaldiezSkillBasicTab } from "@waldiez/containers/nodes/skill/modal/tabs";
 import { WaldiezNodeSkillModalProps } from "@waldiez/containers/nodes/skill/modal/types";
 
 export const WaldiezNodeSkillModal = (props: WaldiezNodeSkillModalProps) => {
@@ -14,7 +16,6 @@ export const WaldiezNodeSkillModal = (props: WaldiezNodeSkillModalProps) => {
         data,
         isModalOpen,
         isDirty,
-        darkMode,
         onClose,
         onCancel,
         onSave,
@@ -22,15 +23,11 @@ export const WaldiezNodeSkillModal = (props: WaldiezNodeSkillModalProps) => {
         onImport,
         onExport,
     } = props;
-    const {
-        onUpdateSecrets,
-        onDeleteSecret,
-        onAddSecret,
-        onSkillContentChange,
-        onSkillLabelChange,
-        onSkillDescriptionChange,
-    } = useSkillNodeModal(props);
     const importExportView = getImportExportView(flowId, skillId, "skill", onImport, onExport);
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
+    useEffect(() => {
+        setActiveTabIndex(0);
+    }, [isModalOpen]);
     return (
         <Modal
             beforeTitle={importExportView}
@@ -42,42 +39,14 @@ export const WaldiezNodeSkillModal = (props: WaldiezNodeSkillModalProps) => {
             preventCloseIfUnsavedChanges
         >
             <div className="modal-body">
-                <div className="info">
-                    Enter the skill details below. If the skill name is called{" "}
-                    <span className="bold italic">waldiez_shared</span> it will be placed before any other
-                    skill in the flow (for example additional imports to be used or variables that should be
-                    available to the entire flow). Otherwise, generate a function with the{" "}
-                    <span className="bold italic">name of the skill</span>. This function's contents will be
-                    included in the final flow.
-                </div>
-                <label htmlFor={`skill-label-input-${skillId}`}>Name:</label>
-                <input
-                    title="Name"
-                    type="text"
-                    value={data.label}
-                    data-testid={`skill-label-input-${skillId}`}
-                    id={`skill-label-input-${skillId}`}
-                    onChange={onSkillLabelChange}
-                />
-                <label>Description:</label>
-                <textarea
-                    title="Description"
-                    rows={2}
-                    value={data.description}
-                    data-testid={`skill-description-input-${skillId}`}
-                    onChange={onSkillDescriptionChange}
-                />
-                <label>Content:</label>
-                <Editor value={data.content} onChange={onSkillContentChange} darkMode={darkMode} />
-                <Dict
-                    viewLabel="Environment Variables:"
-                    items={data.secrets}
-                    itemsType="skill-secret"
-                    onUpdate={onUpdateSecrets}
-                    onDelete={onDeleteSecret}
-                    onAdd={onAddSecret}
-                    areValuesSecret={true}
-                />
+                <TabItems activeTabIndex={activeTabIndex}>
+                    <TabItem label="Basic" id={`skill-basic-tab-${skillId}`}>
+                        <WaldiezSkillBasicTab {...props} />
+                    </TabItem>
+                    <TabItem label="Advanced" id={`skill-advanced-tab-${skillId}`}>
+                        <WaldiezSkillAdvancedTab {...props} />
+                    </TabItem>
+                </TabItems>
             </div>
             <div className="modal-actions margin-top-10">
                 <button

@@ -38,7 +38,9 @@ const edgeKeysToIgnore: string[] = ["hidden"];
 // id: either missing, or overridden when importing/exporting
 const flowKeysToRemove: string[] = ["id"];
 // new (flow.data) keys that were not in the exported flows
-const flowDataKeysToRemove: string[] = ["isAsync"];
+const flowDataKeysToRemove: string[] = [];
+// skillType is new
+const skillDataKeysToIgnore: string[] = ["skillType"];
 
 const getFlowStringFromUrl = (url: string) => {
     return fetch(url).then(response => response.text());
@@ -69,6 +71,7 @@ describe("flowMapper", () => {
             jsonFlow.data.chats.forEach((chat: any) => updateChat(chat, flowJson));
             jsonFlow.data.edges.forEach((edge: any) => updateEdge(edge, flowJson));
             jsonFlow.data.models.forEach((model: any) => updateModel(model, flowJson));
+            jsonFlow.data.skills.forEach((skill: any) => updateSkill(skill, flowJson));
             newAgents.forEach((newAgent: any) => {
                 jsonFlow.data.agents[newAgent] = [];
             });
@@ -164,4 +167,10 @@ const updateModel = (model: any, oldJson: any) => {
             return m;
         });
     }
+};
+
+const updateSkill = (skill: any, oldJson: any) => {
+    skillDataKeysToIgnore.forEach(key => {
+        oldJson.data.skills.find((s: any) => s.id === skill.id).data[key] = skill[key];
+    });
 };

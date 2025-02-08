@@ -9,6 +9,7 @@ export type StringListProps = {
     viewLabelInfo?: string | React.JSX.Element | (() => React.JSX.Element | string);
     items: Array<string>;
     itemsType: string;
+    placeholder?: string;
     onItemChange?: (oldItem: string, newItem: string) => void;
     onItemAdded?: (item: string) => void;
     onItemDeleted?: (item: string) => void;

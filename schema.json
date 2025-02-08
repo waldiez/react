@@ -1784,6 +1784,9 @@
                 "content": {
                     "type": "string"
                 },
+                "skillType": {
+                    "$ref": "#/definitions/WaldiezSkillType"
+                },
                 "secrets": {
                     "type": "object",
                     "additionalProperties": {
@@ -1791,9 +1794,13 @@
                     }
                 }
             },
-            "required": ["content", "secrets"],
+            "required": ["content", "skillType", "secrets"],
             "additionalProperties": false,
             "description": "Skill data."
+        },
+        "WaldiezSkillType": {
+            "type": "string",
+            "enum": ["shared", "custom", "langchain", "crewai"]
         },
         "WaldiezChat": {
             "type": "object",
