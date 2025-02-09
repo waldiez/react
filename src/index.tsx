@@ -181,6 +181,8 @@ const defaultWaldiezProps: Partial<WaldiezProps> = {
     onUpload,
     onSave,
     flowId,
+    isAsync: false,
+    cacheSeed: 41,
     storageId: flowId,
 };
 

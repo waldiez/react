@@ -14,6 +14,7 @@ const flowLinks = [
     `${flowLinksBaseUrl}/01 - Standup Comedians/Standup Comedians 2.waldiez`,
     `${flowLinksBaseUrl}/01 - Standup Comedians/Standup Comedians 3.waldiez`,
     `${flowLinksBaseUrl}/02 - On-boarding/On-boarding.waldiez`,
+    `${flowLinksBaseUrl}/02 - On-boarding/On-boarding Async.waldiez`,
     `${flowLinksBaseUrl}/03 - Reflection/Reflection.waldiez`,
     `${flowLinksBaseUrl}/04 - Tools/Tool Use.waldiez`,
     `${flowLinksBaseUrl}/05 - Coding/Coding.waldiez`,
