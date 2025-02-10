@@ -26,20 +26,20 @@ export const DEFAULT_CUSTOM_AFTER_WORK_RECIPIENT_METHOD_CONTENT = `"""Custom aft
 # only complete the function body and the docstring and return the recipient.
 # example:
 # def custom_after_work(
-#     last_speaker: SwarmAgent,
+#     last_speaker: ConversableAgent,
 #     messages: List[Dict[str, Any]],
 #     groupchat: GroupChat,
-# ) -> Union[AfterWorkOption, SwarmAgent, str]:
+# ) -> Union[AfterWorkOption, ConversableAgent, str]:
 #     """Complete the custom after work recipient function"""
 #     # return last_speaker
 #     return "TERMINATE"
 #
 #
 def custom_after_work(
-    last_speaker: SwarmAgent,
+    last_speaker: ConversableAgent,
     messages: List[Dict[str, Any]],
     groupchat: GroupChat,
-) -> Union[AfterWorkOption, SwarmAgent, str]:
+) -> Union[AfterWorkOption, ConversableAgent, str]:
     """Complete the custom after work recipient function"""
     ...
 `;
