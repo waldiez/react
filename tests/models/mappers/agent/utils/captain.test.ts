@@ -43,9 +43,9 @@ describe("getCaptainToolLib", () => {
     it("should return null if toolLib is not 'default' or null", () => {
         expect(getCaptainToolLib({ toolLib: "invalid" })).toEqual(null);
     });
-    // it("should return 'default' if toolLib is 'default'", () => {
-    //     expect(getCaptainToolLib({ toolLib: "default" })).toEqual("default");
-    // });
+    it("should return 'default' if toolLib is 'default'", () => {
+        expect(getCaptainToolLib({ toolLib: "default" })).toEqual("default");
+    });
     it("should return null if toolLib is null", () => {
         expect(getCaptainToolLib({ toolLib: null })).toEqual(null);
     });
