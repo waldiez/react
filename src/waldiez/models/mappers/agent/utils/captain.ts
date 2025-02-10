@@ -21,10 +21,10 @@ export const getCaptainAgentLib: (json: { [key: string]: any }) => WaldiezCaptai
     return agentLib;
 };
 
-export const getCaptainToolLib: (json: { [key: string]: any }) => "default" | null = _json => {
-    // if ("toolLib" in json && (json.toolLib === "default" || json.toolLib === null)) {
-    //     return json.toolLib;
-    // }
+export const getCaptainToolLib: (json: { [key: string]: any }) => "default" | null = json => {
+    if ("toolLib" in json && (json.toolLib === "default" || json.toolLib === null)) {
+        return json.toolLib;
+    }
     return null;
 };
 
