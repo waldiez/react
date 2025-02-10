@@ -130,4 +130,20 @@ describe("Captain tab", () => {
         // Check that the agent library has been disabled
         expect(agentLibToggle).not.toBeChecked();
     });
+    it("should allow changing the tool lib", async () => {
+        renderAgent("captain", {
+            openModal: true,
+        });
+        goToCaptainTab();
+
+        // Check that the tool lib is disabled
+        const toolLibToggle = screen.getByTestId(`tool-lib-${agentId}`);
+        expect(toolLibToggle).toBeInTheDocument();
+        expect(toolLibToggle).not.toBeChecked();
+        // Enable the tool lib
+        fireEvent.click(toolLibToggle);
+        // Check that the tool lib has been enabled
+        expect(toolLibToggle).toBeChecked();
+        submitAgentChanges();
+    });
 });

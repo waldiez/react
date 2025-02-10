@@ -16,6 +16,7 @@ export const WaldiezAgentCaptainTab = (props: WaldiezAgentCaptainTabProps) => {
         enableAgentLib,
         onEnableAgentLibChange,
         onFileUpload,
+        onToolLibChange,
         onMaxRoundChange,
         onMaxTurnsChange,
     } = useWaldiezAgentCaptain(props);
@@ -38,16 +39,16 @@ export const WaldiezAgentCaptainTab = (props: WaldiezAgentCaptainTabProps) => {
                 min={1}
                 max={100}
             />
-            {/* <InfoCheckbox
+            <InfoCheckbox
                 dataTestId={`tool-lib-${id}`}
                 label="Include tool lib"
-                info="When enabled, the captain agent will use "
+                info={"If enabled, the agents will be equipped with several tools"}
                 checked={agentData.toolLib === "default"}
                 onChange={onToolLibChange}
-            /> */}
+            />
             <InfoCheckbox
                 label={"Include agent lib"}
-                info={"When enabled, the captain agent will generate agents from a dedicated agents library"}
+                info={"If enabled, the captain agent will generate agents from a dedicated agents library"}
                 checked={enableAgentLib}
                 onChange={onEnableAgentLibChange}
                 dataTestId={`agent-captain-toggle-agent-lib-${id}`}

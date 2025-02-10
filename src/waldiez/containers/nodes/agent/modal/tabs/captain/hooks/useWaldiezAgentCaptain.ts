@@ -38,12 +38,12 @@ export const useWaldiezAgentCaptain = (props: WaldiezAgentCaptainTabProps) => {
             });
         }
     };
-    // const onToolLibChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const checked = event.target.checked;
-    //     onChange({
-    //         toolLib: checked ? "default" : null,
-    //     });
-    // };
+    const onToolLibChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const checked = event.target.checked;
+        onChange({
+            toolLib: checked ? "default" : null,
+        });
+    };
     const onEnableAgentLibChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEnableAgentLib(event.target.checked);
         if (!event.target.checked) {
@@ -105,6 +105,6 @@ export const useWaldiezAgentCaptain = (props: WaldiezAgentCaptainTabProps) => {
         onFileUpload,
         onMaxRoundChange,
         onMaxTurnsChange,
-        // onToolLibChange,
+        onToolLibChange,
     };
 };
