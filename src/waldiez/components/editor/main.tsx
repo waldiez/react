@@ -3,7 +3,7 @@
  * Copyright 2024 - 2025 Waldiez & contributors
  */
 //MonacoEditor with standard options
-import { Editor as MonacoEditor } from "@monaco-editor/react";
+import MonacoEditor from "@monaco-editor/react";
 
 import { EditorProps } from "@waldiez/components/editor/types";
 
