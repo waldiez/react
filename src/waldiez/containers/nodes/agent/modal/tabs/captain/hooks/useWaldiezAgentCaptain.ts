@@ -31,13 +31,13 @@ export const useWaldiezAgentCaptain = (props: WaldiezAgentCaptainTabProps) => {
         }
     };
 
-    const onMaxTurnsChange = (value: number | null) => {
-        if (typeof value === "number") {
-            onChange({
-                maxTurns: value,
-            });
-        }
-    };
+    // const onMaxTurnsChange = (value: number | null) => {
+    //     if (typeof value === "number") {
+    //         onChange({
+    //             maxTurns: value,
+    //         });
+    //     }
+    // };
     const onToolLibChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const checked = event.target.checked;
         onChange({
@@ -104,7 +104,7 @@ export const useWaldiezAgentCaptain = (props: WaldiezAgentCaptainTabProps) => {
         onEnableAgentLibChange,
         onFileUpload,
         onMaxRoundChange,
-        onMaxTurnsChange,
+        // onMaxTurnsChange,
         onToolLibChange,
     };
 };

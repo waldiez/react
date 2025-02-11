@@ -7,6 +7,7 @@ import { useWaldiezAgentCaptain } from "@waldiez/containers/nodes/agent/modal/ta
 import { WaldiezAgentCaptainTabProps } from "@waldiez/containers/nodes/agent/modal/tabs/captain/types";
 
 const EXAMPLE_LIB_LINK = "https://github.com/ag2ai/ag2/blob/main/notebook/agent_library_example.json";
+const TOOLS_LINK = "https://github.com/ag2ai/ag2/tree/main/autogen/agentchat/contrib/captainagent/tools";
 
 export const WaldiezAgentCaptainTab = (props: WaldiezAgentCaptainTabProps) => {
     const { id, flowId } = props;
@@ -18,27 +19,28 @@ export const WaldiezAgentCaptainTab = (props: WaldiezAgentCaptainTabProps) => {
         onFileUpload,
         onToolLibChange,
         onMaxRoundChange,
-        onMaxTurnsChange,
     } = useWaldiezAgentCaptain(props);
 
     return (
         <div className="agent-panel agent-codeExecution-panel margin-top--10">
             <NumberInput
                 label="Max Round"
+                labelInfo="The maximum number of conversation rounds to be used in the generated groupchat."
                 value={agentData.maxRound}
                 onChange={onMaxRoundChange}
                 dataTestId={`agent-captain-max-round-${id}`}
                 min={1}
                 max={100}
             />
-            <NumberInput
+            {/* <NumberInput
                 label="Max Turns"
+                labelInfo="The maximum number of turns for the captain agent's nested chat."
                 value={agentData.maxTurns}
                 onChange={onMaxTurnsChange}
                 dataTestId={`agent-captain-max-turns-${id}`}
                 min={1}
                 max={100}
-            />
+            /> */}
             <InfoCheckbox
                 dataTestId={`tool-lib-${id}`}
                 label="Include tool lib"
@@ -46,6 +48,13 @@ export const WaldiezAgentCaptainTab = (props: WaldiezAgentCaptainTabProps) => {
                 checked={agentData.toolLib === "default"}
                 onChange={onToolLibChange}
             />
+            <div className="margin-bottom-10">
+                {" "}
+                if selected, you can find the available tools{" "}
+                <a href={TOOLS_LINK} target="_blank" rel="noreferrer nofollow noopener">
+                    here
+                </a>
+            </div>
             <InfoCheckbox
                 label={"Include agent lib"}
                 info={"If enabled, the captain agent will generate agents from a dedicated agents library"}
@@ -56,7 +65,7 @@ export const WaldiezAgentCaptainTab = (props: WaldiezAgentCaptainTabProps) => {
             <div className="margin-bottom-10">
                 {" "}
                 You can find an example of agents library{" "}
-                <a href={EXAMPLE_LIB_LINK} target="_blank" rel="noreferrer">
+                <a href={EXAMPLE_LIB_LINK} target="_blank" rel="noreferrer nofollow noopener">
                     here
                 </a>
             </div>
