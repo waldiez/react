@@ -19,16 +19,20 @@ export default defineConfig(({ command }) => {
         build: {
             emptyOutDir: true,
             minify: "terser",
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: true,
+                },
+            },
+            target: "esnext",
             outDir: resolve(__dirname, "out", "static"),
             rollupOptions: {
                 output: {
-                    manualChunks: {
-                        react: ["react"],
-                        "react-dom": ["react-dom"],
-                        "xyflow-react": ["@xyflow/react"],
-                        "react-select": ["react-select"],
-                        "monaco-editor": ["@monaco-editor/react"],
-                        "react-icons": ["react-icons"],
+                    manualChunks(id) {
+                        if (id.includes("node_modules")) {
+                            return id.toString().split("node_modules/")[1].split("/")[0].toString();
+                        }
                     },
                 },
             },
