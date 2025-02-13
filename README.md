@@ -22,7 +22,7 @@ bun add @waldiez/react
 ```json
 {
     "@monaco-editor/react": "^4.6.0",
-    "@xyflow/react": "^12.4.2",
+    "@xyflow/react": "^12.4.3",
     "microdiff": "^1.5.0",
     "nanoid": "^5.0.9",
     "rc-slider": "^11.1.8",
@@ -125,7 +125,19 @@ const onConvertDev = (_flowString: string, to: "py" | "ipynb") => {
     console.info("converting to", to);
 };
 const onConvert = isProd ? null : onConvertDev;
+/**
+ * readOnly
+ * if true, only the theme button is shown
+ * only zoom and viewport are enabled, no further actions are allowed
+ */
+const readOnly: boolean | undefined | null = undefined;
 
+/**
+ * skipImport and skipExport
+ * if true, the import and export buttons are not added to the main panel
+ */
+const skipImport = false;
+const skipExport = false;
 /**
  * OnUpload
  * on RAG user: adds a dropzone to upload files
@@ -169,19 +181,68 @@ if (!vsPath) {
     vsPath = null;
 }
 /**
- * Other props:
- *  we can use:
- * `import { importFlow } from '@waldiez/react';`
- *  to import an existing flow from a waldiez/json file
- *  then we can pass the additional props:
- *    - edges: Edge[];  initial edges to render
- *    - nodes: Node[];  initial nodes to render
- *    - name: string;
- *    - description: string;
- *    - tags: string[];
- *    - requirements: string[];
- *    - createdAt?: string;
- *    - updatedAt?: string;
+  Other props:
+   we can use:
+  `import { importFlow } from '@waldiez/react';`
+   to import an existing flow from a waldiez/json file
+   import { ReactFlowJsonObject } from "@xyflow/react";
+    // ReactFlowJsonObject: nodes: NodeType[]; edges: EdgeType[]; viewport: Viewport;
+
+   // all the props:
+   type WaldiezFlowProps = ReactFlowJsonObject & {
+        flowId: string;
+        isAsync?: boolean;
+        cacheSeed?: number | null;
+        storageId: string;
+        name: string;
+        description: string;
+        tags: string[];
+        requirements: string[];
+        viewport?: Viewport;
+        createdAt?: string;
+        updatedAt?: string;
+    };
+    type WaldiezProps = WaldiezFlowProps & {
+        nodes: Node[];
+        edges: Edge[];
+        viewport?: Viewport;
+        monacoVsPath?: string | null;
+        inputPrompt?: {
+            previousMessages: string[];
+            prompt: string;
+        } | null;
+        readOnly?: boolean | null;
+        skipImport?: boolean | null;
+        skipExport?: boolean | null;
+        onUpload?: ((files: File[]) => Promise<string[]>) | null;
+        onChange?: ((flow: string) => void) | null;
+        onRun?: ((flow: string) => void) | null;
+        onUserInput?: ((input: string) => void) | null;
+        onConvert?: ((flow: string, to: "py" | "ipynb") => void) | null;
+        onSave?: ((flow: string) => void) | null;
+    };
+
+    // Alternative:
+    // use the ones we want to override
+    const overrides: Partial<WaldiezProps> = {
+        monacoVsPath: vsPath,
+        onUserInput,
+        flowId: "flow-0",
+        storageId: "storage-0",
+        inputPrompt,
+        onRun,
+        onConvert,
+        onChange,
+        onUpload,
+        onSave,
+        readOnly,
+        skipImport,
+        skipExport,
+    }
+    const imported = importFlow("path/to/flow.json");
+    <Waldiez {...imported} {...overrides} />
+    // example:
+    <Waldiez {...imported} readOnly={readOnly} skipExport={skipExport} skipImport={skipImport} />
  */
 
 const startApp = () => {
@@ -198,6 +259,9 @@ const startApp = () => {
                 onChange={onChange}
                 onUpload={onUpload}
                 onSave={onSave}
+                readOnly={readOnly}
+                skipImport={skipImport}
+                skipExport={skipExport}
             />
         </React.StrictMode>,
     );
