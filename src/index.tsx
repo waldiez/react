@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
+/* eslint-disable tsdoc/syntax */
 import "./index.css";
 import { Waldiez, WaldiezProps, importFlow } from "@waldiez";
 
@@ -156,20 +157,70 @@ if (!vsPath) {
     vsPath = null;
 }
 /**
- * Other props:
- *  we can use:
- * `import { importFlow } from '@waldiez';`
- *  to import an existing flow from a waldiez/json file
- *  then we can pass the additional props:
- *    - edges: Edge[];  initial edges to render
- *    - nodes: Node[];  initial nodes to render
- *    - name: string;
- *    - description: string;
- *    - tags: string[];
- *    - requirements: string[];
- *    - createdAt?: string;
- *    - updatedAt?: string;
- */
+  Other props:
+   we can use:
+  `import { importFlow } from '@waldiez/react';`
+   to import an existing flow from a waldiez/json file
+   import { ReactFlowJsonObject } from "@xyflow/react";
+    // ReactFlowJsonObject: nodes: NodeType[]; edges: EdgeType[]; viewport: Viewport;
+
+   // all the props:
+   type WaldiezFlowProps = ReactFlowJsonObject & {
+        flowId: string;
+        isAsync?: boolean;
+        cacheSeed?: number | null;
+        storageId: string;
+        name: string;
+        description: string;
+        tags: string[];
+        requirements: string[];
+        viewport?: Viewport;
+        createdAt?: string;
+        updatedAt?: string;
+    };
+    type WaldiezProps = WaldiezFlowProps & {
+        nodes: Node[];
+        edges: Edge[];
+        viewport?: Viewport;
+        monacoVsPath?: string | null;
+        inputPrompt?: {
+            previousMessages: string[];
+            prompt: string;
+        } | null;
+        readOnly?: boolean | null;
+        skipImport?: boolean | null;
+        skipExport?: boolean | null;
+        onUpload?: ((files: File[]) => Promise<string[]>) | null;
+        onChange?: ((flow: string) => void) | null;
+        onRun?: ((flow: string) => void) | null;
+        onUserInput?: ((input: string) => void) | null;
+        onConvert?: ((flow: string, to: "py" | "ipynb") => void) | null;
+        onSave?: ((flow: string) => void) | null;
+    };
+
+    // Alternative:
+    // use the ones we want to override
+    const overrides: Partial<WaldiezProps> = {
+        monacoVsPath: vsPath,
+        onUserInput,
+        flowId: "flow-0",
+        storageId: "storage-0",
+        inputPrompt,
+        onRun,
+        onConvert,
+        onChange,
+        onUpload,
+        onSave,
+        readOnly,
+        skipImport,
+        skipExport,
+    }
+    const imported = importFlow("path/to/flow.json");
+    <Waldiez {...imported} {...overrides} />
+    // example:
+    <Waldiez {...imported} readOnly={readOnly} skipExport={skipExport} skipImport={skipImport} />
+*/
+
 const flowId = `wf-${nanoid()}`;
 const defaultWaldiezProps: Partial<WaldiezProps> = {
     monacoVsPath: vsPath,
