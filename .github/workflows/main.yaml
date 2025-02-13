@@ -10,6 +10,11 @@ on:
   workflow_dispatch:
   merge_group:
 
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
 env:
   HUSKY: 0
 
@@ -57,3 +62,34 @@ jobs:
         uses: re-actors/alls-green@release/v1
         with:
           jobs: ${{ toJSON(needs) }}
+
+  docs:
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install
+      - name: Generate docs
+        run: bun run docs
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: docs
+          path: './site'
+
+  deploy-docs:
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    needs: docs
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: docs
