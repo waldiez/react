@@ -93,7 +93,7 @@
     },
     "dependencies": {
         "@monaco-editor/react": "^4.6.0",
-        "@xyflow/react": "^12.4.2",
+        "@xyflow/react": "^12.4.3",
         "microdiff": "^1.5.0",
         "nanoid": "^5.0.9",
         "rc-slider": "^11.1.8",
@@ -164,7 +164,7 @@
         "stylelint-config-standard": "^37.0.0",
         "stylelint-prettier": "^5.0.3",
         "tar-stream": "^3.1.7",
-        "terser": "^5.38.2",
+        "terser": "^5.39.0",
         "ts-json-schema-generator": "^2.3.0",
         "tsx": "^4.19.2",
         "typedoc": "^0.27.7",
@@ -208,9 +208,9 @@
         "access": "public"
     },
     "resolutions": {
-        "canvas": "^3.0.1",
+        "canvas": "^3.1.0",
         "cross-spawn": "^7.0.6",
         "ws": "^8.18.0",
-        "got": "^14.4.5"
+        "got": "^14.4.6"
     }
 }
