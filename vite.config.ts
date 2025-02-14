@@ -144,9 +144,9 @@ export default defineConfig(({ command }) => ({
             // Warning: Received NaN for the `cx` attribute.
             // Warning: Received NaN for the `cy` attribute.
             const isReceivedNaNRexExp = /Received NaN for the `(.*)` attribute/;
-            // Warning: An update to FlowRenderer inside a test was not wrapped in act(...).
-            const isFlowRendererUpdate = log.includes(
-                "An update to FlowRenderer inside a test was not wrapped",
+            // Warning: An update to x inside a test was not wrapped in act(...).
+            const isNoActWarning = log.includes(
+                "When testing, code that causes React state updates should be wrapped into act",
             );
             // SyntaxError: Unexpected token 'o', "not a json" is not valid JSON
             // SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
@@ -155,7 +155,7 @@ export default defineConfig(({ command }) => ({
             const isErrorBoundary = log.includes("Cannot read properties of undefined (reading 'x')");
             if (
                 type === "stderr" &&
-                (isNotFound || isErrorBoundary || isReceivedNaN || isFlowRendererUpdate || isNotValidJSON)
+                (isNotFound || isErrorBoundary || isReceivedNaN || isNoActWarning || isNotValidJSON)
             ) {
                 // we expect these warnings in `non-browser` tests
                 return false;

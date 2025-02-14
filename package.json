@@ -1,7 +1,7 @@
 {
     "name": "@waldiez/react",
     "license": "Apache-2.0",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "type": "module",
     "main": "./dist/@waldiez.umd.cjs",
     "module": "./dist/@waldiez.js",
@@ -92,7 +92,7 @@
         ]
     },
     "dependencies": {
-        "@monaco-editor/react": "^4.6.0",
+        "@monaco-editor/react": "^4.7.0",
         "@xyflow/react": "^12.4.3",
         "microdiff": "^1.5.0",
         "nanoid": "^5.0.9",
@@ -139,7 +139,7 @@
         "dotenv": "^16.4.7",
         "eslint": "^9.20.1",
         "eslint-config-prettier": "^10.0.1",
-        "eslint-import-resolver-typescript": "^3.7.0",
+        "eslint-import-resolver-typescript": "^3.8.0",
         "eslint-plugin-headers": "^1.2.1",
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-prettier": "^5.2.3",
@@ -154,7 +154,7 @@
         "lint-staged": "^15.4.3",
         "lookpath": "^1.2.3",
         "playwright": "^1.50.1",
-        "prettier": "^3.5.0",
+        "prettier": "^3.5.1",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-select-event": "^5.5.1",
