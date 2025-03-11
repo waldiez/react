@@ -1,14 +1,8 @@
 # Changelog
 
-## [Unreleased]
+## v0.1.22 -
 
-- Updated rc-slider to 11.1.8
-- Dev Dependency updates
-
-## v0.1.22
-
-- Updated microdiff to 1.5.0
-- Dev Dependency updates
+- You can find the changes for each release in the integrated [CHANGELOG.md](https://github.com/waldiez/waldiez/blob/main/CHANGELOG.md) file.
 
 ## v0.1.21
 
