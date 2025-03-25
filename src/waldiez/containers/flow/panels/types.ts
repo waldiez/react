@@ -8,6 +8,7 @@ export type WaldiezFlowPanelsProps = {
     flowId: string;
     skipExport?: boolean;
     skipImport?: boolean;
+    skipHub?: boolean;
     selectedNodeType: WaldiezNodeType;
     onAddNode: () => void;
     onRun: () => void;

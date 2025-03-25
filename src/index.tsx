@@ -107,6 +107,13 @@ const skipImport = false;
 const skipExport = false;
 
 /**
+ * skipHub
+ * if true, `exporting` will be a modal with an option to upload the flow to the hub
+ * also, importing will include a `search` option to search the hub
+ */
+const skipHub = true;
+
+/**
  * OnUpload
  * on RAG user: adds a dropzone to upload files
  * when triggered, the files are sent to the backend,
@@ -276,7 +283,13 @@ export const startApp = (waldiezProps: Partial<WaldiezProps> = defaultWaldiezPro
     window.history.replaceState({}, document.title, window.location.pathname);
     ReactDOM.createRoot(document.getElementById("root")!).render(
         <React.StrictMode>
-            <Waldiez {...waldiezProps} readOnly={readOnly} skipExport={skipExport} skipImport={skipImport} />
+            <Waldiez
+                {...waldiezProps}
+                readOnly={readOnly}
+                skipExport={skipExport}
+                skipImport={skipImport}
+                skipHub={skipHub}
+            />
         </React.StrictMode>,
     );
 };

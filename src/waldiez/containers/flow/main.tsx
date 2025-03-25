@@ -21,10 +21,11 @@ type WaldiezFlowViewProps = {
     inputPrompt?: { previousMessages: string[]; prompt: string } | null;
     skipImport?: boolean;
     skipExport?: boolean;
+    skipHub?: boolean;
 };
 
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
-    const { flowId, inputPrompt, onUserInput, skipExport, skipImport } = props;
+    const { flowId, inputPrompt, onUserInput, skipExport, skipImport, skipHub } = props;
     const rfParent = useRef<HTMLDivElement | null>(null);
     const selectedNodeType = useRef<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
@@ -147,6 +148,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                             flowId={flowId}
                             skipExport={skipExport}
                             skipImport={skipImport}
+                            skipHub={skipHub}
                             selectedNodeType={selectedNodeType.current}
                             onAddNode={onAddNode}
                             onRun={onRun}

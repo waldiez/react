@@ -25,6 +25,7 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
     const flowId: string = props.flowId ?? `wf-${getId()}`;
     const skipImport = typeof props.skipImport === "boolean" ? props.skipImport : false;
     const skipExport = typeof props.skipExport === "boolean" ? props.skipExport : false;
+    const skipHub = typeof props.skipHub === "boolean" ? props.skipHub : false;
     const nodes = props.nodes ?? [];
     const edges = props.edges ?? [];
     const readOnly = props.readOnly ?? false;
@@ -58,6 +59,7 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
                                     inputPrompt={inputPrompt}
                                     skipImport={skipImport}
                                     skipExport={skipExport}
+                                    skipHub={skipHub}
                                     onUserInput={onUserInput}
                                 />
                             </WaldiezProvider>
