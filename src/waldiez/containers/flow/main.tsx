@@ -29,6 +29,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const rfParent = useRef<HTMLDivElement | null>(null);
     const selectedNodeType = useRef<WaldiezNodeType>("agent");
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
+    const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
     const nodes = useWaldiez(s => s.nodes);
     const edges = useWaldiez(s => s.edges);
     const readOnly = useWaldiez(s => s.isReadOnly);
@@ -96,6 +97,15 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         showNodes("agent");
         // setSelectedNodeType("agent");
     }, []);
+    const handleExport = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        // if skip hub, export flow
+        // else, show a modal with further options
+        if (skipHub) {
+            onExport(e);
+        } else {
+            setIsExportModalOpen(true);
+        }
+    };
     return (
         <div
             className={`flow-wrapper ${colorMode}`}
@@ -155,7 +165,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                             onConvertToPy={convertToPy}
                             onConvertToIpynb={convertToIpynb}
                             onOpenImportModal={onOpenImportModal}
-                            onExport={onExport}
+                            onExport={handleExport}
                         />
                         <div className="hidden" data-testid={`drop-area-${flowId}`} />
                         <Background variant={BackgroundVariant.Dots} />
@@ -179,6 +189,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                     onTypeShownChange={onTypeShownChange}
                 />
             )}
+            {isExportModalOpen && <div>Export flow modal component</div>}
         </div>
     );
 };

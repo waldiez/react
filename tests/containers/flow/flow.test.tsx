@@ -25,6 +25,7 @@ const renderFlow = (
     singleAgent: boolean = false,
     noAgents: boolean = false,
     readOnly: boolean = false,
+    skipHub: boolean = true,
 ) => {
     const nodesToUse = noAgents ? [] : singleAgent ? [agentNodes[0]] : nodes;
     const edgesToUse = singleAgent ? [] : edges;
@@ -53,6 +54,7 @@ const renderFlow = (
                                 flowId={flowId}
                                 onUserInput={onUserInput}
                                 inputPrompt={includeUserInput ? userInput : null}
+                                skipHub={skipHub}
                             />
                         </WaldiezProvider>
                     </SidebarProvider>

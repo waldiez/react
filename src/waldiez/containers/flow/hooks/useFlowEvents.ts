@@ -7,7 +7,7 @@ import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance } from "@xyflow/r
 
 import { WaldiezEdge } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
-import { downloadFile, getFlowRoot, showSnackbar } from "@waldiez/utils";
+import { downloadFile, getFilenameForExporting, getFlowRoot, showSnackbar } from "@waldiez/utils";
 
 export const useFlowEvents = (flowId: string) => {
     const readOnly = useWaldiez(s => s.isReadOnly);
@@ -129,17 +129,11 @@ export const useFlowEvents = (flowId: string) => {
         const flow = exportFlow(true, false);
         const { name } = getFlowInfo();
         if (flow) {
-            let fileName = name;
-            if (fileName.length < 3) {
-                fileName = "flow";
-            }
-            if (fileName.length > 100) {
-                fileName = fileName.substring(0, 100);
-            }
-            const blob = new Blob([JSON.stringify(flow)], {
-                type: "application/json",
+            const fileName = getFilenameForExporting(name, "flow");
+            const blob = new Blob([JSON.stringify(flow, null, 2)], {
+                type: "application/json; charset=utf-8",
             });
-            downloadFile(blob, `${fileName}.waldiez`);
+            downloadFile(blob, fileName);
         } else {
             showSnackbar(flowId, "Could not export flow", "error", undefined, 3000);
         }

@@ -22,7 +22,11 @@ export const LoadFlowStep = (props: LoadFlowStepProps) => {
                 expanded={!includeSearch}
             >
                 <div className="padding-10 margin-left--10 margin-right--10">
-                    <DropZone flowId={flowId} onUpload={onUpload} allowedFileExtensions={[".waldiez"]} />
+                    <DropZone
+                        flowId={flowId}
+                        onUpload={onUpload}
+                        allowedFileExtensions={[".waldiez", ".json"]}
+                    />
                 </div>
             </Collapsible>
             <Collapsible title="Import from URL" dataTestId={`import-flow-modal-collapsible-url-${flowId}`}>
