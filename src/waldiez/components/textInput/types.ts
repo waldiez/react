@@ -13,4 +13,5 @@ export type TextInputProps = {
     disabled?: boolean;
     labelInfo?: string | React.JSX.Element;
     dataTestId?: string;
+    style?: React.CSSProperties;
 };

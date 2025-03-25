@@ -15,6 +15,7 @@ export const TextInput = (props: TextInputProps) => {
         labelInfo = null,
         dataTestId = "text-input",
         placeholder = "...",
+        style = {},
     } = props;
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +32,7 @@ export const TextInput = (props: TextInputProps) => {
                 type="text"
                 value={value !== null ? value : onNull}
                 onChange={handleChange}
+                style={style}
                 disabled={disabled}
                 data-testid={dataTestId}
             ></input>
