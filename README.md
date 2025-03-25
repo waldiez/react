@@ -24,7 +24,7 @@ bun add @waldiez/react
     "@monaco-editor/react": "^4.7.0",
     "@xyflow/react": "^12.4.4",
     "microdiff": "^1.5.0",
-    "nanoid": "^5.1.3",
+    "nanoid": "^5.1.5",
     "rc-slider": "^11.1.8",
     "react-error-boundary": "^5.0.0",
     "react-fast-compare": "^3.2.2",
