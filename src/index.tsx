@@ -111,7 +111,7 @@ const skipExport = false;
  * if true, `exporting` will be a modal with an option to upload the flow to the hub
  * also, importing will include a `search` option to search the hub
  */
-const skipHub = true;
+const skipHub = isProd;
 
 /**
  * OnUpload

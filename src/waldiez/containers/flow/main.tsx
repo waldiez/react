@@ -7,7 +7,7 @@ import { Background, BackgroundVariant, Controls, ReactFlow, Viewport } from "@x
 import { useEffect, useRef, useState } from "react";
 
 import { useDnD, useFlowEvents, useKeys } from "@waldiez/containers/flow/hooks";
-import { ImportFlowModal, UserInputModal } from "@waldiez/containers/flow/modals";
+import { ExportFlowModal, ImportFlowModal, UserInputModal } from "@waldiez/containers/flow/modals";
 import { WaldiezFlowPanels } from "@waldiez/containers/flow/panels";
 import { edgeTypes, nodeTypes } from "@waldiez/containers/rfTypes";
 import { SideBar } from "@waldiez/containers/sidebar";
@@ -64,6 +64,9 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     };
     const onCloseImportModal = () => {
         setIsImportModalOpen(false);
+    };
+    const onCloseExportModal = () => {
+        setIsExportModalOpen(false);
     };
     const onTypeShownChange = (nodeType: WaldiezNodeType) => {
         if (selectedNodeType.current !== nodeType) {
@@ -189,7 +192,9 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                     onTypeShownChange={onTypeShownChange}
                 />
             )}
-            {isExportModalOpen && <div>Export flow modal component</div>}
+            {isExportModalOpen && (
+                <ExportFlowModal flowId={flowId} isOpen={isExportModalOpen} onClose={onCloseExportModal} />
+            )}
         </div>
     );
 };
