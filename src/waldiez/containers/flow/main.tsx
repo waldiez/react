@@ -2,16 +2,13 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import { Background, BackgroundVariant, Controls, Panel, ReactFlow, Viewport } from "@xyflow/react";
+import { Background, BackgroundVariant, Controls, ReactFlow, Viewport } from "@xyflow/react";
 
 import { useEffect, useRef, useState } from "react";
-import { CiExport, CiImport } from "react-icons/ci";
-import { FaPlusCircle } from "react-icons/fa";
-import { FaCirclePlay, FaMoon, FaPython, FaSun } from "react-icons/fa6";
-import { SiJupyter } from "react-icons/si";
 
 import { useDnD, useFlowEvents, useKeys } from "@waldiez/containers/flow/hooks";
 import { ImportFlowModal, UserInputModal } from "@waldiez/containers/flow/modals";
+import { WaldiezFlowPanels } from "@waldiez/containers/flow/panels";
 import { edgeTypes, nodeTypes } from "@waldiez/containers/rfTypes";
 import { SideBar } from "@waldiez/containers/sidebar";
 import { useWaldiez } from "@waldiez/store";
@@ -26,7 +23,6 @@ type WaldiezFlowViewProps = {
     skipExport?: boolean;
 };
 
-// eslint-disable-next-line complexity
 export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const { flowId, inputPrompt, onUserInput, skipExport, skipImport } = props;
     const rfParent = useRef<HTMLDivElement | null>(null);
@@ -41,8 +37,6 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const handleViewportChange = useWaldiez(s => s.onViewportChange);
     const onFlowChanged = useWaldiez(s => s.onFlowChanged);
     const showNodes = useWaldiez(s => s.showNodes);
-    const runner = useWaldiez(s => s.onRun);
-    const onConvert = useWaldiez(s => s.onConvert);
     const onReconnect = useWaldiez(s => s.onReconnect);
     const onSave = useWaldiez(s => s.onSave);
     const { onKeyDown } = useKeys(flowId, onSave);
@@ -58,11 +52,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         onEdgeDoubleClick,
     } = useFlowEvents(flowId);
     const isReadOnly = typeof readOnly === "boolean" ? readOnly : false;
-    const includeImportButton = isReadOnly ? false : typeof skipImport === "boolean" ? !skipImport : true;
-    const includeExportButton = isReadOnly ? false : typeof skipExport === "boolean" ? !skipExport : true;
-    const includeRunButton = isReadOnly === false && typeof runner === "function";
-    const includeConvertIcons = isReadOnly === false && typeof onConvert === "function";
-    const { isDark, toggleTheme } = useWaldiezTheme();
+    const { isDark } = useWaldiezTheme();
     const colorMode = isDark ? "dark" : "light";
     const setSelectedNodeType = (nodeType: WaldiezNodeType) => {
         selectedNodeType.current = nodeType;
@@ -153,93 +143,18 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                         // debug
                     >
                         <Controls showInteractive={true} />
-                        {selectedNodeType.current !== "agent" && readOnly === false && (
-                            <Panel position="top-left">
-                                <button
-                                    type="button"
-                                    className="editor-nav-action add-node currentColor"
-                                    onClick={onAddNode}
-                                    title={`Add ${selectedNodeType.current}`}
-                                    data-testid={`add-${selectedNodeType.current}-node`}
-                                >
-                                    <FaPlusCircle />
-                                    Add {selectedNodeType.current}
-                                </button>
-                            </Panel>
-                        )}
-                        <Panel position="top-right">
-                            <div className="editor-nav-actions">
-                                {(includeRunButton || includeConvertIcons) && (
-                                    <>
-                                        {includeRunButton && (
-                                            <button
-                                                type="button"
-                                                className="editor-nav-action"
-                                                onClick={onRun}
-                                                title="Run flow"
-                                                data-testid={`run-${flowId}`}
-                                            >
-                                                <FaCirclePlay />
-                                            </button>
-                                        )}
-                                        {includeConvertIcons && (
-                                            <button
-                                                type="button"
-                                                className="editor-nav-action to-python"
-                                                onClick={convertToPy}
-                                                title="Convert to Python"
-                                                data-testid={`convert-${flowId}-to-py`}
-                                            >
-                                                <FaPython />
-                                            </button>
-                                        )}
-                                        {includeConvertIcons && (
-                                            <button
-                                                type="button"
-                                                className="editor-nav-action to-jupyter"
-                                                onClick={convertToIpynb}
-                                                title="Convert to Jupyter Notebook"
-                                                data-testid={`convert-${flowId}-to-ipynb`}
-                                            >
-                                                <SiJupyter />
-                                            </button>
-                                        )}
-                                    </>
-                                )}
-                                {includeImportButton && (
-                                    <button
-                                        type="button"
-                                        className="editor-nav-action"
-                                        onClick={onOpenImportModal}
-                                        title="Import flow"
-                                        data-testid={`import-flow-${flowId}-button`}
-                                    >
-                                        <CiImport style={{ strokeWidth: 2 }} />
-                                    </button>
-                                )}
-                                {includeExportButton && (
-                                    <button
-                                        type="button"
-                                        className="editor-nav-action"
-                                        onClick={onExport}
-                                        title="Export flow"
-                                        data-testid={`export-flow-${flowId}-button`}
-                                    >
-                                        <CiExport style={{ strokeWidth: 2 }} />
-                                    </button>
-                                )}
-                                <button
-                                    type="button"
-                                    className="editor-nav-action"
-                                    onClick={toggleTheme}
-                                    title="Toggle theme"
-                                    data-testid={`toggle-theme-${flowId}`}
-                                >
-                                    {isDark ? <FaSun /> : <FaMoon />}
-                                </button>
-                            </div>
-                        </Panel>
-                        <Controls />
+                        <WaldiezFlowPanels
+                            flowId={flowId}
+                            skipExport={skipExport}
+                            skipImport={skipImport}
+                            selectedNodeType={selectedNodeType.current}
+                            onAddNode={onAddNode}
+                            onRun={onRun}
+                            onConvertToPy={convertToPy}
+                            onConvertToIpynb={convertToIpynb}
+                            onOpenImportModal={onOpenImportModal}
+                            onExport={onExport}
+                        />
                         <div className="hidden" data-testid={`drop-area-${flowId}`} />
                         <Background variant={BackgroundVariant.Dots} />
                     </ReactFlow>
