@@ -14,4 +14,5 @@ export type TextInputProps = {
     labelInfo?: string | React.JSX.Element;
     dataTestId?: string;
     style?: React.CSSProperties;
+    isPassword?: boolean;
 };

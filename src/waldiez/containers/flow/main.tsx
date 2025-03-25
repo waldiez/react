@@ -45,6 +45,7 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
     const {
         convertToPy,
         convertToIpynb,
+        exportFlow,
         onExport,
         onRun,
         onFlowInit,
@@ -108,6 +109,10 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         } else {
             setIsExportModalOpen(true);
         }
+    };
+    const handleExportToHub = () => {
+        const exported = exportFlow(true, false) as unknown as { [key: string]: unknown };
+        return JSON.stringify(exported);
     };
     return (
         <div
@@ -197,7 +202,8 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                     flowId={flowId}
                     isOpen={isExportModalOpen}
                     onClose={onCloseExportModal}
-                    onExport={onExport}
+                    onDownload={onExport}
+                    onExport={handleExportToHub}
                 />
             )}
         </div>

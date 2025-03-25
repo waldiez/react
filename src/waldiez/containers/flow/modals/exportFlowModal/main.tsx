@@ -6,22 +6,15 @@
 // - just export and download the flow (same with skipHub=true)
 // - share the flow to the hub:
 //   - with optional csv/additional files to upload
-//   - two options (for start only the first):
-//      - a text input for the api key to use for uploading
-//      - an oauth flow to login and get a jwt on the callback:
-//        for this:
-//        - we need to handle the callback url (with the code?=... to get the token)
-//        - and once we get the token, we need to continue (how?) with the upload
+//   - a text input for the api key to use for uploading
 import { useState } from "react";
 
 import { DropZone, InfoCheckbox, Modal, TextInput } from "@waldiez/components";
 import { ExportFlowModalProps } from "@waldiez/containers/flow/modals/exportFlowModal/types";
 import { showSnackbar } from "@waldiez/utils";
 
-// const USE_OAUTH = false;
-
 export const ExportFlowModal = (props: ExportFlowModalProps) => {
-    const { flowId, isOpen, onClose, onExport } = props;
+    const { flowId, isOpen, onClose, onDownload } = props;
     const [alsoUpload, setAlsoUpload] = useState(false);
     const [hubApiToken, setHubApiToken] = useState("");
     // const [isOauthFlowOpen, setIsOauthFlowOpen] = useState(false);
@@ -31,7 +24,7 @@ export const ExportFlowModal = (props: ExportFlowModalProps) => {
     const onHubApiTokenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setHubApiToken(e.target.value);
     };
-    const onUploadToHub = () => {
+    const onUploadToHub = (_e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         showSnackbar(flowId, "Sharing to hub is not yet implemented.", "warning", null, 5000);
     };
     const onAdditionalFilesUpload = (_files: File[]) => {
@@ -64,7 +57,8 @@ export const ExportFlowModal = (props: ExportFlowModalProps) => {
                                         onChange={onHubApiTokenChange}
                                         placeholder="Enter your hub API token"
                                         dataTestId={`hub-api-token-${flowId}`}
-                                        style={{ width: "calc(100% - 20px)" }}
+                                        style={{ minWidth: "280px" }}
+                                        isPassword
                                     />
                                 </div>
                                 <div className="margin-top-10 margin-bottom-20 full-width">
@@ -98,7 +92,7 @@ export const ExportFlowModal = (props: ExportFlowModalProps) => {
                             Upload to Hub
                         </button>
                     )}
-                    <button type="submit" className="modal-action-submit" onClick={onExport}>
+                    <button type="submit" className="modal-action-submit" onClick={onDownload}>
                         Download
                     </button>
                 </div>

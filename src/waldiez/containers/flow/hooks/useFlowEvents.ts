@@ -138,6 +138,7 @@ export const useFlowEvents = (flowId: string) => {
     return {
         convertToPy,
         convertToIpynb,
+        exportFlow,
         onExport,
         onRun,
         onFlowInit,

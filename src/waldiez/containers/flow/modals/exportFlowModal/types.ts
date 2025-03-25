@@ -6,6 +6,7 @@
 export type ExportFlowModalProps = {
     flowId: string;
     isOpen: boolean;
-    onExport: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>;
+    onDownload: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>;
+    onExport: () => string | null;
     onClose: () => void;
 };

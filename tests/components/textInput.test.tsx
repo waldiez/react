@@ -110,4 +110,19 @@ describe("TextInput", () => {
         });
         expect(onChange).not.toHaveBeenCalled();
     });
+    // it("should toggle visibility if password", () => {
+    //     const onChange = vi.fn();
+    //     const textInputProps = {
+    //         label: "test",
+    //         value: "test",
+    //         onChange,
+    //         isPassword: true,
+    //         dataTestId: "text-input",
+    //     };
+    //     render(<TextInput {...textInputProps} />);
+    //     fireEvent.click(screen.getByTestId("visibility-text-input"));
+    //     expect(screen.getByRole("textbox")).toHaveAttribute("type", "text");
+    //     fireEvent.click(screen.getByTestId("visibility-text-input"));
+    //     expect(screen.getByRole("textbox")).toHaveAttribute("type", "password");
+    // });
 });
