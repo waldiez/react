@@ -85,7 +85,7 @@ describe("WaldiezFlow", () => {
         fireEvent.click(screen.getByTestId("show-skills"));
         expect(screen.getByTestId("add-skill-node")).toBeTruthy();
     });
-    it("should handle export flow", async () => {
+    it("should handle export flow (download only)", async () => {
         act(() => {
             renderFlow();
         });
@@ -93,6 +93,26 @@ describe("WaldiezFlow", () => {
         // fireEvent.click(screen.getByTestId(`export-flow-${flowId}`));
         expect(window.URL.createObjectURL).toHaveBeenCalled();
         expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+    });
+    it("should handle export flow with share to hub option", async () => {
+        act(() => {
+            renderFlow(false, false, false, false, false);
+        });
+        await userEvent.click(screen.getByTestId(`export-flow-${flowId}-button`));
+        expect(window.URL.createObjectURL).not.toHaveBeenCalled();
+        expect(window.URL.revokeObjectURL).not.toHaveBeenCalled();
+        const shareModal = screen.getByTestId(`export-flow-modal-${flowId}`);
+        expect(shareModal).toBeTruthy();
+        const shareCheckbox = screen.getByTestId(`import-flow-modal-share-${flowId}`);
+        expect(shareCheckbox).toBeTruthy();
+        fireEvent.click(shareCheckbox);
+        const hubApiTokenInput = screen.getByTestId(`hub-api-token-${flowId}`);
+        expect(hubApiTokenInput).toBeTruthy();
+        fireEvent.change(hubApiTokenInput, { target: { value: "test" } });
+        const shareButton = screen.getByTestId(`upload-to-hub-${flowId}`);
+        expect(shareButton).toBeTruthy();
+        fireEvent.click(shareButton);
+        // expect(screen.queryByTestId(`export-flow-modal-${flowId}`)).toBeNull();
     });
     it("should handle run flow", async () => {
         act(() => {

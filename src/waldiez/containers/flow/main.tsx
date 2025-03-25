@@ -193,7 +193,12 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
                 />
             )}
             {isExportModalOpen && (
-                <ExportFlowModal flowId={flowId} isOpen={isExportModalOpen} onClose={onCloseExportModal} />
+                <ExportFlowModal
+                    flowId={flowId}
+                    isOpen={isExportModalOpen}
+                    onClose={onCloseExportModal}
+                    onExport={onExport}
+                />
             )}
         </div>
     );

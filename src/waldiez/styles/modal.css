@@ -124,7 +124,8 @@
     /* margin-top: 10px; */
 }
 
-.flow-wrapper .modal-actions > .modal-action-submit {
+.flow-wrapper .modal-actions > .modal-action-submit,
+.flow-wrapper .modal-actions > div > .modal-action-submit {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
