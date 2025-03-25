@@ -83,7 +83,7 @@
         "test:all": "bun test:e2e && bun test:coverage",
         "test": "bun test:all",
         "changelog": "bun scripts/changelog.ts",
-        "all": "bun clean && bun forlint && bun schema && bun test:coverage && bun run build && bun archive && bun docs"
+        "all": "bun clean && bun forlint && bun schema && bun test:all && bun run build && bun archive && bun docs"
     },
     "lint-staged": {
         "*": [
