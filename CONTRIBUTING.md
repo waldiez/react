@@ -91,10 +91,11 @@ bun format
 Run the test suite to ensure your changes do not break existing functionality:
 
 ```shell
-bun run test:coverage
-bun run test:snapshots  # to update snapshots
-bun run test:browser  # to use playwright *you might need to 'playwright install' first
-bun run test  # to run all tests (you might need to call `bun run test` and not `bun test`)
+bun test:coverage
+bun test:snapshots  # to update snapshots
+bun test:browser  # to use playwright *you might need to 'playwright install' first
+bun test:all
+# or `bun run test` // to run all tests (you might need to call `bun run test` and not `bun test`)
 ```
 
 Thank you for contributing! 🎉
