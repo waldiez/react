@@ -19,5 +19,5 @@ export type WaldiezNodeSkillViewProps = {
     onClone: () => void;
     onDataChange: (data: Partial<WaldiezNodeSkillData>) => void;
     onImport: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onExport: () => void;
+    onExport: () => Promise<void>;
 };

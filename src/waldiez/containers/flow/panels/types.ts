@@ -15,5 +15,5 @@ export type WaldiezFlowPanelsProps = {
     onConvertToPy: () => void;
     onConvertToIpynb: () => void;
     onOpenImportModal: () => void;
-    onExport: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    onExport: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>;
 };

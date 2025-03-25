@@ -194,8 +194,8 @@ export const useWaldiezNodeAgentModal = (
     const onImport = (event: React.ChangeEvent<HTMLInputElement>) => {
         importItem(event, getAgentById.bind(null, id), onImportLoad);
     };
-    const onExport = () => {
-        exportItem(agentData.label, "agent", exportAgent.bind(null, id, true));
+    const onExport = async () => {
+        await exportItem(agentData.label, "agent", exportAgent.bind(null, id, true));
     };
     const onCancel = () => {
         const storedAgent = getAgentById(id);

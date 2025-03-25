@@ -103,6 +103,9 @@ function findLatestVersion(): Promise<[string, string, string]> {
             })
             .on("error", err => {
                 reject(err);
+            })
+            .setTimeout(5000, () => {
+                reject(new Error("Request timed out"));
             });
     });
 }
@@ -205,6 +208,9 @@ function downloadMonacoEditor(version: [string, string, string], publicPath: str
             })
             .on("error", err => {
                 reject(err);
+            })
+            .setTimeout(30000, () => {
+                reject(new Error("Request timed out"));
             });
     });
 }
@@ -243,7 +249,6 @@ function ensureMonacoFiles(publicPath: string): Promise<void> {
 function main() {
     ensureMonacoFiles(PUBLIC_PATH)
         .then(() => {
-            // console.info('Monaco editor files are up-to-date.');
             process.exit(0);
         })
         .catch(err => {

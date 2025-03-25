@@ -7,7 +7,7 @@ import { Edge, EdgeChange, Node, NodeChange, ReactFlowInstance } from "@xyflow/r
 
 import { WaldiezEdge } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
-import { downloadFile, getFilenameForExporting, getFlowRoot, showSnackbar } from "@waldiez/utils";
+import { exportItem, getFlowRoot, showSnackbar } from "@waldiez/utils";
 
 export const useFlowEvents = (flowId: string) => {
     const readOnly = useWaldiez(s => s.isReadOnly);
@@ -122,21 +122,18 @@ export const useFlowEvents = (flowId: string) => {
         }
     };
 
-    const onExport = (_e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const onExport = async (_e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         if (isReadOnly) {
             return;
         }
-        const flow = exportFlow(true, false);
         const { name } = getFlowInfo();
-        if (flow) {
-            const fileName = getFilenameForExporting(name, "flow");
-            const blob = new Blob([JSON.stringify(flow, null, 2)], {
-                type: "application/json; charset=utf-8",
-            });
-            downloadFile(blob, fileName);
-        } else {
+        const exporter = () => {
+            return exportFlow(true, false) as unknown as { [key: string]: unknown };
+        };
+        const onError = () => {
             showSnackbar(flowId, "Could not export flow", "error", undefined, 3000);
-        }
+        };
+        await exportItem(name, "flow", exporter, onError);
     };
     return {
         convertToPy,

@@ -97,11 +97,11 @@ export const WaldiezFlowView = (props: WaldiezFlowViewProps) => {
         showNodes("agent");
         // setSelectedNodeType("agent");
     }, []);
-    const handleExport = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        // if skip hub, export flow
+    const handleExport = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        // if skip hub, just export/download the flow
         // else, show a modal with further options
         if (skipHub) {
-            onExport(e);
+            await onExport(e);
         } else {
             setIsExportModalOpen(true);
         }

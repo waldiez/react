@@ -47,8 +47,8 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
     const onImport = (event: React.ChangeEvent<HTMLInputElement>) => {
         importItem(event, getModelById.bind(null, id), onImportLoad);
     };
-    const onExport = () => {
-        exportItem(data.label, "model", exportModel.bind(null, id, true));
+    const onExport = async () => {
+        await exportItem(data.label, "model", exportModel.bind(null, id, true));
     };
     const onDataChange = (partialData: Partial<WaldiezNodeModelData>) => {
         setModelData({ ...modelData, ...partialData });

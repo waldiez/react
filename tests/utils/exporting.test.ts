@@ -5,7 +5,7 @@
 import { waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { BASE_EXTENSION, downloadFile, exportItem, getFilenameForExporting } from "@waldiez/utils";
+import { BASE_EXTENSION, exportItem, getFilenameForExporting } from "@waldiez/utils";
 
 describe("exportItem", () => {
     it("should export an item", () => {
@@ -13,20 +13,13 @@ describe("exportItem", () => {
         const exporter = () => ({ id: "1" });
         exportItem("test", "model", exporter);
         waitFor(() => expect(URL.createObjectURL).toHaveBeenCalled());
+        waitFor(() => expect(URL.revokeObjectURL).toHaveBeenCalled());
     });
     it("should not export an item", () => {
         vi.spyOn(URL, "createObjectURL");
         const exporter = () => null;
         exportItem("test", "model", exporter);
         waitFor(() => expect(URL.createObjectURL).not.toHaveBeenCalled());
-    });
-});
-
-describe("downloadFile", () => {
-    it("should download a file", () => {
-        vi.spyOn(URL, "revokeObjectURL");
-        const blob = new Blob(["{}"], { type: "application/json" });
-        downloadFile(blob, "test.json");
         waitFor(() => expect(URL.revokeObjectURL).toHaveBeenCalled());
     });
 });
@@ -51,7 +44,7 @@ describe("getFilenameForExporting", () => {
         vi.unstubAllGlobals();
     });
 
-    it("should append .json on Safari macOS", () => {
+    it("should append .zip on macOS", () => {
         Object.defineProperty(window.navigator, "userAgent", {
             value: "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15",
             configurable: true,
@@ -61,20 +54,7 @@ describe("getFilenameForExporting", () => {
         navigator.userAgentData = { platform: "macOS" };
 
         const filename = getFilenameForExporting("example", "flow");
-        expect(filename.endsWith(`${BASE_EXTENSION}.json`)).toBe(true);
-    });
-
-    it("should not append .json on non-Safari", () => {
-        Object.defineProperty(window.navigator, "userAgent", {
-            value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0.0.0 Safari/537.36",
-            configurable: true,
-        });
-
-        // @ts-expect-error stub platform
-        navigator.userAgentData = { platform: "Windows" };
-
-        const filename = getFilenameForExporting("example", "flow");
-        expect(filename.endsWith(BASE_EXTENSION)).toBe(true);
+        expect(filename.endsWith(`${BASE_EXTENSION}.zip`)).toBe(true);
     });
 
     it("should include type-specific extension", () => {
@@ -90,6 +70,6 @@ describe("getFilenameForExporting", () => {
     it("should trim name if too long", () => {
         const longName = "a".repeat(150);
         const filename = getFilenameForExporting(longName, "model");
-        expect(filename.length).toBeLessThanOrEqual(100 + `.${BASE_EXTENSION}Model`.length + 5); // + optional .json
+        expect(filename.length).toBeLessThanOrEqual(100 + `.${BASE_EXTENSION}Model`.length + 4); // + optional .zip
     });
 });

@@ -9,7 +9,7 @@ export const getImportExportView: (
     itemId: string,
     itemType: "model" | "skill" | "agent",
     onImport: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    onExport: () => void,
+    onExport: () => Promise<void>,
 ) => React.ReactNode = (flowId, itemId, itemType, onImport, onExport) => {
     const itemTypeLower = itemType.toLowerCase();
     const itemTypeCapitalized = itemType.charAt(0).toUpperCase() + itemType.slice(1);

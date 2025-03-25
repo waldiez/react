@@ -16,12 +16,12 @@ const recordingsDir = resolve(__dirname, ".local", "recordings");
 fs.ensureDirSync(recordingsDir);
 
 const viewport = { width: 1280, height: 720 };
-// tmp to continue on CI (not ready yet :( )
+// coverage thresholds, let's try to keep them high
 const thresholds = {
-    statements: 20,
-    branches: 20,
-    functions: 20,
-    lines: 20,
+    statements: 80,
+    branches: 80,
+    functions: 80,
+    lines: 80,
 };
 
 // https://vitejs.dev/config/
@@ -45,6 +45,7 @@ export default defineConfig(({ command }) => ({
         minify: "terser",
         rollupOptions: {
             external: [
+                "jszip",
                 "react",
                 "react-dom",
                 "react/jsx-runtime",
@@ -84,6 +85,7 @@ export default defineConfig(({ command }) => ({
                     react: "react",
                     zustand: "zustand",
                     zundo: "zundo",
+                    jszip: "jszip",
                     microdiff: "microdiff",
                     "zustand/shallow": "zustandShallow",
                     "zustand/traditional": "zustandTraditional",

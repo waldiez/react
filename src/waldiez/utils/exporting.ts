@@ -2,6 +2,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
+import JSZip from "jszip";
+
 export const BASE_EXTENSION = ".waldiez";
 
 const isMac = () => {
@@ -17,30 +19,20 @@ const isMac = () => {
     return navigator.userAgent.includes("Macintosh") || navigator.userAgent.includes("Mac OS X");
 };
 
-const isSafariOnMac = () => {
-    // dummy check for Safari on Mac
-    // to avoid possible export issues with the extension (Gatekeeper warning)
-    const ua = navigator.userAgent;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-    if (!isSafari) {
-        return false;
-    }
-    return isMac();
-};
-
 const getItemExtension = (itemType: "model" | "skill" | "agent" | "flow") => {
     let extension = BASE_EXTENSION;
     if (itemType !== "flow") {
         // .{BASE_EXTENSION}Model, .{BASE_EXTENSION}Skill, .{BASE_EXTENSION}Agent
         extension += itemType.charAt(0).toUpperCase() + itemType.slice(1);
     }
-    if (isSafariOnMac()) {
-        extension += ".json";
+    if (isMac()) {
+        // we might get a Gatekeeper warning on macOS if we use a custom extension
+        extension += ".zip";
     }
     return extension;
 };
 
-export const downloadFile = (blob: Blob, filename: string) => {
+const downloadFile = (blob: Blob, filename: string) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -61,16 +53,37 @@ export const getFilenameForExporting = (baseName: string, itemType: "model" | "s
     return `${filename}${extension}`;
 };
 
-export const exportItem = (
+const downloadZip = async (filename: string, contents: string, onError: () => void) => {
+    try {
+        const internalName = filename.replace(/\.zip$/, "");
+        const zip = new JSZip();
+        zip.file(internalName, contents);
+        const blob = await zip.generateAsync({ type: "blob" });
+        downloadFile(blob, filename);
+    } catch {
+        onError();
+    }
+};
+
+export const exportItem = async (
     name: string,
     itemType: "model" | "skill" | "agent" | "flow",
     exporter: () => { [key: string]: unknown } | null,
+    onNoItem: () => void = () => {
+        console.error("No item to export");
+    },
 ) => {
     const item = exporter();
     if (item) {
         const itemString = JSON.stringify(item, null, 2);
-        const blob = new Blob([itemString], { type: "application/json; charset=utf-8" });
         const filename = getFilenameForExporting(name, itemType);
-        downloadFile(blob, filename);
+        if (filename.endsWith(".zip")) {
+            await downloadZip(filename, itemString, onNoItem);
+        } else {
+            const blob = new Blob([itemString], { type: "application/json; charset=utf-8" });
+            downloadFile(blob, filename);
+        }
+    } else {
+        onNoItem();
     }
 };
