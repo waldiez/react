@@ -70,7 +70,7 @@ This will launch the application at `http://localhost:5173/`.
 3. Select your branch from the "compare" dropdown.
 4. Add a title and description for your pull request.
 5. Click "Create Pull Request".
-6. Select the "dev" branch as the base branch. After the pull request is reviewed, it will be merged into the "dev" branch. When ready, they will be merged into the "main" branch.
+6. Select the "dev" branch as the base branch. After the pull request is reviewed, it will be merged into the "dev" branch. When ready, the changes will be merged into the "main" branch.
 
 ### Code Style
 
@@ -94,7 +94,7 @@ Run the test suite to ensure your changes do not break existing functionality:
 bun run test:coverage
 bun run test:snapshots  # to update snapshots
 bun run test:browser  # to use playwright *you might need to 'playwright install' first
-bun run test  # to run all tests (make use to use `bun run test` and not `bun test`)
+bun run test  # to run all tests (you might need to call `bun run test` and not `bun test`)
 ```
 
 Thank you for contributing! 🎉
