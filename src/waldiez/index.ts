@@ -4,6 +4,7 @@
  */
 import { flowMapper } from "@waldiez/models/mappers";
 import { WaldiezProps } from "@waldiez/types";
+import "@waldiez/utils/promisePolyfill";
 import { Waldiez } from "@waldiez/waldiez";
 
 export type { WaldiezProps };

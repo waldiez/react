@@ -104,7 +104,7 @@ function findLatestVersion(): Promise<[string, string, string]> {
             .on("error", err => {
                 reject(err);
             })
-            .setTimeout(5000, () => {
+            .setTimeout(30000, () => {
                 reject(new Error("Request timed out"));
             });
     });

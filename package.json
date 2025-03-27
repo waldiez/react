@@ -93,7 +93,7 @@
     },
     "dependencies": {
         "@monaco-editor/react": "^4.7.0",
-        "@xyflow/react": "^12.4.4",
+        "@xyflow/react": "^12.5.1",
         "jszip": "^3.10.1",
         "microdiff": "^1.5.0",
         "nanoid": "^5.1.5",
@@ -118,7 +118,7 @@
         "@testing-library/react": "^16.2.0",
         "@testing-library/user-event": "^14.6.1",
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-        "@types/bun": "^1.2.5",
+        "@types/bun": "^1.2.8",
         "@types/eslint__js": "^9.14.0",
         "@types/fs-extra": "^11.0.4",
         "@types/gunzip-maybe": "^1.4.2",
@@ -140,10 +140,10 @@
         "dotenv": "^16.4.7",
         "eslint": "^9.23.0",
         "eslint-config-prettier": "^10.1.1",
-        "eslint-import-resolver-typescript": "^4.2.2",
+        "eslint-import-resolver-typescript": "^4.2.5",
         "eslint-plugin-headers": "^1.2.1",
         "eslint-plugin-import": "^2.31.0",
-        "eslint-plugin-prettier": "^5.2.4",
+        "eslint-plugin-prettier": "^5.2.5",
         "eslint-plugin-react-refresh": "^0.4.19",
         "eslint-plugin-tsdoc": "^0.4.0",
         "fs-extra": "^11.3.0",
@@ -160,7 +160,7 @@
         "react-dom": "^19.0.0",
         "react-select-event": "^5.5.1",
         "rimraf": "^6.0.1",
-        "stylelint": "^16.16.0",
+        "stylelint": "^16.17.0",
         "stylelint-config-recommended": "^15.0.0",
         "stylelint-config-standard": "^37.0.0",
         "stylelint-prettier": "^5.0.3",
@@ -204,14 +204,14 @@
             "^@waldiez/"
         ]
     },
-    "packageManager": "bun@1.2.5",
+    "packageManager": "bun@1.2.7",
     "publishConfig": {
         "access": "public"
     },
     "resolutions": {
         "canvas": "^3.1.0",
         "cross-spawn": "^7.0.6",
-        "ws": "^8.18.0",
+        "ws": "^8.18.1",
         "got": "^14.4.6"
     }
 }
