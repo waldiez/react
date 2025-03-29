@@ -18,7 +18,7 @@ const REGISTRY_BASE_URL = "https://registry.npmjs.org";
 const PACKAGE_NAME = "monaco-editor";
 const PUBLIC_PATH = path.resolve(__dirname, "..", "public");
 
-function checkShaSum(file: string, shaSum: string): Promise<boolean> {
+const checkShaSum = (file: string, shaSum: string): Promise<boolean> => {
     return new Promise((resolve, reject) => {
         const hash = crypto.createHash("sha1");
         const stream = fs.createReadStream(file);
@@ -33,9 +33,9 @@ function checkShaSum(file: string, shaSum: string): Promise<boolean> {
             reject(err);
         });
     });
-}
+};
 
-function extractTarFile(file: string, dest: string): Promise<void> {
+const extractTarFile = (file: string, dest: string): Promise<void> => {
     console.info("Extracting tar file...");
     return new Promise((resolve, reject) => {
         const extract = tar.extract();
@@ -61,18 +61,18 @@ function extractTarFile(file: string, dest: string): Promise<void> {
         });
         fs.createReadStream(file).pipe(zlib.createGunzip()).pipe(extract);
     });
-}
+};
 
-function moveDir(src: string, dest: string): void {
+const moveDir = (src: string, dest: string): void => {
     if (fs.existsSync(src)) {
         if (fs.existsSync(dest)) {
             fs.rmSync(dest, { recursive: true, force: true });
         }
         fs.renameSync(src, dest);
     }
-}
+};
 
-function keepOnlyMinVs(dir: string): Promise<void> {
+const keepOnlyMinVsAndMinMaps = (dir: string): Promise<void> => {
     const packageDir = path.join(dir, "package");
     const minVsDir = path.join(packageDir, "min", "vs");
     const destDir = path.join(dir, "vs");
@@ -82,9 +82,9 @@ function keepOnlyMinVs(dir: string): Promise<void> {
     moveDir(minVsDir, destDir);
     moveDir(minMapsDir, destMapsDir);
     return fs.promises.rm(packageDir, { recursive: true });
-}
+};
 
-function findLatestVersion(): Promise<[string, string, string]> {
+const findLatestVersion = (): Promise<[string, string, string]> => {
     return new Promise((resolve, reject) => {
         https
             .get(`${REGISTRY_BASE_URL}/${PACKAGE_NAME}`, res => {
@@ -108,10 +108,10 @@ function findLatestVersion(): Promise<[string, string, string]> {
                 reject(new Error("Request timed out"));
             });
     });
-}
+};
 
 // eslint-disable-next-line max-statements
-function removeUnneededFiles(dir: string): void {
+const removeUnneededFiles = (dir: string): void => {
     // only keep python for language, remove
     const rootDir = path.join(dir, "vs");
     const basicLanguagesDir = path.join(rootDir, "basic-languages");
@@ -142,21 +142,21 @@ function removeUnneededFiles(dir: string): void {
             });
         }
     }
-}
+};
 
-function handleDownload(
+const handleDownload = (
     tempDir: string,
     tempFile: string,
     publicPath: string,
     shaSum: string,
-): Promise<void> {
+): Promise<void> => {
     return new Promise((resolve, reject) => {
         checkShaSum(tempFile, shaSum)
             .then(isValid => {
                 if (isValid) {
                     extractTarFile(tempFile, publicPath)
                         .then(() => {
-                            keepOnlyMinVs(publicPath)
+                            keepOnlyMinVsAndMinMaps(publicPath)
                                 .then(() => {
                                     removeUnneededFiles(publicPath);
                                     fs.unlinkSync(tempFile);
@@ -181,9 +181,9 @@ function handleDownload(
                 reject(err);
             });
     });
-}
+};
 
-function downloadMonacoEditor(version: [string, string, string], publicPath: string): Promise<void> {
+const downloadMonacoEditor = (version: [string, string, string], publicPath: string): Promise<void> => {
     return new Promise((resolve, reject) => {
         const [_, url, shaSum] = version;
         const tempDir = path.join(publicPath, "temp");
@@ -213,9 +213,9 @@ function downloadMonacoEditor(version: [string, string, string], publicPath: str
                 reject(new Error("Request timed out"));
             });
     });
-}
+};
 
-function ensureMonacoFiles(publicPath: string): Promise<void> {
+const ensureMonacoFiles = (publicPath: string): Promise<void> => {
     return new Promise((resolve, reject) => {
         findLatestVersion()
             .then(versionInfo => {
@@ -244,16 +244,17 @@ function ensureMonacoFiles(publicPath: string): Promise<void> {
                 reject(err);
             });
     });
-}
+};
 
-function main() {
+const main = () => {
     ensureMonacoFiles(PUBLIC_PATH)
         .then(() => {
             process.exit(0);
         })
         .catch(err => {
-            throw err;
+            console.error(err);
+            process.exit(1);
         });
-}
+};
 
 main();

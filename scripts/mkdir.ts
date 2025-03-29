@@ -13,18 +13,38 @@ import { resolve, sep } from "path";
  * @param path - the path to create
  * @param parents - whether to create parent directories
  */
-async function mkdir(path: string, parents: boolean): Promise<void> {
+const mkdir = (path: string, parents: boolean): Promise<void> => {
     const options = { recursive: parents };
-    try {
-        await fs.access(resolve(path));
-        return;
-    } catch (_) {
-        // do nothing
-    }
-    await fs.mkdir(resolve(path), options);
-}
+    const resolved = resolve(path);
+    return new Promise<void>((resolve, reject) => {
+        fs.access(resolved)
+            .then(() => {
+                fs.stat(resolved)
+                    .then(stats => {
+                        if (stats.isDirectory()) {
+                            resolve();
+                        } else {
+                            reject(new Error(`${resolved} is not a directory`));
+                        }
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            })
+            .catch(() => {
+                // Directory does not exist, create it
+                fs.mkdir(resolved, options)
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+            });
+    });
+};
 
-const _usage = (isHelp: boolean = false) => {
+const usage = (isHelp: boolean = false) => {
     const myName = process.argv[1].split(sep).pop();
     const consoleLog = isHelp ? console.info : console.error;
     const exitCode = isHelp ? 0 : 1;
@@ -39,7 +59,7 @@ const isValidCall = () => {
         process.argv.length < 3 ||
         process.argv.length > 5
     ) {
-        _usage(true);
+        usage(true);
     }
 };
 const parseArgs = () => {
@@ -57,16 +77,16 @@ const parseArgs = () => {
     return { path, parents };
 };
 
-const _main = () => {
+const main = () => {
     isValidCall();
     const { path, parents } = parseArgs();
     if (path === "") {
-        _usage();
+        usage();
         return;
     }
     mkdir(path, parents)
         .then(() => {
-            // no-op
+            process.exit(0);
         })
         .catch(err => {
             console.error(err);
@@ -74,4 +94,4 @@ const _main = () => {
         });
 };
 
-_main();
+main();
