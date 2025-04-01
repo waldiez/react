@@ -5,6 +5,7 @@
 import { NodeProps } from "@xyflow/react";
 
 import { FaCopy, FaGear, FaTrashCan } from "react-icons/fa6";
+import { TbSettingsCheck } from "react-icons/tb";
 
 import { getImportExportView } from "@waldiez/containers/nodes/common";
 import { useWaldiezNodeModel } from "@waldiez/containers/nodes/model/hooks";
@@ -68,15 +69,27 @@ export const WaldiezNodeModelView = ({ id, data }: NodeProps<WaldiezNodeModel>) 
                 >
                     <FaTrashCan />
                 </div>
-                <div
-                    role="button"
-                    title="Clone"
-                    className="clickable"
-                    id={`clone-node-${id}`}
-                    data-testid={`clone-node-${id}`}
-                    onClick={onClone}
-                >
-                    <FaCopy />
+                <div className="flex">
+                    <div
+                        role="button"
+                        title="Check"
+                        className="clickable margin-right-10"
+                        id={`test-model-${id}`}
+                        data-testid={`test-model-${id}`}
+                        onClick={onTest}
+                    >
+                        <TbSettingsCheck fontSize="1.1em" />
+                    </div>
+                    <div
+                        role="button"
+                        title="Clone"
+                        className="clickable"
+                        id={`clone-node-${id}`}
+                        data-testid={`clone-node-${id}`}
+                        onClick={onClone}
+                    >
+                        <FaCopy />
+                    </div>
                 </div>
             </div>
             <WaldiezNodeModelModal

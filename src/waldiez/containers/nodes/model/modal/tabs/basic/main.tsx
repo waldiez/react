@@ -30,6 +30,10 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
         <div className="flex-column">
             <div className="info margin-bottom-10">
                 Make sure that the model's name is a valid name (based on the provider).
+                <br />
+                You can use the <strong>Test</strong> button to check if the model parameters are correct,
+                <br />
+                but model credits might be used for this test (depending on the provider).
             </div>
             <label>Name:</label>
             <input

@@ -80,6 +80,7 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
                             className="modal-action-submit-alt margin-right-10"
                             onClick={onTest}
                             data-testid={`modal-test-btn-${modelId}`}
+                            disabled={isDirty}
                         >
                             Test
                         </button>
