@@ -60,6 +60,11 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         setIsDirty(false);
         setIsOpen(false);
     };
+    const onTest = () => {
+        // TODO: gather all the model's params and
+        // do a simple request to the model's endpoint
+        // to validate the model parameters
+    };
     const onSave = () => {
         setLogo(LOGOS[modelData.apiType]);
         updateModelData(id, modelData);
@@ -91,5 +96,6 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         onSave,
         onSaveAndClose,
         onCancel,
+        onTest,
     };
 };

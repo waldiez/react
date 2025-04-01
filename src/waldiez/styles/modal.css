@@ -125,22 +125,34 @@
 }
 
 .flow-wrapper .modal-actions > .modal-action-submit,
-.flow-wrapper .modal-actions > div > .modal-action-submit {
+.flow-wrapper .modal-actions > .modal-action-submit-alt,
+.flow-wrapper .modal-actions > .modal-action-cancel,
+.flow-wrapper .modal-actions > div > .modal-action-submit,
+.flow-wrapper .modal-actions > div > .modal-action-submit-alt,
+.flow-wrapper .modal-actions > div > .modal-action-cancel {
     padding: 10px 20px;
-    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.flow-wrapper .modal-actions > .modal-action-cancel {
-    padding: 10px 20px;
+/* stylelint-disable-next-line no-descending-specificity */
+.flow-wrapper .modal-actions > .modal-action-submit,
+.flow-wrapper .modal-actions > div > .modal-action-submit {
+    background-color: #007bff;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.flow-wrapper .modal-actions > .modal-action-cancel,
+.flow-wrapper .modal-actions > div > .modal-action-cancel {
     background-color: #9e37a2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.flow-wrapper .modal-actions > .modal-action-submit-alt,
+.flow-wrapper .modal-actions > div > .modal-action-submit-alt {
+    background-color: #004085;
 }
 
 @media (width <= 1280px) {

@@ -24,6 +24,7 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
         onClose,
         onSave,
         onSaveAndClose,
+        onTest,
         onCancel,
     } = props;
     const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -72,16 +73,27 @@ export const WaldiezNodeModelModal = (props: WaldiezNodeModelModalProps) => {
                     >
                         Cancel
                     </button>
-                    <button
-                        type="button"
-                        title="Save"
-                        className="modal-action-submit"
-                        onClick={onSave}
-                        data-testid={`modal-submit-btn-${modelId}`}
-                        disabled={!isDirty}
-                    >
-                        Save
-                    </button>
+                    <div className="flex-row">
+                        <button
+                            type="button"
+                            title="Test"
+                            className="modal-action-submit-alt margin-right-10"
+                            onClick={onTest}
+                            data-testid={`modal-test-btn-${modelId}`}
+                        >
+                            Test
+                        </button>
+                        <button
+                            type="submit"
+                            title="Save"
+                            className="modal-action-submit"
+                            onClick={onSave}
+                            data-testid={`modal-submit-btn-${modelId}`}
+                            disabled={!isDirty}
+                        >
+                            Save
+                        </button>
+                    </div>
                 </div>
             </div>
         </Modal>
