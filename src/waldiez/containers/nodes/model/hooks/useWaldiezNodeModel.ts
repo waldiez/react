@@ -7,6 +7,7 @@ import { Node } from "@xyflow/react";
 import { useState } from "react";
 import isEqual from "react-fast-compare";
 
+import { validateModel } from "@waldiez/containers/nodes/model/utils";
 import { WaldiezNodeModelData } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
 import { LOGOS } from "@waldiez/theme";
@@ -61,9 +62,17 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         setIsOpen(false);
     };
     const onTest = () => {
-        // TODO: gather all the model's params and
-        // do a simple request to the model's endpoint
-        // to validate the model parameters
+        validateModel(modelData)
+            .then(result => {
+                if (result.success) {
+                    console.log("Model is valid");
+                } else {
+                    console.error(result.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error validating model:", error);
+            });
     };
     const onSave = () => {
         setLogo(LOGOS[modelData.apiType]);

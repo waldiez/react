@@ -4,7 +4,7 @@
  */
 import { describe, expect, it, vi } from "vitest";
 
-import { validateModel } from "@waldiez/containers/nodes/model/hooks/validation";
+import { validateModel } from "@waldiez/containers/nodes/model/utils";
 import { WaldiezNodeModelData } from "@waldiez/models";
 
 describe("validateModel", () => {
@@ -15,7 +15,7 @@ describe("validateModel", () => {
         baseUrl: "https://api.example.com",
         apiKey: "test-api-key",
         label: "test-model",
-        apiType: "openai",
+        apiType: "other",
         description: "Test model",
         apiVersion: "v1",
         defaultHeaders: {},
@@ -37,9 +37,10 @@ describe("validateModel", () => {
     });
 
     it("should return an error if baseUrl is missing", async () => {
-        const model = { ...baseModel, baseUrl: "" };
+        const apiType: WaldiezNodeModelData["apiType"] = "other";
+        const model = { ...baseModel, apiType, baseUrl: "" };
         const result = await validateModel(model);
-        expect(result).toEqual({ success: false, message: "Missing baseUrl" });
+        expect(result).toEqual({ success: false, message: "Missing base URL" });
     });
 
     it("should return an error if apiKey is missing", async () => {
@@ -62,7 +63,9 @@ describe("validateModel", () => {
     });
 
     it("should validate a model using direct lookup", async () => {
-        mockFetch.mockResolvedValueOnce(new Response(null, { status: 200 }));
+        mockFetch.mockResolvedValueOnce(
+            new Response(JSON.stringify({ data: [{ id: "test-model" }] }), { status: 200 }),
+        );
         const result = await validateModel(baseModel);
         expect(result).toEqual({ success: true });
         expect(mockFetch).toHaveBeenCalledWith(
@@ -104,7 +107,7 @@ describe("validateModel", () => {
     });
 
     it("should validate a model using fallback logic", async () => {
-        const apiType: WaldiezNodeModelData["apiType"] = "other";
+        const apiType: WaldiezNodeModelData["apiType"] = "together"; // not supporting direct lookup?
         const fallbackModel = { ...baseModel, apiType };
         mockFetch.mockResolvedValueOnce(
             new Response(JSON.stringify({ data: [{ id: "test-model" }] }), { status: 200 }),
@@ -112,7 +115,7 @@ describe("validateModel", () => {
         const result = await validateModel(fallbackModel);
         expect(result).toEqual({ success: true });
         expect(mockFetch).toHaveBeenCalledWith(
-            "https://api.example.com/v1/models",
+            "https://api.example.com/models",
             expect.objectContaining({
                 headers: { Authorization: "Bearer test-api-key" },
             }),
@@ -120,7 +123,7 @@ describe("validateModel", () => {
     });
 
     it("should return an error if fallback model is not found", async () => {
-        const apiType: WaldiezNodeModelData["apiType"] = "other";
+        const apiType: WaldiezNodeModelData["apiType"] = "together";
         const fallbackModel = { ...baseModel, apiType };
         mockFetch.mockResolvedValueOnce(new Response(JSON.stringify({ data: [] }), { status: 200 }));
         const result = await validateModel(fallbackModel);
