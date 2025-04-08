@@ -2,11 +2,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-// two options:
-// - just export and download the flow (same with skipHub=true)
-// - share the flow to the hub:
-//   - with optional csv/additional files to upload
-//   - a text input for the api key to use for uploading
 import { useState } from "react";
 
 import { DropZone, InfoCheckbox, Modal, TextInput } from "@waldiez/components";
@@ -17,7 +12,6 @@ export const ExportFlowModal = (props: ExportFlowModalProps) => {
     const { flowId, isOpen, onClose, onDownload } = props;
     const [alsoUpload, setAlsoUpload] = useState(false);
     const [hubApiToken, setHubApiToken] = useState("");
-    // const [isOauthFlowOpen, setIsOauthFlowOpen] = useState(false);
     const onAlsoUploadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAlsoUpload(e.target.checked);
     };
