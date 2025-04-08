@@ -122,7 +122,7 @@ export class WaldiezFlowStore implements IWaldiezFlowStore {
                 setTimeout(() => {
                     setViewPortTopLeft(this.get().rfInstance);
                     this.set({
-                        viewport: this.get().rfInstance?.getViewport(),
+                        viewport,
                     });
                 }, 100);
             }
