@@ -34,7 +34,7 @@ export const TextInput = (props: TextInputProps) => {
     return (
         <>
             {labelInfo ? <InfoLabel label={label} info={labelInfo} /> : <label>{label}</label>}
-            <div className={isPassword ? "flow flow-row" : ""}>
+            <div className={isPassword ? "flex flex-row" : ""}>
                 <input
                     placeholder={placeholder}
                     type={isPassword ? (visible ? "text" : "password") : "text"}
