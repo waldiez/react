@@ -29,7 +29,7 @@ bun add @waldiez/react
     "rc-slider": "^11.1.8",
     "react-error-boundary": "^5.0.0",
     "react-fast-compare": "^3.2.2",
-    "react-hotkeys-hook": "^4.6.2",
+    "react-hotkeys-hook": "^5.0.1",
     "react-icons": "^5.5.0",
     "react-select": "^5.10.1",
     "zundo": "^2.3.0",
