@@ -153,7 +153,7 @@
         "hint": "^7.1.13",
         "husky": "^9.1.7",
         "jsdom": "^26.0.0",
-        "lint-staged": "^15.5.0",
+        "lint-staged": "^15.5.1",
         "lookpath": "^1.2.3",
         "playwright": "^1.51.1",
         "prettier": "^3.5.3",
