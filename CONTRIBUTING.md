@@ -9,7 +9,7 @@ This project is a React application managed using bun. To contribute, follow the
 Ensure you have the following installed:
 
 - Node.js (version 22.x or later)
-- bun@1.2.7
+- bun@1.2.9
 
 ### Installation
 

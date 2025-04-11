@@ -8,6 +8,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { showSnackbar } from "@waldiez/utils";
 
 describe("Snackbar", () => {
+    const flowId = "test-flow";
+
     beforeEach(() => {
         document.body.innerHTML = "";
         localStorage.clear();
@@ -20,214 +22,127 @@ describe("Snackbar", () => {
     });
 
     it("should display a snackbar with correct message, level, and details", () => {
-        const flowId = "test-flow";
-        const message = "Test message";
-        const details = "Test details";
-        const level = "info";
-
-        showSnackbar(flowId, message, level, details);
-
+        showSnackbar(flowId, "Test message", "info", "Test details");
         const snackbar = document.querySelector(`#${flowId}-snackbar`);
-        expect(snackbar).not.toBeNull();
-        expect(snackbar?.textContent).toContain(message);
-        expect(snackbar?.textContent).toContain(details);
+        expect(snackbar?.textContent).toContain("Test message");
+        expect(snackbar?.textContent).toContain("Test details");
         expect(snackbar?.className).toContain("snackbar");
-        expect(snackbar?.className).toContain(level);
+        expect(snackbar?.className).toContain("info");
     });
 
     it("should lock and unlock the snackbar correctly", () => {
-        const flowId = "test-flow";
-        const message = "Lock test message";
         const duration = 3000;
-        // Ensure the localStorage is initially empty
         expect(localStorage.getItem(`snackbar-${flowId}.lock`)).toBeNull();
-        // Show snackbar and check if it's locked
-        showSnackbar(flowId, message, "info", null, duration);
+        showSnackbar(flowId, "Lock test", "info", null, duration, false);
         expect(localStorage.getItem(`snackbar-${flowId}.lock`)).toBe("1");
-        // Simulate time passing to unlock the snackbar
         vi.advanceTimersByTime(duration);
         expect(localStorage.getItem(`snackbar-${flowId}.lock`)).toBeNull();
     });
 
-    it("should add a close button when no duration is provided", () => {
-        const flowId = "test-flow";
-        const message = "Test message without duration";
-
-        showSnackbar(flowId, message, "info", null, undefined);
-
-        const snackbar = document.querySelector(`#${flowId}-snackbar`);
-        const closeButton = snackbar?.querySelector(".close");
-
-        expect(closeButton).not.toBeNull();
-        (closeButton as HTMLElement).click();
-
-        vi.advanceTimersByTime(300);
-
-        expect(document.querySelector(`#${flowId}-snackbar`)).toBeNull();
+    it("should not show a close button unless explicitly requested", () => {
+        showSnackbar(flowId, "No close button", "info", null, undefined, false);
+        const closeButton = document.querySelector(`#${flowId}-snackbar .close`);
+        expect(closeButton).toBeNull();
     });
 
-    it("should allow manual closing via the close button", () => {
-        const flowId = "test-flow";
-        const message = "Test message";
-
-        showSnackbar(flowId, message);
-
-        const closeButton = document.querySelector(`#${flowId}-snackbar .close`) as HTMLElement;
+    it("should include a close button when requested", () => {
+        showSnackbar(flowId, "With close button", "info", null, undefined, true);
+        const closeButton = document.querySelector(`#${flowId}-snackbar .close`);
         expect(closeButton).not.toBeNull();
+    });
 
+    it("should allow manual closing via the close button", async () => {
+        showSnackbar(flowId, "Manually close", "info", null, undefined, true);
+        const closeButton = document.querySelector(`#${flowId}-snackbar .close`) as HTMLElement;
         closeButton.click();
-        waitFor(() => {
+        vi.advanceTimersByTime(300);
+        await waitFor(() => {
             expect(document.querySelector(`#${flowId}-snackbar`)).toBeNull();
         });
     });
 
-    it("should reuse existing snackbar element for the same flowId", () => {
-        const flowId = "test-flow";
-        const message1 = "Message 1";
-        const message2 = "Message 2";
-
-        showSnackbar(flowId, message1);
+    it("should auto-dismiss after default duration if no duration is provided and no close button", () => {
+        showSnackbar(flowId, "Auto dismiss default", "info", null, undefined, false);
         const snackbar = document.querySelector(`#${flowId}-snackbar`);
-
         expect(snackbar).not.toBeNull();
-        expect(snackbar?.textContent).toContain(message1);
+        vi.advanceTimersByTime(3000); // Default duration
+        expect(document.querySelector(`#${flowId}-snackbar`)).toBeNull();
+    });
 
-        showSnackbar(flowId, message2);
-        const updatedSnackbar = document.querySelector(`#${flowId}-snackbar`);
+    it("should auto-dismiss after specified duration even with close button", () => {
+        showSnackbar(flowId, "Dismiss with close", "info", null, 4000, true);
+        expect(document.querySelector(`#${flowId}-snackbar`)).not.toBeNull();
+        vi.advanceTimersByTime(4000);
+        expect(document.querySelector(`#${flowId}-snackbar`)).toBeNull();
+    });
 
-        expect(updatedSnackbar).toBe(snackbar);
-        expect(updatedSnackbar?.textContent).toContain(message2);
+    it("should persist snackbar if close button is provided and no duration", () => {
+        showSnackbar(flowId, "Persistent", "info", null, undefined, true);
+        vi.advanceTimersByTime(5000);
+        expect(document.querySelector(`#${flowId}-snackbar`)).not.toBeNull();
+    });
+
+    it("should reuse the existing snackbar for the same flowId", () => {
+        showSnackbar(flowId, "Message 1");
+        const initial = document.querySelector(`#${flowId}-snackbar`);
+        expect(initial?.textContent).toContain("Message 1");
+        // Manually unlock to allow retry immediately
+        localStorage.removeItem(`snackbar-${flowId}.lock`);
+        showSnackbar(flowId, "Message 2");
+        // Simulate retry delay
+        vi.advanceTimersByTime(200);
+        const updated = document.querySelector(`#${flowId}-snackbar`);
+        expect(updated).toBe(initial);
+        expect(updated?.textContent).toContain("Message 2");
     });
 
     it("should render details as collapsible content", () => {
-        const flowId = "test-flow";
-        const message = "Test message";
-        const details = "Detailed information";
-
-        showSnackbar(flowId, message, "info", details);
-
-        const detailsElement = document.querySelector(`#${flowId}-snackbar details`);
-        expect(detailsElement).not.toBeNull();
-
-        const summary = detailsElement?.querySelector("summary");
-        expect(summary?.textContent).toBe("Details");
-        expect(detailsElement?.textContent).toContain(details);
+        showSnackbar(flowId, "Has details", "info", "Extra info");
+        const details = document.querySelector(`#${flowId}-snackbar details`);
+        expect(details).not.toBeNull();
+        expect(details?.querySelector("summary")?.textContent).toBe("Details");
+        expect(details?.textContent).toContain("Extra info");
     });
 
-    it("should auto-dismiss snackbar after the specified duration", () => {
-        const flowId = "test-flow";
-        const message = "Auto-dismiss message";
-        const duration = 5000;
+    it("should use error.message if passed an Error object", () => {
+        showSnackbar(flowId, "Error test", "error", new Error("boom"));
+        const details = document.querySelector(`#${flowId}-snackbar details`);
+        expect(details?.textContent).toContain("boom");
+    });
 
-        showSnackbar(flowId, message, "info", null, duration);
+    it("should use error.detail if present", () => {
+        showSnackbar(flowId, "Error detail", "error", { detail: "Detailed error" });
+        const detail = document.querySelector(`#${flowId}-snackbar details div`);
+        expect(detail?.textContent).toContain("Detailed error");
+    });
 
-        const snackbar = document.querySelector(`#${flowId}-snackbar`);
-        expect(snackbar).not.toBeNull();
+    it("should use error.message if present", () => {
+        showSnackbar(flowId, "Error message", "error", { message: "Message error" });
+        const detail = document.querySelector(`#${flowId}-snackbar details div`);
+        expect(detail?.textContent).toContain("Message error");
+    });
 
-        vi.advanceTimersByTime(duration);
+    it("should use statusText if present", () => {
+        showSnackbar(flowId, "Status text error", "error", { statusText: "Server Error" });
+        const detail = document.querySelector(`#${flowId}-snackbar details div`);
+        expect(detail?.textContent).toContain("Error: Server Error");
+    });
+
+    it("should show generic error for unknown objects", () => {
+        showSnackbar(flowId, "Unknown error", "error", { unexpected: true } as any);
+        const detail = document.querySelector(`#${flowId}-snackbar details div`);
+        expect(detail?.textContent).toContain("An unexpected error occurred.");
+    });
+
+    it("should retry if snackbar is locked", () => {
+        localStorage.setItem(`snackbar-${flowId}.lock`, "1");
+        showSnackbar(flowId, "Retry message");
         expect(document.querySelector(`#${flowId}-snackbar`)).toBeNull();
-    });
 
-    it("should handle Error objects in details", () => {
-        const flowId = "test-flow";
-        const message = "Error test message";
-        const error = new Error("Error details");
-
-        showSnackbar(flowId, message, "error", error);
-
-        const detailsElement = document.querySelector(`#${flowId}-snackbar details`);
-        expect(detailsElement).not.toBeNull();
-        expect(detailsElement?.textContent).toContain("Error details");
-    });
-
-    it("should handle unexpected errors gracefully", () => {
-        const flowId = "test-flow";
-        const message = "Unexpected error";
-        const invalidError = { unexpected: "error" };
-
-        showSnackbar(flowId, message, "error", invalidError as any);
-
-        const detailsElement = document.querySelector(`#${flowId}-snackbar details`);
-        expect(detailsElement).not.toBeNull();
-        expect(detailsElement?.textContent).toContain("An unexpected error occurred.");
-    });
-
-    it("should retry showing snackbar if it is locked", () => {
-        const flowId = "test-flow";
-        const message = "Retry message";
-        const lockKey = `snackbar-${flowId}.lock`;
-        localStorage.setItem(lockKey, "1");
-        showSnackbar(flowId, message);
-        expect(document.querySelector(`#${flowId}-snackbar`)).toBeNull();
-        vi.advanceTimersByTime(100);
-        localStorage.removeItem(lockKey);
-        vi.advanceTimersByTime(100);
+        // After 200ms retry
+        vi.advanceTimersByTime(200);
+        localStorage.removeItem(`snackbar-${flowId}.lock`);
+        vi.advanceTimersByTime(200);
         expect(document.querySelector(`#${flowId}-snackbar`)).not.toBeNull();
-    });
-
-    it("should include a close button when requested", () => {
-        const flowId = "test-flow";
-        const message = "Close button test message";
-
-        showSnackbar(flowId, message, "info", null, undefined, true);
-
-        const closeButton = document.querySelector(`#${flowId}-snackbar .close`);
-        expect(closeButton).not.toBeNull();
-    });
-    it("should not schedule removal if no duration is provided", () => {
-        const flowId = "test-flow";
-        const message = "No duration test message";
-
-        showSnackbar(flowId, message, "info", null, undefined);
-
-        expect(document.querySelector(`#${flowId}-snackbar`)).not.toBeNull();
-        vi.advanceTimersByTime(1000);
-        expect(document.querySelector(`#${flowId}-snackbar`)).not.toBeNull();
-    });
-    it("should detect an error string and display it as an error", () => {
-        const flowId = "test-flow";
-        const message = "Error string test message";
-        const error = "Error details";
-
-        showSnackbar(flowId, message, "error", error);
-
-        const snackbar = document.querySelector(`#${flowId}-snackbar`);
-        expect(snackbar).not.toBeNull();
-        expect(snackbar?.textContent).toContain(message);
-        expect(snackbar?.textContent).toContain(error);
-        expect(snackbar?.className).toContain("error");
-    });
-    it("should use error.detail if detail is in the error object", () => {
-        const flowId = "test-flow";
-        const message = "Error object test message";
-        const error = { detail: "Error details" };
-
-        showSnackbar(flowId, message, "error", error);
-
-        const detailsElement = document.querySelector(`#${flowId}-snackbar details`)?.querySelector("div");
-        expect(detailsElement).not.toBeNull();
-        expect(detailsElement?.textContent).toContain("Error details");
-    });
-    it("should use error.message if message is in the error object", () => {
-        const flowId = "test-flow";
-        const message = "Error object test message";
-        const error = { message: "Error message" };
-
-        showSnackbar(flowId, message, "error", error);
-
-        const detailsElement = document.querySelector(`#${flowId}-snackbar details`)?.querySelector("div");
-        expect(detailsElement).not.toBeNull();
-        expect(detailsElement?.textContent).toContain("Error message");
-    });
-    it("should use the statusText if it is in the error object", () => {
-        const flowId = "test-flow";
-        const message = "Error object test message";
-        const error = { statusText: "Error status" };
-
-        showSnackbar(flowId, message, "error", error);
-
-        const detailsElement = document.querySelector(`#${flowId}-snackbar details`)?.querySelector("div");
-        expect(detailsElement).not.toBeNull();
-        expect(detailsElement?.textContent).toContain("Error: Error status");
     });
 });

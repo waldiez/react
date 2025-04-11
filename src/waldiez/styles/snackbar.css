@@ -61,3 +61,39 @@
 .flow-wrapper.light .sidebar-toggle-button:hover div {
     background-color: #111;
 }
+
+/* Snackbar inside modal */
+dialog .modal-content .snackbar {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 10001;
+    margin: 0;
+    max-width: calc(100% - 30px);
+    animation: slide-up 0.3s ease;
+}
+
+dialog .modal-content .snackbar.show {
+    display: block;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+dialog .modal-content .snackbar .close {
+    padding: 10px;
+}
+
+dialog .modal-content .snackbar.warning {
+    color: #000 !important;
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

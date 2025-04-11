@@ -15,4 +15,5 @@ export type TextInputProps = {
     dataTestId?: string;
     style?: React.CSSProperties;
     isPassword?: boolean;
+    fullWidth?: boolean;
 };

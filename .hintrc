@@ -15,7 +15,9 @@
           "width: stretch"
         ]
       }
-    ]
+    ],
+    "detect-css-reflows/composite": "off",
+    "detect-css-reflows/paint": "off"
   },
   "browserslist": [
     "defaults",

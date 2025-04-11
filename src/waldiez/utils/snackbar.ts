@@ -9,39 +9,62 @@
  * @param message - The message to show in the snackbar.
  * @param level - The level of the snackbar. Can be 'info', 'warning', 'error' or 'success'. Defaults to 'info'.
  * @param details - The details of the snackbar. Can be a string or an Error object. Defaults to null.
- * @param duration - The duration in milliseconds to show the snackbar for. If not provided, the snackbar will be shown indefinitely (until manually closed).
+ * @param duration - The duration in milliseconds to show the snackbar for. If not provided, and includeCloseButton is false, defaults to 3000ms.
  */
+
+const DEFAULT_SNACKBAR_DURATION = 3000;
+
 export const showSnackbar = (
     flowId: string,
     message: string,
     level: "info" | "warning" | "error" | "success" = "info",
     details: string | Error | object | null = null,
     duration: number | undefined = undefined,
-    includeCloseButton: boolean = false,
+    withCloseButton: boolean = false,
 ) => {
     if (isSnackbarLocked(flowId)) {
-        setTimeout(() => showSnackbar(flowId, message, level, details, duration, includeCloseButton), 200);
+        setTimeout(() => showSnackbar(flowId, message, level, details, duration, withCloseButton), 200);
         return;
     }
 
     setSnackbarLock(flowId, true);
-    // if no duration is provided, let's add a close button
-    // to manually close the snackbar
-    let includeCloseBtn = typeof duration !== "number";
-    if (includeCloseButton) {
-        includeCloseBtn = true;
-    }
-    createOrUpdateSnackbar(flowId, message, level, details, includeCloseBtn);
+    const { showCloseButton, autoDismiss, dismissAfter } = computeSnackbarBehavior(withCloseButton, duration);
+    createOrUpdateSnackbar(flowId, message, level, details, showCloseButton);
 
-    if (!includeCloseBtn) {
-        scheduleSnackbarRemoval(flowId, duration);
+    if (autoDismiss) {
+        scheduleSnackbarRemoval(flowId, dismissAfter);
     } else {
         setSnackbarLock(flowId, false);
     }
 };
 
-const getFlowRoot = (flowId: string, fallbackToBody = false) => {
-    return document.getElementById(`rf-root-${flowId}`) || (fallbackToBody ? document.body : null);
+const computeSnackbarBehavior = (
+    withCloseButton: boolean,
+    duration: number | undefined,
+): {
+    showCloseButton: boolean;
+    autoDismiss: boolean;
+    dismissAfter: number;
+} => {
+    const showCloseButton = withCloseButton;
+    const autoDismiss = duration !== undefined || !withCloseButton;
+    const dismissAfter = duration ?? DEFAULT_SNACKBAR_DURATION;
+    return { showCloseButton, autoDismiss, dismissAfter };
+};
+
+const getFlowRoot = (flowId: string, fallbackToBody = false): HTMLElement | null => {
+    // First, try to get the flow-specific root element
+    let flowRoot = document.getElementById(`rf-root-${flowId}`);
+    // If not found and fallback is allowed, use body
+    if (!flowRoot && fallbackToBody) {
+        flowRoot = document.body;
+    }
+    if (!flowRoot) {
+        return null;
+    }
+    // Look for an open modal within this root element
+    const modalContent = flowRoot.querySelector("dialog[open] .modal-content") as HTMLElement;
+    return modalContent || flowRoot;
 };
 
 const scheduleSnackbarRemoval = (flowId: string, duration: number | undefined) => {

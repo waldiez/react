@@ -15,21 +15,21 @@ bun add @waldiez/react
 ## Requirements for development
 
 - Node.js (version 22.x or later)
-- bun@1.2.7
+- bun@1.2.9
 
 ## Libraries
 
 ```json
 {
     "@monaco-editor/react": "^4.7.0",
+    "@xyflow/react": "^12.5.5",
     "jszip": "^3.10.1",
-    "@xyflow/react": "^12.4.4",
     "microdiff": "^1.5.0",
     "nanoid": "^5.1.5",
     "rc-slider": "^11.1.8",
     "react-error-boundary": "^5.0.0",
     "react-fast-compare": "^3.2.2",
-    "react-hotkeys-hook": "^4.6.1",
+    "react-hotkeys-hook": "^5.0.1",
     "react-icons": "^5.5.0",
     "react-select": "^5.10.1",
     "zundo": "^2.3.0",

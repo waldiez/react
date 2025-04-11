@@ -20,6 +20,7 @@ export const TextInput = (props: TextInputProps) => {
         placeholder = "...",
         style = {},
         isPassword = false,
+        fullWidth = false,
     } = props;
 
     const [visible, setVisible] = useState(false);
@@ -34,15 +35,15 @@ export const TextInput = (props: TextInputProps) => {
     return (
         <>
             {labelInfo ? <InfoLabel label={label} info={labelInfo} /> : <label>{label}</label>}
-            <div className={isPassword ? "flow flow-row" : ""}>
+            <div className="flex">
                 <input
                     placeholder={placeholder}
                     type={isPassword ? (visible ? "text" : "password") : "text"}
                     value={value !== null ? value : onNull}
                     onChange={handleChange}
-                    style={style}
                     disabled={disabled}
                     data-testid={dataTestId}
+                    style={fullWidth ? { flex: "1", ...style } : { ...style }}
                 ></input>
                 {isPassword && (
                     <button
