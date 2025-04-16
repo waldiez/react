@@ -21,11 +21,13 @@ import { WaldiezThemeProvider, isInitiallyDark, setIsDarkMode } from "@waldiez/t
 import { WaldiezProps } from "@waldiez/types";
 import { getId } from "@waldiez/utils";
 
+const READY_FOR_HUB = false;
+
 export const Waldiez = (props: Partial<WaldiezProps>) => {
     const flowId: string = props.flowId ?? `wf-${getId()}`;
     const skipImport = typeof props.skipImport === "boolean" ? props.skipImport : false;
     const skipExport = typeof props.skipExport === "boolean" ? props.skipExport : false;
-    const skipHub = typeof props.skipHub === "boolean" ? props.skipHub : false;
+    const skipHub = typeof props.skipHub === "boolean" ? props.skipHub : !READY_FOR_HUB;
     const nodes = props.nodes ?? [];
     const edges = props.edges ?? [];
     const readOnly = props.readOnly ?? false;
