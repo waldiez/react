@@ -4,7 +4,7 @@
  */
 import { describe, expect, it, vi } from "vitest";
 
-import { validateModel } from "@waldiez/containers/nodes/model/utils";
+import { ValidationMessage, validateModel } from "@waldiez/containers/nodes/model/utils";
 import { WaldiezNodeModelData } from "@waldiez/models";
 
 describe("validateModel", () => {
@@ -40,26 +40,26 @@ describe("validateModel", () => {
         const apiType: WaldiezNodeModelData["apiType"] = "other";
         const model = { ...baseModel, apiType, baseUrl: "" };
         const result = await validateModel(model);
-        expect(result).toEqual({ success: false, message: "Missing base URL" });
+        expect(result).toEqual({ success: false, message: ValidationMessage.MissingBaseUrl });
     });
 
     it("should return an error if apiKey is missing", async () => {
         const model = { ...baseModel, apiKey: "" };
         const result = await validateModel(model);
-        expect(result).toEqual({ success: false, message: "Missing API key" });
+        expect(result).toEqual({ success: false, message: ValidationMessage.MissingApiKey });
     });
 
     it("should return an error if label is missing", async () => {
         const model = { ...baseModel, label: " " };
         const result = await validateModel(model);
-        expect(result).toEqual({ success: false, message: "Missing model name" });
+        expect(result).toEqual({ success: false, message: ValidationMessage.MissingModelName });
     });
 
     it("should return an error if Azure API version is missing for Azure API type", async () => {
         const apiType: WaldiezNodeModelData["apiType"] = "azure";
         const model = { ...baseModel, apiType, apiVersion: null };
         const result = await validateModel(model);
-        expect(result).toEqual({ success: false, message: "Missing Azure API version" });
+        expect(result).toEqual({ success: false, message: ValidationMessage.MissingApiVersion });
     });
 
     it("should validate a model using direct lookup", async () => {
@@ -67,7 +67,7 @@ describe("validateModel", () => {
             new Response(JSON.stringify({ data: [{ id: "test-model" }] }), { status: 200 }),
         );
         const result = await validateModel(baseModel);
-        expect(result).toEqual({ success: true });
+        expect(result).toEqual({ success: true, message: ValidationMessage.ValidationSuccess });
         expect(mockFetch).toHaveBeenCalledWith(
             "https://api.example.com/v1/models/test-model",
             expect.objectContaining({
@@ -79,7 +79,11 @@ describe("validateModel", () => {
     it("should return an error if direct lookup fails", async () => {
         mockFetch.mockResolvedValueOnce(new Response(null, { status: 404 }));
         const result = await validateModel(baseModel);
-        expect(result).toEqual({ success: false, message: "Model fetch failed" });
+        expect(result).toEqual({
+            success: false,
+            message: ValidationMessage.ModelNotFound,
+            details: ValidationMessage.UnknownError,
+        });
     });
 
     it("should validate a model using Azure-specific logic", async () => {
@@ -89,7 +93,7 @@ describe("validateModel", () => {
             new Response(JSON.stringify({ data: [{ id: "test-model" }] }), { status: 200 }),
         );
         const result = await validateModel(azureModel);
-        expect(result).toEqual({ success: true });
+        expect(result).toEqual({ success: true, message: ValidationMessage.ValidationSuccess });
         expect(mockFetch).toHaveBeenCalledWith(
             "https://api.example.com/openai/deployments?api-version=2023-01-01",
             expect.objectContaining({
@@ -103,7 +107,7 @@ describe("validateModel", () => {
         const azureModel = { ...baseModel, apiType, apiVersion: "2023-01-01" };
         mockFetch.mockResolvedValueOnce(new Response(JSON.stringify({ data: [] }), { status: 200 }));
         const result = await validateModel(azureModel);
-        expect(result).toEqual({ success: false, message: 'Deployment "test-model" not found' });
+        expect(result).toEqual({ success: false, message: ValidationMessage.ModelNotFound });
     });
 
     it("should validate a model using fallback logic", async () => {
@@ -113,7 +117,7 @@ describe("validateModel", () => {
             new Response(JSON.stringify({ data: [{ id: "test-model" }] }), { status: 200 }),
         );
         const result = await validateModel(fallbackModel);
-        expect(result).toEqual({ success: true });
+        expect(result).toEqual({ success: true, message: ValidationMessage.ValidationSuccess });
         expect(mockFetch).toHaveBeenCalledWith(
             "https://api.example.com/models",
             expect.objectContaining({
@@ -127,7 +131,7 @@ describe("validateModel", () => {
         const fallbackModel = { ...baseModel, apiType };
         mockFetch.mockResolvedValueOnce(new Response(JSON.stringify({ data: [] }), { status: 200 }));
         const result = await validateModel(fallbackModel);
-        expect(result).toEqual({ success: false, message: 'Model "test-model" not found' });
+        expect(result).toEqual({ success: false, message: ValidationMessage.ModelNotFound });
     });
 
     it("should return an error if API request fails", async () => {
@@ -135,6 +139,6 @@ describe("validateModel", () => {
             new Response(null, { status: 500, statusText: "Internal Server Error" }),
         );
         const result = await validateModel(baseModel);
-        expect(result).toEqual({ success: false, message: "Internal Server Error" });
+        expect(result).toEqual({ success: false, message: "API error", details: "Internal Server Error" });
     });
 });

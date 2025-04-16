@@ -28,7 +28,11 @@ export const showSnackbar = (
     }
 
     setSnackbarLock(flowId, true);
-    const { showCloseButton, autoDismiss, dismissAfter } = computeSnackbarBehavior(withCloseButton, duration);
+    const { showCloseButton, autoDismiss, dismissAfter } = computeSnackbarBehavior(
+        withCloseButton,
+        duration,
+        level,
+    );
     createOrUpdateSnackbar(flowId, message, level, details, showCloseButton);
 
     if (autoDismiss) {
@@ -41,13 +45,14 @@ export const showSnackbar = (
 const computeSnackbarBehavior = (
     withCloseButton: boolean,
     duration: number | undefined,
+    level: "info" | "warning" | "error" | "success",
 ): {
     showCloseButton: boolean;
     autoDismiss: boolean;
     dismissAfter: number;
 } => {
     const showCloseButton = withCloseButton;
-    const autoDismiss = duration !== undefined || !withCloseButton;
+    const autoDismiss = duration !== undefined || (!withCloseButton && !["warning", "error"].includes(level));
     const dismissAfter = duration ?? DEFAULT_SNACKBAR_DURATION;
     return { showCloseButton, autoDismiss, dismissAfter };
 };

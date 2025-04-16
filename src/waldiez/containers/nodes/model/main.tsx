@@ -30,7 +30,7 @@ export const WaldiezNodeModelView = ({ id, data }: NodeProps<WaldiezNodeModel>) 
         onSave,
         onSaveAndClose,
         onCancel,
-        onTest,
+        onCheck,
     } = useWaldiezNodeModel(id, data);
     const importExportView = getImportExportView(flowId, id, "model", onImport, onExport);
     return (
@@ -76,7 +76,7 @@ export const WaldiezNodeModelView = ({ id, data }: NodeProps<WaldiezNodeModel>) 
                         className="clickable margin-right-10"
                         id={`test-model-${id}`}
                         data-testid={`test-model-${id}`}
-                        onClick={onTest}
+                        onClick={onCheck}
                     >
                         <TbSettingsCheck fontSize="1.1em" />
                     </div>
@@ -103,7 +103,7 @@ export const WaldiezNodeModelView = ({ id, data }: NodeProps<WaldiezNodeModel>) 
                 onClose={onCancel}
                 onCancel={onCancel}
                 onSave={onSave}
-                onTest={onTest}
+                onTest={onCheck}
                 onSaveAndClose={onSaveAndClose}
             />
         </div>

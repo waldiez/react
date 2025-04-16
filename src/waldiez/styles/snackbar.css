@@ -17,6 +17,10 @@
     display: block;
 }
 
+.flow-wrapper .snackbar.show .message {
+    margin-right: 20px;
+}
+
 .flow-wrapper .snackbar .close {
     position: absolute;
     top: 0;

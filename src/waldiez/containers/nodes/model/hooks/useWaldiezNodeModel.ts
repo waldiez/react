@@ -11,7 +11,7 @@ import { validateModel } from "@waldiez/containers/nodes/model/utils";
 import { WaldiezNodeModelData } from "@waldiez/models";
 import { useWaldiez } from "@waldiez/store";
 import { LOGOS } from "@waldiez/theme";
-import { exportItem, importItem } from "@waldiez/utils";
+import { exportItem, importItem, showSnackbar } from "@waldiez/utils";
 
 export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
     const getModelById = useWaldiez(s => s.getModelById);
@@ -61,17 +61,20 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         setIsDirty(false);
         setIsOpen(false);
     };
-    const onTest = () => {
+    const onCheck = () => {
         validateModel(modelData)
             .then(result => {
                 if (result.success) {
-                    console.log("Model is valid");
+                    // console.log("Model is valid");
+                    showSnackbar(flowId, result.message, "success", null, 3000, false);
                 } else {
-                    console.error(result.message);
+                    showSnackbar(flowId, result.message, "error", result.details, undefined, true);
                 }
             })
             .catch(error => {
-                console.error("Error validating model:", error);
+                // console.error("Error validating model:", error);
+                const details = error instanceof Error ? error.message : String(error);
+                showSnackbar(flowId, "Error validating model", "error", details, undefined, true);
             });
     };
     const onSave = () => {
@@ -105,6 +108,6 @@ export const useWaldiezNodeModel = (id: string, data: WaldiezNodeModelData) => {
         onSave,
         onSaveAndClose,
         onCancel,
-        onTest,
+        onCheck,
     };
 };

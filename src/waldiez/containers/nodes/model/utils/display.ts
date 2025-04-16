@@ -4,8 +4,6 @@
  */
 import { WaldiezModelAPIType } from "@waldiez/models";
 
-// TODO: add messages here for validation responses
-
 export const getApiTypeLabel = (text: WaldiezModelAPIType) => {
     if (text === "anthropic") {
         return "Claude";
@@ -37,3 +35,16 @@ export const apiTypeOptions: { label: string; value: WaldiezModelAPIType }[] = [
     { label: "NIM", value: "nim" },
     { label: "Other", value: "other" },
 ];
+export const apiKeyEnvs = {
+    openai: "OPENAI_API_KEY",
+    azure: "AZURE_API_KEY",
+    deepseek: "DEEPSEEK_API_KEY",
+    google: "GOOGLE_GEMINI_API_KEY",
+    anthropic: "ANTHROPIC_API_KEY",
+    cohere: "COHERE_API_KEY",
+    mistral: "MISTRAL_API_KEY",
+    groq: "GROQ_API_KEY",
+    together: "TOGETHER_API_KEY",
+    nim: "NIM_API_KEY",
+    other: "OPENAI_API_KEY",
+};
