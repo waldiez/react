@@ -5,7 +5,7 @@
 // react-select with common styles
 import ReactSelect, { GroupBase, MultiValue, Props, SingleValue } from "react-select";
 
-export type { SingleValue, MultiValue };
+export type { SingleValue, MultiValue, GroupBase };
 
 export function Select<
     Option,

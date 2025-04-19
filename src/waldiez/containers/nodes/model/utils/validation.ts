@@ -221,21 +221,4 @@ const parseErrorResponse = async (res: Response): Promise<ValidationResult> => {
 |---False--| **Together**     | `/v1/models`                                 | N/A                                         | `Authorization: Bearer`     | [Together API](https://docs.together.ai/docs/openai-api-compatibility, https://docs.together.ai/reference/models-1)                                             |
 |---False--| **NIM (NVIDIA)** | `/v1/models`                               | `/v1/models/{model}`                        | `Authorization: Bearer`     | [NVIDIA NIM](https://docs.nvidia.com/)                                                 |
 |---False--| **Other**        | `/v1/models` (if OpenAI-compatible)          | `/v1/models/{model}` (if OpenAI-compatible) | `Authorization: Bearer`     | Depends on implementation                                                              |
-
-Deepseek out:
-{
-    "object": "list",
-    "data": [
-        {
-            "id": "deepseek-chat",
-            "object": "model",
-            "owned_by": "deepseek"
-        },
-        {
-            "id": "deepseek-reasoner",
-            "object": "model",
-            "owned_by": "deepseek"
-        }
-    ]
-}
 */

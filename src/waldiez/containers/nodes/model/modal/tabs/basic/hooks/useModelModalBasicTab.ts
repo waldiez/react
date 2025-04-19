@@ -62,6 +62,7 @@ export const useModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps)
         apiTypeLabel,
         readOnlyBaseUrl,
         urlIsEditable,
+        onDataChange,
         onLabelChange,
         onDescriptionChange,
         onApiTypeChange,

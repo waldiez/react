@@ -6,7 +6,9 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { InfoLabel, Select } from "@waldiez/components";
 import { useModelModalBasicTab } from "@waldiez/containers/nodes/model/modal/tabs/basic/hooks";
+import { ModelSelector } from "@waldiez/containers/nodes/model/modal/tabs/basic/selectModel";
 import { WaldiezNodeModelModalBasicTabProps } from "@waldiez/containers/nodes/model/modal/tabs/basic/types";
+import { WaldiezModelAPIType } from "@waldiez/types";
 
 export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicTabProps) => {
     const { id, data } = props;
@@ -19,6 +21,7 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
         apiKeyVisible,
         apiTypeOptions,
         readOnlyBaseUrl,
+        onDataChange,
         onApiKeyVisibleChange,
         onLabelChange,
         onDescriptionChange,
@@ -26,6 +29,10 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
         onApiKeyChange,
         onBaseUrlChange,
     } = useModelModalBasicTab(props);
+    const onPredefineSelected = (selected: { label: string; apiType: WaldiezModelAPIType }) => {
+        const { label, apiType } = selected;
+        onDataChange({ label, apiType });
+    };
     return (
         <div className="flex-column">
             <div className="info margin-bottom-10">
@@ -35,6 +42,7 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
                 <br />
                 but model credits might be used for this test (depending on the provider).
             </div>
+            <ModelSelector onChange={onPredefineSelected} />
             <label>Name:</label>
             <input
                 type="text"

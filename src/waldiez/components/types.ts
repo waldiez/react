@@ -11,7 +11,7 @@ export type { InfoCheckboxProps } from "@waldiez/components/infoCheckBox/types";
 export type { InfoLabelProps } from "@waldiez/components/infoLabel/types";
 export type { MessageInputProps } from "@waldiez/components/messageInput/types";
 export type { NumberInputProps } from "@waldiez/components/numberInput/types";
-export type { SingleValue, MultiValue } from "@waldiez/components/select";
+export type { SingleValue, MultiValue, GroupBase, ActionMeta } from "@waldiez/components/select";
 export type { StringListProps } from "@waldiez/components/stringList/types";
 export type { TextInputProps } from "@waldiez/components/textInput/types";
 export type { ModalProps } from "@waldiez/components/modal/types";
