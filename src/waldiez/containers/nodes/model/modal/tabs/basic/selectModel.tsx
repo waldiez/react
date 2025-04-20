@@ -55,12 +55,15 @@ export const ModelSelector = (props: {
     };
 
     return (
-        <Select
-            options={groupedOptions}
-            onChange={handleChange}
-            placeholder="Select a model..."
-            formatGroupLabel={formatGroupLabel}
-            isSearchable
-        />
+        <div className="margin-bottom-10">
+            <label>Predefined models:</label>
+            <Select
+                options={groupedOptions}
+                onChange={handleChange}
+                placeholder="Select a model..."
+                formatGroupLabel={formatGroupLabel}
+                isSearchable
+            />
+        </div>
     );
 };
