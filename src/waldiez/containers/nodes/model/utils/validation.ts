@@ -154,11 +154,8 @@ const validateDirectModel = async (
     headers: Record<string, string>,
     modelName: string,
 ): Promise<ValidationResult> => {
-    const modelUrl = `${url}/${encodeURIComponent(modelName).replace(/%2F/g, "/")}`;
-    const res = await fetchWithTimeout(modelUrl, {
-        method: "OPTIONS",
-        headers,
-    });
+    const modelUrl = `${url}/${encodeURIComponent(modelName)}`;
+    const res = await fetchWithTimeout(modelUrl, { method: "GET", headers });
     if (!res.ok) {
         return parseErrorResponse(res);
     }
