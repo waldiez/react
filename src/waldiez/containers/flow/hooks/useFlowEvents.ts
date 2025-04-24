@@ -11,6 +11,8 @@ import { exportItem, getFlowRoot, showSnackbar } from "@waldiez/utils";
 
 export const useFlowEvents = (flowId: string) => {
     const readOnly = useWaldiez(s => s.isReadOnly);
+    const skipImport = useWaldiez(s => s.skipImport);
+    const skipExport = useWaldiez(s => s.skipExport);
     const isReadOnly = readOnly === true;
     const runner = useWaldiez(s => s.onRun);
     const onConvert = useWaldiez(s => s.onConvert);
@@ -27,21 +29,32 @@ export const useFlowEvents = (flowId: string) => {
     const onFlowInit = (instance: ReactFlowInstance) => {
         setRfInstance(instance);
         const rootDiv = getFlowRoot(flowId);
+        const noINteractivity = isReadOnly || (skipImport === true && skipExport === true);
         if (rootDiv) {
-            if (isReadOnly) {
+            if (noINteractivity) {
                 // lock interactivity by default (can be later toggled back)
                 const interactiveControl = rootDiv.querySelector(".react-flow__controls-interactive");
                 if (interactiveControl) {
                     (interactiveControl as HTMLButtonElement).click();
                 }
+                setTimeout(() => {
+                    instance.fitView({
+                        includeHiddenNodes: false,
+                        padding: 0.2,
+                        duration: 100,
+                    });
+                }, 100);
+            } else {
+                setTimeout(() => {
+                    instance.fitView({
+                        includeHiddenNodes: false,
+                        padding: 0.2,
+                        duration: 100,
+                        minZoom: instance.getZoom(),
+                        maxZoom: instance.getZoom(),
+                    });
+                }, 100);
             }
-            setTimeout(() => {
-                instance.fitView({
-                    includeHiddenNodes: false,
-                    padding: 0.2,
-                    duration: 100,
-                });
-            }, 100);
         }
     };
     const onNodesChange = (changes: NodeChange<Node>[]) => {

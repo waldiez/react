@@ -7,8 +7,6 @@ exports[`All > should render Waldiez components 1`] = `
     class="waldiez-sidebar-expanded waldiez-light"
   >
     
-    
-    
   
 
 
@@ -172,12 +170,85 @@ exports[`All > should render Waldiez components 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M5.22 8.22a.749.749 0 0 0 0 1.06l6.25 6.25a.749.749 0 0 0 1.06 0l6.25-6.25a.749.749 0 1 0-1.06-1.06L12 13.939 6.28 8.22a.749.749 0 0 0-1.06 0Z"
+                        d="M18.78 15.78a.749.749 0 0 1-1.06 0L12 10.061 6.28 15.78a.749.749 0 1 1-1.06-1.06l6.25-6.25a.749.749 0 0 1 1.06 0l6.25 6.25a.749.749 0 0 1 0 1.06Z"
                       />
                     </svg>
                   </div>
                 </li>
               </ul>
+              <div
+                class="dnd-description"
+              >
+                <p>
+                  Drag n' drop an agent to the canvas to add it to the flow
+                </p>
+              </div>
+              <div
+                class="dnd-area"
+                data-testid="user-dnd"
+                draggable="true"
+              >
+                <img
+                  src="/src/waldiez/assets/user.webp"
+                  title="User Proxy Agent"
+                />
+                User Proxy
+              </div>
+              <div
+                class="dnd-area"
+                data-testid="assistant-dnd"
+                draggable="true"
+              >
+                <img
+                  src="/src/waldiez/assets/assistant.webp"
+                  title="Assistant Agent"
+                />
+                Assistant
+              </div>
+              <div
+                class="dnd-area"
+                data-testid="manager-dnd"
+                draggable="true"
+              >
+                <img
+                  src="/src/waldiez/assets/manager.webp"
+                  title="Group Manager Agent"
+                />
+                Group Manager
+              </div>
+              <div
+                class="dnd-area"
+                data-testid="swarm-dnd"
+                draggable="true"
+              >
+                <img
+                  src="/src/waldiez/assets/swarm.webp"
+                  title="Swarm Agent"
+                />
+                Swarm Agent
+              </div>
+              <div
+                class="dnd-area"
+                data-testid="reasoning-dnd"
+                draggable="true"
+              >
+                <img
+                  src="/src/waldiez/assets/reasoning.webp"
+                  title="Reasoning Agent"
+                />
+                Reasoning Agent
+              </div>
+              <div
+                class="dnd-area"
+                data-testid="captain-dnd"
+                draggable="true"
+              >
+                <img
+                  src="/src/waldiez/assets/captain.webp"
+                  title="Captain Agent"
+                />
+                Captain Agent
+              </div>
             </div>
             <div
               class="spacer"
@@ -593,12 +664,85 @@ exports[`All > should render Waldiez components 1`] = `
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M5.22 8.22a.749.749 0 0 0 0 1.06l6.25 6.25a.749.749 0 0 0 1.06 0l6.25-6.25a.749.749 0 1 0-1.06-1.06L12 13.939 6.28 8.22a.749.749 0 0 0-1.06 0Z"
+                      d="M18.78 15.78a.749.749 0 0 1-1.06 0L12 10.061 6.28 15.78a.749.749 0 1 1-1.06-1.06l6.25-6.25a.749.749 0 0 1 1.06 0l6.25 6.25a.749.749 0 0 1 0 1.06Z"
                     />
                   </svg>
                 </div>
               </li>
             </ul>
+            <div
+              class="dnd-description"
+            >
+              <p>
+                Drag n' drop an agent to the canvas to add it to the flow
+              </p>
+            </div>
+            <div
+              class="dnd-area"
+              data-testid="user-dnd"
+              draggable="true"
+            >
+              <img
+                src="/src/waldiez/assets/user.webp"
+                title="User Proxy Agent"
+              />
+              User Proxy
+            </div>
+            <div
+              class="dnd-area"
+              data-testid="assistant-dnd"
+              draggable="true"
+            >
+              <img
+                src="/src/waldiez/assets/assistant.webp"
+                title="Assistant Agent"
+              />
+              Assistant
+            </div>
+            <div
+              class="dnd-area"
+              data-testid="manager-dnd"
+              draggable="true"
+            >
+              <img
+                src="/src/waldiez/assets/manager.webp"
+                title="Group Manager Agent"
+              />
+              Group Manager
+            </div>
+            <div
+              class="dnd-area"
+              data-testid="swarm-dnd"
+              draggable="true"
+            >
+              <img
+                src="/src/waldiez/assets/swarm.webp"
+                title="Swarm Agent"
+              />
+              Swarm Agent
+            </div>
+            <div
+              class="dnd-area"
+              data-testid="reasoning-dnd"
+              draggable="true"
+            >
+              <img
+                src="/src/waldiez/assets/reasoning.webp"
+                title="Reasoning Agent"
+              />
+              Reasoning Agent
+            </div>
+            <div
+              class="dnd-area"
+              data-testid="captain-dnd"
+              draggable="true"
+            >
+              <img
+                src="/src/waldiez/assets/captain.webp"
+                title="Captain Agent"
+              />
+              Captain Agent
+            </div>
           </div>
           <div
             class="spacer"

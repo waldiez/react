@@ -10,7 +10,7 @@ import { useWaldiez } from "@waldiez/store";
 export const useSidebarView = (props: SidebarViewProps) => {
     const { selectedNodeType, onSelectNodeType } = props;
     const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-    const [isAgentsViewCollapsed, setIsAgentsViewCollapsed] = useState<boolean>(true);
+    const [isAgentsViewCollapsed, setIsAgentsViewCollapsed] = useState<boolean>(false);
     const flowId = useWaldiez(s => s.flowId);
     const onDragStart = (event: React.DragEvent<HTMLDivElement>, nodeType: string, agentType?: string) => {
         event.dataTransfer.setData("application/node", nodeType);
@@ -20,9 +20,11 @@ export const useSidebarView = (props: SidebarViewProps) => {
         event.dataTransfer.effectAllowed = "move";
     };
     const onShowAgents = () => {
-        setIsAgentsViewCollapsed(!isAgentsViewCollapsed);
         if (selectedNodeType !== "agent") {
             onSelectNodeType("agent");
+            setIsAgentsViewCollapsed(false);
+        } else {
+            setIsAgentsViewCollapsed(!isAgentsViewCollapsed);
         }
     };
     const onShowModels = () => {

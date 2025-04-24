@@ -55,6 +55,8 @@ export const Waldiez = (props: Partial<WaldiezProps>) => {
                                 nodes={nodes}
                                 edges={edges}
                                 isReadOnly={readOnly}
+                                skipImport={skipImport}
+                                skipExport={skipExport}
                             >
                                 <WaldiezFlowView
                                     flowId={flowId}

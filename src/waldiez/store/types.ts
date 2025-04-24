@@ -22,6 +22,8 @@ export type WaldiezStoreProps = {
     nodes: Node[];
     isAsync?: boolean;
     isReadOnly?: boolean;
+    skipImport?: boolean;
+    skipExport?: boolean;
     cacheSeed?: number | null;
     name?: string;
     description?: string;
