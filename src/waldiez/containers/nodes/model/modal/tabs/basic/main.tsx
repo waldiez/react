@@ -42,6 +42,9 @@ export const WaldiezNodeModelModalBasicTab = (props: WaldiezNodeModelModalBasicT
                 <br />
                 You can use the <strong>Test</strong> button to check if the model parameters are correct, but
                 model credits might be used for this test (depending on the provider).
+                <br />
+                Note that if a request fails with a "Failed to load" message, it doesn't mean that the
+                configuration is not correct (It could be a browser/CORS issue).
             </div>
             <ModelSelector onChange={onPredefineSelected} />
             <label>Name:</label>

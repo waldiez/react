@@ -35,7 +35,7 @@ export const ModelSelector = (props: {
             return;
         }
         // @ts-expect-error wrong type in react-select
-        props.onChange({ label: newValue.label, apiType: newValue.apiType });
+        props.onChange({ label: newValue.value, apiType: newValue.apiType });
     };
 
     const formatGroupLabel = (
