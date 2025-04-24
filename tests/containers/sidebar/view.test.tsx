@@ -71,9 +71,17 @@ describe("SideBar", () => {
         fireEvent.click(screen.getByTestId("show-skills"));
         expect(onSelectNodeType).toBeCalledTimes(1);
     });
+    const ensureAgentsView = () => {
+        const userDnd = screen.queryAllByTestId("user-dnd");
+        if (userDnd.length > 0) {
+            return;
+        }
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
+    };
     it("should drag start", () => {
         renderSidebar();
-        fireEvent.click(screen.getByTestId("show-agents"));
+        ensureAgentsView();
         fireEvent.dragStart(screen.getByTestId("user-dnd"), {
             dataTransfer: { setData: vi.fn() },
         });

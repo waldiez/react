@@ -16,12 +16,19 @@ import { act, fireEvent, screen } from "@testing-library/react";
 import { describe, it } from "vitest";
 
 describe("Flow DnD", () => {
+    const ensureAgentsView = () => {
+        const userDnd = screen.queryAllByTestId("user-dnd");
+        if (userDnd.length > 0) {
+            return;
+        }
+        const toggleAgentsView = screen.getByTestId("show-agents");
+        fireEvent.click(toggleAgentsView);
+    };
     it("should add a user agent node on drag and drop", async () => {
         act(() => {
             renderFlow();
         });
-        const toggleAgentsView = screen.getByTestId("show-agents");
-        fireEvent.click(toggleAgentsView);
+        ensureAgentsView();
         const sourceElement = screen.getByTestId("user-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -40,8 +47,7 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
-        const toggleAgentsView = screen.getByTestId("show-agents");
-        fireEvent.click(toggleAgentsView);
+        ensureAgentsView();
         const sourceElement = screen.getByTestId("assistant-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -60,8 +66,7 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
-        const toggleAgentsView = screen.getByTestId("show-agents");
-        fireEvent.click(toggleAgentsView);
+        ensureAgentsView();
         const sourceElement = screen.getByTestId("manager-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -82,8 +87,7 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
-        const toggleAgentsView = screen.getByTestId("show-agents");
-        fireEvent.click(toggleAgentsView);
+        ensureAgentsView();
         const sourceElement = screen.getByTestId("user-dnd");
         const targetElement = screen.getByTestId(`rf__node-agent-${edgesCount}`);
         fireEvent.mouseDown(sourceElement);
@@ -102,8 +106,7 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
-        const toggleAgentsView = screen.getByTestId("show-agents");
-        fireEvent.click(toggleAgentsView);
+        ensureAgentsView();
         const sourceElement = screen.getByTestId("swarm-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -122,8 +125,7 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
-        const toggleAgentsView = screen.getByTestId("show-agents");
-        fireEvent.click(toggleAgentsView);
+        ensureAgentsView();
         const sourceElement = screen.getByTestId("reasoning-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
@@ -142,8 +144,7 @@ describe("Flow DnD", () => {
         act(() => {
             renderFlow();
         });
-        const toggleAgentsView = screen.getByTestId("show-agents");
-        fireEvent.click(toggleAgentsView);
+        ensureAgentsView();
         const sourceElement = screen.getByTestId("captain-dnd");
         const targetElement = screen.getByTestId(`drop-area-${flowId}`);
         fireEvent.mouseDown(sourceElement);
