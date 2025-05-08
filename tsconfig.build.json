@@ -1,5 +1,0 @@
-{
-    "extends": "./tsconfig.app.json",
-    "types": ["node"],
-    "exclude": ["src/index.tsx", "src/index.css", "tests", "e2e"]
-}
