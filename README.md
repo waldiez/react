@@ -1,3 +1,3 @@
 # Waldiez React
 
-Moved to <https:github.com/waldiez/waldiez>
+Moved to <https://github.com/waldiez/waldiez>
